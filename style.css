@@ -1,0 +1,223 @@
+body{
+    background-color: #F5F5DC;
+    margin: 0;
+}
+
+::-webkit-scrollbar{
+    height: auto;
+    width: auto;
+}
+
+::-webkit-scrollbar-button:single-button{
+    background: rgb(128, 128, 128);
+    display: block;
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url(/Media/Layout/upArrowScrollTrack.png);
+    height: 25px;
+    width: 25px;
+    background-position: center 1px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url(/Media/Layout/downArrowScrollTrack.png);
+    height: 25px;
+    width: 25px;
+    background-position: center 1px;
+}
+
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    background: rgb(0, 0, 0);
+    background-image: url(/Media/Layout/upArrowScrollTrack_invert.png);
+    height: 25px;
+    width: 25px;
+    background-position: center 1px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+    background: rgb(0, 0, 0);
+    background-image: url(/Media/Layout/downArrowScrollTrack_invert.png);
+    height: 25px;
+    width: 25px;
+    background-position: center 1px;
+}
+
+
+
+
+
+
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+    background-image: url(/Media/Layout/upArrowScrollTrack.png);
+    height: auto;
+    width: 20px;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+    background-image: url(/Media/Layout/downArrowScrollTrack.png);
+    height: auto;
+    width: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(238, 238, 238);
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 31px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(0, 0, 0);
+}
+
+
+
+
+
+#Base{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column; 
+    margin: 0;
+    overflow: hidden
+}
+
+#CircuitConfigurationArea{
+    display: flex;
+    flex: 1; 
+    background-color: rgb(128, 128, 128);
+    padding: 10px;
+    text-align: center;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bolder;
+    gap: 2rem;
+    height: 25%;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#LogoText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#FileMenu{
+    gap: 2rem;
+}
+
+/* */
+
+#CircuitBuilderArea{
+    display: flex;
+    flex: 10; 
+    height: 75%;          /* Sets the overall height of our CircuitBuilder area so that we can define scroll overflow limits later on in the Workspace & Object Menu */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#ObjectMenu{
+    background-color: rgb(164, 164, 164);
+    width: 200px; 
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: scroll;
+    padding: 1rem;
+}
+
+#Workspace{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex: 5; 
+    padding: 0rem
+}
+
+#GridContainer{
+    height: 100%;
+    width: 100%; 
+    background-color: blue;
+}
+
+#GridCanvas{
+    height: 100%;
+    width: 100%;  
+    background-color: #dede94;
+}
+
+#ObjectMenu button{
+    background-color: #dede94; 
+    border-radius: 31px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#FileMenu button{
+    background-color: #dede94;
+    font-family:'Bell MT', 'Courier New', Courier, monospace;
+    font-weight: bolder; 
+    text-align: center;
+    height: 8rem;
+    width: 8rem;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.ObjectMenuCategoryText{
+    font-family:'Bell MT', 'Courier New', Courier, monospace;
+    font-weight: bolder; 
+    text-align: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#GlobalImageVisualFormat{
+    width: 90px; 
+    height: 90px;
+}
+
+.HeaderLine{
+    color: rgb(128, 128, 128); 
+    border-style: inset; 
+    border-width: 5px; 
+    margin: 0.5em;
+}
+
+    .DraggableGate {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    }
+
+    .DraggableGateHeader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+    }
