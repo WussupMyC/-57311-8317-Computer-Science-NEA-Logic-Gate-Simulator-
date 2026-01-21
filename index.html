@@ -1,9 +1,9 @@
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 
-
 <!-- Stretch the Developer Console out fully so that you can see the entire logo. This is a test to ensure that you can view the code in it's properly formatted manner. -->
 <!--
+
 
 _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __/\\\\\\\\\\\\\___      _______/\\\\\______      _____/\\\\\\\\\____      ____/\\\\\\\\\_____      __/\\\\\\\\\\\\____        
  ___/\\\/////////\\\_      _\/////\\\///__      _\/\\\\\\________/\\\\\\_      _\/\\\/////////\\\_      _____/\\\///\\\____      ___/\\\\\\\\\\\\\__      __/\\\///////\\\___      _\/\\\////////\\\__       
@@ -15,13 +15,27 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
        _\///\\\\\\\\\\\/___      __/\\\\\\\\\\\_      _\/\\\_____________\/\\\_      _\/\\\\\\\\\\\\\/__      ____\///\\\\\/_____      _\/\\\_______\/\\\_      _\/\\\______\//\\\_      _\/\\\\\\\\\\\\/___ 
         ___\///////////_____      _\///////////__      _\///______________\///__      _\/////////////____      ______\/////_______      _\///________\///__      _\///________\///__      _\////////////_____
 
+        
 -->
 <!-- Stretch the Developer Console out fully so that you can see the entire logo. This is a test to ensure that you can view the code in it's properly formatted manner. -->
-<!-- -->
 
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
+<!-- KEY :
 
+  HEADER
+
+  BODY
+    CIRCUIT CONFIG AREA
+        LOGO TEXT 
+        FILE MENU 
+    CIRCUIT BULDER AREA 
+        OBJECT MENU 
+        WORKSPACE 
+
+*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
+*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
+<!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- --> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,7 +117,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 <button id="HoldButton" title="An input device that sends a constant signal when pressed.">
                     <p class="ObjectMenuCategoryText">Button</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/button_Idle.png">
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/HoldButton_Idle.png">
                 </button>
 
                 <hr class="HeaderLine">
@@ -114,11 +128,11 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 <button id="Lightbulb" title="An output device that produces light when signal is received.">
                     <p class="ObjectMenuCategoryText">Lightbulb</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/light_Idle.png"></image>
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/Lightbulb_Idle.png"></image>
                 </button>
                 <button id="Speaker" title="An output device that produces a jingle when signal is received.">
                     <p class="ObjectMenuCategoryText">Audio Speaker</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/speaker_Idle.png"></image>
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/Speaker_Idle.png"></image>
                 </button>
 
                 <hr class="HeaderLine">
@@ -129,15 +143,15 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 <button id="AND" class="ObjectMenuCategoryText" title="A gate that produces signal when it receives signal from all inputs.">
                     <p class="ObjectMenuCategoryText">AND Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/ANDGate_Idle.png">
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/AND_Idle.png">
                 </button>
                 <button id="OR" class="ObjectMenuCategoryText" title="A gate that produces signal when it recieves signal from just one input.">
                     <p class="ObjectMenuCategoryText">OR Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/ORGate_Idle.png"></image>
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/OR_Idle.png"></image>
                 </button>
                 <button id="NOT" class="ObjectMenuCategoryText" title="A gate that inverts the signal fed into it.">
                     <p class="ObjectMenuCategoryText">NOT Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/NOTGate_Idle.png"></image>
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/NOT_Idle.png"></image>
                 </button>
 
                 <hr class="HeaderLine">
@@ -148,7 +162,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 <button id="XOR" class="LogicGateVisualFormat" title="A gate that produces a signal when an odd amount of inputs are feeding signal into it.">
                     <p class="ObjectMenuCategoryText">XOR Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/XORGate_Idle.png"></image>
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/XOR_Idle.png"></image>
                 </button>
 
                 <hr class="HeaderLine">
@@ -159,15 +173,14 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
             <div id="Workspace">
                 <div id="GridContainer">
                     <canvas id="GridCanvas">
-
+                        <div id="mydiv" class="DraggableGate">
+                            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+                            <div id="mydivheader" class="DraggableGateHeader">
+                                <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
+                            </div>
+                        </div>
                     </canvas>
-
-                    <!-- Draggable DIV -->
-                    <div id="mydiv" class="DraggableGate">
-                        <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-                        <div id="mydivheader" class="DraggableGateHeader">Click here to move</div>
-                        <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
-                    </div>
+                                        <!-- Draggable DIV -->
 
                 </div>
 
@@ -176,121 +189,22 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
     </div>
 
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
-    <script src="dragDrop.js"></script>
-
 <!-- SCRIPTING SECTIONS -->
-    <script> 
 
-    //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-    // ** GLOBAL VARIABLE DEFINITIONS **
-        xLen = 48340;
-        yLen = 48340;
+<script src="simboardScript.js"></script> <!-- Calls the "simboardScript" JavaScript file to initialise and act upon all elements-->
 
-    //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-    // ** SCRIPT 000 ** Debugging function for testing purposes only. 
-        function dumpFunc(){    // This is a temporary function for testing purposes 
-                                //      DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT 
-            
-        }
-        const dumpVar = ".PlaceholderValue." + "dumpVar" // This is a temporary debugging variable for testing purposes
-                                                         //       DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT  
-                                                            
-        console.log(dumpVar)    // This instruction outputs the debug variable for testing purposes. 
-    // ** SCRIPT 000 *** Debugging function ends here. 
 
-    //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-    // ** SCRIPT 001 ** Initialises the grid inside of the canvas in implemented JavaScript
-        var gridwidth = xLen;  // Total width that the grid x-axis will stretch to 
-        var gridheight = yLen; // Total height that the grid y-axis will stretch to 
-        var padding = 0;    // How far the grid/workspace goes into the div 
-
-        var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
-                                                            // in the HTML div "Workspace" -> "GridContainer" 
-                                                            // -> "Grid Canvas"
-
-        var gridcell = canvas.getContext("2d"); //Defines a two-dimensional cell for the grid 
-
-        function drawGrid(){   //This function repeatedly draws a cell until there is a full row of cells to fill 
-                                // gridwidth and grid height. 
-
-            //X AXIS GRID CELL LOOP : 
-            for (var x = 0; x <= gridwidth; x += 10) {  // This iterative loop tells each cell how wide they should be on 
-                                                        // the X-Axis and repeatedly draws said cell until it there is a row
-                                                        // of gridcells that fill the gridwidth. 
-                                                            // !-> There is a critical web error if x += 0 or x += -0 which 
-                                                            // crashes the webpage - avoid this mathematical error. 
-
-                gridcell.moveTo(0.5 + x + padding, padding);    // This instruction draws the border around each cell and
-                                                                // constrols the resolution of each drawn border line. 
-                                                                    // We can change the resolution by modifying the float 
-                                                                    // value. 
-
-                gridcell.lineTo(0.0 + x + padding, gridheight + padding);   // This instruction then manipulates the 
-                                                                            // drawn border line to give it a skew effect. 
-                                                                            // Set it to 0 if no skew/tilt is necessary. #
-                                                                                // We can change the resolution by 
-                                                                                // modifying the float value. 
-
-            }
-
-            //Y AXIS GRID CELL LOOP : 
-            for (var x = 0; x <= gridheight; x += 10) { // this iterative loop tells each cell how tall they should be on 
-                                                        // the Y-Axis and repeatedly draws said cell until there is a 
-                                                        // column of gridcells that fill the gridheight. 
-                                                            // !-> There is a critical web error if x+= 0 or x += -0 which
-                                                            // crashes the webpage - avoid this mathematical error. 
-
-                gridcell.moveTo(padding, 0.5 + x + padding);    // This instruction draws the border around each cell and
-                                                                // controls the resolution of each drawn border line.
-                                                                    // We can change the resolution by modifying the float 
-                                                                    // value. 
-
-                gridcell.lineTo(gridwidth + padding, 0.5 + x + padding);    // This instruction then manipulates the 
-                                                                            // drawn border line to give it a skew effect. 
-                                                                            // Set it to 0 if no skew/tilt is necessary. 
-                                                                                // We can change the resolution by 
-                                                                                // modifying the float value. 
-            }
-
-            //GLOBAL MODIFIER DEFINITIONS : 
-            gridcell.lineWidth = 0.1;   // This instruction manually tells the drawGrid fucntion how thick each 
-                                        // line should be after every cell has been initialised. In this case, we 
-                                        // set the thickness of each border to be 0.1 pixels. 
-
-            gridcell.strokeStyle = "#000000";   // This instruction manually tells the drawGrid function what colour
-                                                // the drawn borders should appear as. In this case, we set the default 
-                                                // border colour to black (#000000).
-
-            gridcell.stroke();  // This instruction initialises the variables above to draw a cell with the desired
-                                // lineWidth and strokeStyle 
-
-        }
-
-        drawGrid(); // This instruction initialises the drawGrid to repeatedly draw individual cells until 
-                    // the entirety of the grids' height and width is filled. 
-    // ** SCRIPT 001 ** The function for the grid implementation ends here. 
-
-    //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-    // ** SCRIPT 002 ** Initialises the X and Y axis inside of the canvas in implemented JavaScript
-        xAxisLength = xLen;
-        yAxisLength = yLen;
-        
-        function drawAxis(){
-
-        }
-        
-    //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-    </script>
 <!-- ~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬--->
 </body>
 <!-- ~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬--->
 </html>
-
+<!-- ~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬--->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 
 <!-- Thank you for using: -->
 <!--
+
 
 _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __/\\\\\\\\\\\\\___      _______/\\\\\______      _____/\\\\\\\\\____      ____/\\\\\\\\\_____      __/\\\\\\\\\\\\____        
  ___/\\\/////////\\\_      _\/////\\\///__      _\/\\\\\\________/\\\\\\_      _\/\\\/////////\\\_      _____/\\\///\\\____      ___/\\\\\\\\\\\\\__      __/\\\///////\\\___      _\/\\\////////\\\__       
@@ -302,8 +216,9 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
        _\///\\\\\\\\\\\/___      __/\\\\\\\\\\\_      _\/\\\_____________\/\\\_      _\/\\\\\\\\\\\\\/__      ____\///\\\\\/_____      _\/\\\_______\/\\\_      _\/\\\______\//\\\_      _\/\\\\\\\\\\\\/___ 
         ___\///////////_____      _\///////////__      _\///______________\///__      _\/////////////____      ______\/////_______      _\///________\///__      _\///________\///__      _\////////////_____
 
+
 -->
-<!-- You are free to utilise the code above for free -->
+<!-- Made by Christopher Cupid -->
 
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
