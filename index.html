@@ -36,168 +36,428 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- --> 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="/Media/Layout/favicon.png">
-</head>
+<!DOCTYPE html>     <!-- Tells the browser that the document should be interpreted as 
+                    HTML (HyperText Markup Language). -->
 
-<body>
+<html lang="en">    <!-- The language that the website should be translated as by 
+                    default is to be English. This also helps with translation 
+                    accessbility for foreign users. -->
+
+<head>  <!-- The Header tag contains information about the website. In this tag, we 
+        need to define the character set, the Website Title and the icon of the 
+        Website. -->
+
+    <meta charset="UTF-8">  <!-- The UTF-8 Standard will be used to reference the 
+                            character set. This is because all modern browsers 
+                            understand this character set. -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <!-- Tells the Browser that the website (viewport) should be sized to it's resolution in CSS 
+        pixels. -->
+    
+    <title>Simboard</title> <!-- Defines the title of the Website as "Simboard". -->
+
+    <link rel="stylesheet" href="style.css">    <!-- Links the relevent styling 
+                                                standards from our CSS Stylesheet 
+                                                "style.css". -->
+
+    <link rel="icon" type="image/x-icon" href="/Media/Layout/favicon.png">  
+        <!-- Defines the Website Icon to be our custom favicon, "favicon.png". -->
+
+</head> <!-- The header section structure is finished. -->
+
+<body>  <!-- The Body tag contains the visual aspects about the website. In this 
+        tag, we need to define the menus, UI and Logic Gate Objects for the end user 
+        to see and interact with. -->
     
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
 <!-- THE SIMBOARD BASEPLATE -->
-    <div id="Base">
+
+    <div id="Base"> <!-- The "Base" tag is the website division that contains all 
+        of the menus and objects that we will build. -->
 
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
 <!-- THE CONFIGURATION AREA -->
-        <div id="CircuitConfigurationArea">
-            <div id="LogoText">
+ 
+        <div id="CircuitConfigurationArea"> <!-- The Circuit Configuration area 
+            wil be the section of the Base division that contains the Logo and 
+            File Menu. -->
+
+            <div id="LogoText"> <!-- We create an ID to format the Logo Image in the 
+                File Menu. -->
+
                 <img  draggable="false" (dragstart)="false;" src="/Media/Layout/SimboardLogo.png">
-            </div>
+                <!-- Disables the ability for the end user to drag or select the Logo Image. -->
+
+            </div>  <!-- Closes the division for the Logo Image. -->
 
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
 <!-- THE FILE MENU -->
-            <div id="FileMenu">
-                <button title="Play and Pause the execution flow of your circuit.">
-                    <p id="SimCircuitText">Simulate</p>
+
+            <div id="FileMenu"> <!-- Defines the area in which the File Menu will 
+                be placed within the Base division. -->
+
+                <button id="simulate" title="Play and Pause the execution flow of your circuit.">
+                <!-- Creates a button with a contactable ID that will be used for 
+                    playing and pausing the circuit, with a title so that if the 
+                    end user hovers over said button, an explaination will appear 
+                    within a tooltip. -->
+
+                    <p id="SimCircuitText">Simulate</p> <!-- Titles the button with 
+                        standard paragraph text. -->
+
                     <image id="SimCircuitThumbnail" draggable="false" (dragstart)="false;" src="/Media/Layout/PlaySim.png"></image>
-                </button>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
 
-                <button title="Save a project file to your local disk for later use. ">
-                    <p id="SaveProjectText">Save Project</p>
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <button id="save" title="Save a project file to your local disk for later use. ">
+                <!-- Creates a button with a contactable ID that will be used for 
+                    saving a project or layout, with a title so that if the end user hovers 
+                    over said button, an explaination will appear within a tooltip. -->
+
+                    <p id="SaveProjectText">Save Project</p>    <!-- Titles the button 
+                        with standard paragraph text. -->
+
                     <image id="SaveProjectThumbnail" draggable="false" (dragstart)="false;" src="/Media/Layout/SaveProject.png"></image>
-                </button>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
 
-                <button title="Load a project file from your local disk into the workspace to work on it again.">
-                    <p id="LoadProjectText">Load Project</p>
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <button id="load" title="Load a project file from your local disk into the workspace to work on it again.">
+                <!-- Creates a button with a contactable ID that will be used for 
+                    loading a project or layout JSON file into the Workspace with a 
+                    title so that if the end user hovers over said button, an explaination 
+                    will appear within a tooltip. -->
+
+                    <p id="LoadProjectText">Load Project</p>    <!-- Titles the button 
+                        with standard paragraph text. -->
+
                     <image id="LoadProjectThumbnail" draggable="false" (dragstart)="false;" src="/Media/Layout/LoadProject.png"></image>
-                </button> 
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
 
-                <button title="Customise the layout and scaling of Simboard.">
-                    <p id="CustomiseText">Customise</p>
+                </button> <!-- Ends this button's structural operation. -->
+
+
+                <button id="customise" title="Customise the layout and scaling of Simboard.">
+                <!-- Creates a button with a contactable ID that will be used for 
+                    customising the layout of the Simboard web application, with a 
+                    title so that if the end user hovers over said button, an explaination 
+                    will appear within a tooltip. -->
+
+                    <p id="CustomiseText">Customise</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
                     <image draggable="false" (dragstart)="false;" id="CustomiseThumbnail" src="/Media/Layout/customise.png"></image>
-                </button>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
 
+                </button>   <!-- Ends this button's structural operation. -->
+
+                
                 <a href="/OtherPages/userManual/userManualConstruct.html" 
                 draggable="false" 
                 (dragstart)="false;"
                 title="If you need guidance, give this page a read!">
-                    <button href="/userManual.html">
-                        <p id="UserManualText">User Manual</p>
-                        <image id="UserManualThumbnail" draggable="false" (dragstart)="false;" src="/Media/Layout/UserManual.png"></image>
-                    </button>
-                </a>
+                <!-- This element is an anchor that tells the button element 
+                    that it wraps to contain a link to our User Manual web page.
+                    Hence, once the button is clicked, it will redirect the end 
+                    user to the User Manual. With a title so that if the end user 
+                    hovers over said button, an explaination will appear within 
+                    a tooltip. -->
+                <!-- This element also ensures that the link is not draggable 
+                    from the HTML button. -->
 
-            </div>
-        </div>
+                    <button href="/userManual.html">    
+                    <!-- Creates a button with a contactable ID that will be used for 
+                        opening the User Manual webpage built and associated with 
+                        Simboard. -->
+
+                        <p id="UserManualText">User Manual</p>     <!-- Titles the button with 
+                            standard paragraph text. -->
+
+                        <image id="UserManualThumbnail" draggable="false" (dragstart)="false;" src="/Media/Layout/UserManual.png"></image>
+                        <!-- Utilises a custom image made by me to style the button for 
+                            further visual description. It's properties of being selectable 
+                            or draggable are disabled manually. -->
+
+                    </button>   <!-- Ends this button's structural operation. -->
+
+                </a>    <!-- The anchor wrap is finished here. -->
+
+            </div>  <!-- The File Menu Division ends here. -->
+
+        </div>  <!-- The Circuit Configuration Area Divsion closes & ends here. -->
 
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
 <!-- THE WORKING AREA -->
-        <div id="CircuitBuilderArea">
+
+        <div id="CircuitBuilderArea">   <!-- The Circuit Builder Area is the 
+            other section of the Base Division that contains the Object Menu 
+            and the Workspace. -->
 
     <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
     <!-- THE OBJECT MENU -->
-            <div id="ObjectMenu">
-                <button id="FilterMenuActivator" title="Filter out objects of your choice for convenience.">
-                    <br>
-                    <p class="ObjectMenuCategoryText">Filter Menu</p>
-                    <br>
-                </button>
 
-                <hr class="HeaderLine">
+            <div id="ObjectMenu">   <!-- The Object Menu is a division inside of 
+                the Circuit Builder Area which will hold all of the Logic Gate 
+                Object spawner buttons. -->
+
+                
+                <button id="FilterMenuActivator" title="Filter out objects of your choice for convenience.">
+                <!-- The button that can display the visibility of the Filter Menu is defined here. -->
+                    <!-- The Filter Menu is one which can categorise the Logic Gate Objects in the Object 
+                        Menu in order to assist with workflow efficiency. -->
+
+                    <br>    <!-- A separation is created to initialise a gap between the Filter Menu 
+                        and other buttons. -->
+
+                    <p class="ObjectMenuCategoryText">Filter Menu</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <br>    <!-- A separation is created to initialise a gap between the Filter Menu 
+                        and other buttons. -->
+
+                </button>   <!-- Ends the button's structural operation. -->
+
+
+                <hr class="HeaderLine"> <!-- The line that separates the categories is 
+                    defined here. -->
 
         <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
         <!-- INPUT COMPONENTS -->
-                <p class="ObjectMenuCategoryText" >Input Components</p>
+
+                <p class="ObjectMenuCategoryText" >Input Components</p>     <!-- Titles the section with 
+                    standard paragraph text. -->
+
 
                 <button id="HoldButton" title="An input device that sends a constant signal when pressed.">
-                    <p class="ObjectMenuCategoryText">Button</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/HoldButton_Idle.png">
-                </button>
+                <!-- A button that defines the spawner option for the Hold Button that summons one 
+                    into the Workspace on click. -->
 
-                <hr class="HeaderLine">
+                    <p class="ObjectMenuCategoryText">Button</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/HoldButton_Idle.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <hr class="HeaderLine"> <!-- The line that separates the categories is 
+                    defined here. -->
 
         <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
         <!-- OUTPUT COMPONENTS -->
-                <p class="ObjectMenuCategoryText"  unselectable="on" onselectstart="return false;" onmousedown="return false;">Output Components</p>
+
+                <p class="ObjectMenuCategoryText">Output Components</p>     <!-- Titles the section with 
+                    standard paragraph text. -->
+
 
                 <button id="Lightbulb" title="An output device that produces light when signal is received.">
-                    <p class="ObjectMenuCategoryText">Lightbulb</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/Lightbulb_Idle.png"></image>
-                </button>
-                <button id="Speaker" title="An output device that produces a jingle when signal is received.">
-                    <p class="ObjectMenuCategoryText">Audio Speaker</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/Speaker_Idle.png"></image>
-                </button>
+                <!-- A button that defines the spawner option for the Lightbulb that summons one 
+                    into the Workspace on click. -->
 
-                <hr class="HeaderLine">
+                    <p class="ObjectMenuCategoryText">Lightbulb</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/Lightbulb_Idle.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <button id="Speaker" title="An output device that produces a jingle when signal is received.">
+                <!-- A button that defines the spawner option for the Speaker that summons one 
+                    into the Workspace on click. -->
+
+                    <p class="ObjectMenuCategoryText">Audio Speaker</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/Speaker_Idle.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <hr class="HeaderLine"> <!-- The line that separates the categories is 
+                    defined here. -->
 
         <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
         <!-- BEGINNER GATES -->
-                <p class="ObjectMenuCategoryText">Beginner Gates (GCSE)</p>
+
+                <p class="ObjectMenuCategoryText">Beginner Gates (GCSE)</p>     <!-- Titles the section with 
+                    standard paragraph text. -->
+
 
                 <button id="AND" class="ObjectMenuCategoryText" title="A gate that produces signal when it receives signal from all inputs.">
-                    <p class="ObjectMenuCategoryText">AND Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/AND_Idle.png">
-                </button>
-                <button id="OR" class="ObjectMenuCategoryText" title="A gate that produces signal when it recieves signal from just one input.">
-                    <p class="ObjectMenuCategoryText">OR Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/OR_Idle.png"></image>
-                </button>
-                <button id="NOT" class="ObjectMenuCategoryText" title="A gate that inverts the signal fed into it.">
-                    <p class="ObjectMenuCategoryText">NOT Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/NOT_Idle.png"></image>
-                </button>
+                <!-- A button that defines the spawner option for the AND Gate that summons one 
+                    into the Workspace on click. -->
 
-                <hr class="HeaderLine">
+                    <p class="ObjectMenuCategoryText">AND Gate</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/AND_Idle.png">
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <button id="OR" class="ObjectMenuCategoryText" title="A gate that produces signal when it recieves signal from just one input.">
+                <!-- A button that defines the spawner option for the OR Gate that summons one 
+                    into the Workspace on click. -->
+
+                    <p class="ObjectMenuCategoryText">OR Gate</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/OR_Idle.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <button id="NOT" class="ObjectMenuCategoryText" title="A gate that inverts the signal fed into it.">
+                <!-- A button that defines the spawner option for the NOT Gate that summons one 
+                    into the Workspace on click. -->
+
+                    <p class="ObjectMenuCategoryText">NOT Gate</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/NOT_Idle.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <hr class="HeaderLine"> <!-- The line that separates the categories is 
+                    defined here. -->
 
         <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
         <!-- INTERMEDIATE GATES -->
-                <p class="ObjectMenuCategoryText">Intermediate Gates (A-Level)</p>
+
+                <p class="ObjectMenuCategoryText">Intermediate Gates (A-Level)</p>     <!-- Titles the section with 
+                    standard paragraph text. -->
+
 
                 <button id="XOR" class="LogicGateVisualFormat" title="A gate that produces a signal when an odd amount of inputs are feeding signal into it.">
-                    <p class="ObjectMenuCategoryText">XOR Gate</p>
-                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/XOR_Idle.png"></image>
-                </button>
+                <!-- A button that defines the spawner option for the XOR Gate that summons one 
+                    into the Workspace on click. -->
 
-                <hr class="HeaderLine">
-            </div>
+                    <p class="ObjectMenuCategoryText">XOR Gate</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image id="LogicGateVisualFormat" draggable="false" (dragstart)="false;" src="/Media/IdleState/XOR_Idle.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <hr class="HeaderLine"> <!-- The line that separates the categories is 
+                    defined here. -->
+
+
+            </div>  <!-- We close and end the division inside of the Circuit Builder Area 
+                for the Object Menu. -->
 
     <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
     <!-- THE WORKSPACE / WORKSTATION -->
             <div id="Workspace">
+            <!-- This division is the second inside of the Circuit Builder Area, and will 
+                lie next to the Object Menu. It is the area in which the Logic Gates will 
+                be spawned and interacted with. -->
+
                 <div id="GridContainer">
+                <!-- The Grid Container is the element that will contain the Grid and Axis 
+                    elements. This simply acts as a placeholder for the Grid and Axis 
+                    drawing script. -->
+
                     <canvas id="GridCanvas">
+                    <!-- The Grid Canvas is the actual grid that gets drawn onto the Grid 
+                        Container. -->
+
                         <div id="mydiv" class="DraggableGate">
-                            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+                        <!-- Inside of the Grid Canvas, we store the MASTER OBJECT for the 
+                            Logic Gate Objects. This Master Object is actually stored inside 
+                            of the Grid Canvas, yet remains invisible as it is rendered 
+                            below. -->
+                            <!-- Because of this, we can effectively summon children Logic 
+                                Gate objects into the Workspace (discussed further in the 
+                                JavaScript file SCRIPT 003). -->
+
                             <div id="mydivheader" class="DraggableGateHeader">
-                                <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
-                            </div>
-                        </div>
-                    </canvas>
+                            <!-- This division controls the draggable / interactable 
+                                hitbox image of the Logic Gate master object. -->
+                                <!-- This element is replicated in all of the children 
+                                 elements initialised in SCRIPT 003 (on simboardScript.js). -->
                                         <!-- Draggable DIV -->
 
-                </div>
+                                <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
+                                <!-- The default image of the Master Object is defined to be 
+                                    the AND Gate. This is mostly for debugging purposes to 
+                                    ensure that the Master Logic Gate object is spawning on 
+                                    to the Workspace. -->
 
-            </div>
-        </div>
-    </div>
+                            </div>  <!-- The DraggableGateHeader (interactable section of the 
+                                Master Logic Gate Object) division ends here. -->
 
+                        </div>  <!-- The Master Logic Gate Object (Logic Gate Container) 
+                            division ends here. -->
+
+                    </canvas>   <!-- The Grid Canvas renders itself and all of the elements 
+                        that it wraps around/is a parent of. -->
+
+                </div>  <!-- The Grid Container division ends here. -->
+
+            </div>  <!-- The Workspace division ends here. -->
+
+        </div>  <!-- The CircuitBuilderArea division ends here. -->
+
+    </div>  <!-- ** The Base ends here. ** -->
+            <!-- Now, most of our elements can all be referenced and are all rendered on 
+                the "Simboard" website. -->
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
 <!-- SCRIPTING SECTIONS -->
 
-<script src="simboardScript.js"></script> <!-- Calls the "simboardScript" JavaScript file to initialise and act upon all elements-->
-
+<script src="simboardScript.js"></script> 
+<!-- Calls the "simboardScript" JavaScript file to initialise and act upon all elements-->
+    <!-- After every element has been initalised by the browser, styled then rendered on screen and placed into memory,
+        we can now call the JavaScript file to enable functionality to these elements. (Check "simboardScript.js" for 
+        more detail. )-->
 
 <!-- ~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬--->
+
 </body>
+<!-- The body of the Simboard website ends initialising elements, defined by this tag. -->
+
 <!-- ~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬--->
+
 </html>
+<!-- The browser is told that this is the end of the HTML document, and to process no further. -->
+
 <!-- ~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬--->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->

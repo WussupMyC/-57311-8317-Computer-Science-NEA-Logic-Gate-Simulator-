@@ -30,132 +30,438 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
     // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ */
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
+/* Web Element Styling Starts Here */ 
+
+
+
+/* Web Element Styling Ends Here */ 
+
+/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+
 /* Body Styling Starts Here */ 
 
-body{
-    background-color: #F5F5DC;
-    margin: 0;
+body{ /* Everything inside of the body tag styles like... */ 
+
+    cursor: url("/Media/Layout/hand.png"), default; /* Sets the default idle cursor 
+                                                        icon of the users' mouse cursor
+                                                        to be that of a custom-made
+                                                        icon "hand.png"... */ 
+
+    background-color: #F5F5DC; /* Having a background colour of white-beige
+                                    by default */ 
+
+    margin: 0;  /* Creates no padding / space between the browser & website 
+                    visual element */ 
+
 }
+
 /* Body Styling Ends Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Scrollbar Styling Starts Here */
+    /* Because the Scroll Bar is not a HTML element defined inside of our 
+    "index.html document, we need to reference it to customise. Hence, we 
+    use the "pseudo-element" that is stored inside of the web browser that 
+    the end user is operating Simboard on. We call the pseudo-element for 
+    the scroll bar via the '::' syntax. */ 
+    /* We also use the single colon ':' syntax as a specifier, telling the 
+    browser that we want to perform specific operations depending on a 
+    condition, e.g. ':hover' applies properties to a pseudo-element when 
+    said element is hovered upon / is active. */ 
 
-::-webkit-scrollbar{
-    height: auto;
-    width: auto;
-}
+::-webkit-scrollbar{    /* This CSS category 
+                        initialises the protocols
+                        needed to customise a browsers' 
+                        scrollbar. */ 
 
-::-webkit-scrollbar-button:single-button{
-    background: rgb(128, 128, 128);
-    display: block;
-    background-size: 25px;
-    background-repeat: no-repeat;
-}
+    height: auto;   /* In this case, we set all scroll-
+                    bars to fill the height of their 
+                    respective section. */
 
-::-webkit-scrollbar-button:single-button:vertical:decrement {
-    background-image: url(/Media/Layout/upArrowScrollTrack.png);
-    height: 25px;
-    width: 25px;
-    background-position: center 1px;
-}
+    width: 25px;    /* Then, we tell every scrollbar to
+                    be 25 pixels wide, non-respective to 
+                    the section that they inhabit. */ 
+                        /* This is because our custom 
+                        arrow icons will be 25 pixels 
+                        wide too! */ 
 
-::-webkit-scrollbar-button:single-button:vertical:increment {
-    background-image: url(/Media/Layout/downArrowScrollTrack.png);
-    height: 25px;
-    width: 25px;
-    background-position: center 1px;
-}
+}   /* We finish configuring the custom scrollbar 
+    height. */ 
 
 
-::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
-    background: rgb(0, 0, 0);
-    background-image: url(/Media/Layout/upArrowScrollTrack_invert.png);
-    height: 25px;
-    width: 25px;
-    background-position: center 1px;
-}
+::-webkit-scrollbar-button:single-button{   /* Here, we set the generic 
+                                            configurations for the up and 
+                                            down UI buttons for the scroll 
+                                            bar. */ 
+                                                /* As in a scroll bar, there
+                                                is the up arrow, then the scroll
+                                                track - and then the down arrow
+                                                UI button. */ 
 
-::-webkit-scrollbar-button:single-button:vertical:increment:hover {
-    background: rgb(0, 0, 0);
-    background-image: url(/Media/Layout/downArrowScrollTrack_invert.png);
-    height: 25px;
-    width: 25px;
-    background-position: center 1px;
-}
+    background: rgb(128, 128, 128); /* We then set the backgroudn of the 
+                                      scroll bar to be a light grey for 
+                                      visibility and ease on the eye. */ 
 
-::-webkit-scrollbar-button:single-button:horizontal:increment {
-    background-image: url(/Media/Layout/upArrowScrollTrack.png);
-    height: auto;
-    width: 20px;
-}
+    display: block; /* This CSS property tells all contents inside of the 
+                    scroll bar navigation button to stack upon one another, 
+                    like a stack. */
+                    /* This helps with aligning the custom image that will 
+                    be defined for each button later on. */ 
 
-::-webkit-scrollbar-button:single-button:horizontal:decrement {
-    background-image: url(/Media/Layout/downArrowScrollTrack.png);
-    height: auto;
-    width: 20px;
-}
+    background-size: 25px;  /* We tell the internal custom image for the 
+                            scroll bar buttons to be 25 pixels large, which
+                            fills the button entirely, leaving no room for 
+                            background colour fill. */ 
 
-::-webkit-scrollbar {
-    width: 20px;
-}
+    background-repeat: no-repeat;   /* We tell the custom image inside of
+                                    the scroll bar button to not repeat 
+                                    internally order to prevent visual 
+                                    defects. */ 
 
-::-webkit-scrollbar-track {
-    background: rgb(238, 238, 238);
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 2px;
-}
+    cursor: url("/Media/Layout/hand.png"), all-scroll; /* We then tell the 
+                                                       browser to change the 
+                                                       cursor pointer image
+                                                       to our custom cursor 
+                                                       icon when the users' 
+                                                       cursor is hoverering
+                                                       or is present on or 
+                                                       above the scroll bar 
+                                                       button. */ 
 
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 31px;
-}
+} /* We finish styling the scroll bar buttons for general configuration. */ 
 
-::-webkit-scrollbar-thumb:hover {
-    background: rgb(0, 0, 0);
-}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement {   /* Similarly, 
+    we then style the up arrow for the scroll bar UP button whilst inheriting 
+    the general configurations for the scroll bar buttons from the properties 
+    above. */
+
+    background-image: url(/Media/Layout/upArrowScrollTrack.png);    /* We then
+    specify the custom image that we want on this particular scroll bar button. 
+    Because it is the button that decrements the scroll bar value so that it 
+    moves upwards, we would change it to the custom icon that I have created 
+    for the up arrow. */ 
+        /* It is to note, that the custom icons are 25 pixels by 25 pixels on 
+        both axies, which is why I measured the scroll bar button sizes to be 
+        that of 25px by 25px. */ 
+
+    height: 25px;   /* We ensure that the image fills the background of the button, 
+    which was designed to be 25 pixels large on the height and width in the 
+    general configurations. - This is so that we can acutally see the custom 
+    image on the button, instead of it being a blank space. */ 
+
+    width: 25px;    /* We ensure that the image fills the background of the button, 
+    which was designed to be 25 pixels large on the height and width in the 
+    general configurations. - This is so that we can acutally see the custom 
+    image on the button, instead of it being a blank space. */ 
+
+    background-position: center; /* We then ensure the custom button image stays 
+    in the center of the screen, so that it doesn't mess up the formatting. */ 
+
+}   /* We then finish styling the up arrow on the scrollbar. */ 
+
+
+::-webkit-scrollbar-button:single-button:vertical:increment {   /* Like the up 
+    button, this CSS property defines the specific configurations for the down
+    arrow for the our custom scroll bar. As stated previously, the generic 
+    configurations are inherited by this button. */ 
+
+    background-image: url(/Media/Layout/downArrowScrollTrack.png);  /* We specify
+    what the custom image for the down arrow on the scroll bar should be. Because
+    it is the button that increments the scroll bar value so that it moves down-
+    wards, we would change it to the custom icon I have created for the up arrow. */ 
+
+
+    height: 25px;   /* We ensure that the image fills the background of the button, 
+    which was designed to be 25 pixels large on the height and width in the 
+    general configurations. - This is so that we can acutally see the custom 
+    image on the button, instead of it being a blank space. */ 
+
+    width: 25px;    /* We ensure that the image fills the background of the button, 
+    which was designed to be 25 pixels large on the height and width in the 
+    general configurations. - This is so that we can acutally see the custom 
+    image on the button, instead of it being a blank space. */ 
+
+    background-position: center; /* We then ensure the custom button image stays 
+    in the center of the screen, so that it doesn't mess up the formatting. */ 
+    
+}   /* We then finish styling the down arrow on the scrollbar. */ 
+
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover { /* We must now
+    dictate what the scroll bar buttons should act like when the end users' cursor 
+    hovers over it. In this case, we are configuring the up arrow (decrement) to 
+    behave in certain manners, like overwriting it's custom image to become inverted 
+    when it is activated via being hovered over. */ 
+
+    background: rgb(0, 0, 0);   /* We ensure the background colour goes black. 
+    This is more of a debugging feature as the button image should partly overlay 
+    this solid colour, yet, in case the icon is not present for some reason, we 
+    enable this simple feedback for backtracking purposes. */ 
+
+    background-image: url(/Media/Layout/upArrowScrollTrack_invert.png); /* The up 
+    arrow image is changed so that it represents an inverted colour scheme. This is
+    because the background turns black, and so the user will need to see a white up 
+    arrow. Hence, a custom up arrow that is white instead of black is set as the 
+    background image manually. */ 
+
+    height: 25px;   /* We manually ensure that the down up icon is 25 pixels tall, 
+    because we are overwriting the default black arrow with this new white one when 
+    the end users' cursor hovers over it, meaning that we will need to configure and 
+    style it so that it matches the original, as justified in previous comments. */ 
+
+    width: 25px;   /* We manually ensure that the up arrow icon is 25 pixels wide, 
+    because we are overwriting the default black arrow with this new white one when 
+    the end users' cursor hovers over it, meaning that we will need to configure 
+    and style it so that it matches the original, as justified in previous 
+    comments. */ 
+
+    background-position: center;    /* As justified, we then make sure that the 
+    overwritten image is aligned in the center of the screen, just like the default 
+    one. */ 
+
+}   /* We then finish styling the scroll bar UP button override when it is hovered 
+    upon */ 
+
+
+::-webkit-scrollbar-button:single-button:vertical:increment:hover { /* Just like the 
+    up arrow, we ensure that it is configured so that it's custom icon changes to 
+    display an inverted colour scheme icon variant when it is hovered upon. In this 
+    case, we are configuring the down arrow (increment (incrementing the scroll bar 
+    stack)). */ 
+
+    background: rgb(0, 0, 0);   /* We ensure the background colour goes black. 
+    This is more of a debugging feautre as the button image should partly overlay 
+    this solid colour, yet, in case the icon is not present for some reason, we 
+    enable this simple feedback for backtracking purposes. */ 
+
+    background-image: url(/Media/Layout/downArrowScrollTrack_invert.png);   /* The  
+    down arrow image is changed so that it represents an inverted colour scheme. This 
+    is because the background turns black, and so the user will need to see a white 
+    down arrow. Hence, a custom up arrow that is white instead of black is set as the 
+    background image manually. */ 
+
+    height: 25px;   /* We manually ensure that the down arrow icon is 25 pixels tall, 
+    because we are overwriting the default black arrow with this new white one when 
+    the end users' cursor hovers over it, meaning that we will need to configure and 
+    style it so that it matches the original, as justified in previous comments. */ 
+
+    width: 25px;   /* We manually ensure that the down arrow icon is 25 pixels wide, 
+    because we are overwriting the default black arrow with this new white one when 
+    the end users' cursor hovers over it, meaning that we will need to configure 
+    and style it so that it matches the original, as justified in previous 
+    comments. */ 
+
+    background-position: center;    /* As justified, we then make sure that the 
+    overwritten image is aligned in the center of the screen, just like the default 
+    one. */ 
+
+}   /* We then finish styling the scroll bar DOWN button override when it is hovered 
+    upon */ 
+
+
+::-webkit-scrollbar-track { /* We then have to style the "track", aka. the slider 
+    that scroll bar follows, to engage with visual appeal and a sense of place-
+    ment. */ 
+
+    background: rgb(238, 238, 238); /* The background of the track is defined so 
+    that it can stand out from the object menu (where it will be stationed no matter 
+    the resolution) or any other places where the scroll bar is required. */ 
+
+    box-shadow: inset 0 0 5px grey; /* The fading out effect that blends the scroll 
+    bar track with the external elements around it is defined by being grey (which suits 
+    the object menu), plus being 5 pixels wide, which isn't too wide, yet sells the 
+    illusion of the scroll bar merging with the Simboard UI. */ 
+
+    border-radius: 2px; /* The curve of the corners of the scroll bar track is defined 
+    here. 2 pixels is great as it provides a professional aesthetic, without appearing 
+    too distracting. */ 
+
+    cursor: url("/Media/Layout/hold.png"), default; /* If the end users' mouse cursor 
+    is active or hovering above or upon the scroll bar track, the browser will change 
+    the cursor icon to be one which indicates a drag / hold, telling the end suer that 
+    the scroll bar track is interactable and draggable. */ 
+
+}   /* We then finish styling the scroll bar track. */ 
+
+
+::-webkit-scrollbar-thumb { /* The "thumb" of the scroll bar itself is the actual 
+    draggable UI element that can be dragged up or down on the scroll bar track. Here, 
+    we customise and configure its default state, just like the scroll bar track. */ 
+
+    background: #888;   /* The colour of the scroll bar thumb is defined here, we 
+    ensure that it is darker than the scroll bar track because then, the end user can 
+    visibly see where to drag when navigating up or down. */ 
+
+    border-radius: 31px;    /* We then ensure that the thumb of the scroll bar is 
+    very curved, so that it can stand out from the scroll bar track shape-wise. */ 
+
+}   /* We then finish styling the scroll bar thumbs' default state, when it is not 
+    hovered upon. */ 
+
+
+::-webkit-scrollbar-thumb:hover {   /* The scroll bar thumb must then be configured 
+    so that it responds to user feedback when it is hovered upon. */ 
+
+    background: rgb(0, 0, 0);   /* When the condition above is met, and the users' 
+    cursor is hovering / is active on the scroll bar thumb, said thumb will turn 
+    black to signify that it is being hovered upon. */ 
+
+    cursor: url("/Media/Layout/holdInvert.png"), default;   /* When the end user 
+    moves their cursor so that it is upon (hovering) the scroll bar thumb, the custom 
+    cursor pointer that the browser makes the end user utilise when operating the 
+    Simboard Website will invert its colour scheme, to stand out from the black 
+    background (as the cursor is black by default). */ 
+        /* Therefore, we utilise a new custom made cursor icon with an inverted 
+        colour scheme. */ 
+    
+}   /* We then finish styling the scroll bar thumb when it is in the state of being 
+    hovered upon. */ 
 
 /* Scrollbar Styling Ends Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Base Styling Starts Here */ 
+    /* The BASE is a divison in the HTML document which is supposed to hold ALL 
+    elements to be seen on screen: */ 
 
-#Base{  /* The base includes the baseplate of the website application, 
+    /* After styling the pseudo-elements and browser-oriented UI, we can now start 
+    styling the actual website "Simboard". With the Base layer, we style the initial 
+    baseplate that the website is built from. */  
+        /* The base includes the baseplate of the website application, 
         e.g. the lowest layer background colour. */ 
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    display: flex;
-    flex-direction: column; 
-    margin: 0;
-    overflow: hidden
-}
+
+/* This is the first major division:
+    DIVISION 1: BASE
+        DIVISION 2: CIRCUIT CONFIG AREA
+        DIVISION 3: CIRCUIT BUILDER AREA 
+*/ 
+
+#Base{  /* We must ensure that the Simboard website fills up the entire browser 
+    screen, and that the elements inside of it are formatted in such a manner that 
+    they are arranged in a column order. */ 
+
+    width: 100vw;   /* To ensure that the contents of the website fill up the 
+    entire screen, we make sure that all content scales to 100 per cent of the 
+    vertical width (vw) of the browser resolution. */
+
+    height: 100vh;  /* To ensure that the contents of the website fill up the 
+    entire screen, we make sure that all content scales to 100 per cent of the 
+    vertical height (vh) of the browser resolution. */
+
+    background-color: black;    /* The default background colour will be 
+    black. Yet, this will be overlayed with other elements and colours in 
+    later styling and HTML element order(s). */
+
+    display: flex;  /* We ensure that the contents of the website become flex 
+    items, so that they can be re-arranged to not follow a linear, sequential 
+    order that blindly follows the HTML element document flow. */
+        /* This helps us organise the elements in the Simboard website. */ 
+
+    flex-direction: column; /* The contents of my website will be ordered in 
+    the column direction. This greatly helps with the organisation of Simboard. */ 
+
+    margin: 0;  /* The padding of elements that make up Simboard will have a value 
+    of absolute zero (0). This means there will be no space between the content 
+    seen on screen. */ 
+
+    overflow: hidden;    /* This ensures, if the end users' resolution is weird, 
+    that the Simboard website doesn't activate the scroll bar to view and 
+    navigate the website elements that cannot be seen by default. */
+
+}   /* The styling for the Base DIV ends here. View the HTML Document for more 
+    details. */ 
 
 /* Base Styling Ends Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Circuit Config Area Styling Starts Here */
+    /* The Circuit Configuration Area is the HTML division that contains 
+    the "top" part of the website, which will hold the Logo and the 
+    File Menu as individual divisons in themselves. */
+        /* This division essentially defines the background and section 
+        size that the sub-elements will inhabit. */  
 
-#CircuitConfigurationArea{  /* The Circuit Config Area contains the File Menu
-                            and the Logo Text. */ 
+/* This is the second major division:
+    DIVISION 1: BASE
+        DIVISION 2: CIRCUIT CONFIG AREA
+        DIVISION 3: CIRCUIT BUILDER AREA 
+*/ 
 
-    display: flex;
-    flex: 1; 
-    background-color: rgb(128, 128, 128);
-    padding: 10px;
-    text-align: center;
-    font-family:'Courier New', Courier, monospace;
-    font-weight: bolder;
-    gap: 2rem;
-    height: 25%;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+#CircuitConfigurationArea{  /* We must ensure that the Circuit Config 
+    Area displays it's contents in a X-Axis linear manner. Also, we must 
+    ensure that the end user cannot manipulate elements contained within 
+    this division. */ 
 
-}
+    display: flex;  /* To display the contents inside of the Circuit 
+    Config Area in an X-Axis linear manner, we display it as a flex 
+    element. */ 
+
+    flex: 1;    /* We state that the Circuit Config Area should be 
+    100% of the screen size. */ 
+        /* This will be overwritten later, this is just for 
+        configuration purposes */  
+
+    background-color: rgb(128, 128, 128);   /* The background 
+    colour of the Circuit Config Area will be a deeper gray in 
+    order to make it's contents stand out, and to better define 
+    the section (division) of the website. */ 
+
+    padding: 10px;  /* The Circuit Config Area will have a space of 10 
+    pixels between them, in order to help the end user separate the 
+    this division, from the others processed later on. */ 
+
+    text-align: center; /* All of the text elements inside of the 
+    Circuit Config Area will be centered within the center of said 
+    division or sub-element by default, to aid with the ease on the 
+    eyes. */ 
+
+    font-family:'Bell MT', 'Courier New', Courier, monospace;   /* The 
+    default font of the text displayed inside of the Circuit Config 
+    Area will be printed in the "Bell-MT" professional font, yet will 
+    backtrack to "Courier New" if no such font "Bell-MT" is found. And 
+    it keeps backtracking until the default font present on every 
+    browser since the beginning of dawn is backtracked to. */ 
+        /* Backtracking only occurs if the font that is to be displayed 
+        isn't found. */ 
+
+    font-weight: bolder;    /* We ensure that the text is styled bold 
+    to enhance the readability of such text. */ 
+
+    gap: 2rem;  /* All of the elements inside of the Circuit Config 
+    Area must be separated, hence we create a gap between the internal 
+    contents of said division of 2 m characters to the right (rem). */ 
+        /* This is much better than using the <br> break tags, as it 
+        allows us to control the padding between elements in a much 
+        more controllable and modular manner. */ 
+
+    height: 25%;    /* We set the height of the Circuit Config Area 
+    to be that of 25% of the screen, to make way for future divisions 
+    (Circuit Builder Area). */ 
+
+    -webkit-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Safari browsers can process such a 
+    request from me, the developer. */
+
+    -ms-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Internet Explorer or MS Edge browsers can 
+    process such a request from me, the developer. */
+
+    user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that any other regular browser (e.g. Chrome) can 
+    process such a request from me, the developer. */
+
+}   /* The styling for the Circuit Config Area DIV ends here. View the HTML 
+    Document for more details. */ 
 
 /* Circuit Config Area Styling Ends Here */ 
 
@@ -163,14 +469,42 @@ body{
 
 /* Logo Text Syling Starts Here */ 
 
-#LogoText{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+    /* The Logo Text is a sub-division inside of the major division "Circuit 
+    Builder Area", which has the purpose of displaying the Simboard website 
+    logo. */  
+
+#LogoText{  /* For the Logo, we must ensure that the Logo Image Title is 
+    correctly formatted within it. */ 
+
+    display: flex;  /* To do this, we align it via flexing the children of 
+    the Logo division (the sole image), so that it can align properly. */
+
+    justify-content: center;    /* We center the image horizontally in 
+    accordance with the division. */ 
+    
+    align-items: center;    /* We ensure that the image is centered 
+    vertically in accordance with the division. */ 
+
+    -webkit-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Safari browsers can process such a 
+    request from me, the developer. */
+
+    -ms-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Internet Explorer or MS Edge browsers can 
+    process such a request from me, the developer. */
+
+    user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that any other regular browser (e.g. Chrome) can 
+    process such a request from me, the developer. */
+
+}   /* We then finish styling the division where the Logo Image will be 
+    placed. */ 
 
 /* Logo Text Syling Ends Here */
 
@@ -178,9 +512,18 @@ body{
 
 /* File Menu Styling Starts Here */ 
 
-#FileMenu{
-    gap: 2rem;
-}
+    /* The File Menu is a sub-division inside of the major division "Circuit 
+    Builder Area", which has the purpose of displaying the various control 
+    options that the end user can utilise. */  
+
+#FileMenu{  /* We must ensure that the buttons inside of the File Menu are 
+    properly spaced. */ 
+
+    gap: 2rem;  /* To do this, we manually state that the buttons should be 
+    two m characters apart from the right of each other (rem). */ 
+
+}   /* We then finish styling the sub-division where the File Menu that holds 
+    the buttons is placed. */ 
 
 /* File Menu Styling Ends Here */ 
 
@@ -188,14 +531,53 @@ body{
 
 /* Circuit Builder Area Styling Starts Here */ 
 
-#CircuitBuilderArea{
-    display: flex;
-    flex: 10; 
-    height: 75%;          /* Sets the overall height of our CircuitBuilder area so that we can define scroll overflow limits later on in the Workspace & Object Menu */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+    /* The Circuit Builder Area is a major division inside of the Simboard 
+    website that will hold the content relating to the various Logic Gate 
+    objects available inside of Simboard, plus the section where the Logic 
+    Gates will actually join and interact with each other. */ 
+
+
+/* This is the third major division:
+    DIVISION 1: BASE
+        DIVISION 2: CIRCUIT CONFIG AREA
+        DIVISION 3: CIRCUIT BUILDER AREA 
+*/ 
+
+#CircuitBuilderArea{    /* Hence, the Circuit Builder area must ensure that 
+    the internal contents of the Circuit Builder Area (Object Menu & Workspace)
+    are properly sized, and that the UI cannot be dragged as an image, or have 
+    its text selected. */ 
+
+    display: flex;  /* We tell the Circuit Builder Area to display as a 
+    flex, allowing it to be compatible with the already flexed Circuit 
+    Config Area. */ 
+
+    flex: 10; /* The Circuit Config Area has a flex of 100%, yet we ensure that 
+    the flex of the Circuit Builder Area is 10 times the size of the Circuit Config 
+    Area. */
+
+    height: 75%;    /* Sets the overall height of our CircuitBuilder area so that we can define 
+    scroll overflow limits later on in the Workspace & Object Menu */
+
+    -webkit-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Safari browsers can process such a 
+    request from me, the developer. */
+
+    -ms-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Internet Explorer or MS Edge browsers can 
+    process such a request from me, the developer. */
+
+    user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that any other regular browser (e.g. Chrome) can 
+    process such a request from me, the developer. */
+
+}   /* The styling of the Circuit Builder division ends here. */ 
 
 /* Circuit Builder Area Styling Ends Here */ 
 
@@ -203,15 +585,48 @@ body{
 
 /* Object Menu Styling Starts Here */ 
 
-#ObjectMenu{
-    background-color: rgb(164, 164, 164);
-    width: 200px; 
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    overflow-y: scroll;
-    padding: 1rem;
-}
+    /* The Object Menu is an sub-division element (menu) inside of the 
+    Circuit Builder Area that will contain all of the Logic Gate 
+    objects. */ 
+
+#ObjectMenu{    /* We must therefore enforce that the Object Menu 
+    should have a scroll bar, as there are many different Logic Gate 
+    objects that may overflow the screen. Also, we must enforce the 
+    fact that the menu remains easy on the eyes and large enough for 
+    interactability and visibility. */ 
+
+    background-color: rgb(164, 164, 164);   /* We first define the 
+    Object Menu's background to be that of a slightly lighter gray 
+    than the Circuit Builder Area, to define the division and separation 
+    of the menus. */ 
+
+    width: 200px;   /* We manually state that the Object Menu should take 
+    up 200 pixels of the designated Circuit Builder Area internally. */
+
+    display: flex;  /* The Object Menu is then set to be flexed, meaning 
+    that it's contents can be ordered in a customised fashion. */
+        /* This is great for organising the Logic Gates inside of it! */  
+
+    flex-direction: column; /* We tell the Internal elements inside of 
+    the Object Menu to organise themselves downwards in a list fashion,
+    so that the Menu remains readable and appealing to look at. */ 
+
+    gap: 2rem;  /* The Internal elements inside of the Object Menu (Logic 
+    Gates, Inputs, Outputs etc...) must be spaced out in order to aid 
+    with visibility. Hence, all items are separated by 2 'm' characters of 
+    space. */ 
+
+    overflow-y: scroll; /* To view all of the Logic Gates inside of the 
+    Menu List, we need to be able to navigate up and down. Therefore, for 
+    this specific division, we enable the scroll bar so that we can view 
+    the Logic Gate objects that are overflowing from the web page. */ 
+
+    padding: 1rem;  /* We pad the Object Menu from all of the other UI 
+    elements by 1 'm' character of space. This allows the end user to 
+    distictly separate this menu from the Workspace and File Menu contents 
+    for example. */
+
+}   /* The styling of the general Object Menu ends here. */ 
 
 /* Object Menu Styling Ends Here */ 
 
@@ -219,94 +634,288 @@ body{
 
 /* Workspace Styling Starts Here */ 
 
-#Workspace{
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    flex: 5; 
-    padding: 0rem
-}
+    /* The Workspace is a sub-division element inside of the main 
+    "Circuit Builder Area" division. The Workspace holds all of the 
+    Logic Gate objects and allows the end user to interact and operate 
+    circuits with them. */ 
 
-/* Workspace Styling Ends Here */
+#Workspace{ /* To enable the properties seen above, we must first define 
+    the background for the  */ 
 
-/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+    background-color: rgb(255, 255, 255);   /* In case the Grid Canvas 
+    (covered a little later) colour cannot be displayed, we can backtrack 
+    to this white colour that is defined to be the default for the Workspace 
+    background. */
 
-/* Grid Container Styling Starts Here */ 
+    display: flex;  /* We also display the Workspace as a flex, so that it 
+    can align and co-ordinate with the other flex elements defined earlier. */ 
 
-#GridContainer{
-    height: 100%;
-    width: 100%; 
-    background-color: blue;
-}
+    flex: 5; /* We ensure that the Workspace is 5 times the size of the Object 
+    Menu, so that the end user can properly interact with the interface. */
 
-/* Grid Container Styling Ends Here */ 
+    padding: 0rem   /* To ensure that there are no visual artefacts or problems 
+    with moving the Logic Gates inside of the Workspace. We need to get rid of the 
+    space created by default for new divisions. We set the padding to zero to 
+    resolve said problems. */ 
 
-/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+}   /* The styling of the Workspace Division default configuration ends here. */ 
 
-/* Grid Canvas Styling Starts Here */ 
+/* We must also style the Grid and Axies displayed on the Workspace (see 
+more in the HTML document). */ 
 
-#GridCanvas{
-    height: 100%;
-    width: 100%;  
-    background-color: #dede94;
-}
+#GridContainer{ /* The Grid Container is a custom HTML Identification (ID) that 
+    is used to define the area at which the grid for the Workspace is drawn. It 
+    is built into the Workspace, hence, inherits the default properties of it and 
+    overlays it, allowing us to keep building upwards. */ 
 
-/* Grid Canvas Styling Ends Here */ 
+    height: 100%;   /* We ensure that the Grid Container takes up 100 per cent of 
+    the internal height space inside of the Workspace division. */ 
+
+    width: 100%;   /* We ensure that the Grid Container takes up 100 per cent of 
+    the internal width space inside of the Workspace division. */ 
+
+    background-color: rgba(0, 0, 255, 0.608); /* For debugging and backtracking reasons, we set 
+    the background colour of the Grid Container to be a deep, yet semi-transparent blue. */
+
+}   /* The styling of the Grid Container ends here. */ 
+
+#GridCanvas{    /* The Grid Canvas is a custom HTML Identification (ID) that 
+    is used to stored the actual drawn grid that is printed onto the Grid 
+    Container. */
+
+    height: 100%;   /* We ensure that the Grid takes up 100 per cent of the internal height space 
+    inside of the Grid Container. */
+
+    width: 100%;   /* We ensure that the Grid takes up 100 per cent of the internal width space 
+    inside of the Grid Container. */
+
+    background-color: #dede94;  /* We set the proper background colour of the Workspace 
+    (technically, the background colour of the Grid) to be a defined beige colour. This is the 
+    true background colour the end user should see when utilising the Simboard Workspace. */ 
+
+}   /* The styling of the Grid ends here. */ 
+
+/* Workspace Styling Ends Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Buttons Inside Of The Object Menu Are Styled Here */ 
 
-#ObjectMenu button{
-    background-color: #dede94; 
-    border-radius: 31px;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+    /* We need to ensure that the buttons present inside of the Object Menu, no matter their 
+    specific ID or Class, must be formatted in the same manner to remain aesthetically 
+    pleasing and visually appealing. */ 
 
-/* Styling Halts Here */ 
+#ObjectMenu button{ /* To do this, we must ensure all buttons inside of the Object 
+    Menu have the same background and remain non-selectable, only clickable by the 
+    user. */ 
+
+    background-color: #dede94;  /* The background of the Object Menu buttons will remain 
+    that of the Workspace background (a beige colour) to ensure aesthetic consistency. */
+
+    border-radius: 31px;    /* All of the buttons inside of the Object Menu will be rounded 
+    at the corners, to highlight them for the end users' benefit. */ 
+
+    -webkit-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Safari browsers can process such a 
+    request from me, the developer. */
+
+    -ms-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Internet Explorer or MS Edge browsers can 
+    process such a request from me, the developer. */
+
+    user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that any other regular browser (e.g. Chrome) can 
+    process such a request from me, the developer. */
+
+    cursor: url("/Media/Layout/hand.png"), default; /* Whenever the end 
+    users' cursor is active / is hovering over a button inside of the Object 
+    Menu, their custom cursor icon will change to be a hand instead of the 
+    default pointer arrow. */ 
+        /* We do this because the button is a separate element to the other 
+        UI's, meaning that the cursor pointer resets to the default arrow 
+        when it is active over said button. Hence, we must override this 
+        again to retain consistency around the design of Simboard. */ 
+
+
+}   /* The styling of the Buttons inside of the Object Menu ends here. */ 
+
+/* Styling for the Object Menu Buttons Halts Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Buttons Inside Of The File Menu Are Styled Here */ 
 
-#FileMenu button{
-    background-color: #dede94;
-    font-family:'Bell MT', 'Courier New', Courier, monospace;
-    font-weight: bolder; 
-    text-align: center;
-    height: 8rem;
-    width: 8rem;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+    /* We need to ensure that the buttons present inside of the File Menu, no matter their 
+    specific ID or Class, must be formatted in the same manner to remain aesthetically 
+    pleasing and visually appealing. */
 
-/* Styling Halts Here */ 
+#FileMenu button{   /* To do this, we need to style the buttons similar to that inside 
+    of the Object Menu to retain consistency. We must also disable the buttons' selection 
+    properties, limiting the end user to be only able to click the File Menu Buttons. */ 
+
+    background-color: #dede94;  /* The background of the Object Menu buttons will remain 
+    that of the Workspace background and the Object Menu Button backgrounds (a beige colour), 
+    to ensure aesthetic consistency. */ 
+
+    font-family:'Bell MT', 'Courier New', Courier, monospace;   /* The 
+    default font of the text displayed inside of the File Menu Area will 
+    be printed in the "Bell-MT" professional font, yet will backtrack to 
+    "Courier New" if no such font "Bell-MT" is found. And it keeps 
+    backtracking until the default font present on every browser since 
+    the beginning of dawn is backtracked to. */ 
+        /* Backtracking only occurs if the font that is to be displayed 
+        isn't found. */ 
+
+    font-weight: bolder;    /* We ensure that the text is styled bold 
+    to enhance the readability of such text. */ 
+
+    text-align: center; /* All of the text elements inside of the 
+    File Menu will be centered within the center of said division 
+    or sub-element by default, to aid with the ease on the eyes. */ 
+
+    height: 8rem;   /* To ensure visual consistency, we make sure that the 
+    File Menu Buttons remain the same size. We set all button element tags 
+    inside of the HTML File Menu sub-division to be 8 'm' characters large, 
+    height-wise. */ 
+        /* This is unlike the Object Menu buttons, because all of the Logic 
+        Gate objects are of different sizes (lightbulb vs. XOR Gate etc.).
+        Additionally, all elements inside of the File Menu Buttons are of the 
+        same size consistently (all images are the same size, all text is the 
+        same size etc.). 
+        Therefore, we format the File Menu Buttons differently due to this. */ 
+
+    width: 8rem;   /* To ensure visual consistency, we make sure that the 
+    File Menu Buttons remain the same size. We set all button element tags 
+    inside of the HTML File Menu sub-division to be 8 'm' characters large, 
+    width-wise. */ 
+        /* This is unlike the Object Menu buttons, because all of the Logic 
+        Gate objects are of different sizes (lightbulb vs. XOR Gate etc.).
+        Additionally, all elements inside of the File Menu Buttons are of the 
+        same size consistently (all images are the same size, all text is the 
+        same size etc.). 
+        Therefore, we format the File Menu Buttons differently due to this. */ 
+
+    -webkit-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Safari browsers can process such a 
+    request from me, the developer. */
+
+    -ms-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Internet Explorer or MS Edge browsers can 
+    process such a request from me, the developer. */
+
+    user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that any other regular browser (e.g. Chrome) can 
+    process such a request from me, the developer. */
+
+    cursor: url("/Media/Layout/search.png"), default; /* Whenever the end 
+    users' cursor is active / is hovering over a button inside of the File 
+    Menu, their custom cursor icon will change to be a magnifing glass 
+    (search icon) instead of the default pointer arrow. This is to signify 
+    it's program control. */ 
+        /* We do this because the button is a separate element to the other 
+        UI's, meaning that the cursor pointer resets to the default arrow 
+        when it is active over said button. Hence, we must override this 
+        again to retain consistency around the design of Simboard. */ 
+
+}   /* The styling of the Buttons inside of the File Menu ends here. */ 
+
+/* Styling for the File Menu Buttons Halts Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Text Inside Of The Object Menu Is Styled Here */ 
 
-.ObjectMenuCategoryText{
-    font-family:'Bell MT', 'Courier New', Courier, monospace;
-    font-weight: bolder; 
-    text-align: center;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+    /* We must style the text inside of the Object Menu buttons, so that 
+    they remain consistent and visually appealing in relation to the other 
+    text elements on the Simboard web application. */ 
 
-/* Styling Halts Here */ 
+.ObjectMenuCategoryText{    /* We do this differently to generalising 
+    configurations inside of the Object Menu Buttons because we may 
+    need to style the text of the Logic Gate objects to be different to 
+    the Filter Menu button text. */ 
+        /* Therefore, any Object Menu button with this ID attributed to 
+        it will be styled differently to the generic Object Menu Text 
+        configurated in the #ObjectMenu button ID. */ 
+
+    font-family:'Bell MT', 'Courier New', Courier, monospace;   /* The 
+    default font of the text displayed will be printed in the "Bell-MT" 
+    professional font, yet will backtrack to "Courier New" if no such 
+    font "Bell-MT" is found. And it keeps backtracking until the default 
+    font present on every browser since the beginning of dawn is 
+    backtracked to. */ 
+        /* Backtracking only occurs if the font that is to be displayed 
+        isn't found. */ 
+
+    font-weight: bolder;    /* We ensure that the text is styled bold 
+    to enhance the readability of such text. */ 
+
+    text-align: center; /* All of the text elements specified will be 
+    centered within the center of said division or sub-element by default, 
+    to aid with the ease on the eyes. */ 
+
+    -webkit-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Safari browsers can process such a 
+    request from me, the developer. */
+
+    -ms-user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that Internet Explorer or MS Edge browsers can 
+    process such a request from me, the developer. */
+
+    user-select: none; /* We ensure that none of the contents 
+    inside of the Circuit Config Area can be dragged, have it's internal 
+    text selected, etc. 
+    This command ensures that any other regular browser (e.g. Chrome) can 
+    process such a request from me, the developer. */
+
+}   /*  The styling of specific text elements present inside of the Object 
+    Menu ends here.  */ 
+
+/* Styling for specific text elements meant for the Object Menu elements 
+Halts Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Images With This Class Are Styled Here */ 
 
-#GlobalImageVisualFormat{
-    width: 90px; 
-    height: 90px;
-}
+    /* We define this simple image formatting service so that we can 
+    retain consistency with images in the Simboard website application 
+    that inherit the class "GlobalImageVisualFormat". */ 
+        /* !->  This styling method is not used inside of the Simboard 
+        website anymore, as all of the image sizes are defined in the 
+        Paint file, and we then build the UI elements (e.g. Buttons), 
+        around said image. 
+        This is because all of the images, from Logic Gate Objects to 
+        Menu Buttons are of different sizes.
+         */ 
+            /* Hence, this is more of a debugging style design. */ 
+
+#GlobalImageVisualFormat{   /* For this simple designer instruction, 
+    we must ensure that the specified HTML elements (images) retain 
+    the same height and width. */ 
+
+    width: 90px;    /* The width of the specified image or element 
+    will be of 90 pixels wide consistently. */ 
+
+    height: 90px;    /* The height of the specified image or element 
+    will be of 90 pixels tall consistently. */ 
+
+}   /* The (debugging/redundant) image formatting styling ends here. */ 
 
 /* Styling Halts Here */ 
 
@@ -314,34 +923,127 @@ body{
 
 /* Header Tags With This Class */ 
 
-.HeaderLine{
-    color: rgb(128, 128, 128); 
-    border-style: inset; 
-    border-width: 5px; 
-    margin: 0.5em;
-}
+    /* We must also ensure that all of the Horizontal Rules ( <hr> ) 
+    elements are visible and identifiable for the end user. */ 
+        /* This styling is especially apparent in the Object Menu, 
+        where each category/section of Logic Gate Objects are to be 
+        coherently separated by Horizontal Rules. */ 
+    /* This styling only applies to < HR > tags that have this as 
+    their defined class. */ 
 
-/* Styling Halts Here */ 
+.HeaderLine{    /* To do this, we must apply an apparent colour to 
+    the line, and ensure that it has a padding to truly separate 
+    the HTML elements. */ 
+
+    color: rgb(128, 128, 128);  /* The colour for the Horizontal 
+    Rule will be a lightish-gray, just like the Scrollbar Track. */
+        /* Yet, by default, Browsers render a darker colour to give 
+        a "shadow" look on the line. */  
+
+    border-style: inset;    /* We ensure that the Rule has becomes 
+    thicker so that it can become more apparent. We do this by 
+    initialising an "inset" border, which makes the interior look 
+    slightly indented from the exterior of the <hr> line. */ 
+
+    border-width: 5px;  /* We then set this border width (line size) 
+    to be that of 5 pixels. This is a great size, as it is apparent 
+    yet not overbearing for the end user. */ 
+
+    margin: 0.5em;  /* To ensure that the line stretches to the 
+    horizontal sides of the Object Menu, we set the line element to 
+    be that of 1/2 an 'm' character margin-wise. */ 
+        /* 
+            Setting the margin to be a larger value means that the line 
+            gets smaller (retracts). 
+
+            Setting the margin to be a smaller value means that the line 
+            gets bigger (stretches out). 
+        */ 
+
+}   /* The styling for the Horizontal Rule Line ends here. */ 
+
+/* Global Horizontal Rule Styling Halts Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
 /* Logic Gate Object Styling Starts Here */ 
 
-.DraggableGate {
-    position: absolute;
-    z-index: 9;
-    background-color: #ffffff00;
-    border: 1px solid #ffffff00;
-    text-align: center;
-}
+    /* We need to style the actual Logic Gate Objects, so that they 
+    represent and visually appear well on the Workspace. This styling 
+    is critical! */ 
 
-.DraggableGateHeader {
-    padding: 10px;
-    cursor: move;
-    z-index: 10;
-    background-color: #ffffff00;
-    color: #ffffff00;
-}
+.DraggableGate {    /* The "DraggableGate" is the division that holds 
+    the actual Logic Gate object. It separates said objects from the other 
+    HTML elements. */ 
+        /* To ensure that the Logic Gate Objects format 
+        well on the Workspace, we must allow it to be dragged across the 
+        screen without influencing other UI elements, whilst making the 
+        background of the HTML division to be transparent. */ 
+
+    position: absolute; /* The Logic Gate object can be moved without 
+    it adjusting or influenced or being influenced by other HTML 
+    elements. */ 
+
+    z-index: 0; /* We ensure that the DraggableGate division is displayed 
+    below the actual Logic Gate object in the Workspace, by setting it's 
+    z-index to be of Layer 9. */ 
+
+    background-color: #ffffff00; /* The background container division 
+    should be transparent completely, so that the end user can see the 
+    Workspace behind it, in turn, increasing the immersion into the 
+    Simboard application. */
+
+    border: 1px solid #ffffff00;    /* If we want, we can make a border 
+    around the Logic Gate image object. Yet, we set it to be transparent 
+    for now. */
+        /* This is great for debugging as I can see the hitbox / image 
+        selection area of the Logic Gate Object. 
+        As the image is the element that determines the DraggableGate 
+        container size, and the area in which can be dragged, we can 
+        debug problems with this via this setting. */ 
+
+    text-align: center; /* Any text displayed or noted inside of the 
+    Logic Gate Object is displayed direction in the middle of said 
+    object. */ 
+
+}   /* The styling for the Logic Gate Object Container halts here. */ 
+
+.DraggableGateHeader {  /* The DraggableGateHeader division is the 
+    actual image of the Logic Gate Object. Hence, is the controller 
+    of the object inside of the Workspace. */ 
+        /* We must therefore ensure that it properly fills its 
+        respective container, and has the ability to be dragged 
+        around said Workspace. */ 
+
+    padding: 0px;   /* We ensure that the Logic Gate image division 
+    fills up the entire DraggableGate container, by setting the default 
+    padding to be of zero pixels in each direction. */ 
+
+    cursor: move;   /* If the custom cursor icon is not available for 
+    some reason, we can backtrack to this styling instruction. This tells 
+    the browser to display a "moving-arrow-in-four-directions" cursor 
+    pointer that is built into every single browser by default, when said 
+    cursor is present upon the Logic Gate Object. */
+
+    z-index: 1; /* We ensure that the actual Logic Gate Object division 
+    is displayed above the "DraggableGate" division in the Workspace, 
+    by setting it's z-index to be of Layer 10 (higher than 9). */ 
+
+    background-color: #ffffff00; /* The Logic Gate background should be 
+    transparent completely, so that the end user can see the Workspace 
+    behind it, in turn, increasing the immersion into the Simboard 
+    application. */
+
+    color: #000000; /* All contents inside of the Logic Gate Object 
+    (e.g. Text etc.) will be styled as black. */
+
+    cursor: url("/Media/Layout/hold.png"), default; /* When the end user 
+    moves their cursor so that it is upon (hovering) the Logic Gate hitbox 
+    (image), the custom cursor pointer that the browser makes the end user 
+    utilise becomes one which signifies that said element can be dragged 
+    or "held". */ 
+
+}   /* The styling for the Logic Gate image/hitbox halts here. */ 
 
 /*/ Logic Gate Object Styling Ends Here */ 
 

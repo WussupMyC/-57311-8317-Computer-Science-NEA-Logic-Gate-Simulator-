@@ -38,6 +38,14 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
   SCRIPT 005  - LOGIC GATE INTERACTIVITY FUNCTIONS 
 
+  SCRIPT 006  - 
+
+  SCRIPT 007  - 
+
+  SCRIPT 008  - 
+
+  SCRIPT 009  - 
+
 */
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -444,7 +452,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                           // on the Workspace before the Logic Gate UI Object would leave the
                                           // screen. 
 
-  pos1 = pos3 - e.clientX;  // Figures the distance that the Logic Gate UI Object has moved since it's most recently
+  pos1 = pos3 - e.clientX,  // Figures the distance that the Logic Gate UI Object has moved since it's most recently
                             // stored origin, stated in the function dragElement (pos1, pos2, pos3, pos4 etc...) 
                             // horizontally (on the X Axis). 
 
@@ -476,7 +484,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                         // force the Logic Gate UI Object to reposition itself 
                                                         // back into the Workspace. 
 
-  } // The conditional branch for UI positional checking on the Y Axis ends here. If the Logic Gate UI Object 
+  }; // The conditional branch for UI positional checking on the Y Axis ends here. If the Logic Gate UI Object 
     // does not meet the above properties (aka. is inside of the Workspace), execution flow will skip to this 
     // point. 
 
@@ -493,7 +501,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                           // force the Logic Gate UI object to reposition itself 
                                                           // back into the Workspace. 
 
-  } // The conditional branch for UI positional checking on the X Axis ends here. If the Logic Gate UI Object 
+  }; // The conditional branch for UI positional checking on the X Axis ends here. If the Logic Gate UI Object 
     // does not meet the above properties (aka. is inside of the Workspace), execution flow will skip to this 
     // point. 
 
@@ -513,7 +521,7 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 };  // The function that clears all critical elements related to a UI drag to prevent errors ends here. 
 
-mydiv.draggable({ containment: "Workspace" }); // This instruction prevents the UI Object from leaving the actual
+//mydiv.draggable({ containment: "Workspace" }); // This instruction prevents the UI Object from leaving the actual
                                                // Workspace DIV. 
                                                 // This fixes the error of the elementDrag function prioritising 
                                                 // UI leaving the actual browser. 
@@ -522,7 +530,50 @@ mydiv.draggable({ containment: "Workspace" }); // This instruction prevents the 
 
 };  // The main function that handles Object UI movement ends here. 
 
-//  ** SCRIPT 005 ** The function for interactable, draggable UI Objects ends here. 
+//  ** SCRIPT 005 ** The function(s) for interactable, draggable UI Objects ends here. 
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
+
+
+
+//  ** SCRIPT 006 ** The functions for Workspace navigation end here. 
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+// ** SCRIPT 007 ** Allows Logic Gate Objects to be wired together 
+
+
+
+// ** SCRIPT 007 ** The functions for Logic Gate Objects to connect "wire" UI elements together, and produce 
+// execution flow ends here. 
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+// ** SCRIPT 008 ** Allows for the File Menu Buttons to be interacted with and perform different operations
+// for the end user to utilise (Excluding the Saving & Loading buttons!)
+
+
+
+// ** SCRIPT 008 ** The functions for File Menu functionality ends here. 
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+// ** SCRIPT 009 ** Allows for Simboard Projects to be saved as a JSON file. 
+
+
+
+// ** SCRIPT 009 ** The functions for Simboard Saving end here. 
+
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+// ** SCRIPT 010 ** Allows for Simboard Projects to be loaded from a JSON file. 
+
+
+
+// ** SCRIPT 010 ** The functions for Simboard Loading end here. 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
