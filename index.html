@@ -74,6 +74,9 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
 <!-- THE SIMBOARD BASEPLATE -->
 
+<!--    <p id = "TextDebug">default</p> --> <!-- DEBUGGING OUTPUT ON WEBSITE -->
+<!--    <p id = "TextDebug2">default</p> --> <!-- DEBUGGING OUTPUT ON WEBSITE -->
+
     <div id="Base"> <!-- The "Base" tag is the website division that contains all 
         of the menus and objects that we will build. -->
 
@@ -164,7 +167,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 </button>   <!-- Ends this button's structural operation. -->
 
-                
+
                 <a href="/OtherPages/userManual/userManualConstruct.html" 
                 draggable="false" 
                 (dragstart)="false;"
@@ -195,6 +198,41 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 </a>    <!-- The anchor wrap is finished here. -->
 
+            
+                <button id="connect" title="If you have two objects selected, click here to connect them!">
+                <!-- Creates a button with a contactable ID that will be used for 
+                    customising the layout of the Simboard web application, with a 
+                    title so that if the end user hovers over said button, an explaination 
+                    will appear within a tooltip. -->
+
+                    <p id="ConnectText">Connect</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image draggable="false" (dragstart)="false;" id="CustomiseThumbnail" src="/Media/Layout/customise.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+                <button id="remove" title="If you have two objects selected, click here to delete their connection!">
+                <!-- Creates a button with a contactable ID that will be used for 
+                    customising the layout of the Simboard web application, with a 
+                    title so that if the end user hovers over said button, an explaination 
+                    will appear within a tooltip. -->
+
+                    <p id="RemoveText">Disconnect</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image draggable="false" (dragstart)="false;" id="CustomiseThumbnail" src="/Media/Layout/customise.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+                
             </div>  <!-- The File Menu Division ends here. -->
 
         </div>  <!-- The Circuit Configuration Area Divsion closes & ends here. -->
@@ -208,12 +246,11 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
     <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
     <!-- THE OBJECT MENU -->
-
+     
             <div id="ObjectMenu">   <!-- The Object Menu is a division inside of 
                 the Circuit Builder Area which will hold all of the Logic Gate 
                 Object spawner buttons. -->
 
-                
                 <button id="FilterMenuActivator" title="Filter out objects of your choice for convenience.">
                 <!-- The button that can display the visibility of the Filter Menu is defined here. -->
                     <!-- The Filter Menu is one which can categorise the Logic Gate Objects in the Object 

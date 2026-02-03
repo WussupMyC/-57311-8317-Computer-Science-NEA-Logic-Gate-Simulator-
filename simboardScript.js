@@ -50,7 +50,9 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
 // ** GLOBAL VARIABLE DEFINITIONS **
+
 xLen = 48340;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = 48340;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
 
@@ -346,6 +348,36 @@ function cloneObject(gateType){ // This is the function that is utilised when th
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
+//  ** SCRIPT 006 ** Sets the currentItem variable & apply any highlighting that is needed to display 
+// the selection. 
+
+function selectCurrentItem(item) {
+
+  if (currentItem == null) {
+
+    currentItem = item; 
+
+    document.getElementById(currentItem).classList.add("gateObjectHighlight");
+
+  };
+
+  if (item != currentItem && currentItem != null) { // Removes highlight from previous section 
+
+    document.getElementById(currentItem).classList.remove("gateObjectHighlight");
+
+    currentItem = item; 
+
+    document.getElementById(currentItem).classList.add("gateObjectHighlight");
+
+  };
+
+};
+
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+
+
 // ** SCRIPT 005 ** Ensures that the logic gates are draggable on the Workspace 
 
 dragElement(document.getElementById("mydiv"));  // This fires a function, dragElement, with a present passed
@@ -359,10 +391,15 @@ function dragElement(elmnt) { // The function that assigns the property of being
                                 // It takes the passed paramenter, mydiv, and sends it through a conditional 
                                 // check below. 
 
-  var pos1 = 0,   //  Sets memory allocation for the position of the UI element 
-    pos2 = 0,     //  Sets memory allocation for the position of the UI element 
-    pos3 = 0,     //  Sets memory allocation for the position of the UI element 
-    pos4 = 0;     //  Sets memory allocation for the position of the UI element 
+  var pos1 = 0,   //  Sets memory allocation for storing the distance that the UI element moves. 
+
+    pos2 = 0,     //  Sets memory allocation for storing the distance that the UI element moves. 
+
+    pos3 = 0,     //  Sets memory allocation for storing the UI position of the object on the initial mouse 
+                  // button down for later reference, on the X Axis.  
+
+    pos4 = 0;     //  Sets memory allocation for storing the UI position of the object on the initial mouse 
+                  // button down for later reference, on the X Axis. 
 
   if (document.getElementById(elmnt.id + "header")) { // This is a conditional statement that checks if the
                                                       // object has a "header" element that can be used to 
@@ -405,11 +442,14 @@ function dragMouseDown(e) { // This function reads the mouse position and releva
                                       // function that moves the UI element (allows for dragging interactivity
                                       // visually) is called. 
 
-  currentItem = elmnt.id; // When the mouse cursor is above a Logic Gate Object and the mouse button 
+//  currentItem = elmnt.id; // When the mouse cursor is above a Logic Gate Object and the mouse button 
                           // down is completed upon said object, this instruction sets the current 
                           // item to be the one that is being clicked or dragged (mouse down). 
                             // This is to be used in functions mostly covered above (SCRIPT 003 / Object 
                             // Deletion).
+
+  selectCurrentItem(elmnt.id);
+
 
   console.log("currentItem = ", currentItem); // This instruction is used for debugging, to state the current 
                                               // item that is being selected (aka, the Logic Gate Object that 
@@ -447,18 +487,24 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
   maxX = winW - elmnt.offsetWidth - 1,  // This instruction calculates the maximum positions (width-wise) 
                                         // on the Workspace before the Logic Gate UI Object would leave the
                                         // screen. 
+                                        // This is the absolute value. 
 
     maxY = winH - elmnt.offsetHeight - 1; // This instruction calculates the maximum positions (height-wise)
                                           // on the Workspace before the Logic Gate UI Object would leave the
                                           // screen. 
+                                          // This is the abolsute value. 
+
+  console.log("MaxY Debug: ", maxY) // debug with identifier... 
 
   pos1 = pos3 - e.clientX,  // Figures the distance that the Logic Gate UI Object has moved since it's most recently
                             // stored origin, stated in the function dragElement (pos1, pos2, pos3, pos4 etc...) 
                             // horizontally (on the X Axis). 
+                            // This is a relative value. 
 
   pos2 = pos4 - e.clientY;  // Figures the distance that the Logic Gate UI Object has moved since it's most recently
                             // stored origin, stated in the function dragElement (pos1, pos2, pos3, pos4 etc...) 
                             // vertically (on the Y Axis). 
+                            // This is a relative value. 
 
   pos3 = e.clientX;         // Updates the new positions of the Logic Gate UI Object (in pos1, pos2, pos3, pos4
                             // etc...) horizontally (on the X Axis). 
@@ -471,7 +517,27 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                                   // recently moved Logic Gate UI
                                                                                   // object. 
 
-  if ((elmnt.offsetTop - pos2) <= maxY && (elmnt.offsetTop - pos2) >= 0) {  // This is a conditional instruction that
+  //var MAXY = document.getElementById("GridCanvas").getAttribute("height"); // LOOK INTO - AUTO LOCK LIMIT 
+  var sizeOfBaseY = document.getElementById("Base").offsetHeight; 
+  var sizeOfBaseX = document.getElementById("Base").offsetWidth; 
+
+  var sizeOfWorkspaceY = document.getElementById("Workspace").offsetHeight; 
+  var sizeOfWorkspaceX = document.getElementById("Workspace").offsetWidth; 
+
+  var minY = sizeOfBaseY - sizeOfWorkspaceY
+  var minX = sizeOfBaseX - sizeOfWorkspaceX 
+
+  ///var minY = 200; 
+  ///var minX = 200; 
+
+  //console.log("MAXY: ", MAXY);
+  var dbgval= elmnt.offsetTop - pos2;
+  var dbgval2 = elmnt.offsetLeft - pos1;
+  
+  ///document.getElementById("TextDebug").innerHTML=(minY);
+  ///document.getElementById("TextDebug2").innerHTML=(minX);
+
+  if ((elmnt.offsetTop - pos2) <= maxY && (elmnt.offsetTop - pos2) >= minY) {  // This is a conditional instruction that
                                                                             // branches execution flow if the Logic
                                                                             // Gate Object is being dragged outside
                                                                             // of the Workspace. 
@@ -479,16 +545,20 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                               // to checking UI movinghorizontally / on 
                                                                               // the Y Axis (Top...).
 
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";  // If the condition above IS met, and the object IS being
-                                                        // dragged outside of the Workspace, said instruction will 
-                                                        // force the Logic Gate UI Object to reposition itself 
-                                                        // back into the Workspace. 
+    if (pos2 < sizeOfBaseY) {
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";  // If the condition above IS met, and the object IS being
+                                                          // dragged outside of the Workspace, said instruction will 
+                                                          // force the Logic Gate UI Object to reposition itself 
+                                                          // back into the Workspace. 
+    } else { 
+      elmnt.style.top = pos4; 
+    }
 
   }; // The conditional branch for UI positional checking on the Y Axis ends here. If the Logic Gate UI Object 
     // does not meet the above properties (aka. is inside of the Workspace), execution flow will skip to this 
     // point. 
 
-  if ((elmnt.offsetLeft - pos1) <= maxX && (elmnt.offsetLeft - pos1) >= 0) { // This is a conditional instruction that 
+  if ((elmnt.offsetLeft - pos1) <= maxX && (elmnt.offsetLeft - pos1) >= minX) { // This is a conditional instruction that 
                                                                              // branches execution flow if the Logic 
                                                                              // Gate Object is being dragged outside 
                                                                              // of the Workspace. 
@@ -496,10 +566,14 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                               // to checking UI moving vertically / on 
                                                                               // the X Axis (Left...).
 
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";  // If the condition above IS met, and the object IS being 
-                                                          // dragged outside of the Workspace, said instruction will 
-                                                          // force the Logic Gate UI object to reposition itself 
-                                                          // back into the Workspace. 
+    if (pos1 < sizeOfBaseX) {
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";  // If the condition above IS met, and the object IS being 
+                                                            // dragged outside of the Workspace, said instruction will 
+                                                            // force the Logic Gate UI object to reposition itself 
+                                                            // back into the Workspace. 
+    } else { 
+      elmnt.style.left = pos3; 
+    }
 
   }; // The conditional branch for UI positional checking on the X Axis ends here. If the Logic Gate UI Object 
     // does not meet the above properties (aka. is inside of the Workspace), execution flow will skip to this 

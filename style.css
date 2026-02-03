@@ -668,6 +668,8 @@ more in the HTML document). */
     is built into the Workspace, hence, inherits the default properties of it and 
     overlays it, allowing us to keep building upwards. */ 
 
+    display: relative;
+
     height: 100%;   /* We ensure that the Grid Container takes up 100 per cent of 
     the internal height space inside of the Workspace division. */ 
 
@@ -1046,6 +1048,11 @@ Halts Here */
 }   /* The styling for the Logic Gate image/hitbox halts here. */ 
 
 /*/ Logic Gate Object Styling Ends Here */ 
+
+.gateObjectHighlight{
+    border: 5px dotted red;; 
+    background-color: blue; 
+}
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 /*  *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
