@@ -198,40 +198,6 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
                 </a>    <!-- The anchor wrap is finished here. -->
 
-            
-                <button id="connect" title="If you have two objects selected, click here to connect them!">
-                <!-- Creates a button with a contactable ID that will be used for 
-                    customising the layout of the Simboard web application, with a 
-                    title so that if the end user hovers over said button, an explaination 
-                    will appear within a tooltip. -->
-
-                    <p id="ConnectText">Connect</p>     <!-- Titles the button with 
-                        standard paragraph text. -->
-
-                    <image draggable="false" (dragstart)="false;" id="CustomiseThumbnail" src="/Media/Layout/customise.png"></image>
-                    <!-- Utilises a custom image made by me to style the button for 
-                        further visual description. It's properties of being selectable 
-                        or draggable are disabled manually. -->
-
-                </button>   <!-- Ends this button's structural operation. -->
-
-
-                <button id="remove" title="If you have two objects selected, click here to delete their connection!">
-                <!-- Creates a button with a contactable ID that will be used for 
-                    customising the layout of the Simboard web application, with a 
-                    title so that if the end user hovers over said button, an explaination 
-                    will appear within a tooltip. -->
-
-                    <p id="RemoveText">Disconnect</p>     <!-- Titles the button with 
-                        standard paragraph text. -->
-
-                    <image draggable="false" (dragstart)="false;" id="CustomiseThumbnail" src="/Media/Layout/customise.png"></image>
-                    <!-- Utilises a custom image made by me to style the button for 
-                        further visual description. It's properties of being selectable 
-                        or draggable are disabled manually. -->
-
-                </button>   <!-- Ends this button's structural operation. -->
-
                 
             </div>  <!-- The File Menu Division ends here. -->
 
@@ -452,11 +418,35 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                  elements initialised in SCRIPT 003 (on simboardScript.js). -->
                                         <!-- Draggable DIV -->
 
+                                <canvas id="Input" 
+                                class="IOStyle"
+                                width="15" 
+                                height="15" 
+                                style="border:1px solid #000000; 
+                                position: relative; 
+                                top: -27px; 
+                                z-index:2"
+                                onclick="ioCheck(this)">
+                                    
+                                </canvas>
+
                                 <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
                                 <!-- The default image of the Master Object is defined to be 
                                     the AND Gate. This is mostly for debugging purposes to 
                                     ensure that the Master Logic Gate object is spawning on 
                                     to the Workspace. -->
+
+                                <canvas id="Output" 
+                                class="IOStyle"
+                                width="15" 
+                                height="15" 
+                                style="border:1px solid #000000; 
+                                position: relative; 
+                                top: -27px; 
+                                z-index:2"
+                                onclick="ioCheck(this)">
+                                    
+                                </canvas>
 
                             </div>  <!-- The DraggableGateHeader (interactable section of the 
                                 Master Logic Gate Object) division ends here. -->

@@ -2,15 +2,18 @@
 
     "sbProject": {
 
-        "Format"        :       "unk.",
+        "ProjectFormat" :       "unk.",
         "Type"          :       "unk.",
 
-        "GatePlaceholder_1": {
+        "objectRef_1": {
             "id"        : "unk.",
             "locationX" : "unk.",
             "locationY" : "unk.",
-            "inputs"    : [],
-            "outputs"   : []
+            "argument"  : "unk.",
+            "inputs"    : "unk.",
+            "outputs"   : "unk.",
+            "inputLink" : [],
+            "outputLink": []
         }
 
     }

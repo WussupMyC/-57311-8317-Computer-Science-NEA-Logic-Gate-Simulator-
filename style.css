@@ -653,6 +653,8 @@ body{ /* Everything inside of the body tag styles like... */
     flex: 5; /* We ensure that the Workspace is 5 times the size of the Object 
     Menu, so that the end user can properly interact with the interface. */
 
+    overflow: hidden; 
+
     padding: 0rem   /* To ensure that there are no visual artefacts or problems 
     with moving the Logic Gates inside of the Workspace. We need to get rid of the 
     space created by default for new divisions. We set the padding to zero to 
@@ -668,7 +670,7 @@ more in the HTML document). */
     is built into the Workspace, hence, inherits the default properties of it and 
     overlays it, allowing us to keep building upwards. */ 
 
-    display: relative;
+    display: relative; 
 
     height: 100%;   /* We ensure that the Grid Container takes up 100 per cent of 
     the internal height space inside of the Workspace division. */ 
@@ -678,6 +680,8 @@ more in the HTML document). */
 
     background-color: rgba(0, 0, 255, 0.608); /* For debugging and backtracking reasons, we set 
     the background colour of the Grid Container to be a deep, yet semi-transparent blue. */
+
+    padding: 0; 
 
 }   /* The styling of the Grid Container ends here. */ 
 
@@ -690,10 +694,12 @@ more in the HTML document). */
 
     width: 100%;   /* We ensure that the Grid takes up 100 per cent of the internal width space 
     inside of the Grid Container. */
-
+    
     background-color: #dede94;  /* We set the proper background colour of the Workspace 
     (technically, the background colour of the Grid) to be a defined beige colour. This is the 
     true background colour the end user should see when utilising the Simboard Workspace. */ 
+
+    padding: 0; 
 
 }   /* The styling of the Grid ends here. */ 
 
@@ -746,6 +752,13 @@ more in the HTML document). */
 
 
 }   /* The styling of the Buttons inside of the Object Menu ends here. */ 
+
+
+#FilterMenuActivator{
+    cursor: url("/Media/Layout/search.png"), default !important; /* Overwrites the 
+    ObjectMenu button styling */ 
+}
+
 
 /* Styling for the Object Menu Buttons Halts Here */ 
 
@@ -1051,8 +1064,21 @@ Halts Here */
 
 .gateObjectHighlight{
     border: 5px dotted red;; 
-    background-color: blue; 
+    background-color: rgba(62, 62, 196, 0.65); 
+    cursor: url("/Media/Layout/handInvert.png"), move !important;
 }
+
+.IOHighlight{
+    cursor: url("/Media/Layout/handInvert.png"), move !important;
+}
+
+
+.IOStyle{ 
+    cursor: copy;   
+
+    cursor: url("/Media/Layout/cursor.png"), default; 
+
+}  
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 /*  *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 

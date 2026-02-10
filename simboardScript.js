@@ -53,8 +53,8 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
 // ** GLOBAL VARIABLE DEFINITIONS **
 
-xLen = 48340;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
-yLen = 48340;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
+xLen = document.getElementById("GridCanvas").offsetHeight;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
+yLen = document.getElementById("GridCanvas").offsetWidth;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -77,6 +77,9 @@ console.log(dumpVar)    // This instruction outputs the debug variable for testi
 var gridwidth = xLen;  // Total width that the grid x-axis will stretch to 
 var gridheight = yLen; // Total height that the grid y-axis will stretch to 
 var padding = 0;    // How far the grid/workspace goes into the div 
+
+var gridcellsCreatedOnY = 0;
+var gridcellsCreatedOnX = 0;
 
 var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
                                                             // in the HTML div "Workspace" -> "GridContainer" 
@@ -105,6 +108,7 @@ function drawGrid(){   //This function repeatedly draws a cell until there is a 
                                                                   // We can change the resolution by 
                                                                   // modifying the float value. 
 
+    gridcellsCreatedOnX = gridcellsCreatedOnX + 1; 
   }
 
   //Y AXIS GRID CELL LOOP : 
@@ -124,7 +128,12 @@ function drawGrid(){   //This function repeatedly draws a cell until there is a 
                                                                   // Set it to 0 if no skew/tilt is necessary. 
                                                                   // We can change the resolution by 
                                                                   // modifying the float value. 
+
+    gridcellsCreatedOnY = gridcellsCreatedOnY + 1; 
   }
+
+console.log(gridcellsCreatedOnY, gridcellsCreatedOnX, "griddcells created with Y | X");
+
 
 //GLOBAL MODIFIER DEFINITIONS : 
 gridcell.lineWidth = 0.1;   // This instruction manually tells the drawGrid fucntion how thick each 
@@ -151,15 +160,35 @@ drawGrid(); // This instruction initialises the drawGrid to repeatedly draw indi
 // ** SCRIPT 002 ** Initialises the X and Y axis inside of the canvas in implemented JavaScript
 
 //GLOBAL MODIFIER DEFINITIONS : 
-xAxisLength = xLen;   // States that the X Axis line should stretch to a defined limit
+axisWidth = xLen;   // States that the X Axis line should stretch to a defined limit
                       // defined in the Global Variables section. (This prevents magic
                       // numbers!)
 
-yAxisLength = yLen;   // States that the Y Axis line should stretch to a defined limit 
+axisHeight = yLen;   // States that the Y Axis line should stretch to a defined limit 
                       // defined in the Global Variables sections. (This prevents magic
                       // numbers!)
         
 function drawAxis(){  // This function produces the axis lines for the Workspace UI. 
+  var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
+                                                            // in the HTML div "Workspace" -> "GridContainer" 
+                                                            // -> "Grid Canvas"
+  var axisLine = canvas.getContext("2d"); // Defines the axis as a 2 dimensional line. 
+
+  axisLine.beginPath(); // 
+
+  axisLine.moveTo(axisWidth/2,-axisHeight); // 
+
+  //console.log(axisWidth/2)
+  //console.log(-axisHeight)
+
+  axisLine.lineTo(axisWidth/2,axisHeight); // 
+
+  axisLine.strokeStyle = "green"; 
+
+  axisLine.lineWidth = 10; 
+
+  axisLine.stroke(); 
+
 
 }; // The function that produces the correct Axis measurements ends here. 
 
@@ -199,7 +228,7 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
   console.log(event.key); // This is a debugging instruction to notify of the button press that
                           // has been detected by the system. 
   
-  if (event.key == "Delete" && currentItem != null) { // This is a conditional statement that directs
+  if (event.key == "Delete" || "Backspace" && currentItem != null) { // This is a conditional statement that directs
                                                         // execution flow into it if it's conditions are 
                                                         // met. 
                                                           // In this case, if the key pressed is the
@@ -311,7 +340,7 @@ function cloneObject(gateType){ // This is the function that is utilised when th
     var headEl = clone.children[0]; // We get a reference to the DIV of the master object clone so that we
                                     // can customise it later. 
                                     
-    var gateImage = clone.children[0].children[0]; // We get a reference to the master object clones' DIV's 
+    var gateImage = clone.children[0].children[1]; // We get a reference to the master object clones' DIV's 
                                                   // image UI. This can be done because the only child inside 
                                                   // of the master object clone is an image tag (See HTML 
                                                   // mydivheader for further explaination). 
@@ -341,9 +370,78 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well.  
 
+    inputRef = clone.children[0].children[0].getAttribute("id");
+    outputRef = clone.children[0].children[2].getAttribute("id");
+
+    var inputID = inputRef + itemsCreated; 
+    var outputID = outputRef + itemsCreated; 
+
+    clone.children[0].children[0].setAttribute("id",inputID);
+    clone.children[0].children[2].setAttribute("id",outputID);
+
+
+
+    const objectRef = {}; 
+
+    objectRef.argument = null; 
+    objectRef.inputs = 0; 
+    objectRef.outputs = 0;
+
+   // console.log(objectRef)
+
+    switch (gateType) {
+      case "AND":
+        objectRef.argument = "AND";
+        objectRef.inputs = 2;
+        objectRef.outputs = 1;
+        break;
+
+      case "OR":
+        objectRef.argument = "OR";
+        objectRef.inputs = 2;
+        objectRef.outputs = 1;
+        break;
+
+      case "NOT":
+        objectRef.argument = "NOT";
+        objectRef.inputs = 1;
+        objectRef.outputs = 1;
+        break;
+
+      case "XOR":
+        objectRef.argument = "XOR";
+        objectRef.inputs = 2;
+        objectRef.outputs = 1;
+        break;
+
+      case "Lightbulb":
+        objectRef.argument = "Lightbulb";
+        objectRef.inputs = 1;
+        objectRef.outputs = 0;
+        break;
+
+      case "Speaker":
+        objectRef.argument = "Speaker";
+        objectRef.inputs = 1;
+        objectRef.outputs = 0;
+        break;
+
+      case "HoldButton":
+        objectRef.argument = "HoldButton";
+        objectRef.inputs = 0;
+        objectRef.outputs = 1;
+        break;
+    }
+
+    for (let x = 0; x < objectRef.inputs; x++) {
+      console.log(x);
+    };
+    
 }; // The function for the Object Initialisation that produces a Logic Gate object into the Workspace, 
    // from the master object DIV ends here. 
   
+              //console.log(objectRef.argument)
+
 // ** SCRIPT 004 ** The function for Logic Gate Object summoning ends here. 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
@@ -359,6 +457,7 @@ function selectCurrentItem(item) {
 
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
 
+
   };
 
   if (item != currentItem && currentItem != null) { // Removes highlight from previous section 
@@ -369,6 +468,7 @@ function selectCurrentItem(item) {
 
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
 
+    console.log(currentInputItem);
   };
 
 };
@@ -456,6 +556,8 @@ function dragMouseDown(e) { // This function reads the mouse position and releva
                                               // has just been previously affected by the dragMouseDown
                                               // function). 
 
+  //console.log("Argument = ", cloneObject.objetRef.argument)
+
 };  // The function that permits the draggable property to said Logic Gate object ends here. 
 
 function elementDrag(e) { // This function visually produces the "dragging" visual aspect of UI Objects 
@@ -518,6 +620,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                                   // object. 
 
   //var MAXY = document.getElementById("GridCanvas").getAttribute("height"); // LOOK INTO - AUTO LOCK LIMIT 
+
   var sizeOfBaseY = document.getElementById("Base").offsetHeight; 
   var sizeOfBaseX = document.getElementById("Base").offsetWidth; 
 
@@ -608,6 +711,15 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
+function ioCheck(e) { // The info passed as a parameter 
+  ///window.alert(e.id); // debugging 
+  IOTYPE = document.getElementById(e.id).parentElement.parentElement.id;
+  ///window.alert(IOTYPE)
+  console.log(" Gate IO Selected! (Shown) ", IOTYPE)
+
+  //var IOTYPE = clone.children[0].children[1]; 
+}; 
+
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
 
@@ -618,6 +730,7 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 // ** SCRIPT 007 ** Allows Logic Gate Objects to be wired together 
 
+console.log(xLen, yLen, "size of workspace with X | Y")
 
 
 // ** SCRIPT 007 ** The functions for Logic Gate Objects to connect "wire" UI elements together, and produce 
@@ -644,7 +757,6 @@ function closeDragElement() { // This function will halt all mouse instructions 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** SCRIPT 010 ** Allows for Simboard Projects to be loaded from a JSON file. 
-
 
 
 // ** SCRIPT 010 ** The functions for Simboard Loading end here. 
