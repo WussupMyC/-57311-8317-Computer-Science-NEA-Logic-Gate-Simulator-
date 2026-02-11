@@ -418,13 +418,25 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                  elements initialised in SCRIPT 003 (on simboardScript.js). -->
                                         <!-- Draggable DIV -->
 
-                                <canvas id="Input" 
+                                <canvas id="InputA" 
                                 class="IOStyle"
                                 width="15" 
                                 height="15" 
                                 style="border:1px solid #000000; 
                                 position: relative; 
-                                top: -27px; 
+                                top: -20px; 
+                                z-index:2"
+                                onclick="ioCheck(this)">
+                                    
+                                </canvas>
+
+                                <canvas id="InputB" 
+                                class="IOStyle"
+                                width="15" 
+                                height="15" 
+                                style="border:1px solid #000000; 
+                                position: relative; 
+                                top: -10px; 
                                 z-index:2"
                                 onclick="ioCheck(this)">
                                     

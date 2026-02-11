@@ -56,6 +56,9 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 xLen = document.getElementById("GridCanvas").offsetHeight;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = document.getElementById("GridCanvas").offsetWidth;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
 
+gatePositionXGlobalReference = 0
+gatePositionYGlobalReference = 0
+
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** SCRIPT 000 ** Debugging function for testing purposes only. 
@@ -340,7 +343,7 @@ function cloneObject(gateType){ // This is the function that is utilised when th
     var headEl = clone.children[0]; // We get a reference to the DIV of the master object clone so that we
                                     // can customise it later. 
                                     
-    var gateImage = clone.children[0].children[1]; // We get a reference to the master object clones' DIV's 
+    var gateImage = clone.children[0].children[2]; // We get a reference to the master object clones' DIV's 
                                                   // image UI. This can be done because the only child inside 
                                                   // of the master object clone is an image tag (See HTML 
                                                   // mydivheader for further explaination). 
@@ -370,14 +373,17 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well.  
 
-    inputRef = clone.children[0].children[0].getAttribute("id");
-    outputRef = clone.children[0].children[2].getAttribute("id");
+    inputARef = clone.children[0].children[0].getAttribute("id");
+    inputBRef = clone.children[0].children[1].getAttribute("id");
+    outputRef = clone.children[0].children[3].getAttribute("id");
 
-    var inputID = inputRef + itemsCreated; 
+    var inputAID = inputARef + itemsCreated; 
+    var inputBID = inputBRef + itemsCreated; 
     var outputID = outputRef + itemsCreated; 
 
-    clone.children[0].children[0].setAttribute("id",inputID);
-    clone.children[0].children[2].setAttribute("id",outputID);
+    clone.children[0].children[0].setAttribute("id",inputAID);
+    clone.children[0].children[1].setAttribute("id",inputBID);
+    clone.children[0].children[3].setAttribute("id",outputID);
 
 
 
@@ -389,47 +395,64 @@ function cloneObject(gateType){ // This is the function that is utilised when th
 
    // console.log(objectRef)
 
+  
+
     switch (gateType) {
       case "AND":
         objectRef.argument = "AND";
         objectRef.inputs = 2;
         objectRef.outputs = 1;
+        document.getElementById(inputAID).style.display = "inline";
+        //console.log(document.getElementById(inputAID));
+        document.getElementById(inputBID).style.display = "inline";
+        document.getElementById(outputID).style.display = "inline";
         break;
 
       case "OR":
         objectRef.argument = "OR";
         objectRef.inputs = 2;
         objectRef.outputs = 1;
+        document.getElementById(inputAID).style.display = "inline";
+        document.getElementById(inputBID).style.display = "inline";
+        document.getElementById(outputID).style.display = "inline";
         break;
 
       case "NOT":
         objectRef.argument = "NOT";
         objectRef.inputs = 1;
         objectRef.outputs = 1;
+        document.getElementById(inputAID).style.display = "inline";
+        document.getElementById(outputID).style.display = "inline";
         break;
 
       case "XOR":
         objectRef.argument = "XOR";
         objectRef.inputs = 2;
         objectRef.outputs = 1;
+        document.getElementById(inputAID).style.display = "inline";
+        document.getElementById(inputBID).style.display = "inline";
+        document.getElementById(outputID).style.display = "inline";
         break;
 
       case "Lightbulb":
         objectRef.argument = "Lightbulb";
         objectRef.inputs = 1;
         objectRef.outputs = 0;
+        document.getElementById(inputAID).style.display = "inline";
         break;
 
       case "Speaker":
         objectRef.argument = "Speaker";
         objectRef.inputs = 1;
         objectRef.outputs = 0;
+        document.getElementById(inputAID).style.display = "inline";
         break;
 
       case "HoldButton":
         objectRef.argument = "HoldButton";
         objectRef.inputs = 0;
         objectRef.outputs = 1;
+        document.getElementById(outputID).style.display = "inline";
         break;
     }
 
@@ -653,8 +676,11 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                           // dragged outside of the Workspace, said instruction will 
                                                           // force the Logic Gate UI Object to reposition itself 
                                                           // back into the Workspace. 
+
+      gatePositionYGlobalReference = elmnt.style.top
     } else { 
       elmnt.style.top = pos4; 
+      gatePositionYGlobalReference = pos4
     }
 
   }; // The conditional branch for UI positional checking on the Y Axis ends here. If the Logic Gate UI Object 
@@ -674,8 +700,10 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                             // dragged outside of the Workspace, said instruction will 
                                                             // force the Logic Gate UI object to reposition itself 
                                                             // back into the Workspace. 
+      gatePositionXGlobalReference = elmnt.style.left
     } else { 
       elmnt.style.left = pos3; 
+      gatePositionYGlobalReference = pos3
     }
 
   }; // The conditional branch for UI positional checking on the X Axis ends here. If the Logic Gate UI Object 
@@ -713,12 +741,55 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 function ioCheck(e) { // The info passed as a parameter 
   ///window.alert(e.id); // debugging 
-  IOTYPE = document.getElementById(e.id).parentElement.parentElement.id;
-  ///window.alert(IOTYPE)
+  IOTYPE = document.getElementById(e.id).id;
+  //window.alert(IOTYPE)
   console.log(" Gate IO Selected! (Shown) ", IOTYPE)
+
+  GatePositionX = gatePositionXGlobalReference; 
+  GatePositionY = gatePositionYGlobalReference; 
+
+  IOPositionX = e.offsetTop; 
+  IOPositionY = e.offsetLeft;
+
+  letterCheckRef = IOTYPE[0];
+
+  if (letterCheckRef == "O") {
+    OverallXPos = parseInt(GatePositionX) + IOPositionX
+    OverallYPos = parseInt(GatePositionY) + IOPositionY 
+  } else if (letterCheckRef == "I") {
+    OverallXPos = parseInt(GatePositionX) - IOPositionX
+    OverallYPos = parseInt(GatePositionY) - IOPositionY 
+    console.log("READ // Gate IO is Input")
+  } else {
+    console.log("CRITICAL ERROR READ // Gate IO Type Not Understood!")
+  }
+
+  console.log("Gate is at Screen Position X Axis: ", GatePositionX);
+  console.log("Gate is at Screen Position Y Axis: ", GatePositionY);
+
+  console.log("Selected IO Box is at Gate X Axis relative position: ", IOPositionX)
+  console.log("Selected IO Box is at Gate Y Axis relative position: ", IOPositionY)
+
+  console.log("IO is at overall position on the Y Axis: ", OverallXPos)
+  console.log("IO is at overall position on the Y Axis: ", OverallYPos)
+
+  
+
+  //console.log(generalX);
+  //console.log(generalY);
 
   //var IOTYPE = clone.children[0].children[1]; 
 }; 
+
+
+function drawConneciton(POS1X, POS1Y, POS2X, POS2Y) {
+  
+
+
+
+}
+
+
 
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
