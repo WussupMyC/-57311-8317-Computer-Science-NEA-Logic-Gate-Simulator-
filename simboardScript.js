@@ -56,8 +56,40 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 xLen = document.getElementById("GridCanvas").offsetHeight;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = document.getElementById("GridCanvas").offsetWidth;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
 
-gatePositionXGlobalReference = 0
-gatePositionYGlobalReference = 0
+
+hasFirstIOBeenSelected = false; 
+hasSecondIOBeenSelected = false; 
+
+
+INPUTPOINTER = null; 
+OUTPUTPOINTER = null; 
+
+
+PREVIOUSIOSTACK = ["nullpointer"]; //Holds ID's 
+IOPOSITIONSTACK = []; //Holds the ID's HTML references so I can get their position etc 
+
+
+DRAWBOXSTACK = [];
+
+
+var IOPARSE = []; // Initialise gate object global reference 
+IOPARSE.INPUTPOSITIONX = 0; 
+IOPARSE.INPUTPOSITIONY = 0;
+IOPARSE.OUTPUTPOSITIONX = 0; 
+IOPARSE.OUTPUTPOSITIONY = 0;
+
+IOPARSE.INPUT = null;
+IOPARSE.OUTPUT = null;  
+
+//
+gatePositionXGlobalReference = 0;
+gatePositionYGlobalReference = 0;
+
+
+selectedGatesStack = [];
+totalSelectedGates = 0; 
+
+CONNECTIONSTACK = [];
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -66,10 +98,10 @@ function dumpFunc(){    // This is a temporary function for testing purposes
                         //      DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT 
             
 }
-const dumpVar = ".PlaceholderValue." + "dumpVar" // This is a temporary debugging variable for testing purposes
+const dumpVar = ".PlaceholderValue." + "dumpVar"; // This is a temporary debugging variable for testing purposes
                                                          //       DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT  
                                                             
-console.log(dumpVar)    // This instruction outputs the debug variable for testing purposes. 
+console.log(dumpVar);    // This instruction outputs the debug variable for testing purposes. 
 
 // ** SCRIPT 000 *** Debugging function ends here. 
 
@@ -231,9 +263,9 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
   console.log(event.key); // This is a debugging instruction to notify of the button press that
                           // has been detected by the system. 
   
-  if (event.key == "Delete" || "Backspace" && currentItem != null) { // This is a conditional statement that directs
-                                                        // execution flow into it if it's conditions are 
-                                                        // met. 
+  if (currentItem != null &&(event.key == "Delete" || event.key == "Backspace")) { // This is a conditional 
+                                                        // statement that directs execution flow into it if 
+                                                        // it's conditions are met. 
                                                           // In this case, if the key pressed is the
                                                           // Delete key, and the currentItem variable 
                                                           // is anything else but None, it will execute 
@@ -251,6 +283,9 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
                         // to prevent Accessed None errors 
                           // We don't want the program trying to delete something that has already been
                           // wiped from memory! 
+
+    totalSelectedGates--;
+    selectedGatesStack.pop(currentItem); 
 
   }   // The conditional statement ends here, if the condition wasn't met, execution flow skips to this
       // point and executes the following code. 
@@ -335,7 +370,7 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                                           // ID initalised earlier so that a concise, easy to reference name can
                                           // be used to contact a specific object present on the Workspace. 
 
-    clone.setAttribute("id", divname) // We assign the ID of the Logic Gate being constructed to be that of
+    clone.setAttribute("id", divname); // We assign the ID of the Logic Gate being constructed to be that of
                                       // the custom ID produced.
                                         // WARNING: Do not do id, divname + divname, because then we cannot 
                                         // properly reference it later on in the program. 
@@ -478,6 +513,9 @@ function selectCurrentItem(item) {
 
     currentItem = item; 
 
+    selectedGatesStack.push(currentItem);
+    totalSelectedGates++;
+
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
 
 
@@ -489,9 +527,12 @@ function selectCurrentItem(item) {
 
     currentItem = item; 
 
+    selectedGatesStack.push(currentItem);
+    totalSelectedGates++;
+
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
 
-    console.log(currentInputItem);
+    //console.log(currentInputItem);
   };
 
 };
@@ -650,8 +691,8 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
   var sizeOfWorkspaceY = document.getElementById("Workspace").offsetHeight; 
   var sizeOfWorkspaceX = document.getElementById("Workspace").offsetWidth; 
 
-  var minY = sizeOfBaseY - sizeOfWorkspaceY
-  var minX = sizeOfBaseX - sizeOfWorkspaceX 
+  var minY = sizeOfBaseY - sizeOfWorkspaceY;
+  var minX = sizeOfBaseX - sizeOfWorkspaceX; 
 
   ///var minY = 200; 
   ///var minX = 200; 
@@ -677,11 +718,11 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                           // force the Logic Gate UI Object to reposition itself 
                                                           // back into the Workspace. 
 
-      gatePositionYGlobalReference = elmnt.style.top
+      gatePositionYGlobalReference = elmnt.style.top;
     } else { 
       elmnt.style.top = pos4; 
-      gatePositionYGlobalReference = pos4
-    }
+      gatePositionYGlobalReference = pos4;
+    };
 
   }; // The conditional branch for UI positional checking on the Y Axis ends here. If the Logic Gate UI Object 
     // does not meet the above properties (aka. is inside of the Workspace), execution flow will skip to this 
@@ -700,11 +741,11 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                             // dragged outside of the Workspace, said instruction will 
                                                             // force the Logic Gate UI object to reposition itself 
                                                             // back into the Workspace. 
-      gatePositionXGlobalReference = elmnt.style.left
+      gatePositionXGlobalReference = elmnt.style.left;
     } else { 
       elmnt.style.left = pos3; 
-      gatePositionYGlobalReference = pos3
-    }
+      gatePositionYGlobalReference = pos3;
+    };
 
   }; // The conditional branch for UI positional checking on the X Axis ends here. If the Logic Gate UI Object 
     // does not meet the above properties (aka. is inside of the Workspace), execution flow will skip to this 
@@ -739,58 +780,258 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
+/* TODO
+
+I NEED TO CREATE IO VALIDATION IN THE IOCHECK 
+  e.g.  CREATE VARIABLES FOR FIRST AND SECOND SELECTED IO, AND IF FIRST IO == INP AND SECOND IO == INP THEN IT DOES NOT CALL THE INITCONNECT FUNCTION 
+  -->   
+
+*/ 
+
+
+
 function ioCheck(e) { // The info passed as a parameter 
+
   ///window.alert(e.id); // debugging 
-  IOTYPE = document.getElementById(e.id).id;
+
+  IO = document.getElementById(e.id).id;
+
+  IOREFERENCE = document.getElementById(e.id); /* Holds gate metadata */ 
+
+  PREVIOUSIO = PREVIOUSIOSTACK[PREVIOUSIOSTACK.length - 1] /* We do this in this statement so it's simpler to gain the previous IO's 
+  unique ID later on in the branching 
+  */
+
+
+  console.log(IO.parent)
+
+  //console.log("PREVIOUSIOTYPE == ", PREVIOUSIOTYPE)
+  //console.log("IO == ", IO)
+  //console.log("IOTYPE == ", IOTYPE)
+
+  //DRAWBOXA = null; 
+  //DRAWBOXB = null; 
+
+  //console.log(IOTYPE);
+
+
   //window.alert(IOTYPE)
-  console.log(" Gate IO Selected! (Shown) ", IOTYPE)
+
+  //console.log(" Gate IO Selected! (Shown) ", IOTYPE)
 
   GatePositionX = gatePositionXGlobalReference; 
+
   GatePositionY = gatePositionYGlobalReference; 
 
+
   IOPositionX = e.offsetTop; 
+  
   IOPositionY = e.offsetLeft;
 
-  letterCheckRef = IOTYPE[0];
 
-  if (letterCheckRef == "O") {
-    OverallXPos = parseInt(GatePositionX) + IOPositionX
-    OverallYPos = parseInt(GatePositionY) + IOPositionY 
-  } else if (letterCheckRef == "I") {
-    OverallXPos = parseInt(GatePositionX) - IOPositionX
-    OverallYPos = parseInt(GatePositionY) - IOPositionY 
-    console.log("READ // Gate IO is Input")
+  letterCheckRef = IO[0];
+
+  if (IO != PREVIOUSIO) {
+
+    PREVIOUSIOSTACK.push(IO);
+    IOPOSITIONSTACK.push(IOREFERENCE);
+
+    if (letterCheckRef == "O" && letterCheckRef != PREVIOUSIO[0]) {
+
+      OverallXPos = parseInt(GatePositionX) + IOPositionX;
+
+      OverallYPos = parseInt(GatePositionY) + IOPositionY; 
+
+      IOPARSE.OUTPUTPOSITIONX = OverallXPos;
+      IOPARSE.OUTPUTPOSITIONY = OverallYPos;
+
+
+      if (hasFirstIOBeenSelected == false && hasSecondIOBeenSelected == false){
+
+        hasFirstIOBeenSelected = true; 
+
+        DRAWBOXSTACK.push(IO);
+
+      } else if (hasFirstIOBeenSelected == true && hasSecondIOBeenSelected == false) {
+
+        hasSecondIOBeenSelected = true; 
+
+        DRAWBOXSTACK.push(IO);
+
+        // go into else 
+
+        hasFirstIOBeenSelected = false;
+
+        hasSecondIOBeenSelected = false;
+
+        //OUTPUTPOINTER = IO; 
+
+        console.log("ConnectionDraw Breakpoint decision hit.");
+
+        initConnect(IOPARSE);  
+
+        DRAWBOXSTACK = [];
+
+        for (let i in IOPARSE) {  // Clears all of the global reference so that the object can be reused 
+          IOPARSE[i] = 0;
+        }
+
+      } else {
+
+        console.log("ioCheck Function Return: Please wait.")
+
+      }
+
+
+      //console.log("READ // Gate IO is Output")
+    } else if (letterCheckRef == "I" && letterCheckRef != PREVIOUSIO[0]) {
+
+      OverallXPos = parseInt(GatePositionX) - IOPositionX;
+
+      OverallYPos = parseInt(GatePositionY) - IOPositionY; 
+
+      IOPARSE.INPUTPOSITIONX = OverallXPos;
+      IOPARSE.INPUTPOSITIONY = OverallYPos;
+
+
+      if (hasFirstIOBeenSelected == false && hasSecondIOBeenSelected == false){
+
+        hasFirstIOBeenSelected = true; 
+
+        DRAWBOXSTACK.push(IO);
+
+      } else if (hasFirstIOBeenSelected == true && hasSecondIOBeenSelected == false) {
+
+        hasSecondIOBeenSelected = true; 
+
+        DRAWBOXSTACK.push(IO);
+
+        // go into else 
+
+        hasFirstIOBeenSelected = false;
+
+        hasSecondIOBeenSelected = false;
+
+        console.log("ConnectionDraw Breakpoint decision hit.")
+
+        //INPUTPOINTER = IO; 
+
+        initConnect(IOPARSE);  
+
+        DRAWBOXSTACK = [];
+
+        for (let i in IOPARSE) {  // Clears all of the global reference so that the object can be reused 
+          IOPARSE[i] = 0;
+        }
+
+      } else {
+
+        console.log("ioCheck Function Return: Please wait.")
+
+      }
+
+      //console.log("READ // Gate IO is Input")
+    } else {
+
+      console.log("CRITICAL ERROR READ // Gate IO Type Not Understood!");
+
+    };
   } else {
-    console.log("CRITICAL ERROR READ // Gate IO Type Not Understood!")
-  }
+    console.log("Same IO is selected")
+  };
 
-  console.log("Gate is at Screen Position X Axis: ", GatePositionX);
-  console.log("Gate is at Screen Position Y Axis: ", GatePositionY);
+  //console.log("Gate is at Screen Position X Axis: ", GatePositionX);
+  //console.log("Gate is at Screen Position Y Axis: ", GatePositionY);
 
-  console.log("Selected IO Box is at Gate X Axis relative position: ", IOPositionX)
-  console.log("Selected IO Box is at Gate Y Axis relative position: ", IOPositionY)
+  //console.log("Selected IO Box is at Gate X Axis relative position: ", IOPositionX)
+  //console.log("Selected IO Box is at Gate Y Axis relative position: ", IOPositionY)
 
-  console.log("IO is at overall position on the Y Axis: ", OverallXPos)
-  console.log("IO is at overall position on the Y Axis: ", OverallYPos)
+  //console.log("IO is at overall position on the Y Axis: ", OverallXPos)
 
-  
+  //console.log("IO is at overall position on the X Axis: ", OverallYPos)
+
+
+  console.log("prev io type == ", PREVIOUSIO[0]) 
+
+
+  console.log("hasFirstIOBeenSelected == ", hasFirstIOBeenSelected);
+  console.log("hasSecondIOBeenSelected == ", hasSecondIOBeenSelected);
+  console.log("Draw Stack == ", DRAWBOXSTACK);
+
+
+
+  console.log(IOREFERENCE)
+
+  console.log(IOPARSE)
+
+  //console.log(DRAWBOXSTACK.length);
+
+  //console.log(INPUTPOINTER);
+  //console.log(OUTPUTPOINTER);
+
 
   //console.log(generalX);
   //console.log(generalY);
 
   //var IOTYPE = clone.children[0].children[1]; 
-}; 
+
+  //if (previouslySelectedGate == null) {
+
+  //  previouslySelectedIO = IOTYPE;
+
+  //} else {
+
+  //  console.log("Same IO selected!");
+
+  //};
+  //console.log(selectedGatesStack);
+  //console.log(totalSelectedGates);
+};
 
 
-function drawConneciton(POS1X, POS1Y, POS2X, POS2Y) {
-  
+function initConnect(PARSED_PRD){  // PRD = POSIIION REFERENCE DATA 
+  //console.log("IT'S CONNECTED!!!!!!!")
+
+
+  DRAWINPUTLOCATIONX = PARSED_PRD.INPUTPOSITIONX
+  DRAWINPUTLOCATIONY = PARSED_PRD.INPUTPOSITIONY
+  DRAWOUTPUTLOCATIONX = PARSED_PRD.OUTPUTPOSITIONX 
+  DRAWOUTPUTLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY 
+
+  console.log(DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY, DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY)
+
+  console.log("IT'S DRAWING")
+
+  /// TODO -- Console log the draw data variables to see what they are... 
+
+  const ConnectionLine = document.getElementById("Wire");
+  ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONY);
+  ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONX);
+  ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONY);
+  ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONX);
+
+  // var base = document.getElementById("GridCanvas");
+  // var JavaPen = base.getContext("2d");
+
+  // JavaPen.beginPath();  
+  // JavaPen.moveTo(DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY);
+  // JavaPen.lineTo(DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY);
+  // JavaPen.lineWidth = 0.35;
+  // JavaPen.strokeStyle = "#000000";  
+  // JavaPen.stroke(); 
+  //function initialiseLine
 
 
 
+
+  //CONNECTIONSTACK = [] 
+
+//}
+
+//setTimeout(function(){
+
+//})
 }
-
-
-
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
 
@@ -855,4 +1096,4 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 // Made by Christopher Cupid
 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
-// *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
+// *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_
