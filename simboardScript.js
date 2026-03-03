@@ -1,3 +1,11 @@
+/* TODO 
+To do: 
+	-	Push connections to a stack in a JSON format 
+	-	Finish the customise button 
+	-	Initialise a function to iterate through each JSON connection called "simulateCircuit()"
+	-	Tidy up code and comment it through 
+*/
+
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 
@@ -52,44 +60,73 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** GLOBAL VARIABLE DEFINITIONS **
+// Should be attributes of this layout saver 
+cssConcatonates = [
+  GridCanvasColour = document.getElementById('GridCanvas'), 
+  ObjectMenuColour = document.getElementById('ObjectMenu'), 
+  FileMenuColour = document.getElementById('FileMenu'), 
+  ObjectMenuButtonColour = document.getElementById('ObjectMenu').children,
+  FileMenuButtonColour = document.getElementById('FileMenu').children,
+  GridLineColour = "#000000",
+  AxisXColour = "#CD5C5C",
+  AxisYColour = "#000982",
+];
+
+HEXValidator = null; 
 
 xLen = document.getElementById("GridCanvas").offsetHeight;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = document.getElementById("GridCanvas").offsetWidth;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
 
 
-hasFirstIOBeenSelected = false; 
-hasSecondIOBeenSelected = false; 
+hasFirstIOBeenSelected = false; // This is a global variable that determines whether the first Input or Output has been Selected 
+hasSecondIOBeenSelected = false; // This is a global variable that determines whether the second Input or Output has been Selected
 
 
-INPUTPOINTER = null; 
-OUTPUTPOINTER = null; 
+PREVIOUSIOSTACK = ["nullpointer"]; // Holds the custom ID's of each Input or Output box on a gate that has been selected (clicked) on. 
+IOPOSITIONSTACK = []; //Holds the actual HTML references of each Input or Output box on all gates that have been selected. 
 
 
-PREVIOUSIOSTACK = ["nullpointer"]; //Holds ID's 
-IOPOSITIONSTACK = []; //Holds the ID's HTML references so I can get their position etc 
+DRAWBOXSTACK = [];  // This holds the HTML references of the pair of gates that are to be connected together via a wire. 
+
+var IOPARSE = []; // This is an object that holds integral information about the Input or Output box so that it can be parsed 
+                  // to any function that calls it. 
+
+IOPARSE.INPUTPOSITIONX = 0; // This attribute of the IO (Input/Output) object holds the X Axis position that the Input Box of the 
+                            // connected pair of gates will be positoned on. 
+
+IOPARSE.INPUTPOSITIONY = 0; // This attribute of the IO (Input/Output) object holds the Y Axis position that the Input Box of the 
+                            // connected pair of gates will be positoned on. 
+
+IOPARSE.OUTPUTPOSITIONX = 0; // This attribute of the IO (Input/Output) object holds the X Axis position that the Output Box of the 
+                             // connected pair of gates will be positoned on. 
+
+IOPARSE.OUTPUTPOSITIONY = 0; // This attribute of the IO (Input/Output) object holds the Y Axis position that the Output Box of the 
+                             // connected pair of gates will be positoned on. 
+
+IOPARSE.INPUT = null; // This attribute holds the Input Box's actual HTML reference so that this system can know what objects are 
+                      // paired together. 
+
+IOPARSE.OUTPUT = null;  // This attribute holds the Output Box's actual HTML reference so that this system can know what objects are 
+                        // paired together.   
 
 
-DRAWBOXSTACK = [];
+gatePositionXGlobalReference = 0; // This is a global variable that holds the X Axis position that the selected gate lies on in the 
+                                  // workspace. 
+gatePositionYGlobalReference = 0; // This is a global variable that holds the Y Axis position that the selected gate lies on in the 
+                                  // workspace. 
 
 
-var IOPARSE = []; // Initialise gate object global reference 
-IOPARSE.INPUTPOSITIONX = 0; 
-IOPARSE.INPUTPOSITIONY = 0;
-IOPARSE.OUTPUTPOSITIONX = 0; 
-IOPARSE.OUTPUTPOSITIONY = 0;
-
-IOPARSE.INPUT = null;
-IOPARSE.OUTPUT = null;  
-
-//
-gatePositionXGlobalReference = 0;
-gatePositionYGlobalReference = 0;
+selectedGatesStack = [];  // Every time an object in the Workspace is selected, its HTML reference is pushed to this stack so that 
+                          // interactivity can be validated and worked upon. 
+totalSelectedGates = 0; // This holds the number total of the amount of selections on gates that have been registered. 
 
 
-selectedGatesStack = [];
-totalSelectedGates = 0; 
+presentObjects = +0; // This holds the number of objects that are present in the Workspace (ones that have been spawned in, but 
+                     // not deleted).
 
-CONNECTIONSTACK = [];
+jsonSaveWorkspace = [];  // This holds all data for the logic gates present on the workspace plus connections. 
+
+// TODO -- WORKSPACE GRID ZOOMS IN OR OUT WITH L OR K, AND REDRAWS THE GRID, AXIS AND SCALES THE OBJECTS UP OR DOWN 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -106,14 +143,129 @@ console.log(dumpVar);    // This instruction outputs the debug variable for test
 // ** SCRIPT 000 *** Debugging function ends here. 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// TODO -- Make it so the user can enter hex values via an input popup when clicked on tbe customisation button, then change the back 
+// ground. Skip the prompt to the next if the user enters "x", revert to the default colour of the user enters "d".
+
+// Make this a for loop, where the prompts are stored in a stack, and it iterates through each customisation - this makes it more 
+// effective and efficient for you and for the end user...!
+
+var link = document.getElementById("customise");
+
+link.setAttribute('href', "#");
+
+link.onclick= function() {
+
+  prompts = [
+    "* Change the colour of the Workspace Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "* Change the colour of the Object Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "* Change the colour of the File Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "^ Change the colour of the Object Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "^ Change the colour of the File Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "' Change the colour of the Grid Lines\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "' Change the colour of the X-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "' Change the colour of the Y-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value."
+  ];
+
+
+  for (let i = 0; i < prompts.length; i++) {
+
+    let GridCanvasPrompt = prompt(prompts[i]);
+
+    HEXValidator = GridCanvasPrompt[0];
+    //console.log(HEXValidator)
+
+    nextProperty = cssConcatonates[i]
+
+    console.log(nextProperty)
+
+    if (HEXValidator == '#') {
+
+
+      if (prompts[i][0] == "*") {
+
+        nextProperty.style.backgroundColor = GridCanvasPrompt;
+
+        alert("Hello, " + GridCanvasPrompt + "!");
+
+
+
+      } else if (prompts[i][0] == "^") {
+
+        for (let e = 0; e < nextProperty.length; e++) {
+
+          ///console.log(nextProperty[e])
+
+          if (nextProperty != "b") {
+
+            nextProperty[e].style.backgroundColor = GridCanvasPrompt;
+
+          } else {
+
+            console.log("Skipped styling of entity in division.")
+          }
+
+        }
+
+
+
+      } else if (prompts[i][0] == "'") {
+
+        drawGrid(GridCanvasPrompt);
+
+      } else {
+
+        console.log("Customisation error has occurred!")
+      }
+
+
+    } else if (HEXValidator == 'd') {
+
+      GridCanvasColour.style.removeProperty('background-color');
+
+    }
+  }
+
+  console.log(cssConcatonates)
+
+};
+
+
+
+
+
+
+
+// TODO -- This can then be saved via a built-in default json file to store this hex data into. 
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// TODO -- JSON SAVE
+const myData = { name: "John", age: 30 }; // Your JSON object
+
+function downloadJSON(data, filename = 'data.json') {
+    const jsonString = JSON.stringify(data, null, 2); // 2 spaces for readability
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+    
+    URL.revokeObjectURL(url); // Clean up memory
+}
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
 
 // ** SCRIPT 001 ** Initialises the grid inside of the canvas in implemented JavaScript
+
+// !!TO DO!! , make this an svg type draw !!
 
 var gridwidth = xLen;  // Total width that the grid x-axis will stretch to 
 var gridheight = yLen; // Total height that the grid y-axis will stretch to 
 var padding = 0;    // How far the grid/workspace goes into the div 
 
-var gridcellsCreatedOnY = 0;
+var gridcellsCreatedOnY = 0; // This is a debugging value that holds the number of iterations 
 var gridcellsCreatedOnX = 0;
 
 var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
@@ -122,7 +274,7 @@ var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID tha
 
 var gridcell = canvas.getContext("2d"); //Defines a two-dimensional cell for the grid 
 
-function drawGrid(){   //This function repeatedly draws a cell until there is a full row of cells to fill 
+function drawGrid(gridColour){   //This function repeatedly draws a cell until there is a full row of cells to fill 
                        // gridwidth and grid height. 
 
   //X AXIS GRID CELL LOOP : 
@@ -175,7 +327,7 @@ gridcell.lineWidth = 0.1;   // This instruction manually tells the drawGrid fucn
                             // line should be after every cell has been initialised. In this case, we 
                             // set the thickness of each border to be 0.1 pixels. 
 
-gridcell.strokeStyle = "#000000";   // This instruction manually tells the drawGrid function what colour
+gridcell.strokeStyle = gridColour;   // This instruction manually tells the drawGrid function what colour
                                       // the drawn borders should appear as. In this case, we set the default 
                                       // border colour to black (#000000).
 
@@ -184,7 +336,7 @@ gridcell.stroke();  // This instruction initialises the variables above to draw 
 
 } // The function that calculates the necessary grid output ends here. 
 
-drawGrid(); // This instruction initialises the drawGrid to repeatedly draw individual cells until 
+drawGrid(GridLineColour); // This instruction initialises the drawGrid to repeatedly draw individual cells until 
             // the entirety of the grids' height and width is filled, with the calculated function
             // output. 
 
@@ -218,7 +370,7 @@ function drawAxis(){  // This function produces the axis lines for the Workspace
 
   axisLine.lineTo(axisWidth/2,axisHeight); // 
 
-  axisLine.strokeStyle = "green"; 
+  axisLine.strokeStyle = AxisXColour; 
 
   axisLine.lineWidth = 10; 
 
@@ -535,6 +687,8 @@ function selectCurrentItem(item) {
     //console.log(currentInputItem);
   };
 
+  console.log(selectedGatesStack)
+
 };
 
 
@@ -678,7 +832,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
   pos4 = e.clientY;         // Updates the new positions of the Logic Gate UI Object (in pos1, pos2, pos3, pos4
                             // etc...) vertically (on the Y Axis). 
 
-  console.log((elmnt.offsetLeft - pos1), maxY, (elmnt.offsetLeft - pos1), maxX);  // A debugging instruction that
+  console.log((/*elmnt.offsetLeft -*/ pos4), maxY, (/*elmnt.offsetLeft -*/ pos3), maxX);  // A debugging instruction that
                                                                                   // outputs the position of the 
                                                                                   // recently moved Logic Gate UI
                                                                                   // object. 
@@ -718,10 +872,16 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                           // force the Logic Gate UI Object to reposition itself 
                                                           // back into the Workspace. 
 
-      gatePositionYGlobalReference = elmnt.style.top;
+      gatePositionYGlobalReference = elmnt.style.top; // We update the global variable that stores the integer value 
+                                                      // of where the logic gate object is stored on the Y Axis on 
+                                                      // the Workspace. 
+
     } else { 
+
       elmnt.style.top = pos4; 
+
       gatePositionYGlobalReference = pos4;
+
     };
 
   }; // The conditional branch for UI positional checking on the Y Axis ends here. If the Logic Gate UI Object 
@@ -741,10 +901,17 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                             // dragged outside of the Workspace, said instruction will 
                                                             // force the Logic Gate UI object to reposition itself 
                                                             // back into the Workspace. 
-      gatePositionXGlobalReference = elmnt.style.left;
+
+      gatePositionXGlobalReference = elmnt.style.left;  // We update the global variable that stores the integer value 
+                                                        // of where the logic gate object is stored on the Y Axis on 
+                                                        // the Workspace. 
+
     } else { 
+
       elmnt.style.left = pos3; 
+
       gatePositionYGlobalReference = pos3;
+
     };
 
   }; // The conditional branch for UI positional checking on the X Axis ends here. If the Logic Gate UI Object 
@@ -780,14 +947,8 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-/* TODO
 
-I NEED TO CREATE IO VALIDATION IN THE IOCHECK 
-  e.g.  CREATE VARIABLES FOR FIRST AND SECOND SELECTED IO, AND IF FIRST IO == INP AND SECOND IO == INP THEN IT DOES NOT CALL THE INITCONNECT FUNCTION 
-  -->   
-
-*/ 
-
+// Checks if the IO connection attempt is valid 
 
 
 function ioCheck(e) { // The info passed as a parameter 
@@ -798,12 +959,14 @@ function ioCheck(e) { // The info passed as a parameter
 
   IOREFERENCE = document.getElementById(e.id); /* Holds gate metadata */ 
 
+  IOPARENT = IOREFERENCE.parent
+
   PREVIOUSIO = PREVIOUSIOSTACK[PREVIOUSIOSTACK.length - 1] /* We do this in this statement so it's simpler to gain the previous IO's 
   unique ID later on in the branching 
   */
 
 
-  console.log(IO.parent)
+  console.log(IOREFERENCE.parent)
 
   //console.log("PREVIOUSIOTYPE == ", PREVIOUSIOTYPE)
   //console.log("IO == ", IO)
@@ -824,10 +987,13 @@ function ioCheck(e) { // The info passed as a parameter
   GatePositionY = gatePositionYGlobalReference; 
 
 
+
+
   IOPositionX = e.offsetTop; 
   
   IOPositionY = e.offsetLeft;
 
+  //console.log(IOPositionX, IOPositionY);
 
   letterCheckRef = IO[0];
 
@@ -842,6 +1008,10 @@ function ioCheck(e) { // The info passed as a parameter
 
       OverallYPos = parseInt(GatePositionY) + IOPositionY; 
 
+      console.log(OverallXPos, OverallYPos)
+
+      IOPARSE.PARENTOUTPUT = IOPARENT;
+      IOPARSE.INPUT = IOREFERENCE; 
       IOPARSE.OUTPUTPOSITIONX = OverallXPos;
       IOPARSE.OUTPUTPOSITIONY = OverallYPos;
 
@@ -868,9 +1038,11 @@ function ioCheck(e) { // The info passed as a parameter
 
         console.log("ConnectionDraw Breakpoint decision hit.");
 
-        initConnect(IOPARSE);  
+        initConnect(0, IOPARSE);  
 
         DRAWBOXSTACK = [];
+
+        presentObjects++;
 
         for (let i in IOPARSE) {  // Clears all of the global reference so that the object can be reused 
           IOPARSE[i] = 0;
@@ -883,6 +1055,8 @@ function ioCheck(e) { // The info passed as a parameter
       }
 
 
+
+
       //console.log("READ // Gate IO is Output")
     } else if (letterCheckRef == "I" && letterCheckRef != PREVIOUSIO[0]) {
 
@@ -890,6 +1064,8 @@ function ioCheck(e) { // The info passed as a parameter
 
       OverallYPos = parseInt(GatePositionY) - IOPositionY; 
 
+      IOPARSE.PARENTOUTPUT = IOPARENT;
+      IOPARSE.OUTPUT = IOREFERENCE; 
       IOPARSE.INPUTPOSITIONX = OverallXPos;
       IOPARSE.INPUTPOSITIONY = OverallYPos;
 
@@ -916,9 +1092,11 @@ function ioCheck(e) { // The info passed as a parameter
 
         //INPUTPOINTER = IO; 
 
-        initConnect(IOPARSE);  
+        initConnect(0, IOPARSE);  
 
         DRAWBOXSTACK = [];
+
+        presentObjects++;
 
         for (let i in IOPARSE) {  // Clears all of the global reference so that the object can be reused 
           IOPARSE[i] = 0;
@@ -951,7 +1129,7 @@ function ioCheck(e) { // The info passed as a parameter
   //console.log("IO is at overall position on the X Axis: ", OverallYPos)
 
 
-  console.log("prev io type == ", PREVIOUSIO[0]) 
+  console.log("prev io type == ", IOPOSITIONSTACK) 
 
 
   console.log("hasFirstIOBeenSelected == ", hasFirstIOBeenSelected);
@@ -960,9 +1138,9 @@ function ioCheck(e) { // The info passed as a parameter
 
 
 
-  console.log(IOREFERENCE)
+  ///console.log(IOREFERENCE)
 
-  console.log(IOPARSE)
+  ///console.log(IOPARSE)
 
   //console.log(DRAWBOXSTACK.length);
 
@@ -989,26 +1167,125 @@ function ioCheck(e) { // The info passed as a parameter
 };
 
 
-function initConnect(PARSED_PRD){  // PRD = POSIIION REFERENCE DATA 
+//------------------------
+
+// !!TO DO!! , Finish this function to calculate the dot product that is 
+// normalised for the accurate drawing branch that the connection draw 
+// will implemenet down the line. 
+
+function FastDotThenNormalise(VectorA, VectorB){ // TO DO, 
+// dot product
+  let result = 0;
+  for (let i = 0; i < VectorA.length; i++) {
+    result += VectorA[i] * VectorB[i];
+  };
+// normalise vector
+  min = result; 
+  max = result; 
+
+  NormalisedDot = result - min / max - min;
+
+  return NormalisedDot;
+
+}
+
+//------------------------
+
+//Draws the connection and parses data to the json save 
+
+function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls another function to add 
+                                          // it to a save stack. 
+  // PRD = POSIIION REFERENCE DATA 
   //console.log("IT'S CONNECTED!!!!!!!")
 
 
-  DRAWINPUTLOCATIONX = PARSED_PRD.INPUTPOSITIONX
-  DRAWINPUTLOCATIONY = PARSED_PRD.INPUTPOSITIONY
-  DRAWOUTPUTLOCATIONX = PARSED_PRD.OUTPUTPOSITIONX 
-  DRAWOUTPUTLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY 
+// IF MODE == 0 THEN SAVE IO CONNECTIONS 
+// IF MODE == 1 THEN SAVE OBJECT POSITIONS 
 
-  console.log(DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY, DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY)
+// Gain PRD values parsed from the IO Check  
 
-  console.log("IT'S DRAWING")
+  INPUTREFERENCE = PARSED_PRD.INPUT.parentNode; 
+  OUTPUTREFERENCE = PARSED_PRD.OUTPUT.parentNode; 
+
+  GATEREFERENCE_I = PARSED_PRD.INPUT;
+  GATEREFERENCE_O = PARSED_PRD.OUTPUT;
+
+  INPUTREFLOCATIONX = PARSED_PRD.INPUTPOSITIONX;
+  INPUTREFLOCATIONY = PARSED_PRD.INPUTPOSITIONY + 20; 
+  OUTPUTREFLOCATIONX = PARSED_PRD.INPUTPOSITIONX; 
+  OUTPUTREFLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY + 20;
+
+  console.log(
+    INPUTREFLOCATIONX,
+    INPUTREFLOCATIONY, 
+    OUTPUTREFLOCATIONX, 
+    OUTPUTREFLOCATIONY 
+  )
+
+  DRAWINPUTLOCATIONX = PARSED_PRD.INPUTPOSITIONX; 
+  DRAWINPUTLOCATIONY = PARSED_PRD.INPUTPOSITIONY;
+  DRAWOUTPUTLOCATIONX = PARSED_PRD.OUTPUTPOSITIONX; 
+  DRAWOUTPUTLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY; 
+
+  console.log("Input Parent == ", INPUTREFERENCE);
+  console.log("OUTPUT Parent == ", OUTPUTREFERENCE); 
+
+  console.log("Parsed PRD Values == ",
+    DRAWINPUTLOCATIONX, 
+    DRAWINPUTLOCATIONY, 
+    DRAWOUTPUTLOCATIONX, 
+    DRAWOUTPUTLOCATIONY, 
+    INPUTREFERENCE, 
+    OUTPUTREFERENCE);
+
+  console.log("IT'S DRAWING");
+
+  console.log(FastDotThenNormalise([DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY], [DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY])); // output: 32
 
   /// TODO -- Console log the draw data variables to see what they are... 
+
+// Draws the line connection between the two IOs
 
   const ConnectionLine = document.getElementById("Wire");
   ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONY);
   ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONX);
   ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONY);
   ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONX);
+
+
+// Pushes the IO connect to a connection stack 
+
+
+  jsonReadWrite(
+    MODE, 
+
+    INPUTREFERENCE,
+    OUTPUTREFERENCE,
+
+    INPUTREFLOCATIONX,
+    INPUTREFLOCATIONY,
+    OUTPUTREFLOCATIONX,
+    OUTPUTREFLOCATIONY,
+
+    GATEREFERENCE_I,
+    GATEREFERENCE_O,
+
+    DRAWINPUTLOCATIONX,
+    DRAWINPUTLOCATIONY,
+    DRAWOUTPUTLOCATIONX,
+    DRAWOUTPUTLOCATIONY,
+
+    itemsCreated    
+  );
+
+
+  // const ConnectionLine = document.getElementById("Wire");
+  // ConnectionLine.setAttribute("x1", 100);
+  // ConnectionLine.setAttribute("y1", 50);
+  // ConnectionLine.setAttribute("x2", 10);
+  // ConnectionLine.setAttribute("y2", 250);
+
+
 
   // var base = document.getElementById("GridCanvas");
   // var JavaPen = base.getContext("2d");
@@ -1022,7 +1299,7 @@ function initConnect(PARSED_PRD){  // PRD = POSIIION REFERENCE DATA
   //function initialiseLine
 
 
-
+// TODO -- GATE OBJECTS MUST BECOME UNINTERACTABLE AFTER CONNECTION 
 
   //CONNECTIONSTACK = [] 
 
@@ -1032,6 +1309,79 @@ function initConnect(PARSED_PRD){  // PRD = POSIIION REFERENCE DATA
 
 //})
 }
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// ** SCRIPT 000000 ** READ WRITE TO JSON FILE 
+
+// Writes data about connected gates to a JSON file 
+
+function jsonReadWrite(
+  MODE, 
+  
+  CONNECTEDOBJECT_INPUTREF,
+  CONNECTEDOBJECT_OUTPUTREF,
+
+  CONNECTEDOBJECT_INPUTREF_POSX,
+  CONNECTEDOBJECT_INPUTREF_POSY,
+  CONNECTEDOBJECT_OUTPUTREF_POSX,
+  CONNECTEDOBJECT_OUTPUTREF_POSY,
+
+  INPUTBOX, 
+  OUTPUTBOX,
+
+  POSITIONINPUTX,
+  POSITIONINPUTY,
+  POSITIONOUTPUTX,
+  POSITIONOUTPUTY,
+
+  NUMOFGATES) {
+
+
+  if (MODE == 0) {
+    const saveFile = {
+      CONNECTEDOBJECT_A:  CONNECTEDOBJECT_INPUTREF, 
+      CONNECTEDOBJECT_B: CONNECTEDOBJECT_OUTPUTREF,
+
+      INPUTOBJECT_POSX:       CONNECTEDOBJECT_INPUTREF_POSX,
+      INPUTOBJECT_POSY:       CONNECTEDOBJECT_INPUTREF_POSY,
+      OUTPUTOBJECT_POSX:      CONNECTEDOBJECT_OUTPUTREF_POSX,
+      OUTPUTOBJECT_POSY:      CONNECTEDOBJECT_OUTPUTREF_POSY,
+
+
+      INPUTBOX:               INPUTBOX,
+      OUTPUTBOX:              OUTPUTBOX, 
+
+
+      POSITIONINPUTBOXX:      POSITIONINPUTX,
+      POSITIONINPUTBOXY:      POSITIONINPUTY, 
+      POSITIONOUTPUTBOXX:     POSITIONOUTPUTX,
+      POSITIONOUTPUTBOXY:     POSITIONOUTPUTY,
+
+
+      NUMOFGATES:             NUMOFGATES
+    };
+
+    console.clear();
+    console.log(saveFile);
+
+    jsonSaveWorkspace.push(saveFile);
+
+    console.clear();
+    console.log(jsonSaveWorkspace)
+
+  } else {
+    console.log("Logging data!")
+
+  }
+  
+
+}
+
+
+// TODO -- MAKE THE "OUTPUT / INPUT" OBJECTS (NOT THE IOs) BECOME OBJECTA AND OBJECT BM LEAVE THE "I / O" FOR THE BOXES
+// DO IT SO THAT IT SUBTRACTS OR ADDS HEIGHT (27 PX) ETC... DEPENDING ON THE IO PARSED DATA 
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
 
@@ -1060,8 +1410,13 @@ console.log(xLen, yLen, "size of workspace with X | Y")
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** SCRIPT 009 ** Allows for Simboard Projects to be saved as a JSON file. 
-
-
+iii = 0
+function testloop(){
+  while (true == true) {
+    console.log("Testing for loop is going well...")
+    
+  }
+}
 
 // ** SCRIPT 009 ** The functions for Simboard Saving end here. 
 
