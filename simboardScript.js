@@ -527,6 +527,8 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                                         // WARNING: Do not do id, divname + divname, because then we cannot 
                                         // properly reference it later on in the program. 
 
+    clone.setAttribute("gateType", gateType); 
+
     var headEl = clone.children[0]; // We get a reference to the DIV of the master object clone so that we
                                     // can customise it later. 
                                     
@@ -574,11 +576,11 @@ function cloneObject(gateType){ // This is the function that is utilised when th
 
 
 
-    const objectRef = {}; 
+    // const objectRef = {}; 
 
-    objectRef.argument = null; 
-    objectRef.inputs = 0; 
-    objectRef.outputs = 0;
+    // objectRef.argument = 
+    // objectRef.inputs = 0; 
+    // objectRef.outputs = 0;
 
    // console.log(objectRef)
 
@@ -586,9 +588,9 @@ function cloneObject(gateType){ // This is the function that is utilised when th
 
     switch (gateType) {
       case "AND":
-        objectRef.argument = "AND";
-        objectRef.inputs = 2;
-        objectRef.outputs = 1;
+        // objectRef.argument = "AND";
+        // objectRef.inputs = 2;
+        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         //console.log(document.getElementById(inputAID));
         document.getElementById(inputBID).style.display = "inline";
@@ -596,49 +598,49 @@ function cloneObject(gateType){ // This is the function that is utilised when th
         break;
 
       case "OR":
-        objectRef.argument = "OR";
-        objectRef.inputs = 2;
-        objectRef.outputs = 1;
+        // objectRef.argument = "OR";
+        // objectRef.inputs = 2;
+        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         document.getElementById(inputBID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "NOT":
-        objectRef.argument = "NOT";
-        objectRef.inputs = 1;
-        objectRef.outputs = 1;
+        // objectRef.argument = "NOT";
+        // objectRef.inputs = 1;
+        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "XOR":
-        objectRef.argument = "XOR";
-        objectRef.inputs = 2;
-        objectRef.outputs = 1;
+        // objectRef.argument = "XOR";
+        // objectRef.inputs = 2;
+        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         document.getElementById(inputBID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "Lightbulb":
-        objectRef.argument = "Lightbulb";
-        objectRef.inputs = 1;
-        objectRef.outputs = 0;
+        // objectRef.argument = "Lightbulb";
+        // objectRef.inputs = 1;
+        // objectRef.outputs = 0;
         document.getElementById(inputAID).style.display = "inline";
         break;
 
       case "Speaker":
-        objectRef.argument = "Speaker";
-        objectRef.inputs = 1;
-        objectRef.outputs = 0;
+        // objectRef.argument = "Speaker";
+        // objectRef.inputs = 1;
+        // objectRef.outputs = 0;
         document.getElementById(inputAID).style.display = "inline";
         break;
 
       case "HoldButton":
-        objectRef.argument = "HoldButton";
-        objectRef.inputs = 0;
-        objectRef.outputs = 1;
+        // objectRef.argument = "HoldButton";
+        // objectRef.inputs = 0;
+        // objectRef.outputs = 1;
         document.getElementById(outputID).style.display = "inline";
         break;
     }
@@ -959,6 +961,8 @@ function ioCheck(e) { // The info passed as a parameter
 
   IOREFERENCE = document.getElementById(e.id); /* Holds gate metadata */ 
 
+  console.log(IO, IOREFERENCE)
+
   IOPARENT = IOREFERENCE.parent
 
   PREVIOUSIO = PREVIOUSIOSTACK[PREVIOUSIOSTACK.length - 1] /* We do this in this statement so it's simpler to gain the previous IO's 
@@ -993,7 +997,7 @@ function ioCheck(e) { // The info passed as a parameter
   
   IOPositionY = e.offsetLeft;
 
-  //console.log(IOPositionX, IOPositionY);
+  console.log(IOPositionX, IOPositionY);
 
   letterCheckRef = IO[0];
 
@@ -1230,13 +1234,13 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   console.log("Input Parent == ", INPUTREFERENCE);
   console.log("OUTPUT Parent == ", OUTPUTREFERENCE); 
 
-  console.log("Parsed PRD Values == ",
-    DRAWINPUTLOCATIONX, 
-    DRAWINPUTLOCATIONY, 
-    DRAWOUTPUTLOCATIONX, 
-    DRAWOUTPUTLOCATIONY, 
-    INPUTREFERENCE, 
-    OUTPUTREFERENCE);
+  // console.log("Parsed PRD Values == ",
+  //   DRAWINPUTLOCATIONX, 
+  //   DRAWINPUTLOCATIONY, 
+  //   DRAWOUTPUTLOCATIONX, 
+  //   DRAWOUTPUTLOCATIONY, 
+  //   INPUTREFERENCE, 
+  //   OUTPUTREFERENCE);
 
   console.log("IT'S DRAWING");
 
@@ -1250,6 +1254,15 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONY);
   ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONX);
   ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONY);
+
+
+  console.log("Parsed PRD Values == ",
+    DRAWINPUTLOCATIONX, 
+    DRAWINPUTLOCATIONY, 
+    DRAWOUTPUTLOCATIONX, 
+    DRAWOUTPUTLOCATIONY)
+
+
   ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONX);
 
 
@@ -1360,12 +1373,12 @@ function jsonReadWrite(
       NUMOFGATES:             NUMOFGATES
     };
 
-    console.clear();
+    //console.clear();
     console.log(saveFile);
 
     jsonSaveWorkspace.push(saveFile);
 
-    console.clear();
+    //console.clear();
     console.log(jsonSaveWorkspace)
 
   } else {
