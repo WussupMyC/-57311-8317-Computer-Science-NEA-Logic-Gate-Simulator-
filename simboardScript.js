@@ -65,6 +65,7 @@ cssConcatonates = [
   GridCanvasColour = document.getElementById('GridCanvas'), 
   ObjectMenuColour = document.getElementById('ObjectMenu'), 
   FileMenuColour = document.getElementById('FileMenu'), 
+  CircuitConfigColour = document.getElementById('CircuitConfigurationArea'), 
   ObjectMenuButtonColour = document.getElementById('ObjectMenu').children,
   FileMenuButtonColour = document.getElementById('FileMenu').children,
   GridLineColour = "#000000",
@@ -149,27 +150,32 @@ console.log(dumpVar);    // This instruction outputs the debug variable for test
 // Make this a for loop, where the prompts are stored in a stack, and it iterates through each customisation - this makes it more 
 // effective and efficient for you and for the end user...!
 
-var link = document.getElementById("customise");
+var link = document.getElementById("customise");  // We fetch the 
 
-link.setAttribute('href', "#");
+//link.setAttribute('href', "#");
 
 link.onclick= function() {
 
   prompts = [
-    "* Change the colour of the Workspace Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "* Change the colour of the Object Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "* Change the colour of the File Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "^ Change the colour of the Object Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "^ Change the colour of the File Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "' Change the colour of the Grid Lines\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "' Change the colour of the X-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "' Change the colour of the Y-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value."
+    "* 1 Change the colour of the Workspace Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "* 2 Change the colour of the Object Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "* 3 Change the colour of the File Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "* 4 Change the colour of the Circuit Configuration Area Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "^ 1 Change the colour of the Object Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "^ 2 Change the colour of the File Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "' 1 Change the colour of the Grid Lines\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "' 2 Change the colour of the X-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+    "' 3 Change the colour of the Y-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value."
   ];
 
 
   for (let i = 0; i < prompts.length; i++) {
 
     let GridCanvasPrompt = prompt(prompts[i]);
+
+    GridCanvasPrompt = GridCanvasPrompt.toUpperCase()
+
+    console.log(GridCanvasPrompt)
 
     HEXValidator = GridCanvasPrompt[0];
     //console.log(HEXValidator)
@@ -185,7 +191,7 @@ link.onclick= function() {
 
         nextProperty.style.backgroundColor = GridCanvasPrompt;
 
-        alert("Hello, " + GridCanvasPrompt + "!");
+        alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
 
 
@@ -199,6 +205,8 @@ link.onclick= function() {
 
             nextProperty[e].style.backgroundColor = GridCanvasPrompt;
 
+          // } else if (nextProperty != ) {    
+            
           } else {
 
             console.log("Skipped styling of entity in division.")
@@ -206,11 +214,49 @@ link.onclick= function() {
 
         }
 
-
+        alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
       } else if (prompts[i][0] == "'") {
 
-        drawGrid(GridCanvasPrompt);
+        if (prompts[i][2] == 1) { 
+
+          drawGrid(1, null);
+
+          drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
+
+          drawGrid(0, GridCanvasPrompt)
+
+          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+        } else if (prompts[i][2] == 2) {
+
+          drawAxis(1, null, null)
+
+          drawAxis(0, AxisYColour, GridCanvasPrompt)
+
+          drawGrid(0, GridLineColour) // to prevent clearing 
+
+          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+        } else if (prompts[i][2] == 3) {
+
+          drawAxis(1, null, null)
+
+          drawAxis(0, GridCanvasPrompt, AxisXColour)
+
+          drawGrid(0, GridLineColour) // to prevent clearing 
+
+          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+        } else {
+
+          console.log(prompts[i][2])
+
+          console.log("Grid/Axis Customisation error has occurred!")
+
+        }
+
+
 
       } else {
 
@@ -218,41 +264,108 @@ link.onclick= function() {
       }
 
 
-    } else if (HEXValidator == 'd') {
 
-      GridCanvasColour.style.removeProperty('background-color');
+    } else if (HEXValidator == 'D') {
+
+      if (prompts[i][0] == "*") {
+
+        nextProperty.style.removeProperty('background-color');
+
+        alert("Successfully defaulted " + nextProperty + " back to its default colour!"); 
+
+        
+      } else if (prompts[i][0] == "^") {
+
+        for (let e = 0; e < nextProperty.length; e++) {
+
+          ///console.log(nextProperty[e])
+
+          if (nextProperty != "b") {
+
+            nextProperty[e].style.removeProperty('background-color');
+
+          } else {
+
+            console.log("Skipped styling of entity in division.")
+          }
+
+        }
+
+        alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+
+
+      } else if (prompts[i][0] == "'") {
+
+        if (prompts[i][2] == 1) { 
+
+          drawGrid(1, null);
+
+          drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
+
+          drawGrid(0, "#000000")
+
+          alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+
+        } else if (prompts[i][2] == 2) {
+
+          drawAxis(1, null, null)
+
+          drawAxis(0, AxisYColour, GridCanvasPrompt)
+
+          drawGrid(0, GridLineColour) // to prevent clearing 
+
+          alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+
+        } else if (prompts[i][2] == 3) {
+
+          drawAxis(1, null, null)
+
+          drawAxis(0, GridCanvasPrompt, AxisXColour)
+
+          drawGrid(0, GridLineColour) // to prevent clearing 
+
+          alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+
+        } else {
+
+          console.log(prompts[i][2])
+
+          console.log("Grid/Axis Customisation error has occurred!")
+
+        }
+
+      } else {
+
+        console.log("Customisation error has occurred OR styling has been skipped!")
+
+      }
 
     }
+
   }
 
   console.log(cssConcatonates)
 
 };
 
-
-
-
-
-
-
 // TODO -- This can then be saved via a built-in default json file to store this hex data into. 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // TODO -- JSON SAVE
-const myData = { name: "John", age: 30 }; // Your JSON object
+// const myData = { name: "John", age: 30 }; // Your JSON object
 
-function downloadJSON(data, filename = 'data.json') {
-    const jsonString = JSON.stringify(data, null, 2); // 2 spaces for readability
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+// function downloadJSON(data, filename = 'data.json') {
+//     const jsonString = JSON.stringify(data, null, 2); // 2 spaces for readability
+//     const blob = new Blob([jsonString], { type: "application/json" });
+//     const url = URL.createObjectURL(blob);
     
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    link.click();
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.download = filename;
+//     link.click();
     
-    URL.revokeObjectURL(url); // Clean up memory
-}
+//     URL.revokeObjectURL(url); // Clean up memory
+// }
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -274,69 +387,80 @@ var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID tha
 
 var gridcell = canvas.getContext("2d"); //Defines a two-dimensional cell for the grid 
 
-function drawGrid(gridColour){   //This function repeatedly draws a cell until there is a full row of cells to fill 
-                       // gridwidth and grid height. 
+function drawGrid(GRIDMODE, gridColour) {   //This function repeatedly draws a cell until there is a full row of cells to fill 
+                                            // gridwidth and grid height. 
 
-  //X AXIS GRID CELL LOOP : 
-  for (var x = 0; x <= gridwidth; x += 10) {  // This iterative loop tells each cell how wide they should be on 
-                                              // the X-Axis and repeatedly draws said cell until it there is a row
-                                              // of gridcells that fill the gridwidth. 
-                                                // !-> There is a critical web error if x += 0 or x += -0 which 
-                                                // crashes the webpage - avoid this mathematical error. 
+  if (GRIDMODE == 0) {
+    //X AXIS GRID CELL LOOP : 
+    for (var x = 0; x <= gridwidth; x += 10) {  // This iterative loop tells each cell how wide they should be on 
+                                                // the X-Axis and repeatedly draws said cell until it there is a row
+                                                // of gridcells that fill the gridwidth. 
+                                                  // !-> There is a critical web error if x += 0 or x += -0 which 
+                                                  // crashes the webpage - avoid this mathematical error. 
 
-    gridcell.moveTo(0.5 + x + padding, padding);    // This instruction draws the border around each cell and
-                                                    // constrols the resolution of each drawn border line. 
-                                                      // We can change the resolution by modifying the float 
-                                                      // value. 
+      gridcell.moveTo(0.5 + x + padding, padding);    // This instruction draws the border around each cell and
+                                                      // constrols the resolution of each drawn border line. 
+                                                        // We can change the resolution by modifying the float 
+                                                        // value. 
 
-    gridcell.lineTo(0.0 + x + padding, gridheight + padding);   // This instruction then manipulates the 
-                                                                // drawn border line to give it a skew effect. 
-                                                                  // Set it to 0 if no skew/tilt is necessary. 
-                                                                  // We can change the resolution by 
-                                                                  // modifying the float value. 
+      gridcell.lineTo(0.0 + x + padding, gridheight + padding);   // This instruction then manipulates the 
+                                                                  // drawn border line to give it a skew effect. 
+                                                                    // Set it to 0 if no skew/tilt is necessary. 
+                                                                    // We can change the resolution by 
+                                                                    // modifying the float value. 
 
-    gridcellsCreatedOnX = gridcellsCreatedOnX + 1; 
+      gridcellsCreatedOnX = gridcellsCreatedOnX + 1; 
+    }
+
+    //Y AXIS GRID CELL LOOP : 
+    for (var x = 0; x <= gridheight; x += 10) { // this iterative loop tells each cell how tall they should be on 
+                                                // the Y-Axis and repeatedly draws said cell until there is a 
+                                                // column of gridcells that fill the gridheight. 
+                                                  // !-> There is a critical web error if x+= 0 or x += -0 which
+                                                  // crashes the webpage - avoid this mathematical error. 
+
+      gridcell.moveTo(padding, 0.5 + x + padding);    // This instruction draws the border around each cell and
+                                                      // controls the resolution of each drawn border line.
+                                                        // We can change the resolution by modifying the float 
+                                                        // value. 
+
+      gridcell.lineTo(gridwidth + padding, 0.5 + x + padding);    // This instruction then manipulates the 
+                                                                  // drawn border line to give it a skew effect. 
+                                                                    // Set it to 0 if no skew/tilt is necessary. 
+                                                                    // We can change the resolution by 
+                                                                    // modifying the float value. 
+
+      gridcellsCreatedOnY = gridcellsCreatedOnY + 1; 
+    }
+
+    console.log(gridcellsCreatedOnY, gridcellsCreatedOnX, "griddcells created with Y | X");
+
+
+    //GLOBAL MODIFIER DEFINITIONS : 
+    gridcell.lineWidth = 0.1;   // This instruction manually tells the drawGrid fucntion how thick each 
+                                // line should be after every cell has been initialised. In this case, we 
+                                // set the thickness of each border to be 0.1 pixels. 
+
+    gridcell.strokeStyle = gridColour;   // This instruction manually tells the drawGrid function what colour
+                                          // the drawn borders should appear as. In this case, we set the default 
+                                          // border colour to black (#000000).
+
+    gridcell.stroke();  // This instruction initialises the variables above to draw a cell with the desired
+                        // lineWidth and strokeStyle 
+
+  } else if (GRIDMODE == 1) {
+
+    gridcell.clearRect(0,0,999,999);
+
+  } else {
+
+    console.log("Mode inputted is unknown. -- ERROR")
+
   }
-
-  //Y AXIS GRID CELL LOOP : 
-  for (var x = 0; x <= gridheight; x += 10) { // this iterative loop tells each cell how tall they should be on 
-                                              // the Y-Axis and repeatedly draws said cell until there is a 
-                                              // column of gridcells that fill the gridheight. 
-                                                // !-> There is a critical web error if x+= 0 or x += -0 which
-                                                // crashes the webpage - avoid this mathematical error. 
-
-    gridcell.moveTo(padding, 0.5 + x + padding);    // This instruction draws the border around each cell and
-                                                    // controls the resolution of each drawn border line.
-                                                      // We can change the resolution by modifying the float 
-                                                      // value. 
-
-    gridcell.lineTo(gridwidth + padding, 0.5 + x + padding);    // This instruction then manipulates the 
-                                                                // drawn border line to give it a skew effect. 
-                                                                  // Set it to 0 if no skew/tilt is necessary. 
-                                                                  // We can change the resolution by 
-                                                                  // modifying the float value. 
-
-    gridcellsCreatedOnY = gridcellsCreatedOnY + 1; 
-  }
-
-console.log(gridcellsCreatedOnY, gridcellsCreatedOnX, "griddcells created with Y | X");
-
-
-//GLOBAL MODIFIER DEFINITIONS : 
-gridcell.lineWidth = 0.1;   // This instruction manually tells the drawGrid fucntion how thick each 
-                            // line should be after every cell has been initialised. In this case, we 
-                            // set the thickness of each border to be 0.1 pixels. 
-
-gridcell.strokeStyle = gridColour;   // This instruction manually tells the drawGrid function what colour
-                                      // the drawn borders should appear as. In this case, we set the default 
-                                      // border colour to black (#000000).
-
-gridcell.stroke();  // This instruction initialises the variables above to draw a cell with the desired
-                    // lineWidth and strokeStyle 
 
 } // The function that calculates the necessary grid output ends here. 
 
-drawGrid(GridLineColour); // This instruction initialises the drawGrid to repeatedly draw individual cells until 
+drawGrid(0, GridLineColour); // This instruction initialises the drawGrid to repeatedly draw individual cells until 
             // the entirety of the grids' height and width is filled, with the calculated function
             // output. 
 
@@ -355,32 +479,45 @@ axisHeight = yLen;   // States that the Y Axis line should stretch to a defined 
                       // defined in the Global Variables sections. (This prevents magic
                       // numbers!)
         
-function drawAxis(){  // This function produces the axis lines for the Workspace UI. 
-  var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
-                                                            // in the HTML div "Workspace" -> "GridContainer" 
-                                                            // -> "Grid Canvas"
-  var axisLine = canvas.getContext("2d"); // Defines the axis as a 2 dimensional line. 
+function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the axis lines for the Workspace UI. 
 
-  axisLine.beginPath(); // 
+  if (AXISMODE == 0) {
 
-  axisLine.moveTo(axisWidth/2,-axisHeight); // 
+    var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
+                                                              // in the HTML div "Workspace" -> "GridContainer" 
+                                                              // -> "Grid Canvas"
+    var axisLine = canvas.getContext("2d"); // Defines the axis as a 2 dimensional line. 
 
-  //console.log(axisWidth/2)
-  //console.log(-axisHeight)
+    axisLine.beginPath(); // 
 
-  axisLine.lineTo(axisWidth/2,axisHeight); // 
+    axisLine.moveTo(50, axisHeight); // 
 
-  axisLine.strokeStyle = AxisXColour; 
+    console.log(axisWidth/2)
+    //console.log(-axisHeight)
 
-  axisLine.lineWidth = 10; 
+    axisLine.lineTo(50, axisHeight*-1); // 
 
-  axisLine.stroke(); 
+    axisLine.strokeStyle = AxisXRGB; 
+
+    axisLine.lineWidth = 1.5; 
+
+    axisLine.stroke(); 
+
+  } else if (AXISMODE == 1) {
+
+    gridcell.clearRect(0,0,999,999);
+
+  } else { 
+
+    console.log("Mode inputted is unknown. -- ERROR")
+
+  }
 
 
 }; // The function that produces the correct Axis measurements ends here. 
 
-drawAxis() // This instruction initialises the drawAxis to create an X and Y axis to stretch until 
-           // it reaches the borders of the Workspace. 
+drawAxis(0, AxisYColour, AxisXColour) // This instruction initialises the drawAxis to create an X and Y axis 
+                                      // to stretch until it reaches the borders of the Workspace. 
 
 // ** SCRIPT 002 ** The function for the axis implementation ends here. 
 
@@ -854,8 +991,8 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
   ///var minX = 200; 
 
   //console.log("MAXY: ", MAXY);
-  var dbgval= elmnt.offsetTop - pos2;
-  var dbgval2 = elmnt.offsetLeft - pos1;
+  // var dbgval= elmnt.offsetTop - pos2;
+  // var dbgval2 = elmnt.offsetLeft - pos1;
   
   ///document.getElementById("TextDebug").innerHTML=(minY);
   ///document.getElementById("TextDebug2").innerHTML=(minX);
@@ -899,6 +1036,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                               // the X Axis (Left...).
 
     if (pos1 < sizeOfBaseX) {
+
       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";  // If the condition above IS met, and the object IS being 
                                                             // dragged outside of the Workspace, said instruction will 
                                                             // force the Logic Gate UI object to reposition itself 
@@ -912,7 +1050,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
 
       elmnt.style.left = pos3; 
 
-      gatePositionYGlobalReference = pos3;
+      gatePositionXGlobalReference = pos3; // UNDO: X -> Y
 
     };
 
@@ -993,11 +1131,11 @@ function ioCheck(e) { // The info passed as a parameter
 
 
 
-  IOPositionX = e.offsetTop; 
+  IOPositionY = e.offsetTop; 
   
-  IOPositionY = e.offsetLeft;
+  IOPositionX = e.offsetLeft;
 
-  console.log(IOPositionX, IOPositionY);
+  console.log("IOPOSITION == ", IOPositionX, IOPositionY);
 
   letterCheckRef = IO[0];
 
@@ -1064,9 +1202,9 @@ function ioCheck(e) { // The info passed as a parameter
       //console.log("READ // Gate IO is Output")
     } else if (letterCheckRef == "I" && letterCheckRef != PREVIOUSIO[0]) {
 
-      OverallXPos = parseInt(GatePositionX) - IOPositionX;
+      OverallXPos = parseInt(GatePositionX) + IOPositionX;
 
-      OverallYPos = parseInt(GatePositionY) - IOPositionY; 
+      OverallYPos = parseInt(GatePositionY) + IOPositionY; 
 
       IOPARSE.PARENTOUTPUT = IOPARENT;
       IOPARSE.OUTPUT = IOREFERENCE; 
@@ -1215,9 +1353,9 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   GATEREFERENCE_O = PARSED_PRD.OUTPUT;
 
   INPUTREFLOCATIONX = PARSED_PRD.INPUTPOSITIONX;
-  INPUTREFLOCATIONY = PARSED_PRD.INPUTPOSITIONY + 20; 
-  OUTPUTREFLOCATIONX = PARSED_PRD.INPUTPOSITIONX; 
-  OUTPUTREFLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY + 20;
+  INPUTREFLOCATIONY = PARSED_PRD.INPUTPOSITIONY; //+ 20;  // *
+  OUTPUTREFLOCATIONX = PARSED_PRD.OUTPUTPOSITIONX; 
+  OUTPUTREFLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY; //+ 20; // *
 
   console.log(
     INPUTREFLOCATIONX,
@@ -1251,9 +1389,10 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 // Draws the line connection between the two IOs
 
   const ConnectionLine = document.getElementById("Wire");
-  ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONY);
-  ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONX);
-  ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONY);
+  ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONX);
+  ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONY);
+  ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONX);
+  ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONY);
 
 
   console.log("Parsed PRD Values == ",
@@ -1262,8 +1401,6 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
     DRAWOUTPUTLOCATIONX, 
     DRAWOUTPUTLOCATIONY)
 
-
-  ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONX);
 
 
 // Pushes the IO connect to a connection stack 
@@ -1354,6 +1491,7 @@ function jsonReadWrite(
       CONNECTEDOBJECT_A:  CONNECTEDOBJECT_INPUTREF, 
       CONNECTEDOBJECT_B: CONNECTEDOBJECT_OUTPUTREF,
 
+
       INPUTOBJECT_POSX:       CONNECTEDOBJECT_INPUTREF_POSX,
       INPUTOBJECT_POSY:       CONNECTEDOBJECT_INPUTREF_POSY,
       OUTPUTOBJECT_POSX:      CONNECTEDOBJECT_OUTPUTREF_POSX,
@@ -1393,6 +1531,128 @@ function jsonReadWrite(
 // TODO -- MAKE THE "OUTPUT / INPUT" OBJECTS (NOT THE IOs) BECOME OBJECTA AND OBJECT BM LEAVE THE "I / O" FOR THE BOXES
 // DO IT SO THAT IT SUBTRACTS OR ADDS HEIGHT (27 PX) ETC... DEPENDING ON THE IO PARSED DATA 
 
+
+getPropertiesSaveB = document.getElementById("save");  // We fetch the 
+
+//link.setAttribute('href', "#");
+
+getPropertiesSaveB.onclick= function() {
+
+  TYPE = prompt("Please enter the TYPE of project data you want to save.\nEnter the letter 'L' to save the layout data, and enter\nthe letter 'P' to save your Logic Gate circuit project.");
+
+  TYPE = TYPE.toUpperCase();
+
+  if (TYPE == 'L') {
+
+    saveData(0, jsonSaveWorkspace)
+
+    console.log("Saving Simboard Layout Data has been attempted.")
+
+  } else if (TYPE == 'P') {
+
+    saveData(1, cssConcatonates)
+
+    console.log("Saving Simboard Workspace Project Data has been attempted.")
+
+  } else {
+
+    confirm("Could not understand saving format. Please try again!")
+
+  }
+
+}
+
+
+
+
+getPropertiesLoadB = document.getElementById("load");  // We fetch the 
+
+//link.setAttribute('href', "#");
+
+getPropertiesLoadB.onclick= function() {
+
+  confirmation = confirm("Remember to save your current project as loading in a new Layout or Project file can override the current Layout or Project data present right now.\nPress CANCEL to halt the loading process until everything is saved.\nPress OK to initialise the loading process.")
+
+  //setTimeout(5000) 
+
+  if (confirmation == true) {
+
+    TYPE = prompt("Please enter the TYPE of project data you want to load into Simboard.\nEnter the letter 'L' to load your layout data file, and enter\nthe letter 'P' to load your Logic Gate circuit into the Workspace!");
+
+    TYPE = TYPE.toUpperCase();
+
+    if (TYPE == 'L') {
+
+      loadData(0, jsonSaveWorkspace)
+
+      console.log("Loading Simboard Layout Data has been attempted.")
+
+    } else if (TYPE == 'P') {
+
+      loadData(1, cssConcatonates)
+
+      console.log("Loading Simboard Workspace Project Data has been attempted.")
+
+    } else {
+
+      confirm("Could not understand loading format. Please try again!")
+
+    }
+
+  } else {
+
+    console.log("Cancelled loading operation.")
+
+  }
+
+}
+
+
+
+
+function saveData(MODE, DATA) {
+  // c = 0; // debugging value
+  // console.log(c) // debugging branch 
+  //extension = ".json"
+
+    var file = new Blob([DATA], {type: "json"});
+
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+
+        window.navigator.msSaveOrOpenBlob(file, "filename");
+
+    else { // Others
+
+        var a = document.createElement("a"),
+
+                url = URL.createObjectURL(file);
+
+        a.href = url;
+
+        a.download = "filename";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        setTimeout(function() {
+
+            document.body.removeChild(a);
+
+            window.URL.revokeObjectURL(url);  
+
+        }, 0); 
+        
+    }; 
+
+};
+
+function loadData(MODE, DATA) {
+
+  d = 1; 
+  console.log(d) //debugging branch 
+
+}
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
