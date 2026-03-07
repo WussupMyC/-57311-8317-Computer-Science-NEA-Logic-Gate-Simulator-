@@ -1,10 +1,22 @@
-/* TODO 
-To do: 
-	-	Push connections to a stack in a JSON format 
-	-	Finish the customise button 
-	-	Initialise a function to iterate through each JSON connection called "simulateCircuit()"
-	-	Tidy up code and comment it through 
-*/
+
+
+
+
+
+
+
+
+
+// // TODO - - Logic systems tomorrow // // 
+
+
+
+
+
+
+
+
+
 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -60,6 +72,9 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** GLOBAL VARIABLE DEFINITIONS **
+
+simulate = false; 
+
 // Should be attributes of this layout saver 
 cssConcatonates = [
   GridCanvasColour = document.getElementById('GridCanvas'), 
@@ -126,6 +141,10 @@ presentObjects = +0; // This holds the number of objects that are present in the
                      // not deleted).
 
 jsonSaveWorkspace = [];  // This holds all data for the logic gates present on the workspace plus connections. 
+
+totalWires = 0; 
+
+connectionsInitialised = 0; 
 
 // TODO -- WORKSPACE GRID ZOOMS IN OR OUT WITH L OR K, AND REDRAWS THE GRID, AXIS AND SCALES THE OBJECTS UP OR DOWN 
 
@@ -631,6 +650,7 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                                 // object. e.g. "AND" gets passed, and an AND Gate is returned in the 
                                 // Workspace. 
                                   // !-> Essentially, this function creates a new Logic Gate object...
+  if (simulate != true) {
 
     const node = document.getElementById("mydiv"); // This stores a master reference to a generic object inside of 
                                                    // the HTML GridCanvas.
@@ -783,8 +803,12 @@ function cloneObject(gateType){ // This is the function that is utilised when th
     }
 
     for (let x = 0; x < objectRef.inputs; x++) {
+
       console.log(x);
+
     };
+
+  }; 
     
 }; // The function for the Object Initialisation that produces a Logic Gate object into the Workspace, 
    // from the master object DIV ends here. 
@@ -837,17 +861,19 @@ function selectCurrentItem(item) {
 
 // ** SCRIPT 005 ** Ensures that the logic gates are draggable on the Workspace 
 
+  
 dragElement(document.getElementById("mydiv"));  // This fires a function, dragElement, with a present passed
                                                 // parameter of the HTML DIV mydiv, which is the master object
                                                 // that other Logic Gate objects are children of. 
                                                   // Hence, draggable properties are to be inherited by said
                                                   // children UI elements. 
 
+
 function dragElement(elmnt) { // The function that assigns the property of being draggable to HTML elements
                               // that meet a certain criteria. 
                                 // It takes the passed paramenter, mydiv, and sends it through a conditional 
                                 // check below. 
-
+  
   var pos1 = 0,   //  Sets memory allocation for storing the distance that the UI element moves. 
 
     pos2 = 0,     //  Sets memory allocation for storing the distance that the UI element moves. 
@@ -873,9 +899,10 @@ function dragElement(elmnt) { // The function that assigns the property of being
     elmnt.onmousedown = dragMouseDown;  // ... the next best UI element to attach the draggable property to
                                         // may include an image tag etc. 
 
-};  // The function that assigns the draggable property function to Logic Gate objects finishes here. 
+  };  // The function that assigns the draggable property function to Logic Gate objects finishes here. 
       // This ONLY works if the object has the draggable property ENABLED in the first place (discussed above in
       // SCRIPT 004 "dragElement(document.getElementById(divname));"). 
+
 
 function dragMouseDown(e) { // This function reads the mouse position and relevant data. 
                               // The element "e" is a default JavaScript parameter that contains the details
@@ -887,33 +914,37 @@ function dragMouseDown(e) { // This function reads the mouse position and releva
   e.preventDefault(); // Prevents default behaviour on the object when fired
                         // This includes disabling image dragging, etc. 
 
-  pos3 = e.clientX; // Stores the UI position of the object on the initial mouse button down for later 
-                    // reference, on the X Axis. 
-  pos4 = e.clientY; // Stores the UI position of the object on the initial mouse button down for later 
-                    // reference, on the Y Axis. 
+  if (simulate != true) {
 
-  document.onmouseup = closeDragElement;  // When the mouse button is released or goes up, the drag element
-                                          // function is halted for said object. 
+    pos3 = e.clientX; // Stores the UI position of the object on the initial mouse button down for later 
+                      // reference, on the X Axis. 
+    pos4 = e.clientY; // Stores the UI position of the object on the initial mouse button down for later 
+                      // reference, on the Y Axis. 
 
-  document.onmousemove = elementDrag; // When the mouse moves WHILST the mouse button is pressed down, the
-                                      // function that moves the UI element (allows for dragging interactivity
-                                      // visually) is called. 
+    document.onmouseup = closeDragElement;  // When the mouse button is released or goes up, the drag element
+                                            // function is halted for said object. 
 
-//  currentItem = elmnt.id; // When the mouse cursor is above a Logic Gate Object and the mouse button 
-                          // down is completed upon said object, this instruction sets the current 
-                          // item to be the one that is being clicked or dragged (mouse down). 
-                            // This is to be used in functions mostly covered above (SCRIPT 003 / Object 
-                            // Deletion).
+    document.onmousemove = elementDrag; // When the mouse moves WHILST the mouse button is pressed down, the
+                                        // function that moves the UI element (allows for dragging interactivity
+                                        // visually) is called. 
 
-  selectCurrentItem(elmnt.id);
+  //  currentItem = elmnt.id; // When the mouse cursor is above a Logic Gate Object and the mouse button 
+                            // down is completed upon said object, this instruction sets the current 
+                            // item to be the one that is being clicked or dragged (mouse down). 
+                              // This is to be used in functions mostly covered above (SCRIPT 003 / Object 
+                              // Deletion).
 
 
-  console.log("currentItem = ", currentItem); // This instruction is used for debugging, to state the current 
-                                              // item that is being selected (aka, the Logic Gate Object that 
-                                              // has just been previously affected by the dragMouseDown
-                                              // function). 
+    selectCurrentItem(elmnt.id);
 
-  //console.log("Argument = ", cloneObject.objetRef.argument)
+
+    console.log("currentItem = ", currentItem); // This instruction is used for debugging, to state the current 
+                                                // item that is being selected (aka, the Logic Gate Object that 
+                                                // has just been previously affected by the dragMouseDown
+                                                // function). 
+
+    //console.log("Argument = ", cloneObject.objetRef.argument)
+  };
 
 };  // The function that permits the draggable property to said Logic Gate object ends here. 
 
@@ -1028,9 +1059,9 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
     // point. 
 
   if ((elmnt.offsetLeft - pos1) <= maxX && (elmnt.offsetLeft - pos1) >= minX) { // This is a conditional instruction that 
-                                                                             // branches execution flow if the Logic 
-                                                                             // Gate Object is being dragged outside 
-                                                                             // of the Workspace. 
+                                                                            // branches execution flow if the Logic 
+                                                                            // Gate Object is being dragged outside 
+                                                                            // of the Workspace. 
                                                                               // This condtional branch only applies 
                                                                               // to checking UI moving vertically / on 
                                                                               // the X Axis (Left...).
@@ -1075,7 +1106,7 @@ function closeDragElement() { // This function will halt all mouse instructions 
 };  // The function that clears all critical elements related to a UI drag to prevent errors ends here. 
 
 //mydiv.draggable({ containment: "Workspace" }); // This instruction prevents the UI Object from leaving the actual
-                                               // Workspace DIV. 
+                                              // Workspace DIV. 
                                                 // This fixes the error of the elementDrag function prioritising 
                                                 // UI leaving the actual browser. 
                                                   // !-> Instead, this instruction narrows down the clamping area
@@ -1084,6 +1115,7 @@ function closeDragElement() { // This function will halt all mouse instructions 
 };  // The main function that handles Object UI movement ends here. 
 
 //  ** SCRIPT 005 ** The function(s) for interactable, draggable UI Objects ends here. 
+
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -1311,6 +1343,7 @@ function ioCheck(e) { // The info passed as a parameter
 
 //------------------------
 
+
 // !!TO DO!! , Finish this function to calculate the dot product that is 
 // normalised for the accurate drawing branch that the connection draw 
 // will implemenet down the line. 
@@ -1357,12 +1390,12 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   OUTPUTREFLOCATIONX = PARSED_PRD.OUTPUTPOSITIONX; 
   OUTPUTREFLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY; //+ 20; // *
 
-  console.log(
-    INPUTREFLOCATIONX,
-    INPUTREFLOCATIONY, 
-    OUTPUTREFLOCATIONX, 
-    OUTPUTREFLOCATIONY 
-  )
+  // console.log(
+  //   INPUTREFLOCATIONX,
+  //   INPUTREFLOCATIONY, 
+  //   OUTPUTREFLOCATIONX, 
+  //   OUTPUTREFLOCATIONY 
+  // )
 
   DRAWINPUTLOCATIONX = PARSED_PRD.INPUTPOSITIONX; 
   DRAWINPUTLOCATIONY = PARSED_PRD.INPUTPOSITIONY;
@@ -1380,20 +1413,40 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   //   INPUTREFERENCE, 
   //   OUTPUTREFERENCE);
 
-  console.log("IT'S DRAWING");
+  // console.log("IT'S DRAWING");
 
-  console.log(FastDotThenNormalise([DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY], [DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY])); // output: 32
+  // console.log(FastDotThenNormalise([DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY], [DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY])); // output: 32
 
   /// TODO -- Console log the draw data variables to see what they are... 
 
 // Draws the line connection between the two IOs
 
-  const ConnectionLine = document.getElementById("Wire");
+  const wireNode = document.getElementById("Wire");
+
+  const clone = wireNode.cloneNode(true);
+
+  document.getElementById("WiredConnection").appendChild(clone); 
+
+  var wireName = "Wire" + connectionsInitialised;
+
+
+
+  console.log(wireName)
+
+  clone.setAttribute("id", wireName);
+
+  const ConnectionLine = document.getElementById(wireName);
+
   ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONX);
   ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONY);
   ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONX);
   ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONY);
 
+  ConnectionLine.setAttribute("PairedData", connectionsInitialised); 
+
+  clone.style.display = "block"; 
+  
+  connectionsInitialised++; 
 
   console.log("Parsed PRD Values == ",
     DRAWINPUTLOCATIONX, 
@@ -1459,6 +1512,80 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
 //})
 }
+
+//------------------------
+
+// function deleteConnection(e) {
+
+//   selectedElement = document.getElementById(e.id);
+
+//   console.log("Deleted connection element == ", selectedElement)
+
+//   if (selectedElement.startsWith("Wire")) {
+
+//     selectedElement.style.display = "none";
+
+//   } else {
+
+//     console.log("No wire connection detected!")
+
+//   }
+
+//   console.log("Function not initialised")
+
+// }
+
+
+const wireContainerReference = document.getElementById('WiredConnection');
+
+// 2. Add a single listener to that container
+
+
+wireContainerReference.addEventListener('click', (event) => {
+
+    // 'event.target' is the actual element that was clicked
+
+    const clickedElement = event.target;
+
+    console.log(clickedElement);
+
+    // 3. Check if the element has an ID and if it starts with "Wire"
+
+    if (clickedElement.id && clickedElement.id.startsWith("Wire") && simulate != true) {
+
+        console.log("A wire was clicked!", clickedElement.id);
+        
+        // You can now manipulate the specific wire
+        clickedElement.setAttribute("stroke", "red"); 
+
+        objectPair = clickedElement.getAttribute("PairedData"); 
+
+        
+
+        if (jsonSaveWorkspace[1] == null) {
+
+          jsonSaveWorkspace.splice(objectPair, 1);
+
+          jsonSaveWorkspace.length = 0; 
+
+        } else { 
+
+          jsonSaveWorkspace.splice(objectPair, 1);
+
+        }
+
+        clickedElement.remove()
+
+        console.log(jsonSaveWorkspace)
+
+        // connectionsInitialised--;
+
+        // console.log(connectionsInitialised);
+
+    }
+
+});
+
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // ** SCRIPT 000000 ** READ WRITE TO JSON FILE 
 
@@ -1532,11 +1659,11 @@ function jsonReadWrite(
 // DO IT SO THAT IT SUBTRACTS OR ADDS HEIGHT (27 PX) ETC... DEPENDING ON THE IO PARSED DATA 
 
 
-getPropertiesSaveB = document.getElementById("save");  // We fetch the 
+getPropertiesSaveButton = document.getElementById("save");  // We fetch the 
 
 //link.setAttribute('href', "#");
 
-getPropertiesSaveB.onclick= function() {
+getPropertiesSaveButton.onclick= function() {
 
   TYPE = prompt("Please enter the TYPE of project data you want to save.\nEnter the letter 'L' to save the layout data, and enter\nthe letter 'P' to save your Logic Gate circuit project.");
 
@@ -1565,11 +1692,11 @@ getPropertiesSaveB.onclick= function() {
 
 
 
-getPropertiesLoadB = document.getElementById("load");  // We fetch the 
+getPropertiesLoadButton = document.getElementById("load");  // We fetch the 
 
 //link.setAttribute('href', "#");
 
-getPropertiesLoadB.onclick= function() {
+getPropertiesLoadButton.onclick= function() {
 
   confirmation = confirm("Remember to save your current project as loading in a new Layout or Project file can override the current Layout or Project data present right now.\nPress CANCEL to halt the loading process until everything is saved.\nPress OK to initialise the loading process.")
 
@@ -1683,18 +1810,74 @@ console.log(xLen, yLen, "size of workspace with X | Y")
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** SCRIPT 009 ** Allows for Simboard Projects to be saved as a JSON file. 
-iii = 0
-function testloop(){
-  while (true == true) {
-    console.log("Testing for loop is going well...")
+// iii = 0
+// function testloop(){
+//   while (true == true) {
+//     console.log("Testing for loop is going well...")
     
+//   }
+// }
+
+var getPropertiesSimulateButton = document.getElementById("simulate");  // We fetch the ...XYZ!
+
+
+getPropertiesSimulateButton.onclick= function simulateWorkspace() {
+
+  if (simulate == false) {
+
+    simulate = true; 
+
+    var buttonImage = getPropertiesSimulateButton.children[1];
+
+    buttonImage.setAttribute("src", "/Media/Layout/PauseSim.png"); 
+
+    logicFlow(0, jsonSaveWorkspace)
+
+  } else if (simulate == true) {
+
+    simulate = false; 
+
+    var buttonImage = getPropertiesSimulateButton.children[1];
+
+    buttonImage.setAttribute("src", "/Media/Layout/PlaySim.png"); 
+
+    logicFlow(1, jsonSaveWorkspace)
+
+  } else { 
+
+    console.log("   !Simulation error occured!   ")
+
   }
+
 }
 
 // ** SCRIPT 009 ** The functions for Simboard Saving end here. 
 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+/// TODO -- IF MODE IS 0, THEN BUTTON INPUTS BECOME CLICKABLE AND FLOW CONTROL LOGIC STARTS CALCULCATING 
+/// TODO -- IF MODE IS 1, THEN FLOW STOPS AND ALL THUMBNAILS GO TO "DEACTIVATED" ALWAYS
+
+function logicFlow(MODE, WORKSPACE_DATA) {
+
+  if (MODE == 0) {
+
+  console.log("Control Flow is flowing...", WORKSPACE_DATA);
+
+  } else if (MODE == 1) {
+
+  console.log("Control Flow has stopped...");
+
+  } else {
+
+  console.log("Logic Error in logicFlow function!");
+
+  }
+
+}
+
+
 
 // ** SCRIPT 010 ** Allows for Simboard Projects to be loaded from a JSON file. 
 

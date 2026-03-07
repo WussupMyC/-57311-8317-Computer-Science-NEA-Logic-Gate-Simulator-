@@ -1066,7 +1066,9 @@ Halts Here */
 
 .gateObjectHighlight{
     border: 5px dotted red;; 
+
     background-color: rgba(62, 62, 196, 0.65); 
+
     cursor: url("/Media/Layout/handInvert.png"), move !important;
 
     position: absolute; /* The Logic Gate object can be moved without 
@@ -1100,7 +1102,17 @@ Halts Here */
 
 
 svg#WiredConnection {
+
   pointer-events: none;
+
+}
+
+.WireHitboxReference, line, path {
+    
+    pointer-events: visiblePainted; /* Captures clicks on the stroke pixels only */
+
+    cursor: url("/Media/Layout/deletePointer.png"), move;
+
 }
 
 
