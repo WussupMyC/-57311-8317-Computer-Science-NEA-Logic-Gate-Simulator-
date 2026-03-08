@@ -1086,6 +1086,7 @@ Halts Here */
 
 
 .IOStyle{ 
+
     cursor: copy;   
 
     position: absolute; /* The Logic Gate object can be moved without 
@@ -1112,6 +1113,52 @@ svg#WiredConnection {
     pointer-events: visiblePainted; /* Captures clicks on the stroke pixels only */
 
     cursor: url("/Media/Layout/deletePointer.png"), move;
+
+}
+
+
+
+/* The container (the logic gate/component) */
+
+/* The Action Button */
+.UserInputAbility {
+
+  position: absolute;   /* Take it out of the normal flow */
+
+  bottom: 0%;        /* Move it 20px below the bottom edge */
+
+  left: 50%;            /* Start at the middle */
+
+  transform: translateX(-50%); /* Shift back by half its width to perfectly center it */
+
+
+  width: 100%;
+
+  height: 100%; 
+  
+
+  /* Styling to match your UI */
+  background-color: rgba(255, 255, 255, 0.031); 
+
+  color: transparent; 
+
+  border: 0px solid rgba(0, 0, 0, 0.3);
+
+  padding: 2px 8px;
+
+  font-size: 10px;
+
+  cursor: pointer;
+
+  z-index: 10;          /* Ensure it stays on top of other elements */
+
+}
+
+.UserInputAbility:hover {
+
+  background-color: #e0e0e0;
+
+  color: black; 
 
 }
 

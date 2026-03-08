@@ -684,7 +684,17 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                                         // WARNING: Do not do id, divname + divname, because then we cannot 
                                         // properly reference it later on in the program. 
 
-    clone.setAttribute("gateType", gateType); 
+    clone.setAttribute("gatetype", gateType); //lowercase for dom compatibility 
+
+    if (gateType != "NOT") {
+
+      clone.setAttribute("state", 0)
+
+    } else {
+
+      clone.setAttribute("state", 1)
+      
+    }
 
     var headEl = clone.children[0]; // We get a reference to the DIV of the master object clone so that we
                                     // can customise it later. 
@@ -822,7 +832,10 @@ function cloneObject(gateType){ // This is the function that is utilised when th
 //  ** SCRIPT 006 ** Sets the currentItem variable & apply any highlighting that is needed to display 
 // the selection. 
 
+interactivityCheck = document.querySelectorAll('div[tag^="interactableObject"]');
+
 function selectCurrentItem(item) {
+
 
   if (currentItem == null) {
 
@@ -835,6 +848,7 @@ function selectCurrentItem(item) {
 
 
   };
+
 
   if (item != currentItem && currentItem != null) { // Removes highlight from previous section 
 
@@ -853,6 +867,29 @@ function selectCurrentItem(item) {
   console.log(selectedGatesStack)
 
 };
+
+
+
+document.addEventListener('click', (e) => {
+  // 1. Check if the clicked element (e.target) has the highlight class
+  const clickedHighlight = e.target.classList.contains('gateObjectHighlight');
+
+  // 2. If it DOES NOT have the class, remove the class from everything that does
+  if (!clickedHighlight) {
+      const highlightedItems = document.querySelectorAll('.gateObjectHighlight');
+      
+      highlightedItems.forEach(item => {
+        item.classList.remove('gateObjectHighlight');
+      });
+
+      console.log(currentItem);
+
+      currentItem = null; 
+
+      console.log('REMOVED HIGHLIGHTED OBJECTS -- Selection cleared');
+  }
+});
+
 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
@@ -1133,7 +1170,13 @@ function ioCheck(e) { // The info passed as a parameter
 
   console.log(IO, IOREFERENCE)
 
-  IOPARENT = IOREFERENCE.parent
+  IOPARENT = IOREFERENCE.parentNode;
+
+  IOHEADER = IOPARENT.parentNode; 
+
+  
+
+  console.log("io parent == ", IOHEADER)
 
   PREVIOUSIO = PREVIOUSIOSTACK[PREVIOUSIOSTACK.length - 1] /* We do this in this statement so it's simpler to gain the previous IO's 
   unique ID later on in the branching 
@@ -1185,6 +1228,7 @@ function ioCheck(e) { // The info passed as a parameter
       console.log(OverallXPos, OverallYPos)
 
       IOPARSE.PARENTOUTPUT = IOPARENT;
+      IOPARSE.RECEIVERTYPE = IOHEADER.getAttribute("gatetype");
       IOPARSE.INPUT = IOREFERENCE; 
       IOPARSE.OUTPUTPOSITIONX = OverallXPos;
       IOPARSE.OUTPUTPOSITIONY = OverallYPos;
@@ -1240,6 +1284,7 @@ function ioCheck(e) { // The info passed as a parameter
 
       IOPARSE.PARENTOUTPUT = IOPARENT;
       IOPARSE.OUTPUT = IOREFERENCE; 
+      IOPARSE.TRANSMITTERTYPE = IOHEADER.getAttribute("gatetype");
       IOPARSE.INPUTPOSITIONX = OverallXPos;
       IOPARSE.INPUTPOSITIONY = OverallYPos;
 
@@ -1382,6 +1427,9 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   INPUTREFERENCE = PARSED_PRD.INPUT.parentNode; 
   OUTPUTREFERENCE = PARSED_PRD.OUTPUT.parentNode; 
 
+  INPUTTYPE = PARSED_PRD.RECEIVERTYPE; 
+  OUTPUTTYPE = PARSED_PRD.TRANSMITTERTYPE; 
+
   GATEREFERENCE_I = PARSED_PRD.INPUT;
   GATEREFERENCE_O = PARSED_PRD.OUTPUT;
 
@@ -1478,7 +1526,10 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
     DRAWOUTPUTLOCATIONX,
     DRAWOUTPUTLOCATIONY,
 
-    itemsCreated    
+    itemsCreated, 
+
+    INPUTTYPE,
+    OUTPUTTYPE 
   );
 
 
@@ -1545,6 +1596,8 @@ wireContainerReference.addEventListener('click', (event) => {
 
     // 'event.target' is the actual element that was clicked
 
+    const isRestNull = jsonSaveWorkspace.slice(1).every(item => item === null);
+
     const clickedElement = event.target;
 
     console.log(clickedElement);
@@ -1553,36 +1606,59 @@ wireContainerReference.addEventListener('click', (event) => {
 
     if (clickedElement.id && clickedElement.id.startsWith("Wire") && simulate != true) {
 
-        console.log("A wire was clicked!", clickedElement.id);
-        
-        // You can now manipulate the specific wire
-        clickedElement.setAttribute("stroke", "red"); 
 
-        objectPair = clickedElement.getAttribute("PairedData"); 
+      console.log("A wire was clicked!", clickedElement.id);
+      
+      // You can now manipulate the specific wire
+      clickedElement.setAttribute("stroke", "red"); 
 
-        
+      objectPair = clickedElement.getAttribute("PairedData"); 
 
-        if (jsonSaveWorkspace[1] == null) {
 
-          jsonSaveWorkspace.splice(objectPair, 1);
+      console.log(objectPair);
 
-          jsonSaveWorkspace.length = 0; 
 
-        } else { 
+      //if (jsonSaveWorkspace[0] == null && jsonSaveWorkspace[1] == null) {
 
-          jsonSaveWorkspace.splice(objectPair, 1);
+        //jsonSaveWorkspace.splice(objectPair, 1);
 
-        }
+      //  jsonSaveWorkspace[objectPair] = null; 
 
-        clickedElement.remove()
+      //  jsonSaveWorkspace.length = 0; 
 
-        console.log(jsonSaveWorkspace)
+      //  console.log(jsonSaveWorkspace, " has been emptied!")
+
+      //} else { 
+
+        //jsonSaveWorkspace.splice(objectPair, 1);
+
+      jsonSaveWorkspace[objectPair] = null; 
+
+      //}
+
+      clickedElement.remove();
+
+      // cleanup
+
+      if (isRestNull) {
+
+        jsonSaveWorkspace.length = 0;
+
+        console.log(jsonSaveWorkspace, " has been emptied!");
+
+      } else {
+
+        //jsonSaveWorkspace = jsonSaveWorkspace.filter(item => item !== null);
+
+        console.log("After deletion .. ", jsonSaveWorkspace);
 
         // connectionsInitialised--;
 
         // console.log(connectionsInitialised);
 
-    }
+      };
+
+    };
 
 });
 
@@ -1610,13 +1686,17 @@ function jsonReadWrite(
   POSITIONOUTPUTX,
   POSITIONOUTPUTY,
 
-  NUMOFGATES) {
+  NUMOFGATES,
+
+  INPUTTYPE,
+  OUTPUTTYPE) {
 
 
   if (MODE == 0) {
     const saveFile = {
-      CONNECTEDOBJECT_A:  CONNECTEDOBJECT_INPUTREF, 
-      CONNECTEDOBJECT_B: CONNECTEDOBJECT_OUTPUTREF,
+
+      CONNECTEDOBJECT_A:      CONNECTEDOBJECT_INPUTREF, 
+      CONNECTEDOBJECT_B:      CONNECTEDOBJECT_OUTPUTREF,
 
 
       INPUTOBJECT_POSX:       CONNECTEDOBJECT_INPUTREF_POSX,
@@ -1635,7 +1715,11 @@ function jsonReadWrite(
       POSITIONOUTPUTBOXY:     POSITIONOUTPUTY,
 
 
-      NUMOFGATES:             NUMOFGATES
+      NUMOFGATES:             NUMOFGATES,
+
+      CONNECTEDOBJECT_A_TYPE: INPUTTYPE,
+      CONNECTEDOBJECT_B_TYPE: OUTPUTTYPE 
+
     };
 
     //console.clear();
@@ -1669,13 +1753,14 @@ getPropertiesSaveButton.onclick= function() {
 
   TYPE = TYPE.toUpperCase();
 
-  if (TYPE == 'L') {
+  if (TYPE == 'P') {
 
+    
     saveData(0, jsonSaveWorkspace)
 
     console.log("Saving Simboard Layout Data has been attempted.")
 
-  } else if (TYPE == 'P') {
+  } else if (TYPE == 'L') {
 
     saveData(1, cssConcatonates)
 
@@ -1708,13 +1793,13 @@ getPropertiesLoadButton.onclick= function() {
 
     TYPE = TYPE.toUpperCase();
 
-    if (TYPE == 'L') {
+    if (TYPE == 'P') {
 
       loadData(0, jsonSaveWorkspace)
 
       console.log("Loading Simboard Layout Data has been attempted.")
 
-    } else if (TYPE == 'P') {
+    } else if (TYPE == 'L') {
 
       loadData(1, cssConcatonates)
 
@@ -1736,41 +1821,73 @@ getPropertiesLoadButton.onclick= function() {
 
 
 
+function download(content, fileName, contentType) {
+
+    var a = document.createElement("a");
+
+    var file = new Blob([content], {type: contentType});
+
+    a.href = URL.createObjectURL(file);
+
+    a.download = fileName;
+
+    a.click();
+
+}
+
+
 
 function saveData(MODE, DATA) {
   // c = 0; // debugging value
   // console.log(c) // debugging branch 
   //extension = ".json"
 
-    var file = new Blob([DATA], {type: "json"});
 
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
+    filenamePrompt = prompt("Please enter the name for your file below,\nexcluding symbols and special characters:")
 
-        window.navigator.msSaveOrOpenBlob(file, "filename");
+    //var file = new Blob([DATA], {type: "json"});
 
-    else { // Others
+    typeOfFormat = MODE; 
 
-        var a = document.createElement("a"),
+    var jsonPackage = JSON.stringify(DATA); 
 
-                url = URL.createObjectURL(file);
+    console.clear();
 
-        a.href = url;
+    console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
 
-        a.download = "filename";
+    download(jsonPackage, filenamePrompt + '.txt', 'text/plain');
 
-        document.body.appendChild(a);
+    return; 
 
-        a.click();
+    // if (window.navigator.msSaveOrOpenBlob) // IE10+
 
-        setTimeout(function() {
+    //     window.navigator.msSaveOrOpenBlob(jsonPackage, filenamePrompt);
 
-            document.body.removeChild(a);
+    // else { // Others
 
-            window.URL.revokeObjectURL(url);  
+    //     var a = document.createElement("a"),
 
-        }, 0); 
+    //       url = URL.createObjectURL(jsonPackage);
+
+    //       console.log(url)
+
+    //     a.href = url;
+
+    //     a.download = filenamePrompt;
+
+    //     document.body.appendChild(a);
+
+    //     a.click();
+
+    //     setTimeout(function() {
+
+    //         document.body.removeChild(a);
+
+    //         window.URL.revokeObjectURL(url);  
+
+    //     }, 0); 
         
-    }; 
+    // }; 
 
 };
 
@@ -1778,6 +1895,8 @@ function loadData(MODE, DATA) {
 
   d = 1; 
   console.log(d) //debugging branch 
+
+  //JSON.parse()
 
 }
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
@@ -1833,6 +1952,7 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
     logicFlow(0, jsonSaveWorkspace)
 
+
   } else if (simulate == true) {
 
     simulate = false; 
@@ -1849,6 +1969,7 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
   }
 
+
 }
 
 // ** SCRIPT 009 ** The functions for Simboard Saving end here. 
@@ -1861,17 +1982,117 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
 function logicFlow(MODE, WORKSPACE_DATA) {
 
+  safetyDepth = 9; 
+
   if (MODE == 0) {
 
   console.log("Control Flow is flowing...", WORKSPACE_DATA);
 
-  } else if (MODE == 1) {
+  const elements = document.querySelectorAll('div[gatetype^="HoldButton"]');
 
-  console.log("Control Flow has stopped...");
+  elements.forEach(elm => {
+
+      //console.log('Found element:', el);
+
+      //el.style.fontWeight = 'bold';
+
+      const existingButton = elm.querySelector('.UserInputAbility');
+
+      if (!existingButton) {
+
+        const btn = document.createElement('button');
+
+        btn.innerText = 'TOGGLE BUTTON';
+
+        btn.className = 'UserInputAbility'; // Add a class for CSS styling
+
+        
+        btn.onclick = (e) => {
+
+          e.stopPropagation(); // Prevents the click from bubbling up to the div
+
+          console.log('Button clicked for:', elm.getAttribute('gatetype'));
+
+          buttonState = elm.getAttribute("state");
+
+          buttonThumbnail = elm.children[0].children[2];
+
+          if (buttonState == 0) {
+
+            elm.setAttribute("state", 1)
+
+            buttonThumbnail.setAttribute("src", "/Media/ActivatedState/HoldButton_Activated.png")
+
+          } else {
+
+            elm.setAttribute("state", 0)
+
+            buttonThumbnail.setAttribute("src", "/Media/DeactivatedState/HoldButton_Deactivated.png")
+
+          }
+
+          for (let i = 0; i < safetyDepth; i++) {
+
+            discernBoolean();
+
+          };
+
+        };
+
+        elm.appendChild(btn);
+
+      }
+
+  });
+
+
+
+  } else if (MODE == 1) { // cleanup 
+
+    console.log("Control Flow has stopped...");
+
+
+
+    const allObjects = document.querySelectorAll('div[tag^="interactableObject"]')
+
+    console.log(allObjects);
+
+    allObjects.forEach(obj => {
+
+      logicGateImageReference = obj.children[0].children[2];
+
+      logicGateType = obj.getAttribute("gatetype");
+
+      logicGateState = obj.getAttribute("state");
+
+
+      console.log(logicGateType)
+
+      console.log(logicGateState)
+
+
+      logicGateImageReference.setAttribute("src", "/Media/DeactivatedState/" + logicGateType + "_Deactivated.png"); 
+
+      obj.setAttribute("state", 0)
+
+    });
+
+    const userInputsFound = document.querySelectorAll('.UserInputAbility');
+    
+    userInputsFound.forEach(btn => {
+
+      btn.remove();
+
+    });
+    
+    //console.log(`${userInputsFound.length} buttons removed.`);
+
 
   } else {
 
-  console.log("Logic Error in logicFlow function!");
+
+    console.log("Logic Error in logicFlow function!");
+
 
   }
 
@@ -1883,6 +2104,290 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
 
 // ** SCRIPT 010 ** The functions for Simboard Loading end here. 
+
+// ---
+
+function discernBoolean() {
+    // 1. Create a "Waiting Room" to store incoming signals for every gate
+    const inputTracker = {}; 
+
+    // 2. FILL THE WAITING ROOM
+    jsonSaveWorkspace.forEach(conn => {
+        if (!conn) return;
+
+        const sourceNode = conn.CONNECTEDOBJECT_A.parentNode;
+        const targetNode = conn.CONNECTEDOBJECT_B.parentNode;
+        const targetID = targetNode.id
+        
+        console.log("TARGET IDENTIFICATION == ", targetID);
+
+        // TO COMMENT ABOUT:  Ensure the target has a list in our tracker
+        if (!inputTracker[targetID]) {
+            inputTracker[targetID] = [];
+            //console.log("To track input, ", inputTracker[targetID] = [])
+        }
+
+        // TO COMMENT ABOUT:  Add the source's state to the target's list of inputs
+        const sourceState = parseInt(sourceNode.getAttribute("state"));
+        inputTracker[targetID].push(sourceState);
+        //console.log("To track the source push, ", inputTracker[targetID].push(sourceState))
+    });
+
+    //  TO COMMENT ABOUT: CALCULATE BOOLEAN VIA Now we look at every gate that received a signal
+    for (const gateId in inputTracker) {
+
+        const gateNode = document.getElementById(gateId);
+
+        const type = gateNode.getAttribute("gatetype");
+
+        const inputs = inputTracker[gateId]; // THIS IS THE ARRAY CREATION 
+
+
+        let finalState = 0;
+
+
+        //  TO COMMENT ABOUT: Apply specific math based on the gate type
+        if (type === "Lightbulb" || type === "Speaker" || type === "OR") {
+          console.log("EITHER LIGHTBULB, SPEAKER OR THE OR GATE VISITED!")
+            // OR Logic: At least one input must be 1
+          finalState = inputs.includes(1) ? 1 : 0;
+
+        } else if (type === "AND") {
+          console.log("AND GATE VISITED!")
+            // AND Logic: ALL inputs must be 1 (and must have at least 1 input)
+            // const allInputsHigh = inputs.length >= 2 && inputs.every(val => val === 1);
+            // finalState = allInputsHigh ? 1 : 0;
+
+            const hasEnoughInputs = inputs.length >= 2;
+            const allInputsActive = inputs.every(val => val === "1" || val === 1);
+
+            finalState = (hasEnoughInputs && allInputsActive) ? 1 : 0;
+
+            console.log("AND GATE IS RETURNING == ", finalState)
+
+        } else if (type === "XOR") {
+
+          //  TO COMMENT ABOUT: Count how many inputs are actually ON
+          const activeCount = inputs.filter(v => Number(v) === 1).length;
+
+          //  TO COMMENT ABOUT: XOR logic: Returns 1 if the number of active inputs is ODD (1, 3, 5...)
+          finalState = (activeCount % 2 !== 0) ? 1 : 0;
+
+          console.log(`XOR (${gateId}) found ${activeCount} active inputs. Returning: ${finalState}`);
+
+        } else if (type === "NOT") {
+          console.log("NOT GATE VISITED!")
+          // NOT logic: If input is 1, output is 0. If input is 0, output is 1.
+          //  TO COMMENT ABOUT: It only needs 1 wire connected.
+
+          const signal = inputs.length > 0 ? inputs[0] : 0;
+          finalState = (signal == 0) ? 1 : 0;
+
+            console.log("NOT GATE IS RETURNING == ", finalState)
+
+          // if (inputs.length === 1) {
+
+          //     finalState = (inputs[0] === 1) ? 0 : 1;
+
+          // } else {
+
+          //     finalState = 0; // Or keep its current state
+
+          // }
+
+        } else {
+
+          console.log("CRITICAL MAJOR ERROR !!! LOGIC GATE BOOLEAN NOT CALCULATED")
+
+        }
+
+        //  TO COMMENT ABOUT: WE NOW SET UP THE THUMBNAIL OF THE OBJECT
+        gateNode.setAttribute("state", finalState);
+
+        if (type != "NOT") {
+
+          const folder = finalState === 1 ? "ActivatedState" : "DeactivatedState";
+
+          const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
+
+          // Update the image (assuming index 2 is your icon)
+          if(gateNode.children[0].children[2]) {
+              gateNode.children[0].children[2].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+          }
+// CAN DELETE BOTTOMER        
+        } else {
+
+          const folder = finalState === 1 ? "DeactivatedState" : "ActivatedState";
+
+          const suffix = finalState === 1 ? "_Deactivated.png" : "_Activated.png";
+
+          // Update the image (assuming index 2 is your icon)
+          if(gateNode.children[0].children[2]) {
+
+              gateNode.children[0].children[2].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+
+          }
+
+        }
+        
+
+    }
+}
+
+// ---
+
+// function discernBoolean(DISCERN_MODE, transmittingAObject, transmittingBObject, currentObject) {
+
+//   //InfinityPrevention = 0; 
+
+//   transmitterA = transmittingAObject.parentNode;
+
+//   transmitterB = transmittingBObject.parentNode;
+
+
+//   transmitterAThumbnail = transmittingAObject.children[2];
+
+//   transmitterBThumbnail = transmittingBObject.children[2];
+
+
+//   transmitterAState = Boolean(transmitterA.getAttribute("state"));
+
+//   transmitterBState = Boolean(transmitterB.getAttribute("state"));
+
+
+//   receiver = currentObject.parentNode;
+
+//   receiverThumbnail = currentObject.children[2]
+
+
+//   nextReceiver = null; 
+
+//   otherObject = null; 
+
+//   if (DISCERN_MODE == 0) {
+
+//     switch (receiver.getAttribute("gateType") == "AND") {
+
+//       case "HoldButton": // Checks the button state, if 1, then 
+//         ws
+
+//       case "AND": 
+
+//         if (transmitterAState && transmitterBState) {
+
+//           receiver.setAttribute("state", 1)
+
+//           receiverThumbnail.setAttribute("src", "/Media/ActivatedState/" + (receiver.getAttribute("state")) + "_Activated.png");
+
+//           discernBoolean(0, receivingObject, otherObject, nextReceiver);
+
+//         } else {
+
+//           receiverThumbnail.setAttribute("src", "/Media/DeactivatedState/" + (receiver.getAttribute("state")) + "_Deactivated.png");
+
+//         }
+
+//     }
+
+
+
+//     // receiverState = receiver.getAttribute("state")
+
+//     // if ((receiver.getAttribute("gatetype") == "HoldButton")) {
+
+//     //   if (transmitterAState == 1) {
+        
+//     //     discernBoolean(receiver, nextObject)
+
+//     //   } else {
+
+//     //     console.log("It's happening!")
+
+//     //   }
+
+//     // } else if ((receiver.getAttribute("gatetype") == "AND")) {
+
+//     //   if (transmitterAState && transmitterBState) {
+        
+//     //     receiverState = 1;
+
+//     //   } else {
+
+//     //     receiverState = 0; 
+
+//     //   }
+
+
+
+//     // } else if ((receiver.getAttribute("gatetype") == "OR")) {
+
+//     //   if (transmitterAState || transmitterBState) {
+        
+//     //     receiverState = 1;
+
+//     //   } else {
+
+//     //     receiverState = 0; 
+
+//     //   }
+
+//     // } else if ((receiver.getAttribute("gatetype") == "NOT")) {
+
+//     //   let receiverState = transmitterAState === 1 ? 0 : 1;
+
+
+//     // } else if ((receiver.getAttribute("gatetype") == "XOR")) {
+
+//     //   if (transmitterAState ^ transmitterBState) {
+        
+//     //     receiverState = 1;
+
+//     //   } else {
+
+//     //     receiverState = 0; 
+
+//     //   }
+
+
+//     // } else if ((receiver.getAttribute("gatetype") == "Lightbulb")) {
+
+//     //   if (transmitterAState == 1) {
+        
+//     //     receiverState = 1;
+
+//     //   } else {
+
+//     //     receiverState = 0; 
+
+//     //   }
+
+
+//     // } else if ((receiver.getAttribute("gatetype") == "Speaker")) {
+
+//     //   if (transmitterAState == 1) {
+        
+//     //     receiverState = 1;
+
+//     //   } else {
+
+//     //     receiverState = 0; 
+
+//     //   }
+
+//     // }
+
+//   } else if (DISCERN_MODE == 1) {
+
+//     let x = 0; 
+
+//   } else {
+
+//     console.log("CRITICAL BOOLEAN CALCULATION ERROR -- Something is wrong with the circuit or function parameters! ")
+
+//   }
+
+// }
+
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
