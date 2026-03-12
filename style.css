@@ -548,6 +548,10 @@ body{ /* Everything inside of the body tag styles like... */
     are properly sized, and that the UI cannot be dragged as an image, or have 
     its text selected. */ 
 
+    position: relative; 
+
+    overflow: hidden; 
+    
     display: flex;  /* We tell the Circuit Builder Area to display as a 
     flex, allowing it to be compatible with the already flexed Circuit 
     Config Area. */ 
@@ -641,6 +645,8 @@ body{ /* Everything inside of the body tag styles like... */
 
 #Workspace{ /* To enable the properties seen above, we must first define 
     the background for the  */ 
+
+    position: relative; 
 
     background-color: rgb(255, 255, 255);   /* In case the Grid Canvas 
     (covered a little later) colour cannot be displayed, we can backtrack 
@@ -1020,6 +1026,7 @@ Halts Here */
     text-align: center; /* Any text displayed or noted inside of the 
     Logic Gate Object is displayed direction in the middle of said 
     object. */ 
+    
 
 }   /* The styling for the Logic Gate Object Container halts here. */ 
 
@@ -1029,6 +1036,8 @@ Halts Here */
         /* We must therefore ensure that it properly fills its 
         respective container, and has the ability to be dragged 
         around said Workspace. */ 
+
+    overflow: hidden; 
 
         
 

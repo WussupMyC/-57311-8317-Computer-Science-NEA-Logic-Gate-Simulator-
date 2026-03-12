@@ -1,18 +1,7 @@
 
 
 
-
-
-
-
-
-
-// // TODO - - Logic systems tomorrow // // 
-
-
-
-
-
+// // TODO - - Saving systems // // 
 
 
 
@@ -72,6 +61,8 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 // ** GLOBAL VARIABLE DEFINITIONS **
+
+simboardVersion = "FR 1.0.0";
 
 simulate = false; 
 
@@ -142,9 +133,13 @@ presentObjects = +0; // This holds the number of objects that are present in the
 
 jsonSaveWorkspace = [];  // This holds all data for the logic gates present on the workspace plus connections. 
 
+jsonSaveWorkspaceOverwrite = []; //               Holds the new data dragged into the WORKSPACe....
+
 totalWires = 0; 
 
 connectionsInitialised = 0; 
+
+importedFileType = null; 
 
 // TODO -- WORKSPACE GRID ZOOMS IN OR OUT WITH L OR K, AND REDRAWS THE GRID, AXIS AND SCALES THE OBJECTS UP OR DOWN 
 
@@ -170,6 +165,8 @@ console.log(dumpVar);    // This instruction outputs the debug variable for test
 // effective and efficient for you and for the end user...!
 
 var link = document.getElementById("customise");  // We fetch the 
+
+tempStyle = "#DEDE94"; 
 
 //link.setAttribute('href', "#");
 
@@ -208,9 +205,21 @@ link.onclick= function() {
 
       if (prompts[i][0] == "*") {
 
-        nextProperty.style.backgroundColor = GridCanvasPrompt;
+        if (prompts[i][2] == "1") {
 
-        alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+          tempStyle = GridCanvasPrompt;
+
+          nextProperty.style.backgroundColor = GridCanvasPrompt;
+
+          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+        } else {
+
+          nextProperty.style.backgroundColor = GridCanvasPrompt;
+
+          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+        }
 
 
 
@@ -288,9 +297,21 @@ link.onclick= function() {
 
       if (prompts[i][0] == "*") {
 
-        nextProperty.style.removeProperty('background-color');
+        if (prompts[i][2] == "1") {
 
-        alert("Successfully defaulted " + nextProperty + " back to its default colour!"); 
+          tempStyle = rgbToHexadec(nextProperty.style.removeProperty('background-color'));
+
+          nextProperty.style.removeProperty('background-color');
+
+          alert("Successfully defaulted " + nextProperty + " back to its default colour!"); 
+
+        } else {
+
+          nextProperty.style.removeProperty('background-color');
+
+          alert("Successfully defaulted " + nextProperty + " back to its default colour!"); 
+
+        }
 
         
       } else if (prompts[i][0] == "^") {
@@ -615,35 +636,47 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
       // detects a click from the users' mouse/input system. 
         // This anonymous is signified by the unassigned parenthesis () in the statements below. 
 
-document.getElementById("AND").addEventListener("click", () =>cloneObject("AND")); // When AND Gate button is pressed, 
-                                                                                   // an AND Gate is spawned in. 
+referenceOfWorkspaceGrid = document.getElementById("Workspace")
 
-document.getElementById("OR").addEventListener("click", () =>cloneObject("OR")); // When OR Gate button is pressed, 
-                                                                                 // an OR Gate is spawned in. 
+//const workspaceRect = referenceOfWorkspaceGrid.getBoundingClientRect();
 
-document.getElementById("NOT").addEventListener("click", () =>cloneObject("NOT")); // When NOT Gate button is pressed, 
+summonX = referenceOfWorkspaceGrid.left;
+
+summonY = referenceOfWorkspaceGrid.top; 
+
+console.log(summonX, " == SUMMON X || SUMMON Y == ", summonY)
+
+document.getElementById("AND").addEventListener("click", () =>cloneObject("AND", summonX, summonY));  // When AND Gate button is pressed, 
+                                                                                              // an AND Gate is spawned in. 
+
+document.getElementById("OR").addEventListener("click", () =>cloneObject("OR", summonX, summonY));  // When OR Gate button is pressed, 
+                                                                                            // an OR Gate is spawned in. 
+
+document.getElementById("NOT").addEventListener("click", () =>cloneObject("NOT", summonX, summonY)); // When NOT Gate button is pressed, 
                                                                                    // a NOT Gate is spawned in. 
 
-document.getElementById("XOR").addEventListener("click", () =>cloneObject("XOR")); // When XOR Gate button is pressed, 
+document.getElementById("XOR").addEventListener("click", () =>cloneObject("XOR", summonX, summonY)); // When XOR Gate button is pressed, 
                                                                                    // an XOR Gate is spawned in. 
 
-document.getElementById("HoldButton").addEventListener("click", () =>cloneObject("HoldButton")); // When the Button 
+document.getElementById("HoldButton").addEventListener("click", () =>cloneObject("HoldButton", summonX, summonY)); // When the Button 
                                                                                                  // button is pressed, 
                                                                                                  // a Button spawns in. 
 
-document.getElementById("Lightbulb").addEventListener("click", () =>cloneObject("Lightbulb")); // When the Lightbulb 
+document.getElementById("Lightbulb").addEventListener("click", () =>cloneObject("Lightbulb", summonX, summonY)); // When the Lightbulb 
                                                                                                // button is pressed, a 
                                                                                                // Lightbulb is spawned
                                                                                                // in. 
 
-document.getElementById("Speaker").addEventListener("click", () =>cloneObject("Speaker")); // When the Speaker button 
+document.getElementById("Speaker").addEventListener("click", () =>cloneObject("Speaker", summonX, summonY)); // When the Speaker button 
                                                                                            // is pressed, a Speaker is 
                                                                                            // spawned in. 
 
                                                                                            // !-> IDs are CASE 
                                                                                            // SENSITIVE! 
 
-function cloneObject(gateType){ // This is the function that is utilised when the anonymous function 
+//cloneObject("OR", 545, 678)
+
+function cloneObject(gateType, posiX, posiY){ // This is the function that is utilised when the anonymous function 
                                 // calls it above. This function takes a string parameter, for example, 
                                 // "AND", and utilises it with operations that summon it into the Workspace
                                 // and customsie it so that the string passed in represents its respective 
@@ -686,15 +719,7 @@ function cloneObject(gateType){ // This is the function that is utilised when th
 
     clone.setAttribute("gatetype", gateType); //lowercase for dom compatibility 
 
-    if (gateType != "NOT") {
 
-      clone.setAttribute("state", 0)
-
-    } else {
-
-      clone.setAttribute("state", 1)
-      
-    }
 
     var headEl = clone.children[0]; // We get a reference to the DIV of the master object clone so that we
                                     // can customise it later. 
@@ -711,6 +736,25 @@ function cloneObject(gateType){ // This is the function that is utilised when th
         // default. 
       // !-> ERRORS OCCUR WHEN CASE SENSITIVITY IS UNDERLOOKED & NON-EXISTENT FILE PATHWAYS ARE STATED!
 
+    if (gateType != "NOT") {
+
+      clone.setAttribute("state", 0)
+
+      gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
+        // We then set said the UI Image element of the master object clone. 
+          // This is done by setting the source attribute of the image tag to be that of the file pathway concatonating 
+          // with the passed parameter / argument in addition to its default state, which is to be Deactivated by 
+          // default. 
+        // !-> ERRORS OCCUR WHEN CASE SENSITIVITY IS UNDERLOOKED & NON-EXISTENT FILE PATHWAYS ARE STATED!
+
+    } else {
+
+      clone.setAttribute("state", 1)
+
+      gateImage.setAttribute("src", "/Media/ActivatedState/" + gateType + "_Activated.png"); 
+      
+    }
+
     headEl.setAttribute("id", divname); // We then manually state with this instruction that our new master object
                                         // clone should retain a custom, unique ID produced earlier. 
 
@@ -719,12 +763,12 @@ function cloneObject(gateType){ // This is the function that is utilised when th
                                                    // so that it can be moved around the Workspace without the 
                                                    // browser treating it like a plain image. 
 
-    clone.style.top=500;    // This instruction attempts to manually set the position of the master object clone
+    clone.style.top=posiY + "px";    // This instruction attempts to manually set the position of the master object clone
                             // to a padded offset position of X amount of pixels from the top. 
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well. 
 
-    clone.style.left=500;   // This instruction attempts to manually set the position of the master object clone 
+    clone.style.left=posiX + "px";   // This instruction attempts to manually set the position of the master object clone 
                             // to a padded offset position of Y amount of pixels from the left. 
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well.  
@@ -812,11 +856,11 @@ function cloneObject(gateType){ // This is the function that is utilised when th
         break;
     }
 
-    for (let x = 0; x < objectRef.inputs; x++) {
+    // for (let x = 0; x < objectRef.inputs; x++) {
 
-      console.log(x);
+    //   console.log(x);
 
-    };
+    // };
 
   }; 
     
@@ -1011,16 +1055,24 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                                 // Height), so that it can be 
                                                                                 // referenced later. 
 
-  maxX = winW - elmnt.offsetWidth - 1,  // This instruction calculates the maximum positions (width-wise) 
+  //maxX = winW - elmnt.offsetWidth - 1,  // This instruction calculates the maximum positions (width-wise) 
                                         // on the Workspace before the Logic Gate UI Object would leave the
                                         // screen. 
                                         // This is the absolute value. 
 
-    maxY = winH - elmnt.offsetHeight - 1; // This instruction calculates the maximum positions (height-wise)
+    //maxY = winH - elmnt.offsetHeight - 1; // This instruction calculates the maximum positions (height-wise)
                                           // on the Workspace before the Logic Gate UI Object would leave the
                                           // screen. 
                                           // This is the abolsute value. 
 
+  var sizeOfWorkspaceY = document.getElementById("Workspace").offsetHeight; 
+  var sizeOfWorkspaceX = document.getElementById("Workspace").offsetWidth; 
+
+  maxX = sizeOfWorkspaceX, // TO DO 
+  maxY = sizeOfWorkspaceY;
+
+
+  console.log("MaxX Debug: ", maxX)
   console.log("MaxY Debug: ", maxY) // debug with identifier... 
 
   pos1 = pos3 - e.clientX,  // Figures the distance that the Logic Gate UI Object has moved since it's most recently
@@ -1049,11 +1101,11 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
   var sizeOfBaseY = document.getElementById("Base").offsetHeight; 
   var sizeOfBaseX = document.getElementById("Base").offsetWidth; 
 
-  var sizeOfWorkspaceY = document.getElementById("Workspace").offsetHeight; 
-  var sizeOfWorkspaceX = document.getElementById("Workspace").offsetWidth; 
+  // var minY = sizeOfBaseY - sizeOfWorkspaceY;
+  // var minX = sizeOfBaseX - sizeOfWorkspaceX; 
 
-  var minY = sizeOfBaseY - sizeOfWorkspaceY;
-  var minX = sizeOfBaseX - sizeOfWorkspaceX; 
+  var minY = -1;
+  var minX = -1; 
 
   ///var minY = 200; 
   ///var minX = 200; 
@@ -1168,7 +1220,11 @@ function ioCheck(e) { // The info passed as a parameter
 
   IOREFERENCE = document.getElementById(e.id); /* Holds gate metadata */ 
 
-  console.log(IO, IOREFERENCE)
+  OBJ_ID = document.getElementById(e.id).parentNode.parentNode.id; 
+
+  console.log("OBJ_ID == ", OBJ_ID)
+
+  console.log("IO || IOREFERENCE == ", IO, IOREFERENCE)
 
   IOPARENT = IOREFERENCE.parentNode;
 
@@ -1228,6 +1284,7 @@ function ioCheck(e) { // The info passed as a parameter
       console.log(OverallXPos, OverallYPos)
 
       IOPARSE.PARENTOUTPUT = IOPARENT;
+      IOPARSE.PARENTOUTPUTUID = OBJ_ID; 
       IOPARSE.RECEIVERTYPE = IOHEADER.getAttribute("gatetype");
       IOPARSE.INPUT = IOREFERENCE; 
       IOPARSE.OUTPUTPOSITIONX = OverallXPos;
@@ -1283,6 +1340,7 @@ function ioCheck(e) { // The info passed as a parameter
       OverallYPos = parseInt(GatePositionY) + IOPositionY; 
 
       IOPARSE.PARENTOUTPUT = IOPARENT;
+      IOPARSE.PARENTINPUTUID = OBJ_ID; 
       IOPARSE.OUTPUT = IOREFERENCE; 
       IOPARSE.TRANSMITTERTYPE = IOHEADER.getAttribute("gatetype");
       IOPARSE.INPUTPOSITIONX = OverallXPos;
@@ -1427,6 +1485,9 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   INPUTREFERENCE = PARSED_PRD.INPUT.parentNode; 
   OUTPUTREFERENCE = PARSED_PRD.OUTPUT.parentNode; 
 
+  INPUTID = PARSED_PRD.PARENTINPUTUID; 
+  OUTPUTID = PARSED_PRD.PARENTOUTPUTUID; 
+
   INPUTTYPE = PARSED_PRD.RECEIVERTYPE; 
   OUTPUTTYPE = PARSED_PRD.TRANSMITTERTYPE; 
 
@@ -1529,7 +1590,10 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
     itemsCreated, 
 
     INPUTTYPE,
-    OUTPUTTYPE 
+    OUTPUTTYPE, 
+
+    INPUTID, 
+    OUTPUTID 
   );
 
 
@@ -1638,6 +1702,8 @@ wireContainerReference.addEventListener('click', (event) => {
 
       clickedElement.remove();
 
+      presentObjects - 2; 
+
       // cleanup
 
       if (isRestNull) {
@@ -1689,7 +1755,12 @@ function jsonReadWrite(
   NUMOFGATES,
 
   INPUTTYPE,
-  OUTPUTTYPE) {
+  OUTPUTTYPE,
+
+  INPUTUNIQUEID,
+  OUTPUTUNIQUEID) {
+
+  //console.log(CONNECTEDOBJECT_INPUTREF)
 
 
   if (MODE == 0) {
@@ -1718,7 +1789,10 @@ function jsonReadWrite(
       NUMOFGATES:             NUMOFGATES,
 
       CONNECTEDOBJECT_A_TYPE: INPUTTYPE,
-      CONNECTEDOBJECT_B_TYPE: OUTPUTTYPE 
+      CONNECTEDOBJECT_B_TYPE: OUTPUTTYPE, 
+
+      OBJECTA_INPUTID:        INPUTUNIQUEID,
+      OBJECTB_OUTPUTID:       OUTPUTUNIQUEID
 
     };
 
@@ -1754,7 +1828,6 @@ getPropertiesSaveButton.onclick= function() {
   TYPE = TYPE.toUpperCase();
 
   if (TYPE == 'P') {
-
     
     saveData(0, jsonSaveWorkspace)
 
@@ -1787,37 +1860,128 @@ getPropertiesLoadButton.onclick= function() {
 
   //setTimeout(5000) 
 
-  if (confirmation == true) {
+  if (confirmation == true && jsonSaveWorkspaceOverwrite[0] != null) {
 
-    TYPE = prompt("Please enter the TYPE of project data you want to load into Simboard.\nEnter the letter 'L' to load your layout data file, and enter\nthe letter 'P' to load your Logic Gate circuit into the Workspace!");
+    //TYPE = prompt("Please enter the TYPE of project data you want to load into Simboard.\nEnter the letter 'L' to load your layout data file, and enter\nthe letter 'P' to load your Logic Gate circuit into the Workspace!");
 
-    TYPE = TYPE.toUpperCase();
+    // if (clearWorkspace() {})
 
-    if (TYPE == 'P') {
+    stopLoadGif()
 
-      loadData(0, jsonSaveWorkspace)
+    clearWorkspace()// !!FUNC
 
-      console.log("Loading Simboard Layout Data has been attempted.")
+    if (importedFileType == 0) {
 
-    } else if (TYPE == 'L') {
+      redrawImport(jsonSaveWorkspaceOverwrite)
 
-      loadData(1, cssConcatonates)
+    } else if (importedFileType == 1) {
 
-      console.log("Loading Simboard Workspace Project Data has been attempted.")
+      redrawImport(cssConcatonatesOverwrite)
 
     } else {
 
-      confirm("Could not understand loading format. Please try again!")
+      alert("There was an error reading your imported file, please try again!\n\nThis could be because your file does not have the 'JSON' file extension, has bypassed some backend validation process, or has been corrupted.\n\nTo fix this, go into your imported file, and change the 'fileFormat' value to a 0 for Workspace Project data, or to a 1 for UI Layout data.")
 
     }
 
-  } else {
 
-    console.log("Cancelled loading operation.")
+  } else { 
 
+    alert("No file was found in the temporary reserve!\n\nIf a file has been recognised, a little animation will play on the LOAD BUTTON icon, signifying a Simboard JSON file has been loaded into the temporary reserve.\n\nPlease try again!")
   }
+  //   TYPE = TYPE.toUpperCase();
+
+  //   if (TYPE == 'P') {
+
+  //     loadData(0, jsonSaveWorkspace)
+
+  //     console.log("Loading Simboard Layout Data has been attempted.")
+
+  //   } else if (TYPE == 'L') {
+
+  //     loadData(1, cssConcatonates)
+
+  //     console.log("Loading Simboard Workspace Project Data has been attempted.")
+
+  //   } else {
+
+  //     confirm("Could not understand loading format. Please try again!")
+
+  //   }
+
+  // } else {
+
+  //   console.log("Cancelled loading operation.")
+
+  // }
 
 }
+
+
+
+const loadGifContents = [
+  "/Media/GIFFYFrames/F0.png",
+  "/Media/GIFFYFrames/F1.png",
+  "/Media/GIFFYFrames/F2.png",
+  "/Media/GIFFYFrames/F3.png",
+  "/Media/GIFFYFrames/F4.png",
+  "/Media/GIFFYFrames/F5.png",
+  "/Media/GIFFYFrames/F6.png",
+  "/Media/GIFFYFrames/F7.png",
+  "/Media/GIFFYFrames/F8.png",
+  "/Media/GIFFYFrames/F9.png",
+  "/Media/GIFFYFrames/F10.png",
+  "/Media/GIFFYFrames/F11.png",
+  "/Media/GIFFYFrames/F12.png",
+  "/Media/GIFFYFrames/F13.png",
+  "/Media/GIFFYFrames/F14.png"
+]
+
+currentAnimFrame = 0; 
+
+frameRate = null; 
+blinkRate = null; 
+
+animDelay = 215; // millisecond interval between frames (14 frames / 3 seconds = 215 ms/frame)
+blinkDelay = 1500; 
+
+loadButtonIcon = document.getElementById("load").children[1]; // Adjust index based on your HTML structure
+
+loadButtonBackgroundRef = document.getElementById("load");
+
+function playLoadGif() {
+
+
+
+  // Start the interval (143ms for a 2-second total loop)
+  frameRate = setInterval(() => {
+      // Update the image source
+      loadButtonIcon.setAttribute("src", loadGifContents[currentAnimFrame]);
+
+      // Move to next frame, or reset to 0 if at the end
+      currentAnimFrame = (currentAnimFrame + 1) % loadGifContents.length;
+
+      
+      if (currentAnimFrame % 4 === 0) {
+        loadButtonBackgroundRef.style.opacity = (loadButtonBackgroundRef.style.opacity == "0.9") ? "1" : "0.9";
+      }
+
+  }, animDelay);
+
+}
+
+function stopLoadGif() {
+
+  clearInterval(frameRate)
+
+  document.getElementById("load").children[1].setAttribute("src", "/Media/Layout/LoadProject.png");
+
+  loadButtonBackgroundRef.style.opacity = "1";
+
+}
+
+
+
 
 
 
@@ -1845,19 +2009,45 @@ function saveData(MODE, DATA) {
 
     filenamePrompt = prompt("Please enter the name for your file below,\nexcluding symbols and special characters:")
 
+    author = prompt("Who is authoring this Logic Gate circuit?\n(You can enter your name or alias if you want to!)")
+
     //var file = new Blob([DATA], {type: "json"});
+
+    console.log(DATA)
 
     typeOfFormat = MODE; 
 
-    var jsonPackage = JSON.stringify(DATA); 
+    const jsonFormat = {
+
+      header: {
+
+        fileFormat:     MODE,
+        noConns:        connectionsInitialised,
+        noObjs:         presentObjects, 
+        fileType:       "JSON (JavaScript Object Notation)",
+        sbVersion:      simboardVersion,
+        timeOfSave:     new Date().toISOString(),
+        website:        "Simboard",
+        validator:      "4po7cjd5SXtgj187_14DagT_CHRISTOPHER31CUPID",
+        circuitAuthor:  author
+
+      },
+
+      circuitBuild:     DATA
+
+    }; 
+    
+    jsonPackage = JSON.stringify(jsonFormat, null, 2); // null removes junk data in jsonWorkspace, 2 makes lines of space
 
     console.clear();
 
     console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
 
-    download(jsonPackage, filenamePrompt + '.txt', 'text/plain');
+    download(jsonPackage, filenamePrompt + '.json', 'text/plain');
 
     return; 
+
+};
 
     // if (window.navigator.msSaveOrOpenBlob) // IE10+
 
@@ -1889,21 +2079,540 @@ function saveData(MODE, DATA) {
         
     // }; 
 
+    // };
+
+function loadData(DATA) { // loads everything bts , waits until load button is clicked and then replaces everything 
+
+  loadButtonImgRef = document.getElementById("load").children[1]
+
+  jsonSaveWorkspaceOverwrite = []; 
+
+  console.clear();
+
+  console.log(DATA);
+
+
+  
+  fileAuthor = DATA.header.circuitAuthor; 
+
+  fileDOB = DATA.header.timeOfSave;
+
+  fileVersion = DATA.header.sbVersion;
+
+  fileObjConns = DATA.header.noConns;
+
+  fileTotalObjs = DATA.header.noObjs;
+
+  if (DATA.header.fileFormat == 0) {
+
+    fileType = "Workspace Circuit"
+
+    importedFileType = 0 
+
+  } else if (DATA.header.fileFormat == 1) {
+
+    fileType = "Layout"
+
+    importedFileType = 1
+
+  } else {
+
+    fileType = null; 
+
+    importedFileType = null; 
+
+  }
+
+
+  if (DATA.header.validator == "4po7cjd5SXtgj187_14DagT_CHRISTOPHER31CUPID") { // "encrypted" key....
+
+    //console.log("JSON File has been validated through the first cycle!"); }
+
+    if (DATA.header.fileFormat == 0) { // load logic for workspace circuit 
+
+      //console.log("JSON File has been validated through the second cycle!"); } } 
+
+      console.log("Control flow is going into reading into reading new imported Workspace data!");
+
+
+      console.clear()
+
+      console.log(`A Simboard file has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
+
+      alert(`A Simboard file has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
+
+
+
+      importedData = DATA.circuitBuild; 
+
+      console.log("Data parsed into load Data process function is: ", importedData)
+
+
+
+      jsonSaveWorkspaceOverwrite = importedData; 
+
+      console.log("Data in 'cache' is: ", jsonSaveWorkspaceOverwrite)
+
+
+      //  //jsonSaveWorkspaceOverwrite = []; 
+
+      // importedData.forEach(gateConnection => {
+
+      //   //console.log(gateConnection)
+
+      //   console.log(gateConnection.INPUTOBJECT_POSX)
+      //   console.log(gateConnection.INPUTOBJECT_POSY)
+
+      //   //console.log(gateConnection.CONNECTEDOBJECT_A_TYPE)
+
+      //   cloneObject(
+      //     gateConnection.CONNECTEDOBJECT_A_TYPE,
+      //     parseInt(gateConnection.INPUTOBJECT_POSX),  
+      //     parseInt(gateConnection.INPUTOBJECT_POSY),  
+      //   )
+
+      //   console.log("Looping through jsonSaveWorkspace list!")
+        
+      //   console.log(importedData.circuitBuild.gateConnection)
+
+      //   console.log(
+      //     gateConnection.CONNECTEDOBJECT_A,
+      //     gateConnection.INPUTOBJECT_POSX,
+      //     gateConnection.INPUTOBJECT_POSY
+      //   )
+
+      //   // console.log(
+      //   //   cloneObject(
+      //   //     "AND",        // gate type 
+      //   //     500,
+      //   //     500
+      //   //     //gateConnection.CONNECTEDOBJECT_INPUTREF_POSX, // x pos 
+      //   //     //gateConnection.CONNECTEDOBJECT_INPUTREF_POSY, // y pos 
+      //   //   )
+      //   // )
+
+      // })
+
+    } else if (DATA.header.fileFormat == 1) { // load logic for css concatonatesd ui styling 
+
+      console.log("Control flow is going into reading into reading new imported UI Layout data!")
+
+    };
+
+  };
+
+
+    
+
+  //console.log(importedData)
+
+  
+  // d = 1; 
+  // console.log(d) //debugging branch 
+
+  // //JSON.parse()
+
+  // const file = event.target.files[0];
+  // const reader = new FileReader();
+
+  // reader.onload = function(e) {
+  //   const content = e.target.result;
+  //   // Turn the string back into a real JavaScript Object
+  //   jsonSaveWorkspace = JSON.parse(content);
+    
+  //   // Re-render the gates based on the new data
+  //   rebuildWorkspace(); 
+  // };
+  // reader.readAsText(file);
+  
 };
 
-function loadData(MODE, DATA) {
 
-  d = 1; 
-  console.log(d) //debugging branch 
 
-  //JSON.parse()
+
+
+
+function clearWorkspace () {
+
+  console.clear()
+
+  const oldCircuitObjectsToDelete = document.querySelectorAll('div[tag^="interactableObject"]')
+
+  const oldCircuitWireLinesToDelete = document.querySelectorAll('line[tag^="interactableObject"]')
+
+  //console.log("WORKSPACE SPACE BEFORE:  ", jsonSaveWorkspace) -- this is good 
+
+  oldCircuitObjectsToDelete.forEach(elm => {
+
+    if (elm.id != "mydiv") {
+
+      console.log("Erased ", elm.getAttribute("gatetype"), " from the Workspace!")
+
+      elm.remove();
+
+    } else {
+
+      console.log("Safety lock prevented deletion of master gate or master wire line!")
+
+    }
+
+  });
+
+
+
+  oldCircuitWireLinesToDelete.forEach(el => {
+
+    //console.log("running through!")
+
+    if (el.id != "Wire") {
+
+      console.log("Erased ", el.id, " from the Workspace!")
+
+      el.remove();
+
+    } else {
+
+      console.log("Safety lock prevented deletion of master wire line!");
+
+    }
+
+  });
+
+  jsonSaveWorkspace = []; 
+  
+  //console.log("WORKSPACE SPACE AFTER:  ", jsonSaveWorkspace) -- this is good 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function rgbToHexadec(rgb) {
+    const rgbValues = rgb.match(/\d+/g);
+
+    
+    if (!rgbValues || rgbValues.length < 3) return "#ffffff"; // Default fallback
+
+    const r = parseInt(rgbValues[0]).toString(16).padStart(2, '0');
+
+    const g = parseInt(rgbValues[1]).toString(16).padStart(2, '0');
+
+    const b = parseInt(rgbValues[2]).toString(16).padStart(2, '0');
+  
+
+
+    return `#${r}${g}${b}`;
+}
+
+
+
+function getInvertedColour(hexValue) {
+    // Removes the # if it exists !!!!
+    hexValue = hexValue.replace('#', '');
+
+
+    let r = parseInt(hexValue.substring(0, 2), 16);
+
+    let g = parseInt(hexValue.substring(2, 4), 16);
+
+    let b = parseInt(hexValue.substring(4, 6), 16);
+
+    // THA INVERTER
+    r = (255 - r).toString(16).padStart(2, '0');
+
+    g = (255 - g).toString(16).padStart(2, '0');
+
+    b = (255 - b).toString(16).padStart(2, '0');
+
+
+    return `#${r}${g}${b}`;
+}
+
+
+
+
+
+
+const WorkspaceRef = document.getElementById("Base");
+//const ImportAreaStyler = WorkspaceRef.children[0].children[0];
+
+//console.log(tempStyle, " == tempStyle")
+
+
+let computedRGB = window.getComputedStyle(GridCanvasColour).backgroundColor;
+
+
+let currentHex = rgbToHexadec(computedRGB);
+
+
+WorkspaceRef.addEventListener("dragover", (e) => {
+
+  e.preventDefault();
+
+  console.log(rgbToHexadec(tempStyle))
+
+  GridCanvasColour.style.backgroundColor = getInvertedColour(tempStyle);
+    // e.preventDefault();
+    // console.log(tempStyle)
+    // GridCanvasColour.style.backgroundColor = getInvertedColour(tempStyle); // Visual feedback
+});
+
+WorkspaceRef.addEventListener("dragleave", () => {
+    GridCanvasColour.style.backgroundColor = tempStyle; // Visual feedback
+});
+
+
+WorkspaceRef.addEventListener("drop", (e) => {
+
+    e.preventDefault();
+
+    GridCanvasColour.style.backgroundColor = tempStyle; // Visual feedback
+
+    const file = e.dataTransfer.files[0]; 
+
+    if (file && file.type === "application/json") {
+
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+
+            try {
+
+                const data = JSON.parse(event.target.result);
+
+                //console.log(data) //-- find the data parsed through, if err detected, try swapping comments w. line below for load data!
+
+                playLoadGif()
+
+                loadData(data);
+
+
+            } catch (err) {
+
+                alert("Error reading file. Is it valid JSON?");
+
+            }
+
+        };
+        
+        reader.readAsText(file);
+
+    } else {
+
+        alert("Please drop a valid .json file!");
+
+    }
+    
+});
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
+function redrawImport(DAT) { //TODO -- PORT THE CLONEOBJECTS DRAGGABLE GATE HEADER INTO THE JSONSAVEWORKSPACE CONNECTION LINE
 
+  if (jsonSaveWorkspaceOverwrite[0] != null) {
+
+    console.clear();
+
+    console.log("Redrawing imported circuit!");
+
+    jsonSaveWorkspace = jsonSaveWorkspaceOverwrite; 
+
+    console.log(jsonSaveWorkspace);
+
+
+    
+
+    let idLimitInp = 0; 
+    let idLimitOut = 0; 
+
+    jsonSaveWorkspace.forEach(connec => {
+
+      if (connec != null) { 
+
+        idIterationInp = parseInt(connec.OBJECTA_INPUTID.replace("mydiv", ""));
+
+        if (idIterationInp > idLimitInp) idLimitInp = idIterationInp;
+
+      };
+
+    });
+
+    jsonSaveWorkspace.forEach(connek => {
+
+      if (connek != null) { 
+
+        idIterationOut = parseInt(connek.OBJECTB_OUTPUTID.replace("mydiv", ""));
+
+        if (idIterationOut > idLimitOut) idLimitOut = idIterationOut;
+
+      };
+
+    });
+
+
+    searchIndex = 1; 
+
+    uniquor = new Set();
+
+    jsonSaveWorkspace.forEach(gateConn => {
+
+      try { 
+
+        connectionLineAttributes = [
+
+          {
+
+          gType: gateConn.CONNECTEDOBJECT_B_TYPE,  
+
+          gUniqueIdentifier: gateConn.OBJECTA_INPUTID, 
+
+          gX: gateConn.INPUTOBJECT_POSX, 
+
+          gY: gateConn.INPUTOBJECT_POSY 
+
+          }, 
+
+          {
+
+          gType: gateConn.CONNECTEDOBJECT_A_TYPE,  
+
+          gUniqueIdentifier: gateConn.OBJECTB_OUTPUTID, 
+
+          gX: gateConn.OUTPUTOBJECT_POSX, 
+
+          gY: gateConn.OUTPUTOBJECT_POSY 
+
+          }
+
+        ]; 
+
+        
+
+      } catch(error) {
+
+        alert("WARNING:\nA fatal error was encountered during circuit backend reconfiguration! This circuit project may be unstable to use, if possible, please try again!\n\n\nError type: ", error)
+
+      }
+
+      console.clear()
+
+      console.log(connectionLineAttributes)
+
+
+      connectionLineAttributes.forEach(elem => {
+
+        if (elem.gUniqueIdentifier && elem.gType && !uniquor.has(elem.gUniqueIdentifier)) {
+
+          try { 
+
+            cloneObject(elem.gType, parseInt(elem.gX), parseInt(elem.gY));
+
+            uniquor.add(elem.gUniqueIdentifier);
+
+            searchIndex++; 
+            
+
+          } catch(error) { 
+
+            alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
+            
+          }
+
+        } else  {
+
+          console.log("Skipped duplicate connection entry for ", elem.gType, " , more specifically: ", elem.gUniqueIdentifier, " !");
+
+        }
+
+      })
+  })
+
+  console.clear()
+
+  console.log("JSONSAVEWORKSPACE BEFORE == ", jsonSaveWorkspace)
+
+  console.clear()
+
+  //jsonSaveWorkspace.forEach(gateConnec => {
+
+  //  fixCircuitFile(searchIndex, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
+
+  //  console.log(gateConnec, " == searchIndex of: ", searchIndex)
+    
+  //  searchIndex++; 
+
+  //})
+
+  } else { 
+
+    alert("No data was found in the temporary reserve!");
+
+  }
+
+  jsonSaveWorkspace.forEach(gateConnec => {
+
+    fetchInput = document.getElementById(`${gateConnec.OBJECTA_INPUTID}`).children[0];
+    fetchOutput = document.getElementById(`${gateConnec.OBJECTB_OUTPUTID}`).children[0];
+
+    //jsonSaveWorkspace.forEach(gateConnec => {
+    gateConnec.CONNECTEDOBJECT_A = fetchInput; 
+    gateConnec.CONNECTEDOBJECT_B = fetchOutput; 
+
+    
+    // let sindex = 0; 
+
+    // fixCircuitFile(sindex++, jsonSaveWorkspace, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
+
+    // //console.log(/*gateConnec,*/ " == searchIndex of: ", searchIndex)
+
+    // console.log("gateconnecs (I || O) == ", gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID)
+
+    // //sindex = sindex + 1; 
+
+    // //searchIndex++; 
+
+  })
+
+  searchIndex = 0; // reset search index
+
+  console.log("search Index reset to: ", searchIndex)
+
+};
+
+  //   jsonSaveWorkspace.forEach(gateConn => {
+
+  //     //console.log(gateConnection)
+  //     try{
+  //     console.log(gateConn.INPUTOBJECT_POSX)
+  //     console.log(gateConn.INPUTOBJECT_POSY)
+  //     //console.log(gateConnection.CONNECTEDOBJECT_A_TYPE)
+
+  //     cloneObject(
+  //       gateConn.CONNECTEDOBJECT_A_TYPE,
+  //       parseInt(gateConn.INPUTOBJECT_POSX),  
+  //       parseInt(gateConn.INPUTOBJECT_POSY),  
+  //     )
+  //     } catch(error) {
+  //       alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
+  //     }
+  //   }); 
+  // } else { 
+  //   alert("No data was found in the temporary reserve!")
+
+  // }
+
+//}
 
 //  ** SCRIPT 006 ** The functions for Workspace navigation end here. 
 
@@ -1911,7 +2620,88 @@ function loadData(MODE, DATA) {
 
 // ** SCRIPT 007 ** Allows Logic Gate Objects to be wired together 
 
-console.log(xLen, yLen, "size of workspace with X | Y")
+console.log(xLen, yLen, "size of workspace with X | Y");
+
+
+// function fixCircuitFile(INDEX, OPERATINGDATA, CONNECTORA, CONNECTORB) { // TODO: essentially I want to make it so each "CONNECTEDOBJECT_x?" is replaced with the clone 
+//                                     // object IDs so that discern boolean works (REPLACE WITH DRAGGABLEGATEHEADER)
+//                                     // i am thinking about a for loop ?
+//                                     // maybe implement a for each connection layer, 
+//   console.log("Currently fixing jsonSaveWorkspace conneciton layer: ", INDEX);
+//   console.log("Currently fixing sending division {{CONNECTOR A || CONNECTOR B}} :  ", CONNECTORA, CONNECTORB);
+
+//   //jsonSaveWorkspace.forEach(connectionLayer => {
+
+//     // fetchInput = "TestForInput"       // THIS WORKS!!
+//     // fetchOutput = "TestForOutput";    // THIS WORKS!! 
+
+//   fetchInput = document.getElementById(`${CONNECTORA}`);
+//   fetchOutput = document.getElementById(`${CONNECTORB}`);
+
+//   //jsonSaveWorkspace.forEach(gateConnec => {
+//   OPERATINGDATA[INDEX].CONNECTEDOBJECT_A = fetchInput; 
+//   OPERATINGDATA[INDEX].CONNECTEDOBJECT_B = fetchOutput; 
+//   //})
+
+
+
+//     // connectionLayer.CONNECTEDOBJECT_A = fetchInput; 
+//     // connectionLayer.CONNECTEDOBJECT_B = fetchOutput; 
+
+//     // fetchInputType = fetchInput.getAttribute("class"); 
+//     // fetchOutputType = fetchOutput.getAttribute("class")
+
+//     // console.log("TYPES (I || O) == ", fetchInputType, fetchOutputType)
+
+//     // if (fetchInput == "DraggableGateHeader") {
+
+//     //   connectionLayer.CONNECTEDOBJECT_A = fetchInput; 
+
+//     // } else if (fetchOutput == "DraggableGateHeader") { 
+
+//     //   connectionLayer.CONNECTEDOBJECT_B = fetchOutput; 
+
+//     // } else {
+
+//     //   console.log("Skipping gate object container (where class == DraggableGate)")
+
+//     // }
+
+// //  })
+
+  console.log("Fixed jsonWorkspace file (with updated references) == ", jsonSaveWorkspace)
+
+
+  /// NO! What I must do is recall the initconnect function and loop it for each actual connection inside of the overwriteJson 
+   // ... then a line must be drawn between the connected pair 
+                                  
+
+
+  //JSONSAVE.forEach(connection => {
+
+  //  .querySelector('div^[]')
+  //})
+
+  // H = "H"; 
+
+  // console.clear();
+
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+  // console.log(H);
+
+
+//};
 
 
 // ** SCRIPT 007 ** The functions for Logic Gate Objects to connect "wire" UI elements together, and produce 
@@ -1927,6 +2717,41 @@ console.log(xLen, yLen, "size of workspace with X | Y")
 // ** SCRIPT 008 ** The functions for File Menu functionality ends here. 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+var engineLink = document.getElementById("qualitysteps"); 
+
+calculationDepth = 9; // default depth of calculation
+
+engineLink.onclick= function() { // quality steps determine calculation depth. 
+
+  //console.log("Quality steps function is initialised!")
+
+  customQualityStepsPrompt = prompt("Please enter an INTERGER NUMBER of quality steps that you would like the engine to handle in your circuit.\nThe higher the INTEGER, the more data will be retained throughout the boolean calculations.");
+
+  customQualitySteps = Math.ceil(customQualityStepsPrompt); // prevents putting 0 etc 
+
+  console.log("Data inputted into prompt was: ", customQualitySteps);
+
+  if (customQualitySteps > 0) {
+
+    calculationDepth = customQualitySteps; 
+
+    console.log("New Calculation Depth (Quality Steps for Boolean Calculation) == ", calculationDepth);
+
+  } else {
+
+    confirm("Entered data was not recognised, please input again!");
+
+  };
+
+
+};
+
+
+
+
+
+
 
 // ** SCRIPT 009 ** Allows for Simboard Projects to be saved as a JSON file. 
 // iii = 0
@@ -1951,6 +2776,12 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
     buttonImage.setAttribute("src", "/Media/Layout/PauseSim.png"); 
 
     logicFlow(0, jsonSaveWorkspace)
+
+    for (let i = 0; i < calculationDepth; i++) { // pre check of circuit for not gate defaulting to 1 throughout 
+
+      discernBoolean();
+
+    };
 
 
   } else if (simulate == true) {
@@ -1982,8 +2813,6 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
 function logicFlow(MODE, WORKSPACE_DATA) {
 
-  safetyDepth = 9; 
-
   if (MODE == 0) {
 
   console.log("Control Flow is flowing...", WORKSPACE_DATA);
@@ -2004,12 +2833,12 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
         btn.innerText = 'TOGGLE BUTTON';
 
-        btn.className = 'UserInputAbility'; // Add a class for CSS styling
+        btn.className = 'UserInputAbility'; 
 
         
         btn.onclick = (e) => {
 
-          e.stopPropagation(); // Prevents the click from bubbling up to the div
+          e.stopPropagation(); // Prevents .. (DESCRIBE LATER)
 
           console.log('Button clicked for:', elm.getAttribute('gatetype'));
 
@@ -2031,11 +2860,12 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
           }
 
-          for (let i = 0; i < safetyDepth; i++) {
+          for (let i = 0; i < calculationDepth; i++) {
 
             discernBoolean();
 
           };
+          
 
         };
 
@@ -2071,9 +2901,20 @@ function logicFlow(MODE, WORKSPACE_DATA) {
       console.log(logicGateState)
 
 
-      logicGateImageReference.setAttribute("src", "/Media/DeactivatedState/" + logicGateType + "_Deactivated.png"); 
+      if (logicGateType != "NOT") {
 
-      obj.setAttribute("state", 0)
+        obj.setAttribute("state", 0)
+
+        logicGateImageReference.setAttribute("src", "/Media/DeactivatedState/" + logicGateType + "_Deactivated.png"); 
+
+      } else {
+
+        obj.setAttribute("state", 1)
+
+        logicGateImageReference.setAttribute("src", "/Media/ActivatedState/" + logicGateType + "_Activated.png"); 
+      
+      }
+
 
     });
 
@@ -2102,54 +2943,71 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
 // ** SCRIPT 010 ** Allows for Simboard Projects to be loaded from a JSON file. 
 
+filterMenuDebugRef = document.getElementById("FilterMenuActivator");
+
+filterMenuDebugRef.onclick= function() {
+
+  console.clear();
+
+  console.log("JsonSave: ", jsonSaveWorkspace);
+
+}
+
+
+
+
+
 
 // ** SCRIPT 010 ** The functions for Simboard Loading end here. 
 
 // ---
 
 function discernBoolean() {
-    // 1. Create a "Waiting Room" to store incoming signals for every gate
+    // 1. Create a calculation storage container 
     const inputTracker = {}; 
 
-    // 2. FILL THE WAITING ROOM
+
     jsonSaveWorkspace.forEach(conn => {
         if (!conn) return;
 
         const sourceNode = conn.CONNECTEDOBJECT_A.parentNode;
-        const targetNode = conn.CONNECTEDOBJECT_B.parentNode;
-        const targetID = targetNode.id
+        const targetNode = conn.CONNECTEDOBJECT_B.parentNode; // error is something to do with this... 
+        const targetID = targetNode.id;
+
+        console.log("PN SouNod == ", sourceNode); 
+        console.log("PN TarNod == ", targetNode); 
         
         console.log("TARGET IDENTIFICATION == ", targetID);
 
-        // TO COMMENT ABOUT:  Ensure the target has a list in our tracker
+
         if (!inputTracker[targetID]) {
             inputTracker[targetID] = [];
-            //console.log("To track input, ", inputTracker[targetID] = [])
+
         }
 
-        // TO COMMENT ABOUT:  Add the source's state to the target's list of inputs
+
         const sourceState = parseInt(sourceNode.getAttribute("state"));
         inputTracker[targetID].push(sourceState);
-        //console.log("To track the source push, ", inputTracker[targetID].push(sourceState))
+
     });
 
-    //  TO COMMENT ABOUT: CALCULATE BOOLEAN VIA Now we look at every gate that received a signal
+  
     for (const gateId in inputTracker) {
 
         const gateNode = document.getElementById(gateId);
 
         const type = gateNode.getAttribute("gatetype");
 
-        const inputs = inputTracker[gateId]; // THIS IS THE ARRAY CREATION 
+        const inputs = inputTracker[gateId]; 
 
 
         let finalState = 0;
 
 
-        //  TO COMMENT ABOUT: Apply specific math based on the gate type
+
         if (type === "Lightbulb" || type === "Speaker" || type === "OR") {
           console.log("EITHER LIGHTBULB, SPEAKER OR THE OR GATE VISITED!")
-            // OR Logic: At least one input must be 1
+
           finalState = inputs.includes(1) ? 1 : 0;
 
         } else if (type === "AND") {
@@ -2167,23 +3025,23 @@ function discernBoolean() {
 
         } else if (type === "XOR") {
 
-          //  TO COMMENT ABOUT: Count how many inputs are actually ON
+
           const activeCount = inputs.filter(v => Number(v) === 1).length;
 
-          //  TO COMMENT ABOUT: XOR logic: Returns 1 if the number of active inputs is ODD (1, 3, 5...)
+
           finalState = (activeCount % 2 !== 0) ? 1 : 0;
 
           console.log(`XOR (${gateId}) found ${activeCount} active inputs. Returning: ${finalState}`);
 
         } else if (type === "NOT") {
           console.log("NOT GATE VISITED!")
-          // NOT logic: If input is 1, output is 0. If input is 0, output is 1.
-          //  TO COMMENT ABOUT: It only needs 1 wire connected.
 
-          const signal = inputs.length > 0 ? inputs[0] : 0;
-          finalState = (signal == 0) ? 1 : 0;
 
-            console.log("NOT GATE IS RETURNING == ", finalState)
+          const signal = inputs.includes(1) || inputs.includes("1") ? 1 : 0;
+
+          finalState = (signal === 0) ? 1 : 0; // FLIPS DA RESULT 
+
+          console.log("MULTI INPUT NOT GATE IS RETURNING == ", finalState)
 
           // if (inputs.length === 1) {
 
@@ -2201,33 +3059,18 @@ function discernBoolean() {
 
         }
 
-        //  TO COMMENT ABOUT: WE NOW SET UP THE THUMBNAIL OF THE OBJECT
+
         gateNode.setAttribute("state", finalState);
 
-        if (type != "NOT") {
 
-          const folder = finalState === 1 ? "ActivatedState" : "DeactivatedState";
 
-          const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
+        const folder = finalState === 1 ? "ActivatedState" : "DeactivatedState";
 
-          // Update the image (assuming index 2 is your icon)
-          if(gateNode.children[0].children[2]) {
-              gateNode.children[0].children[2].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
-          }
-// CAN DELETE BOTTOMER        
-        } else {
+        const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
 
-          const folder = finalState === 1 ? "DeactivatedState" : "ActivatedState";
 
-          const suffix = finalState === 1 ? "_Deactivated.png" : "_Activated.png";
-
-          // Update the image (assuming index 2 is your icon)
-          if(gateNode.children[0].children[2]) {
-
-              gateNode.children[0].children[2].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
-
-          }
-
+        if(gateNode.children[0].children[2]) {
+            gateNode.children[0].children[2].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
         }
         
 

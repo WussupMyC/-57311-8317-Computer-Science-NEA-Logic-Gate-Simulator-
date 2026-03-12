@@ -169,6 +169,23 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                 </button>   <!-- Ends this button's structural operation. -->
 
 
+                <button id="qualitysteps" title="Determine the power of the boolean engine depending on the size of your circuit!" function onclick()>
+                <!-- Creates a button with a contactable ID that will be used for 
+                    customising the layout of the Simboard web application, with a 
+                    title so that if the end user hovers over said button, an explaination 
+                    will appear within a tooltip. -->
+
+                    <p id="QualityStepText">Engine Power</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image draggable="false" (dragstart)="false;" id="CustomiseThumbnail" src="/Media/Layout/qualitySteps.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
                 <a href="/OtherPages/userManual/userManualConstruct.html" 
                 draggable="false" 
                 (dragstart)="false;"
@@ -472,7 +489,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                         that it wraps around/is a parent of. -->
 
                     <svg id="WiredConnection" width="100%" height="100%" style="position: absolute; top:0; left:0;"> <!--  z-index: 3;-->
-                        <line id="Wire" class="WireHitboxReference" x1="0" y1="0" x2="0" y2="0"stroke="black" stroke-width="7.5" />
+                        <line id="Wire" class="WireHitboxReference" x1="0" y1="0" x2="0" y2="0" stroke="black" stroke-width="7.5" tag="interactableObject" />
                     </svg>
 
                 </div>  <!-- The Grid Container division ends here. -->
