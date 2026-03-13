@@ -183,63 +183,113 @@ tempStyle = "#DEDE94";
 
 link.onclick= function() {
 
-  prompts = [
-    "* 1 Change the colour of the Workspace Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "* 2 Change the colour of the Object Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "* 3 Change the colour of the File Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "* 4 Change the colour of the Circuit Configuration Area Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "^ 1 Change the colour of the Object Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "^ 2 Change the colour of the File Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "' 1 Change the colour of the Grid Lines\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "' 2 Change the colour of the X-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
-    "' 3 Change the colour of the Y-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value."
-  ];
+  if (simulate != true) {
+
+    prompts = [
+      "* 1 Change the colour of the Workspace Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "* 2 Change the colour of the Object Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "* 3 Change the colour of the File Menu Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "* 4 Change the colour of the Circuit Configuration Area Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "^ 1 Change the colour of the Object Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "^ 2 Change the colour of the File Menu Button Background\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "' 1 Change the colour of the Grid Lines\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "' 2 Change the colour of the X-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value.",
+      "' 3 Change the colour of the Y-Axis Line\nto a 6 digit HEX value INCLUDING THE HASHTAG,\nor enter the letter 'x' to skip this prompt, or enter\n'd' to revert to the default colour value."
+    ];
 
 
-  for (let i = 0; i < prompts.length; i++) {
+    for (let i = 0; i < prompts.length; i++) {
 
-    let GridCanvasPrompt = prompt(prompts[i]);
+      let GridCanvasPrompt = prompt(prompts[i]);
 
-    GridCanvasPrompt = GridCanvasPrompt.toUpperCase()
+      GridCanvasPrompt = GridCanvasPrompt.toUpperCase()
 
-    console.log(GridCanvasPrompt)
+      console.log(GridCanvasPrompt)
 
-    HEXValidator = GridCanvasPrompt[0];
-    //console.log(HEXValidator)
+      HEXValidator = GridCanvasPrompt[0];
+      //console.log(HEXValidator)
 
-    nextProperty = cssConcatonates[i]
+      nextProperty = cssConcatonates[i]
 
-    console.log(nextProperty)
+      console.log(nextProperty)
 
-    if (HEXValidator == '#') {
+      if (HEXValidator == '#') {
 
-      if (prompts[i][0] == "*") {
+        if (prompts[i][0] == "*") {
 
-        if (prompts[i][2] == "1") {
+          if (prompts[i][2] == "1") {
 
-          nextProperty.style.backgroundColor = GridCanvasPrompt;
+            nextProperty.style.backgroundColor = GridCanvasPrompt;
 
-          tempStylesContainer.tempCanvasColour = GridCanvasPrompt;
+            tempStylesContainer.tempCanvasColour = GridCanvasPrompt;
 
-          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
-
-        } else {
-
-          nextProperty.style.backgroundColor = GridCanvasPrompt;
-
-          if (prompts[i][2] == "2") { // for setting temp styles!
-
-            tempStylesContainer.tempObjectMenuColour = GridCanvasPrompt; 
-            
-          } else if (prompts[i][2] == "3") {
-
-            tempStylesContainer.tempFileMenuColour = GridCanvasPrompt; 
-
-          } else if (prompts[i][2] == "4") {
-
-            tempStylesContainer.tempCircuitConfigColour = GridCanvasPrompt; 
+            alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
           } else {
+
+            nextProperty.style.backgroundColor = GridCanvasPrompt;
+
+            if (prompts[i][2] == "2") { // for setting temp styles!
+
+              tempStylesContainer.tempObjectMenuColour = GridCanvasPrompt; 
+              
+            } else if (prompts[i][2] == "3") {
+
+              tempStylesContainer.tempFileMenuColour = GridCanvasPrompt; 
+
+            } else if (prompts[i][2] == "4") {
+
+              tempStylesContainer.tempCircuitConfigColour = GridCanvasPrompt; 
+
+            } else {
+
+              console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
+
+            }
+
+            alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+          }
+
+
+
+        } else if (prompts[i][0] == "^") {
+
+          for (let e = 0; e < nextProperty.length; e++) {
+
+            ///console.log(nextProperty[e])
+
+            if ((nextProperty[e].tagName) == "BUTTON" || "A") {
+
+              if ((nextProperty[e].tagName) == "BUTTON") {
+
+                nextProperty[e].style.backgroundColor = GridCanvasPrompt; 
+
+              } else if ((nextProperty[e].tagName) == "A") {
+
+                nextProperty[e].children[0].style.backgroundColor = GridCanvasPrompt
+
+              }
+  
+            // } else if (nextProperty != ) {    
+              
+            } else {
+
+              console.log("Skipped styling of entity in division.");
+
+            }
+
+          }
+
+          if (prompts[i][2] == "1") {
+
+            tempStylesContainer.tempObjectMenuButtonColour = GridCanvasPrompt; 
+
+          } else if (prompts[i][2] == "2") {
+
+            tempStylesContainer.tempFileMenuButtonColour = GridCanvasPrompt; 
+
+          } else { 
 
             console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
 
@@ -247,127 +297,80 @@ link.onclick= function() {
 
           alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
-        }
 
 
+        } else if (prompts[i][0] == "'") {
 
-      } else if (prompts[i][0] == "^") {
+          stylerCacheGrid = tempStylesContainer.tempGridLineColour; 
+          stylerCacheAxisX = tempStylesContainer.tempAxisXColour; 
+          stylerCacheAxisY = tempStylesContainer.tempAxisYColour; 
 
-        for (let e = 0; e < nextProperty.length; e++) {
+          if (prompts[i][2] == 1) { 
 
-          ///console.log(nextProperty[e])
+            stylerCacheGrid = GridCanvasPrompt;
 
-          if ((nextProperty[e].tagName) == "BUTTON" || "A") {
+            // drawGrid(1, null);
 
-            if ((nextProperty[e].tagName) == "BUTTON") {
+            // drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
 
-              nextProperty[e].style.backgroundColor = GridCanvasPrompt; 
+            // drawGrid(0, GridCanvasPrompt)
 
-            } else if ((nextProperty[e].tagName) == "A") {
+            tempStylesContainer.tempGridLineColour = GridCanvasPrompt; 
 
-              nextProperty[e].children[0].style.backgroundColor = GridCanvasPrompt
+            alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
-            }
- 
-          // } else if (nextProperty != ) {    
-            
+          } else if (prompts[i][2] == 2) {
+
+            stylerCacheAxisX = GridCanvasPrompt;
+
+            // drawAxis(1, null, null)
+
+            // drawAxis(0, AxisYColour, GridCanvasPrompt)
+
+            // drawGrid(0, GridLineColour) // to prevent clearing 
+
+            tempStylesContainer.tempAxisXColour = GridCanvasPrompt; 
+
+            alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
+          } else if (prompts[i][2] == 3) {
+
+            stylerCacheAxisY = GridCanvasPrompt; 
+
+            // drawAxis(1, null, null)
+
+            // drawAxis(0, GridCanvasPrompt, AxisXColour)
+
+            // drawGrid(0, GridLineColour) // to prevent clearing 
+
+            tempStylesContainer.tempAxisYColour = GridCanvasPrompt; 
+
+            alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+
           } else {
 
-            console.log("Skipped styling of entity in division.");
+            console.log(prompts[i][2])
+
+            console.warn("Grid/Axis Customisation error has occurred!")
 
           }
 
-        }
+          drawGrid(1, null, null)
 
-        if (prompts[i][2] == "1") {
+          drawAxis(1, null, null)
 
-          tempStylesContainer.tempObjectMenuButtonColour = GridCanvasPrompt; 
+          drawGrid(0, stylerCacheGrid)
 
-        } else if (prompts[i][2] == "2") {
-
-          tempStylesContainer.tempFileMenuButtonColour = GridCanvasPrompt; 
-
-        } else { 
-
-          console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
-
-        }
-
-        alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
+          drawAxis(0, stylerCacheAxisY, stylerCacheAxisX)
 
 
-
-      } else if (prompts[i][0] == "'") {
-
-        stylerCacheGrid = tempStylesContainer.tempGridLineColour; 
-        stylerCacheAxisX = tempStylesContainer.tempAxisXColour; 
-        stylerCacheAxisY = tempStylesContainer.tempAxisYColour; 
-
-        if (prompts[i][2] == 1) { 
-
-          stylerCacheGrid = GridCanvasPrompt;
-
-          // drawGrid(1, null);
-
-          // drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
-
-          // drawGrid(0, GridCanvasPrompt)
-
-          tempStylesContainer.tempGridLineColour = GridCanvasPrompt; 
-
-          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
-
-        } else if (prompts[i][2] == 2) {
-
-          stylerCacheAxisX = GridCanvasPrompt;
-
-          // drawAxis(1, null, null)
-
-          // drawAxis(0, AxisYColour, GridCanvasPrompt)
-
-          // drawGrid(0, GridLineColour) // to prevent clearing 
-
-          tempStylesContainer.tempAxisXColour = GridCanvasPrompt; 
-
-          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
-
-        } else if (prompts[i][2] == 3) {
-
-          stylerCacheAxisY = GridCanvasPrompt; 
-
-          // drawAxis(1, null, null)
-
-          // drawAxis(0, GridCanvasPrompt, AxisXColour)
-
-          // drawGrid(0, GridLineColour) // to prevent clearing 
-
-          tempStylesContainer.tempAxisYColour = GridCanvasPrompt; 
-
-          alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
         } else {
 
-          console.log(prompts[i][2])
-
-          console.warn("Grid/Axis Customisation error has occurred!")
+          console.warn("Customisation error has occurred!")
 
         }
 
-        drawGrid(1, null, null)
-
-        drawAxis(1, null, null)
-
-        drawGrid(0, stylerCacheGrid)
-
-        drawAxis(0, stylerCacheAxisY, stylerCacheAxisX)
-
-
-
-      } else {
-
-        console.warn("Customisation error has occurred!")
-
-      }
 
 
 
@@ -375,153 +378,160 @@ link.onclick= function() {
 
 
 
+      } else if (HEXValidator == 'D') {
 
-    } else if (HEXValidator == 'D') {
+        if (prompts[i][0] == "*") {
 
-      if (prompts[i][0] == "*") {
+          if (prompts[i][2] == "1") {
 
-        if (prompts[i][2] == "1") {
+            nextProperty.style.removeProperty('background-color');
 
-          nextProperty.style.removeProperty('background-color');
+            tempStylesContainer.tempCanvasColour = "#DEDE94";
 
-          tempStylesContainer.tempCanvasColour = "#DEDE94";
-
-          alert("Successfully defaulted this property back to its default colour!"); 
-
-        } else {
-
-          nextProperty.style.removeProperty('background-color');
-
-
-          if (prompts[i][2] == "2") { // for setting temp styles!
-
-            tempStylesContainer.tempFileMenuColour = "#808080"; 
-            
-          } else if (prompts[i][2] == "3") {
-
-            tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; 
-
-          } else if (prompts[i][2] == "4") {
-
-            tempStylesContainer.tempCircuitConfigColour = "#808080"; 
+            alert("Successfully defaulted this property back to its default colour!"); 
 
           } else {
+
+            nextProperty.style.removeProperty('background-color');
+
+
+            if (prompts[i][2] == "2") { // for setting temp styles!
+
+              tempStylesContainer.tempFileMenuColour = "#808080"; 
+              
+            } else if (prompts[i][2] == "3") {
+
+              tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; 
+
+            } else if (prompts[i][2] == "4") {
+
+              tempStylesContainer.tempCircuitConfigColour = "#808080"; 
+
+            } else {
+
+              console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
+
+            }
+
+            alert("Successfully defaulted this property back to its default colour!"); 
+
+          }
+
+          
+
+
+        } else if (prompts[i][0] == "^") {
+
+          for (let e = 0; e < nextProperty.length; e++) { // removal process 
+
+            ///console.log(nextProperty[e])
+
+            if ((nextProperty[e].tagName) == "BUTTON" || "A") {
+
+              if ((nextProperty[e].tagName) == "BUTTON") {
+
+                nextProperty[e].style.removeProperty('background-color');
+
+              } else if ((nextProperty[e].tagName) == "A") {
+
+                nextProperty[e].children[0].style.removeProperty('background-color'); // access first child to get za button in da anchor ! 
+
+              }
+
+
+
+            } else {
+
+              console.log("Skipped styling of entity in division.")
+            }
+
+          }
+
+          
+          if (prompts[i][2] == "1") { // reset values process 
+
+            tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; 
+
+          } else if (prompts[i][2] == "2") {
+
+            tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
+
+          } else { 
 
             console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
 
           }
 
-          alert("Successfully defaulted this property back to its default colour!"); 
-
-        }
-
-        
+          alert("Successfully defaulted this property back to its default colour!");
 
 
-      } else if (prompts[i][0] == "^") {
-
-        for (let e = 0; e < nextProperty.length; e++) { // removal process 
-
-          ///console.log(nextProperty[e])
-
-          if ((nextProperty[e].tagName) == "BUTTON" || "A") {
-
-            if ((nextProperty[e].tagName) == "BUTTON") {
-
-              nextProperty[e].style.removeProperty('background-color');
-
-            } else if ((nextProperty[e].tagName) == "A") {
-
-              nextProperty[e].children[0].style.removeProperty('background-color'); // access first child to get za button in da anchor ! 
-
-            }
 
 
+        } else if (prompts[i][0] == "'") {
+
+          if (prompts[i][2] == 1) { 
+
+            drawGrid(1, null);
+
+            drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
+
+            drawGrid(0, "#000000")
+
+            tempStylesContainer.tempGridLineColour = "#000000";
+
+            alert("Successfully defaulted this property back to its default colour!");
+
+          } else if (prompts[i][2] == 2) {
+
+            drawAxis(1, null, null)
+
+            drawAxis(0, AxisYColour, GridCanvasPrompt)
+
+            drawGrid(0, GridLineColour) // to prevent clearing 
+
+            tempStylesContainer.tempAxisXColour = "#CD5C5C";
+
+            alert("Successfully defaulted this property back to its default colour!");
+
+          } else if (prompts[i][2] == 3) {
+
+            drawAxis(1, null, null)
+
+            drawAxis(0, GridCanvasPrompt, AxisXColour)
+
+            drawGrid(0, GridLineColour) // to prevent clearing 
+
+            tempStylesContainer.tempAxisYColour = "#000982";
+
+            alert("Successfully defaulted this property back to its default colour!");
 
           } else {
 
-            console.log("Skipped styling of entity in division.")
+            console.log(prompts[i][2])
+
+            console.log("Grid/Axis Customisation error has occurred!")
+
           }
-
-        }
-
-        
-        if (prompts[i][2] == "1") { // reset values process 
-
-          tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; 
-
-        } else if (prompts[i][2] == "2") {
-
-          tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
-
-        } else { 
-
-          console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
-
-        }
-
-        alert("Successfully defaulted this property back to its default colour!");
-
-
-
-
-      } else if (prompts[i][0] == "'") {
-
-        if (prompts[i][2] == 1) { 
-
-          drawGrid(1, null);
-
-          drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
-
-          drawGrid(0, "#000000")
-
-          tempStylesContainer.tempGridLineColour = "#000000";
-
-          alert("Successfully defaulted this property back to its default colour!");
-
-        } else if (prompts[i][2] == 2) {
-
-          drawAxis(1, null, null)
-
-          drawAxis(0, AxisYColour, GridCanvasPrompt)
-
-          drawGrid(0, GridLineColour) // to prevent clearing 
-
-          tempStylesContainer.tempAxisXColour = "#CD5C5C";
-
-          alert("Successfully defaulted this property back to its default colour!");
-
-        } else if (prompts[i][2] == 3) {
-
-          drawAxis(1, null, null)
-
-          drawAxis(0, GridCanvasPrompt, AxisXColour)
-
-          drawGrid(0, GridLineColour) // to prevent clearing 
-
-          tempStylesContainer.tempAxisYColour = "#000982";
-
-          alert("Successfully defaulted this property back to its default colour!");
 
         } else {
 
-          console.log(prompts[i][2])
-
-          console.log("Grid/Axis Customisation error has occurred!")
+          console.log("Customisation error has occurred OR styling has been skipped!")
 
         }
-
-      } else {
-
-        console.log("Customisation error has occurred OR styling has been skipped!")
 
       }
 
     }
 
-  }
+    console.log(cssConcatonates)
 
-  console.log(cssConcatonates)
+  } else {
+
+    alert("You cannot edit the User Interface of this Simboard session whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to edit the visual appearance of your Simboard application!")
+
+    console.warn("You cannot edit the User Interface of this Simboard session whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to edit the visual appearance of your Simboard application!")
+
+  };
 
 };
 
@@ -1668,7 +1678,7 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
 // Draws the line connection between the two IOs
 
-  const wireNode = document.getElementById("Wire");
+  const wireNode = document.getElementById("Wire"); // change to path in html then redo all throughout this program !!
 
   const clone = wireNode.cloneNode(true);
 
@@ -3154,17 +3164,27 @@ function redrawImport(DATMOD) {
 
 LineSolverButtonLink = document.getElementById("linesolver");
 
-solverMode = 0; 
-
 
 LineSolverButtonLink.onclick= function() {
 
-
-  console.log(solverMode);
-
   if (simulate != true) {
 
-    lineSolver(solverMode);
+    solverMode = prompt("Please enter a num"); 
+
+    if (solverMode > -1 && solverMode < 5) {
+
+      console.log(solverMode)
+
+      lineSolver(Math.round(solverMode));
+
+    } else {
+
+      alert("You must enter a number to determine the Line Solver mode!");
+
+      console.warn("You must enter a number to determine the Line Solver mode!")
+
+    };
+
 
   } else {
 
@@ -3172,14 +3192,13 @@ LineSolverButtonLink.onclick= function() {
 
   };
 
-  solverMode++;
+  // solverMode++;
   
-  if (solverMode == 5) {
+  // if (solverMode == 5) {
 
-    solverMode = 0; 
+  //   solverMode = 0; 
 
-  };
-
+  // };
 
 };
 
