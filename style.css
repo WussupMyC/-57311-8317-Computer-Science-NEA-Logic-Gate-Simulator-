@@ -1037,9 +1037,15 @@ Halts Here */
         respective container, and has the ability to be dragged 
         around said Workspace. */ 
 
-    overflow: hidden; 
+    display: flex; 
 
-        
+    flex-direction: row; 
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    overflow: hidden; 
 
     padding: 0px;   /* We ensure that the Logic Gate image division 
     fills up the entire DraggableGate container, by setting the default 
@@ -1093,10 +1099,31 @@ Halts Here */
     elements. */ 
 }
 
+.InputColumn {
+
+    display: flex;
+    flex-direction: column; /* Vertical stack */
+    gap: 10px; /* Space between the two input boxes */
+
+    padding: 3px; 
+
+}
+
+
+.OutputColumn { 
+
+    display: flex;
+    flex-direction: column; /* Vertical stack */
+    gap: 10px; /* Space between the two input boxes */
+
+    padding: 3px; 
+
+}
+
+
 
 .IOStyle{ 
-
-    cursor: copy;   
+ 
 
     position: absolute; /* The Logic Gate object can be moved without 
     it adjusting or influenced or being influenced by other HTML 
@@ -1109,6 +1136,7 @@ Halts Here */
     /*flex-direction: column;*/
 
 }  
+
 
 
 svg#WiredConnection {

@@ -146,6 +146,8 @@ jsonSaveWorkspace = [];  // This holds all data for the logic gates present on t
 
 jsonSaveWorkspaceOverwrite = []; //               Holds the new data dragged into the WORKSPACe....
 
+connectionSet = null; 
+
 totalWires = 0; 
 
 connectionsInitialised = 0; 
@@ -793,6 +795,7 @@ summonY = referenceOfWorkspaceGrid.top;
 
 console.log(summonX, " == SUMMON X || SUMMON Y == ", summonY)
 
+
 document.getElementById("AND").addEventListener("click", () =>cloneObject("AND", summonX, summonY));  // When AND Gate button is pressed, 
                                                                                               // an AND Gate is spawned in. 
 
@@ -871,17 +874,17 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
     var headEl = clone.children[0]; // We get a reference to the DIV of the master object clone so that we
                                     // can customise it later. 
                                     
-    var gateImage = clone.children[0].children[2]; // We get a reference to the master object clones' DIV's 
+    var gateImage = clone.children[0].children[1]; // We get a reference to the master object clones' DIV's 
                                                   // image UI. This can be done because the only child inside 
                                                   // of the master object clone is an image tag (See HTML 
                                                   // mydivheader for further explaination). 
 
-    gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
-      // We then set said the UI Image element of the master object clone. 
-        // This is done by setting the source attribute of the image tag to be that of the file pathway concatonating 
-        // with the passed parameter / argument in addition to its default state, which is to be Deactivated by 
-        // default. 
-      // !-> ERRORS OCCUR WHEN CASE SENSITIVITY IS UNDERLOOKED & NON-EXISTENT FILE PATHWAYS ARE STATED!
+    // gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
+    //   // We then set said the UI Image element of the master object clone. 
+    //     // This is done by setting the source attribute of the image tag to be that of the file pathway concatonating 
+    //     // with the passed parameter / argument in addition to its default state, which is to be Deactivated by 
+    //     // default. 
+    //   // !-> ERRORS OCCUR WHEN CASE SENSITIVITY IS UNDERLOOKED & NON-EXISTENT FILE PATHWAYS ARE STATED!
 
     if (gateType != "NOT") {
 
@@ -920,17 +923,17 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well.  
 
-    inputARef = clone.children[0].children[0].getAttribute("id");
-    inputBRef = clone.children[0].children[1].getAttribute("id");
-    outputRef = clone.children[0].children[3].getAttribute("id");
+    inputARef = clone.children[0].children[0].children[0].getAttribute("id");
+    inputBRef = clone.children[0].children[0].children[1].getAttribute("id");
+    outputRef = clone.children[0].children[2].children[0].getAttribute("id");
 
     var inputAID = inputARef + itemsCreated; 
     var inputBID = inputBRef + itemsCreated; 
     var outputID = outputRef + itemsCreated; 
 
-    clone.children[0].children[0].setAttribute("id",inputAID);
-    clone.children[0].children[1].setAttribute("id",inputBID);
-    clone.children[0].children[3].setAttribute("id",outputID);
+    clone.children[0].children[0].children[0].setAttribute("id",inputAID);
+    clone.children[0].children[0].children[1].setAttribute("id",inputBID);
+    clone.children[0].children[2].children[0].setAttribute("id",outputID);
 
 
 
@@ -1694,10 +1697,23 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
   const ConnectionLine = document.getElementById(wireName);
 
+
   ConnectionLine.setAttribute("x1", DRAWOUTPUTLOCATIONX);
   ConnectionLine.setAttribute("y1", DRAWOUTPUTLOCATIONY);
   ConnectionLine.setAttribute("x2", DRAWINPUTLOCATIONX);
   ConnectionLine.setAttribute("y2", DRAWINPUTLOCATIONY);
+
+
+  wirePathLine = 
+  `M ${DRAWINPUTLOCATIONX} ${DRAWINPUTLOCATIONY} 
+  L ${DRAWOUTPUTLOCATIONX} ${DRAWOUTPUTLOCATIONY}`;
+
+
+
+  ConnectionLine.setAttribute("d", wirePathLine);
+
+
+
 
   ConnectionLine.setAttribute("PairedData", connectionsInitialised); 
 
@@ -2472,7 +2488,7 @@ function clearWorkspace () {
 
   const oldCircuitObjectsToDelete = document.querySelectorAll('div[tag^="interactableObject"]')
 
-  const oldCircuitWireLinesToDelete = document.querySelectorAll('line[tag^="interactableObject"]')
+  const oldCircuitWireLinesToDelete = document.querySelectorAll('path[tag^="interactableObject"]')
 
   //console.log("WORKSPACE SPACE BEFORE:  ", jsonSaveWorkspace) -- this is good 
 
@@ -2947,7 +2963,10 @@ function redrawImport(DATMOD) {
         });
 
 
-        jsonSaveWorkspaceOverwrite.forEach(conn => {
+        connectionSet = uniquor; 
+
+
+        jsonSaveWorkspaceOverwrite.forEach(conn => { // fixes jsonSaveWorkspace cache 
 
           connectionsInitialised++ 
 
@@ -2983,6 +3002,8 @@ function redrawImport(DATMOD) {
         alert("No relevant data was found in your imported file for the loading function to process!");
 
       }
+
+
 
   } else if (DATMOD == 1) {
 
@@ -3169,11 +3190,11 @@ LineSolverButtonLink.onclick= function() {
 
   if (simulate != true) {
 
-    solverMode = prompt("Please enter a num"); 
+    solverMode = prompt("Please enter a number to determine the Line Solver Mode! The various integers you can input include:\n\n0 - All current wires become Linear\n1 - All current wires become Orthogonal\n2 - All current wires become Curved\n3 - Change the transparency of all current wires\n4 - Fix all wire positions\n5 - Change the colours of all current wires"); 
 
-    if (solverMode > -1 && solverMode < 5) {
+    if (solverMode > -1 && solverMode < 6) {
 
-      console.log(solverMode)
+      console.log(solverMode);
 
       lineSolver(Math.round(solverMode));
 
@@ -3181,14 +3202,14 @@ LineSolverButtonLink.onclick= function() {
 
       alert("You must enter a number to determine the Line Solver mode!");
 
-      console.warn("You must enter a number to determine the Line Solver mode!")
+      console.warn("You must enter a number to determine the Line Solver mode!");
 
     };
 
 
   } else {
 
-    alert("You cannot change the Line Solver mode whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to change the Connection Line Solver!")
+    alert("You cannot change the Line Solver mode whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to change the Connection Line Solver!");
 
   };
 
@@ -3202,34 +3223,72 @@ LineSolverButtonLink.onclick= function() {
 
 };
 
+
+
+
 function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY*/ ) {
 
-  if (MODE == 0) { // for each Wire ID in the workspace, do ...: (e.g. for implementation!)
+  solverButtonImageRef = document.getElementById("linesolver").children[1];
 
-    lineRef = document.querySelectorAll('line[tag="interactableObject"]') // because the line is different to a div so we can fetch it by the same tag
+  if (MODE == 0) { // linear line 
+
+    lineRef = document.querySelectorAll('path[tag="interactableObject"]'); // because the line is different to a div so we can fetch it by the same tag
+
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM0.png")
 
     lineRef.forEach(ConnectionLine => {
 
-      let connLineX1 = ConnectionLine.x1.baseVal.value; 
-      let connLineY1 = ConnectionLine.y1.baseVal.value;
-      let connLineX2 = ConnectionLine.x2.baseVal.value;
-      let connLineY2 = ConnectionLine.y2.baseVal.value;
+
+
+      ConnectionLine.style.opacity = "1.0";
+
+      let connLineX1 = Number(ConnectionLine.getAttribute("x1")); 
+      let connLineY1 = Number(ConnectionLine.getAttribute("y1")); 
+      let connLineX2 = Number(ConnectionLine.getAttribute("x2")); 
+      let connLineY2 = Number(ConnectionLine.getAttribute("y2")); 
+
+      newWireLinePathToDraw = 
+      `M ${connLineX1} ${connLineY1}
+      L ${connLineX2} ${connLineY2}`;
+
+      ConnectionLine.setAttribute("d", newWireLinePathToDraw);
+
+      // let connLineX1 = ConnectionLine.x1.baseVal.value; 
+      // let connLineY1 = ConnectionLine.y1.baseVal.value;
+      // let connLineX2 = ConnectionLine.x2.baseVal.value;
+      // let connLineY2 = ConnectionLine.y2.baseVal.value;
     
-      ConnectionLine.setAttribute("x1", connLineX1);
-      ConnectionLine.setAttribute("y1", connLineY1);
-      ConnectionLine.setAttribute("x2", connLineX2);
-      ConnectionLine.setAttribute("y2", connLineY2);
+      // ConnectionLine.setAttribute("x1", connLineX1);
+      // ConnectionLine.setAttribute("y1", connLineY1);
+      // ConnectionLine.setAttribute("x2", connLineX2);
+      // ConnectionLine.setAttribute("y2", connLineY2);
 
     });
 
-  } else if (MODE == 1) {
+  } else if (MODE == 1) { // square orthagonal line 
 
-    lineRef = document.querySelectorAll('line[tag="interactableObject"]') // because the line is different to a div so we can fetch it by the same tag
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM1.png")
+
+    lineRef = document.querySelectorAll('path[tag="interactableObject"]'); // because the line is different to a div so we can fetch it by the same tag
 
     lineRef.forEach(ConnectionLine => {
 
-      newPath = document.createElement("path")
-      clonedPath = document.getElementById("Workspace").append(newPath)
+      ConnectionLine.style.opacity = "1.0"
+
+      let connLineX1 = Number(ConnectionLine.getAttribute("x1")); 
+      let connLineY1 = Number(ConnectionLine.getAttribute("y1")); 
+      let connLineX2 = Number(ConnectionLine.getAttribute("x2")); 
+      let connLineY2 = Number(ConnectionLine.getAttribute("y2")); 
+
+      midpoint = (connLineX1 + connLineX2) / 2; 
+
+      newWireLinePathToDraw = 
+      `M ${connLineX1} ${connLineY1}
+      L ${midpoint} ${connLineY1} 
+      L ${midpoint} ${connLineY2}
+      L ${connLineX2} ${connLineY2}`;
+
+      ConnectionLine.setAttribute("d", newWireLinePathToDraw);
 
       // let connLineX1 = 50; 
       // let connLineY1 = 46;
@@ -3257,17 +3316,149 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
 
 
-  } else if (MODE == 2) {
+  } else if (MODE == 2) { // curvy line 
 
-    // square-like line 
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM2.png")
 
-  } else if (MODE == 3) {
+    lineRef = document.querySelectorAll('path[tag="interactableObject"]'); // because the line is different to a div so we can fetch it by the same tag
 
-    // curvy line 
+    lineRef.forEach(ConnectionLine => {
 
-  } else if (MODE == 4) {
+      ConnectionLine.style.opacity = "1.0"
 
-    // auto adjust all lines with Mode 0
+      let connLineX1 = Number(ConnectionLine.getAttribute("x1")); 
+      let connLineY1 = Number(ConnectionLine.getAttribute("y1")); 
+      let connLineX2 = Number(ConnectionLine.getAttribute("x2")); 
+      let connLineY2 = Number(ConnectionLine.getAttribute("y2")); 
+
+      offset = (connLineX2 - connLineX1) / 2; 
+      curveUp = connLineX1 + offset; 
+      curveDown = connLineX2 - offset; 
+
+      newWireLinePathToDraw = 
+      `M ${connLineX1} ${connLineY1}
+      C ${curveUp} ${connLineY1},
+      ${curveDown} ${connLineY2},
+      ${connLineX2} ${connLineY2}`; // cubic bezier curve!!!!
+
+      ConnectionLine.setAttribute("d", newWireLinePathToDraw); 
+
+    }); 
+
+  } else if (MODE == 3) { // temporarily erased line
+
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM3.png")
+
+    newOpacity = prompt("Please enter a number between 0.0 and 1.0 to set the transparency of all lines to, where:\n\n0.0 is fully transparent.\n\n1.0 is not transparent.")
+
+    lineRef = document.querySelectorAll('path[tag="interactableObject"]'); 
+
+    lineRef.forEach(ConnectionLine => {
+
+      ConnectionLine.style.opacity = parseFloat(newOpacity);
+
+    });
+
+  } else if (MODE == 4) {    // the "fix mode" ,, f for fix ,, auto adjust all lines with Mode 4
+
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM4.png");
+
+    indexOfLine = 0; 
+    
+    jsonSaveWorkspace.forEach(connecLayer =>{
+
+      lineToFind = document.querySelector(`path[PairedData="${indexOfLine}"`);
+
+      sourceStartGate = document.getElementById(connecLayer.OBJECTA_INPUTID).children[0];
+      targetEndGate = document.getElementById(connecLayer.OBJECTB_OUTPUTID).children[0];
+
+      console.log("sSGate || teGate == ", sourceStartGate, targetEndGate);
+
+      sourceStartGateFindBox = sourceStartGate.children[0].children[0];
+      targetEndGateFindBox = targetEndGate.children[2].children[0]; 
+
+      console.log("sSGateFB || teGateFB == ", sourceStartGateFindBox, targetEndGateFindBox);
+
+      sourceBoxPosition = sourceStartGateFindBox.getBoundingClientRect();
+      targetBoxPosition = targetEndGateFindBox.getBoundingClientRect();
+      viewportReference = document.getElementById("Workspace").getBoundingClientRect();
+
+      newDrawPointX1 = (sourceBoxPosition.left + sourceBoxPosition.width / 2) - viewportReference.left;
+      newDrawPointY1 = (sourceBoxPosition.top + sourceBoxPosition.height / 2) - viewportReference.top;
+
+      newDrawPointX2 = (targetBoxPosition.left + targetBoxPosition.width / 2) - viewportReference.left;
+      newDrawPointY2 = (targetBoxPosition.top + targetBoxPosition.height / 2) - viewportReference.top;
+
+      lineToFind.setAttribute("x1", newDrawPointX1);
+      lineToFind.setAttribute("y1", newDrawPointY1);
+      lineToFind.setAttribute("x2", newDrawPointX2);
+      lineToFind.setAttribute("y2", newDrawPointY2);
+
+      figuredPath = 
+      `M ${newDrawPointX1} ${newDrawPointY1}
+      L ${newDrawPointX2} ${newDrawPointY2}`;
+
+      lineToFind.setAttribute("d", figuredPath);
+
+      indexOfLine++; 
+
+      // cornerYOfSourceGateBox = sourceStartGateFindBox.offsetTop; 
+      // cornerXOfSourceGateBox = sourceStartGateFindBox.offsetLeft; 
+      // cornerYOfTargetGateBox = targetEndGateFindBox.offsetTop; 
+      // cornerXOfTargetGateBox = targetEndGateFindBox.offsetLeft; 
+      
+      // lineToFind.setAttribute("x1", cornerXOfSourceGateBox);
+      // lineToFind.setAttribute("y1", cornerYOfSourceGateBox);
+      // lineToFind.setAttribute("x2", cornerXOfTargetGateBox);
+      // lineToFind.setAttribute("y2", cornerYOfTargetGateBox);
+
+    });
+
+
+
+  } else if (MODE == 5) { // option of making all wires black, custom colour, or random colour 
+
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM5.png")
+
+    lineRef = document.querySelectorAll('path[tag="interactableObject"]'); 
+
+    setColourMode = prompt("Please enter an integer number based on how you want to colour every wire, where: \n\n0 - Colour all wires Black\n1 - Colour all wires to a HEX colour of your choice\n2 - Randomly colour every wire")
+
+    if (setColourMode == 0) {
+
+      lineRef.forEach(ConnectionLine => { 
+
+        ConnectionLine.setAttribute("stroke", "#000000"); 
+
+      });
+
+    } else if (setColourMode == 1) { 
+
+      newSetColour = prompt("Please enter a HEX colour to set all wires to: ")
+
+      if (newSetColour[0] == "#") { // hex check validation 
+
+        lineRef.forEach(ConnectionLine => { 
+
+          ConnectionLine.setAttribute("stroke", newSetColour); 
+
+        });
+
+      }
+
+    } else if (setColourMode == 2) {
+
+      lineRef.forEach(ConnectionLine => { 
+
+        newRandomColour = generateRandHex(); 
+
+        ConnectionLine.setAttribute("stroke", newRandomColour); 
+
+      });
+
+    };
+
+
 
   } else {
 
@@ -3277,6 +3468,24 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
 };
 
+
+
+
+function generateRandHex() {
+
+  const letters = '0123456789ABCDEF';
+
+  let color = '#';
+
+  for (let i = 0; i < 6; i++) {
+
+      color += letters[Math.floor(Math.random() * 16)];
+
+  }
+
+  return color;
+
+};
 
 
 
@@ -3312,6 +3521,8 @@ function fixVisuals(PARSED_DAT) {
 
     clone.setAttribute("PairedData", searchIndex);
 
+
+
     clone.setAttribute("x1", connLayer.POSITIONINPUTBOXX);
 
     clone.setAttribute("y1", connLayer.POSITIONINPUTBOXY);
@@ -3319,6 +3530,17 @@ function fixVisuals(PARSED_DAT) {
     clone.setAttribute("x2", connLayer.POSITIONOUTPUTBOXX);
 
     clone.setAttribute("y2", connLayer.POSITIONOUTPUTBOXY);
+
+
+    
+
+    wirePathLineFromImport = 
+    `M ${connLayer.POSITIONINPUTBOXX} ${connLayer.POSITIONINPUTBOXY}
+    L ${connLayer.POSITIONOUTPUTBOXX} ${connLayer.POSITIONOUTPUTBOXY}`;
+
+    clone.setAttribute("d", wirePathLineFromImport)
+
+
 
     searchIndex++; 
 
@@ -3563,7 +3785,7 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
           buttonState = elm.getAttribute("state");
 
-          buttonThumbnail = elm.children[0].children[2];
+          buttonThumbnail = elm.children[0].children[1];
 
           //buttonStyle = elm.style;
 
@@ -3613,7 +3835,7 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
     allObjects.forEach(obj => {
 
-      logicGateImageReference = obj.children[0].children[2];
+      logicGateImageReference = obj.children[0].children[1];
 
       logicGateType = obj.getAttribute("gatetype");
 
@@ -3680,6 +3902,8 @@ filterMenuDebugRef.onclick= function() {
   console.log("CSS TempStyleContainer == ", tempStylesContainer);
 
   console.log("CSS Concatonates == ", cssConcatonates);
+
+  console.log("UNIQUOR == ", connectionSet)
 
 }
 
@@ -3802,8 +4026,8 @@ function discernBoolean() {
         const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
 
 
-        if(gateNode.children[0].children[2]) {
-            gateNode.children[0].children[2].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+        if(gateNode.children[0].children[1]) {
+            gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
         }
         
 

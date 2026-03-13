@@ -453,29 +453,32 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                  elements initialised in SCRIPT 003 (on simboardScript.js). -->
                                         <!-- Draggable DIV -->
 
-                                <canvas id="InputA" 
-                                class="IOStyle"
-                                width="15" 
-                                height="15" 
-                                style="border:1px solid #000000; 
-                                position: relative; 
-                                top: -20px; 
-                                z-index:2"
-                                onclick="ioCheck(this)">
-                                    
-                                </canvas>
+                                <div class="InputColumn">
 
-                                <canvas id="InputB" 
-                                class="IOStyle"
-                                width="15" 
-                                height="15" 
-                                style="border:1px solid #000000; 
-                                position: relative; 
-                                top: -10px; 
-                                z-index:2"
-                                onclick="ioCheck(this)">
-                                    
-                                </canvas>
+                                    <canvas id="InputA" 
+                                    class="IOStyle"
+                                    width="15px" 
+                                    height="15px" 
+                                    style="border:1px solid #000000; 
+                                    position: relative; 
+                                    z-index:2"
+                                    onclick="ioCheck(this)">
+                                        
+                                    </canvas>
+
+                                    <canvas id="InputB" 
+                                    class="IOStyle"
+                                    width="15px" 
+                                    height="15px" 
+                                    style="border:1px solid #000000; 
+                                    position: relative; 
+                                    z-index:2"
+                                    onclick="ioCheck(this)">
+                                        
+                                    </canvas>
+                                
+                                </div>
+
 
                                 <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
                                 <!-- The default image of the Master Object is defined to be 
@@ -483,17 +486,20 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                     ensure that the Master Logic Gate object is spawning on 
                                     to the Workspace. -->
 
-                                <canvas id="Output" 
-                                class="IOStyle"
-                                width="15" 
-                                height="15" 
-                                style="border:1px solid #000000; 
-                                position: relative; 
-                                top: -27px; 
-                                z-index:2"
-                                onclick="ioCheck(this)">
-                                    
-                                </canvas>
+                                <div class="OutputColumn">
+
+                                    <canvas id="Output" 
+                                    class="IOStyle"
+                                    width="15px" 
+                                    height="15px" 
+                                    style="border:1px solid #000000; 
+                                    position: relative; 
+                                    z-index:2"
+                                    onclick="ioCheck(this)">
+                                        
+                                    </canvas>
+
+                                </div>
 
                             </div>  <!-- The DraggableGateHeader (interactable section of the 
                                 Master Logic Gate Object) division ends here. -->
@@ -506,7 +512,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                         that it wraps around/is a parent of. -->
 
                     <svg id="WiredConnection" width="100%" height="100%" style="position: absolute; top:0; left:0;"> <!--  z-index: 3;-->
-                        <line id="Wire" class="WireHitboxReference" x1="0" y1="0" x2="0" y2="0" stroke="black" stroke-width="7.5" tag="interactableObject" />
+                        <path id="Wire" class="WireHitboxReference" d="M 0 0 L 0 0" x1="0" y1="0" x2="0" y2="0" stroke="black" stroke-width="7.5" tag="interactableObject" fill="none" />
                     </svg>
 
                 </div>  <!-- The Grid Container division ends here. -->
