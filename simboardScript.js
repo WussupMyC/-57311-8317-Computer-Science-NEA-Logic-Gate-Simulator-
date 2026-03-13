@@ -1,10 +1,4 @@
-
-
-
-// // TODO - - Saving systems // // 
-
-
-
+/*      Using JAVASCRIPT NODE.js Version ECMA v22.17.0       */ 
 
 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -67,7 +61,7 @@ simboardVersion = "FR 1.0.0";
 simulate = false; 
 
 // Should be attributes of this layout saver 
-cssConcatonates = [
+cssConcatonates = [ // the references of objects that are actually set
   GridCanvasColour = document.getElementById('GridCanvas'), 
   ObjectMenuColour = document.getElementById('ObjectMenu'), 
   FileMenuColour = document.getElementById('FileMenu'), 
@@ -80,6 +74,23 @@ cssConcatonates = [
 ];
 
 HEXValidator = null; 
+
+tempStylesContainer = {};  // holder of ui style setter values incase it needs to be used again 
+                           // changed tempStylesContainer from an Array to a POJO (plain old javascript object)!
+
+tempStylesContainer.tempCanvasColour = "#DEDE94"; 
+tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; 
+tempStylesContainer.tempFileMenuColour = "#808080"; 
+tempStylesContainer.tempCircuitConfigColour = "#808080"; 
+tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; 
+tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
+tempStylesContainer.tempGridLineColour = "#000000"; 
+tempStylesContainer.tempAxisXColour = "#CD5C5C"; 
+tempStylesContainer.tempAxisYColour = "#000982";
+
+//tempStylesContainer.tempy = 7; // debugging var!
+
+tempStylesContainerOverwrite = {}; 
 
 xLen = document.getElementById("GridCanvas").offsetHeight;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = document.getElementById("GridCanvas").offsetWidth;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
@@ -202,20 +213,37 @@ link.onclick= function() {
 
     if (HEXValidator == '#') {
 
-
       if (prompts[i][0] == "*") {
 
         if (prompts[i][2] == "1") {
 
-          tempStyle = GridCanvasPrompt;
-
           nextProperty.style.backgroundColor = GridCanvasPrompt;
+
+          tempStylesContainer.tempCanvasColour = GridCanvasPrompt;
 
           alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
         } else {
 
           nextProperty.style.backgroundColor = GridCanvasPrompt;
+
+          if (prompts[i][2] == "2") { // for setting temp styles!
+
+            tempStylesContainer.tempObjectMenuColour = GridCanvasPrompt; 
+            
+          } else if (prompts[i][2] == "3") {
+
+            tempStylesContainer.tempFileMenuColour = GridCanvasPrompt; 
+
+          } else if (prompts[i][2] == "4") {
+
+            tempStylesContainer.tempCircuitConfigColour = GridCanvasPrompt; 
+
+          } else {
+
+            console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
+
+          }
 
           alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
@@ -229,50 +257,91 @@ link.onclick= function() {
 
           ///console.log(nextProperty[e])
 
-          if (nextProperty != "b") {
+          if ((nextProperty[e].tagName) == "BUTTON" || "A") {
 
-            nextProperty[e].style.backgroundColor = GridCanvasPrompt;
+            if ((nextProperty[e].tagName) == "BUTTON") {
 
+              nextProperty[e].style.backgroundColor = GridCanvasPrompt; 
+
+            } else if ((nextProperty[e].tagName) == "A") {
+
+              nextProperty[e].children[0].style.backgroundColor = GridCanvasPrompt
+
+            }
+ 
           // } else if (nextProperty != ) {    
             
           } else {
 
-            console.log("Skipped styling of entity in division.")
+            console.log("Skipped styling of entity in division.");
+
           }
+
+        }
+
+        if (prompts[i][2] == "1") {
+
+          tempStylesContainer.tempObjectMenuButtonColour = GridCanvasPrompt; 
+
+        } else if (prompts[i][2] == "2") {
+
+          tempStylesContainer.tempFileMenuButtonColour = GridCanvasPrompt; 
+
+        } else { 
+
+          console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
 
         }
 
         alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
+
+
       } else if (prompts[i][0] == "'") {
+
+        stylerCacheGrid = tempStylesContainer.tempGridLineColour; 
+        stylerCacheAxisX = tempStylesContainer.tempAxisXColour; 
+        stylerCacheAxisY = tempStylesContainer.tempAxisYColour; 
 
         if (prompts[i][2] == 1) { 
 
-          drawGrid(1, null);
+          stylerCacheGrid = GridCanvasPrompt;
 
-          drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
+          // drawGrid(1, null);
 
-          drawGrid(0, GridCanvasPrompt)
+          // drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
+
+          // drawGrid(0, GridCanvasPrompt)
+
+          tempStylesContainer.tempGridLineColour = GridCanvasPrompt; 
 
           alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
         } else if (prompts[i][2] == 2) {
 
-          drawAxis(1, null, null)
+          stylerCacheAxisX = GridCanvasPrompt;
 
-          drawAxis(0, AxisYColour, GridCanvasPrompt)
+          // drawAxis(1, null, null)
 
-          drawGrid(0, GridLineColour) // to prevent clearing 
+          // drawAxis(0, AxisYColour, GridCanvasPrompt)
+
+          // drawGrid(0, GridLineColour) // to prevent clearing 
+
+          tempStylesContainer.tempAxisXColour = GridCanvasPrompt; 
 
           alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
         } else if (prompts[i][2] == 3) {
 
-          drawAxis(1, null, null)
+          stylerCacheAxisY = GridCanvasPrompt; 
 
-          drawAxis(0, GridCanvasPrompt, AxisXColour)
+          // drawAxis(1, null, null)
 
-          drawGrid(0, GridLineColour) // to prevent clearing 
+          // drawAxis(0, GridCanvasPrompt, AxisXColour)
+
+          // drawGrid(0, GridLineColour) // to prevent clearing 
+
+          tempStylesContainer.tempAxisYColour = GridCanvasPrompt; 
 
           alert("Successfully changed colour to: " + GridCanvasPrompt + " !");
 
@@ -280,16 +349,30 @@ link.onclick= function() {
 
           console.log(prompts[i][2])
 
-          console.log("Grid/Axis Customisation error has occurred!")
+          console.warn("Grid/Axis Customisation error has occurred!")
 
         }
+
+        drawGrid(1, null, null)
+
+        drawAxis(1, null, null)
+
+        drawGrid(0, stylerCacheGrid)
+
+        drawAxis(0, stylerCacheAxisY, stylerCacheAxisX)
 
 
 
       } else {
 
-        console.log("Customisation error has occurred!")
+        console.warn("Customisation error has occurred!")
+
       }
+
+
+
+
+
 
 
 
@@ -299,30 +382,61 @@ link.onclick= function() {
 
         if (prompts[i][2] == "1") {
 
-          tempStyle = rgbToHexadec(nextProperty.style.removeProperty('background-color'));
-
           nextProperty.style.removeProperty('background-color');
 
-          alert("Successfully defaulted " + nextProperty + " back to its default colour!"); 
+          tempStylesContainer.tempCanvasColour = "#DEDE94";
+
+          alert("Successfully defaulted this property back to its default colour!"); 
 
         } else {
 
           nextProperty.style.removeProperty('background-color');
 
-          alert("Successfully defaulted " + nextProperty + " back to its default colour!"); 
+
+          if (prompts[i][2] == "2") { // for setting temp styles!
+
+            tempStylesContainer.tempFileMenuColour = "#808080"; 
+            
+          } else if (prompts[i][2] == "3") {
+
+            tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; 
+
+          } else if (prompts[i][2] == "4") {
+
+            tempStylesContainer.tempCircuitConfigColour = "#808080"; 
+
+          } else {
+
+            console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
+
+          }
+
+          alert("Successfully defaulted this property back to its default colour!"); 
 
         }
 
         
+
+
       } else if (prompts[i][0] == "^") {
 
-        for (let e = 0; e < nextProperty.length; e++) {
+        for (let e = 0; e < nextProperty.length; e++) { // removal process 
 
           ///console.log(nextProperty[e])
 
-          if (nextProperty != "b") {
+          if ((nextProperty[e].tagName) == "BUTTON" || "A") {
 
-            nextProperty[e].style.removeProperty('background-color');
+            if ((nextProperty[e].tagName) == "BUTTON") {
+
+              nextProperty[e].style.removeProperty('background-color');
+
+            } else if ((nextProperty[e].tagName) == "A") {
+
+              nextProperty[e].children[0].style.removeProperty('background-color'); // access first child to get za button in da anchor ! 
+
+            }
+
+
 
           } else {
 
@@ -331,7 +445,24 @@ link.onclick= function() {
 
         }
 
-        alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+        
+        if (prompts[i][2] == "1") { // reset values process 
+
+          tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; 
+
+        } else if (prompts[i][2] == "2") {
+
+          tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
+
+        } else { 
+
+          console.warn("A mismatch in a styling array was detected. Please attempt to fix either cssConcatonates, prompts or tempStylesContainer arrays!");
+
+        }
+
+        alert("Successfully defaulted this property back to its default colour!");
+
+
 
 
       } else if (prompts[i][0] == "'") {
@@ -344,7 +475,9 @@ link.onclick= function() {
 
           drawGrid(0, "#000000")
 
-          alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+          tempStylesContainer.tempGridLineColour = "#000000";
+
+          alert("Successfully defaulted this property back to its default colour!");
 
         } else if (prompts[i][2] == 2) {
 
@@ -354,7 +487,9 @@ link.onclick= function() {
 
           drawGrid(0, GridLineColour) // to prevent clearing 
 
-          alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+          tempStylesContainer.tempAxisXColour = "#CD5C5C";
+
+          alert("Successfully defaulted this property back to its default colour!");
 
         } else if (prompts[i][2] == 3) {
 
@@ -364,7 +499,9 @@ link.onclick= function() {
 
           drawGrid(0, GridLineColour) // to prevent clearing 
 
-          alert("Successfully defaulted " + nextProperty + " back to its default colour!");
+          tempStylesContainer.tempAxisYColour = "#000982";
+
+          alert("Successfully defaulted this property back to its default colour!");
 
         } else {
 
@@ -1126,6 +1263,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                               // the Y Axis (Top...).
 
     if (pos2 < sizeOfBaseY) {
+      
       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";  // If the condition above IS met, and the object IS being
                                                           // dragged outside of the Workspace, said instruction will 
                                                           // force the Logic Gate UI Object to reposition itself 
@@ -1653,12 +1791,10 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
 const wireContainerReference = document.getElementById('WiredConnection');
 
-// 2. Add a single listener to that container
 
 
 wireContainerReference.addEventListener('click', (event) => {
 
-    // 'event.target' is the actual element that was clicked
 
     const isRestNull = jsonSaveWorkspace.slice(1).every(item => item === null);
 
@@ -1666,14 +1802,12 @@ wireContainerReference.addEventListener('click', (event) => {
 
     console.log(clickedElement);
 
-    // 3. Check if the element has an ID and if it starts with "Wire"
 
     if (clickedElement.id && clickedElement.id.startsWith("Wire") && simulate != true) {
 
 
       console.log("A wire was clicked!", clickedElement.id);
       
-      // You can now manipulate the specific wire
       clickedElement.setAttribute("stroke", "red"); 
 
       objectPair = clickedElement.getAttribute("PairedData"); 
@@ -1823,29 +1957,38 @@ getPropertiesSaveButton = document.getElementById("save");  // We fetch the
 
 getPropertiesSaveButton.onclick= function() {
 
-  TYPE = prompt("Please enter the TYPE of project data you want to save.\nEnter the letter 'L' to save the layout data, and enter\nthe letter 'P' to save your Logic Gate circuit project.");
+  if (simulate != true) {
 
-  TYPE = TYPE.toUpperCase();
+    TYPE = prompt("Please enter the TYPE of project data you want to save.\nEnter the letter 'L' to save the layout data, and enter\nthe letter 'P' to save your Logic Gate circuit project.\nPress ESC to halt the saving process.");
 
-  if (TYPE == 'P') {
-    
-    saveData(0, jsonSaveWorkspace)
+    TYPE = TYPE.toUpperCase();
 
-    console.log("Saving Simboard Layout Data has been attempted.")
+    if (TYPE == 'P') {
+      
+      saveData(0, jsonSaveWorkspace)
 
-  } else if (TYPE == 'L') {
+      console.log("Saving Simboard Layout Data has been attempted.")
 
-    saveData(1, cssConcatonates)
+    } else if (TYPE == 'L') {
 
-    console.log("Saving Simboard Workspace Project Data has been attempted.")
+      saveData(1, tempStylesContainer)
 
-  } else {
+      console.log("Saving Simboard Workspace Project Data has been attempted.")
 
-    confirm("Could not understand saving format. Please try again!")
+    } else {
 
-  }
+      confirm("Could not understand saving format. Please try again!")
 
-}
+    };
+ 
+  } else { // validation 
+
+    alert("You cannot save a Simboard File whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to save a Simboard File to your local disc!")
+    console.warn("You cannot save a Simboard File whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to save a Simboard File to your local disc!")
+
+  };
+
+};
 
 
 
@@ -1856,39 +1999,63 @@ getPropertiesLoadButton = document.getElementById("load");  // We fetch the
 
 getPropertiesLoadButton.onclick= function() {
 
-  confirmation = confirm("Remember to save your current project as loading in a new Layout or Project file can override the current Layout or Project data present right now.\nPress CANCEL to halt the loading process until everything is saved.\nPress OK to initialise the loading process.")
+  if (simulate != true) {
 
-  //setTimeout(5000) 
+    confirmation = confirm("Remember to save your current project as loading in a new Layout or Project file can override the current Layout or Project data present right now.\nPress CANCEL to halt the loading process until everything is saved.\nPress OK to initialise the loading process.")
 
-  if (confirmation == true && jsonSaveWorkspaceOverwrite[0] != null) {
-
-    //TYPE = prompt("Please enter the TYPE of project data you want to load into Simboard.\nEnter the letter 'L' to load your layout data file, and enter\nthe letter 'P' to load your Logic Gate circuit into the Workspace!");
-
-    // if (clearWorkspace() {})
-
-    stopLoadGif()
-
-    clearWorkspace()// !!FUNC
+    //setTimeout(5000) 
 
     if (importedFileType == 0) {
 
-      redrawImport(jsonSaveWorkspaceOverwrite)
+      // add a better null check snippet 
+
+      if (confirmation == true && jsonSaveWorkspaceOverwrite[0] != null) {
+
+        //TYPE = prompt("Please enter the TYPE of project data you want to load into Simboard.\nEnter the letter 'L' to load your layout data file, and enter\nthe letter 'P' to load your Logic Gate circuit into the Workspace!");
+
+        // if (clearWorkspace() {})
+
+        stopLoadGif()
+
+        clearWorkspace()// !!FUNC
+
+        redrawImport(0)
+
+      } else { 
+
+        alert("No file was found in the temporary reserve!\n\nIf a file has been recognised, a little animation will play on the LOAD BUTTON icon, signifying a Simboard JSON file has been loaded into the temporary reserve.\n\nPlease try again!");
+      
+      };
 
     } else if (importedFileType == 1) {
 
-      redrawImport(cssConcatonatesOverwrite)
+      if (confirmation == true && !(Object.keys(tempStylesContainerOverwrite).length === 0)) {
+
+      stopLoadGif();
+
+      redrawImport(1);
+
+      } else { 
+
+      alert("No file was found in the temporary reserve!\n\nIf a file has been recognised, a little animation will play on the LOAD BUTTON icon, signifying a Simboard JSON file has been loaded into the temporary reserve.\n\nPlease try again!")
+      
+      };
 
     } else {
 
-      alert("There was an error reading your imported file, please try again!\n\nThis could be because your file does not have the 'JSON' file extension, has bypassed some backend validation process, or has been corrupted.\n\nTo fix this, go into your imported file, and change the 'fileFormat' value to a 0 for Workspace Project data, or to a 1 for UI Layout data.")
+      alert("The loading process was cancelled, most likely because no file has been dragged & dropped into the Workspace or if the Loading Process was terminated / cancelled!\n\n - Please check the details of this outcome in the Console / Developer Console!")
 
-    }
+      console.warn("There was an error reading your imported file, please try again!\n\nThis could be because your file does not have the 'JSON' file extension, has bypassed some backend validation process, or has been corrupted.\n\nTo fix this, go into your imported file, and change the 'fileFormat' value to a 0 for Workspace Project data, or to a 1 for UI Layout data.")
 
+    };
 
   } else { 
 
-    alert("No file was found in the temporary reserve!\n\nIf a file has been recognised, a little animation will play on the LOAD BUTTON icon, signifying a Simboard JSON file has been loaded into the temporary reserve.\n\nPlease try again!")
-  }
+    alert("You cannot load a Simboard File from the temporary reserve whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to load a Simboard File from the temporary reserve!")
+    console.warn("You cannot load a Simboard File from the temporary reserve whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to load a Simboard File from the temporary reserve!")
+
+  };
+
   //   TYPE = TYPE.toUpperCase();
 
   //   if (TYPE == 'P') {
@@ -2009,7 +2176,7 @@ function saveData(MODE, DATA) {
 
     filenamePrompt = prompt("Please enter the name for your file below,\nexcluding symbols and special characters:")
 
-    author = prompt("Who is authoring this Logic Gate circuit?\n(You can enter your name or alias if you want to!)")
+    author = prompt("Who is authoring this Simboard File?\n(You can enter your name or alias if you want to!)")
 
     //var file = new Blob([DATA], {type: "json"});
 
@@ -2017,35 +2184,72 @@ function saveData(MODE, DATA) {
 
     typeOfFormat = MODE; 
 
-    const jsonFormat = {
+    if(MODE == 0) {
 
-      header: {
+      const jsonFormat = {
 
-        fileFormat:     MODE,
-        noConns:        connectionsInitialised,
-        noObjs:         presentObjects, 
-        fileType:       "JSON (JavaScript Object Notation)",
-        sbVersion:      simboardVersion,
-        timeOfSave:     new Date().toISOString(),
-        website:        "Simboard",
-        validator:      "4po7cjd5SXtgj187_14DagT_CHRISTOPHER31CUPID",
-        circuitAuthor:  author
+        header: {
 
-      },
+          fileFormat:     MODE,
+          noConns:        connectionsInitialised,
+          noObjs:         presentObjects, 
+          fileType:       "JSON (JavaScript Object Notation)",
+          sbVersion:      simboardVersion,
+          timeOfSave:     new Date().toISOString(),
+          website:        "Simboard",
+          validator:      "4po7cjd5SXtgj187_14DagT_CHRISTOPHER31CUPID",
+          circuitAuthor:  author
 
-      circuitBuild:     DATA
+        },
 
-    }; 
-    
-    jsonPackage = JSON.stringify(jsonFormat, null, 2); // null removes junk data in jsonWorkspace, 2 makes lines of space
+        circuitBuild:     DATA
 
-    console.clear();
+      }; 
+      
+      jsonPackage = JSON.stringify(jsonFormat, null, 2); // null removes junk data in jsonWorkspace, 2 makes lines of space
 
-    console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
+      console.clear();
 
-    download(jsonPackage, filenamePrompt + '.json', 'text/plain');
+      console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
 
-    return; 
+      download(jsonPackage, filenamePrompt + '.json', 'text/plain');
+
+      return; 
+
+    } else if (MODE == 1) {
+
+
+      const jsonFormat = {
+
+        header: {
+
+          fileFormat:     MODE,
+          noConns:        "no",
+          noObjs:         "no", 
+          fileType:       "JSON (JavaScript Object Notation)",
+          sbVersion:      simboardVersion,
+          timeOfSave:     new Date().toISOString(),
+          website:        "Simboard",
+          validator:      "4po7cjd5SXtgj187_14DagT_CHRISTOPHER31CUPID",
+          circuitAuthor:  author
+
+        },
+
+        styleBuild:     DATA
+
+      }; 
+
+      jsonPackage = JSON.stringify(jsonFormat, null, 2);
+
+      console.clear();
+
+      console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
+
+      download(jsonPackage, filenamePrompt + '.json', 'text/plain');
+
+      return; 
+
+    }
 
 };
 
@@ -2083,7 +2287,7 @@ function saveData(MODE, DATA) {
 
 function loadData(DATA) { // loads everything bts , waits until load button is clicked and then replaces everything 
 
-  loadButtonImgRef = document.getElementById("load").children[1]
+  loadButtonImgRef = document.getElementById("load").children[1];
 
   jsonSaveWorkspaceOverwrite = []; 
 
@@ -2107,7 +2311,7 @@ function loadData(DATA) { // loads everything bts , waits until load button is c
 
     fileType = "Workspace Circuit"
 
-    importedFileType = 0 
+    importedFileType = 0; 
 
   } else if (DATA.header.fileFormat == 1) {
 
@@ -2137,9 +2341,9 @@ function loadData(DATA) { // loads everything bts , waits until load button is c
 
       console.clear()
 
-      console.log(`A Simboard file has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
+      console.log(`A Simboard File has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
 
-      alert(`A Simboard file has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
+      alert(`A Simboard File has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
 
 
 
@@ -2197,6 +2401,26 @@ function loadData(DATA) { // loads everything bts , waits until load button is c
 
       console.log("Control flow is going into reading into reading new imported UI Layout data!")
 
+
+      console.clear()
+
+      console.log(`A Simboard File has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
+
+      alert(`A Simboard File has been loaded into a temporary reserve!\nPlease CLICK THE LOAD PROJECT BUTTON to replace the current circuit with the imported one!\n\n\nThe author of the imported file is: ${fileAuthor}.\n\nThe imported file contains ${fileType} data.\n\nThe imported file was created at: ${fileDOB}.\n\nThis file was made in Simboard Version: ${fileVersion}.\n\nThis file contains ${fileObjConns} Logic Gate object connections.\n\nThis file contains ${fileTotalObjs} Logic Gate objects.`)
+
+
+
+      importedData = DATA.styleBuild; 
+
+      console.log("Data parsed into load Data process function is: ", importedData)
+
+
+
+      tempStylesContainerOverwrite = importedData; 
+
+      console.log("Data in 'cache' is: ", jsonSaveWorkspaceOverwrite)
+
+
     };
 
   };
@@ -2252,7 +2476,7 @@ function clearWorkspace () {
 
     } else {
 
-      console.log("Safety lock prevented deletion of master gate or master wire line!")
+      console.warn("Safety lock prevented deletion of master gate or master wire line!")
 
     }
 
@@ -2272,13 +2496,40 @@ function clearWorkspace () {
 
     } else {
 
-      console.log("Safety lock prevented deletion of master wire line!");
+      console.warn("Safety lock prevented deletion of master wire line!");
 
     }
 
   });
 
   jsonSaveWorkspace = []; 
+
+  PREVIOUSIOSTACK = []; 
+
+  PREVIOUSIO = []; 
+
+  hasFirstIOBeenSelected = false;
+  hasSecondIOBeenSelected = false; 
+
+  IOPOSITIONSTACK = [];
+  DRAWBOXSTACK = [];
+
+  IOPARSE = [];
+
+  IOPARSE.INPUTPOSITIONX = 0; 
+  IOPARSE.INPUTPOSITIONY = 0;
+  IOPARSE.OUTPUTPOSITIONX = 0;
+  IOPARSE.OUTPUTPOSITIONY = 0; 
+  IOPARSE.INPUT = null;
+  IOPARSE.OUTPUT = null; 
+
+  gatePositionXGlobalReference = 0;
+  gatePositionYGlobalReference = 0;
+
+  selectedGatesStack = []; 
+  totalSelectedGates = 0;
+
+
   
   //console.log("WORKSPACE SPACE AFTER:  ", jsonSaveWorkspace) -- this is good 
 
@@ -2312,6 +2563,7 @@ function rgbToHexadec(rgb) {
 
 
     return `#${r}${g}${b}`;
+
 }
 
 
@@ -2336,7 +2588,9 @@ function getInvertedColour(hexValue) {
 
 
     return `#${r}${g}${b}`;
+
 }
+
 
 
 
@@ -2374,6 +2628,7 @@ WorkspaceRef.addEventListener("dragleave", () => {
 
 WorkspaceRef.addEventListener("drop", (e) => {
 
+
     e.preventDefault();
 
     GridCanvasColour.style.backgroundColor = tempStyle; // Visual feedback
@@ -2382,246 +2637,675 @@ WorkspaceRef.addEventListener("drop", (e) => {
 
     if (file && file.type === "application/json") {
 
-        const reader = new FileReader();
-        
-        reader.onload = (event) => {
+        if (simulate != true) {
 
-            try {
+          const reader = new FileReader();
+          
+          reader.onload = (event) => {
 
-                const data = JSON.parse(event.target.result);
+              try {
 
-                //console.log(data) //-- find the data parsed through, if err detected, try swapping comments w. line below for load data!
+                  const data = JSON.parse(event.target.result);
 
-                playLoadGif()
+                  //console.log(data) //-- find the data parsed through, if err detected, try swapping comments w. line below for load data!
 
-                loadData(data);
+                  playLoadGif()
+
+                  loadData(data);
 
 
-            } catch (err) {
+              } catch (err) {
 
-                alert("Error reading file. Is it valid JSON?");
+                  alert("Error reading file. Is it valid JSON?");
 
-            }
+              }
 
-        };
-        
-        reader.readAsText(file);
+          };
+          
+          reader.readAsText(file);
 
-    } else {
+        } else { 
+
+          alert("You cannot import a Simboard File whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to import your Simboard JSON File!")
+          console.warn("You cannot import a Simboard File whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to import your Simboard JSON File!")
+    
+        }
+
+      } else {
 
         alert("Please drop a valid .json file!");
 
-    }
+      }
     
+
+
 });
+
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
-function redrawImport(DAT) { //TODO -- PORT THE CLONEOBJECTS DRAGGABLE GATE HEADER INTO THE JSONSAVEWORKSPACE CONNECTION LINE
+// function redrawImport(DAT) { //TODO -- PORT THE CLONEOBJECTS DRAGGABLE GATE HEADER INTO THE JSONSAVEWORKSPACE CONNECTION LINE
 
-  if (jsonSaveWorkspaceOverwrite[0] != null) {
+//   if (jsonSaveWorkspaceOverwrite[0] != null) {
 
-    console.clear();
+//     console.clear();
 
-    console.log("Redrawing imported circuit!");
+//     console.log("Redrawing imported circuit!");
 
-    jsonSaveWorkspace = jsonSaveWorkspaceOverwrite; 
+//     jsonSaveWorkspace = jsonSaveWorkspaceOverwrite; 
 
-    console.log(jsonSaveWorkspace);
+//     console.log(jsonSaveWorkspace);
 
 
     
 
-    let idLimitInp = 0; 
-    let idLimitOut = 0; 
+//     let idLimitInp = 0; 
+//     let idLimitOut = 0; 
 
-    jsonSaveWorkspace.forEach(connec => {
+//     jsonSaveWorkspace.forEach(connec => {
 
-      if (connec != null) { 
+//       if (connec != null) { 
 
-        idIterationInp = parseInt(connec.OBJECTA_INPUTID.replace("mydiv", ""));
+//         idIterationInp = parseInt(connec.OBJECTA_INPUTID.replace("mydiv", ""));
 
-        if (idIterationInp > idLimitInp) idLimitInp = idIterationInp;
+//         if (idIterationInp > idLimitInp) idLimitInp = idIterationInp;
 
-      };
+//       };
 
-    });
+//     });
 
-    jsonSaveWorkspace.forEach(connek => {
+//     jsonSaveWorkspace.forEach(connek => {
 
-      if (connek != null) { 
+//       if (connek != null) { 
 
-        idIterationOut = parseInt(connek.OBJECTB_OUTPUTID.replace("mydiv", ""));
+//         idIterationOut = parseInt(connek.OBJECTB_OUTPUTID.replace("mydiv", ""));
 
-        if (idIterationOut > idLimitOut) idLimitOut = idIterationOut;
+//         if (idIterationOut > idLimitOut) idLimitOut = idIterationOut;
 
-      };
+//       };
 
-    });
+//     });
 
 
-    searchIndex = 1; 
+//     searchIndex = 1; 
 
-    uniquor = new Set();
+//     const uniquor =  {};
 
-    jsonSaveWorkspace.forEach(gateConn => {
+//     jsonSaveWorkspace.forEach(gateConn => {
 
-      try { 
+//       try { 
 
-        connectionLineAttributes = [
 
-          {
+//         [ 
+//         { gType: gateConn.CONNECTEDOBJECT_B_TYPE,  
 
-          gType: gateConn.CONNECTEDOBJECT_B_TYPE,  
+//         gUniqueIdentifier: gateConn.OBJECTA_INPUTID, 
 
-          gUniqueIdentifier: gateConn.OBJECTA_INPUTID, 
+//         gX: gateConn.INPUTOBJECT_POSX, 
 
-          gX: gateConn.INPUTOBJECT_POSX, 
+//         gY: gateConn.INPUTOBJECT_POSY 
 
-          gY: gateConn.INPUTOBJECT_POSY 
+//         }, 
 
-          }, 
+//         {
 
-          {
+//         gType: gateConn.CONNECTEDOBJECT_A_TYPE,  
 
-          gType: gateConn.CONNECTEDOBJECT_A_TYPE,  
+//         gUniqueIdentifier: gateConn.OBJECTB_OUTPUTID, 
 
-          gUniqueIdentifier: gateConn.OBJECTB_OUTPUTID, 
+//         gX: gateConn.OUTPUTOBJECT_POSX, 
 
-          gX: gateConn.OUTPUTOBJECT_POSX, 
+//         gY: gateConn.OUTPUTOBJECT_POSY 
 
-          gY: gateConn.OUTPUTOBJECT_POSY 
+//         }
+//       ].forEach(potentialUniquor => {
+
+//         if (potentialUniquor.gUniqueIdentifier && potentialUniquor.gType && !uniquor[potentialUniquor.gUniqueIdentifier]) {
+
+//           try { 
+
+//             cloneObject(potentialUniquor.gType, parseInt(potentialUniquor.gX), parseInt(potentialUniquor.gY));
+
+//             uniquor[potentialUniquor.gUniqueIdentifier] = "mydiv" + itemsCreated;
+
+//             //jsonSaveWorkspace[searchIndex] = "mydiv" + itemsCreated;
+
+//             //searchIndex++; 
+            
+
+//           } catch(error) { 
+
+//             alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
+            
+//           }
+
+//         } else  {
+
+//           console.log("Skipped duplicate connection entry for ", elem.gType, " , more specifically: ", elem.gUniqueIdentifier, " !");
+
+//         }
+
+//       })
+
+
+
+//       jsonSaveWorkspace.forEach(gateConnec => {
+
+//         fetchInput = uniquor[gateConnec.OBJECTA_INPUTID];  //document.getElementById(`${gateConnec.OBJECTA_INPUTID}`).children[0];
+//         fetchOutput = uniquor[gateConnec.OBJECTB_OUTPUTID]; //document.getElementById(`${gateConnec.OBJECTB_OUTPUTID}`).children[0];
+
+//         //jsonSaveWorkspace.forEach(gateConnec => {
+
+//         //if (fetchInput && fetchOutput) {
+//           // Target the interactive inner div (child[0]) as we discussed!
+//         gateConnec.CONNECTEDOBJECT_A = "Wow"
+//         gateConnec.CONNECTEDOBJECT_B = "Deloaw"
+//         //}
+//       })
+
+
+      
+//       } catch(error) {
+
+//         alert("WARNING:\nA fatal error was encountered during circuit backend reconfiguration! This circuit project may be unstable to use, if possible, please try again!\n\n\nError type: ", error)
+
+//       }
+
+//       console.clear()
+
+//       //console.log(connectionLineAttributes)
+
+
+//       //connectionLineAttributes.forEach(elem => {
+
+
+
+//       //})
+
+
+//   })
+
+//   console.clear()
+
+//   console.log("JSONSAVEWORKSPACE BEFORE == ", jsonSaveWorkspace)
+
+//   console.clear()
+
+//   //jsonSaveWorkspace.forEach(gateConnec => {
+
+//   //  fixCircuitFile(searchIndex, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
+
+//   //  console.log(gateConnec, " == searchIndex of: ", searchIndex)
+    
+//   //  searchIndex++; 
+
+//   //})
+
+//   } else { 
+
+//     alert("No data was found in the temporary reserve!");
+
+//   }
+
+
+
+//     //gateConnec.CONNECTEDOBJECT_A = fetchInput; 
+//     //gateConnec.CONNECTEDOBJECT_B = fetchOutput; 
+
+    
+//     // let sindex = 0; 
+
+//     // fixCircuitFile(sindex++, jsonSaveWorkspace, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
+
+//     // //console.log(/*gateConnec,*/ " == searchIndex of: ", searchIndex)
+
+//     // console.log("gateconnecs (I || O) == ", gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID)
+
+//     // //sindex = sindex + 1; 
+
+//     // //searchIndex++; 
+
+//   //})
+
+//   searchIndex = 0; // reset search index
+
+//   console.log("search Index reset to: ", searchIndex)
+
+// };
+
+//   //   jsonSaveWorkspace.forEach(gateConn => {
+
+//   //     //console.log(gateConnection)
+//   //     try{
+//   //     console.log(gateConn.INPUTOBJECT_POSX)
+//   //     console.log(gateConn.INPUTOBJECT_POSY)
+//   //     //console.log(gateConnection.CONNECTEDOBJECT_A_TYPE)
+
+//   //     cloneObject(
+//   //       gateConn.CONNECTEDOBJECT_A_TYPE,
+//   //       parseInt(gateConn.INPUTOBJECT_POSX),  
+//   //       parseInt(gateConn.INPUTOBJECT_POSY),  
+//   //     )
+//   //     } catch(error) {
+//   //       alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
+//   //     }
+//   //   }); 
+//   // } else { 
+//   //   alert("No data was found in the temporary reserve!")
+
+//   // }
+
+// //}
+
+// //  ** SCRIPT 006 ** The functions for Workspace navigation end here. 
+
+function redrawImport(DATMOD) {
+
+    if (DATMOD == 0) {
+
+      const isCircuitOverwriteEmpty = jsonSaveWorkspaceOverwrite.slice(0).every(item => item === null)
+
+      if (!isCircuitOverwriteEmpty) {
+
+        const uniquor = {}; // Maps Old JSON ID -> New Workspace ID
+
+          // spawns
+        jsonSaveWorkspaceOverwrite.forEach(conn => {
+
+            [
+                { gId: conn.OBJECTA_INPUTID, gType: conn.CONNECTEDOBJECT_B_TYPE, gX: conn.INPUTOBJECT_POSX, gY: conn.INPUTOBJECT_POSY,
+                  gInputBoxLocationX: conn.CONNECTEDOBJECT_INPUTREF_POSX, gInputBoxLocationY: conn.CONNECTEDOBJECT_INPUTREF_POSY
+                },
+
+                { gId: conn.OBJECTB_OUTPUTID, gType: conn.CONNECTEDOBJECT_A_TYPE, gX: conn.OUTPUTOBJECT_POSX, gY: conn.OUTPUTOBJECT_POSY,
+                  gOutputBoxLocationX: conn.CONNECTEDOBJECT_OUTPUTREF_POSX, gOutputBoxLocationY: conn.CONNECTEDOBJECT_OUTPUTREF_POSY
+                }
+
+            ].forEach(obj => {
+
+                if (obj.gId && obj.gType && !uniquor[obj.gId]) {
+
+                    cloneObject(obj.gType, obj.gX, obj.gY);
+
+                    uniquor[obj.gId] = "mydiv" + itemsCreated; 
+
+                }
+
+            });
+
+        });
+
+
+        jsonSaveWorkspaceOverwrite.forEach(conn => {
+
+          connectionsInitialised++ 
+
+          conn.OBJECTA_INPUTID = uniquor[conn.OBJECTA_INPUTID];
+          conn.OBJECTB_OUTPUTID = uniquor[conn.OBJECTB_OUTPUTID];
+
+
+          const gateA = document.getElementById(conn.OBJECTA_INPUTID);
+          const gateB = document.getElementById(conn.OBJECTB_OUTPUTID);
+
+          if (gateA && gateB) {
+
+              conn.CONNECTEDOBJECT_A = gateB.children[0]; // idk how this fking works! but it does 
+              conn.CONNECTEDOBJECT_B = gateA.children[0];
 
           }
 
-        ]; 
+          jsonSaveWorkspace = jsonSaveWorkspaceOverwrite; 
 
-        
 
-      } catch(error) {
+        });
 
-        alert("WARNING:\nA fatal error was encountered during circuit backend reconfiguration! This circuit project may be unstable to use, if possible, please try again!\n\n\nError type: ", error)
+        jsonSaveWorkspaceOverwrite = [];
+
+        fixVisuals(jsonSaveWorkspace); 
+
+        console.log("IMPORTED CIRCUIT HAS BEEN REDRAWN!");
+
+        alert("Your circuit has been successfully redrawn!");
+
+      } else { 
+
+        alert("No relevant data was found in your imported file for the loading function to process!");
 
       }
 
-      console.clear()
+  } else if (DATMOD == 1) {
 
-      console.log(connectionLineAttributes)
+    const isLayoutOverwriteEmpty = Object.keys(tempStylesContainerOverwrite).length === 0;
+
+    if (!isLayoutOverwriteEmpty) {
+
+      console.log("Found CSS TEMP STYLES OVERWRITE: ", tempStylesContainerOverwrite);
+
+      replaceIndex = 0; 
+
+      Object.entries(tempStylesContainerOverwrite).forEach(([key, value]) => {
+
+        console.log("STYLING ATTRIB: ", key);
+        console.log("STYLING VALUE: ", value);
 
 
-      connectionLineAttributes.forEach(elem => {
+        if (value !== null) {
 
-        if (elem.gUniqueIdentifier && elem.gType && !uniquor.has(elem.gUniqueIdentifier)) {
+          tempStylesContainer[key] = value;
 
-          try { 
+        };
 
-            cloneObject(elem.gType, parseInt(elem.gX), parseInt(elem.gY));
+      });
 
-            uniquor.add(elem.gUniqueIdentifier);
+      tempStylesContainerOverwrite = {}; // clear cache as everythings been loaded in ... 
 
-            searchIndex++; 
+      replaceIndex = 0; 
+
+      styleCache0 = null; 
+      styleCache1 = null; 
+      styleCache2 = null; 
+
+      Object.entries(tempStylesContainer).forEach(([key, value]) => {
+
+        switch (replaceIndex) {
+          case 0: 
+            cssConcatonates[0].style.backgroundColor = value; 
+          break;
+
+          case 1: 
+            cssConcatonates[1].style.backgroundColor = value; 
+          break;
+
+          case 2: 
+            cssConcatonates[2].style.backgroundColor = value; 
+          break;
+
+          case 3: 
+            cssConcatonates[3].style.backgroundColor = value; 
+          break;
+
+          case 4:
+
+            for (let f = 0; f < cssConcatonates[4].length; f++) {
+
+              currentProperty = cssConcatonates[4];
+
+              console.log(currentProperty);
+
+              if ((currentProperty[f].tagName) == "BUTTON" || "A") {
+
+                if ((currentProperty[f].tagName) == "BUTTON") {
+
+                  currentProperty[f].style.backgroundColor = value; 
+
+                } else if ((currentProperty[f].tagName) == "A") {
+
+                  currentProperty[f].children[0].style.backgroundColor = value; 
+
+                };
+
+              };
+
+            };
             
+          break;
 
-          } catch(error) { 
+          case 5: 
 
-            alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
+            for (let f = 0; f < cssConcatonates[5].length; f++) {
+
+              currentProperty = cssConcatonates[5];
+
+              console.log(currentProperty);
+
+              if ((currentProperty[f].tagName) == "BUTTON" || "A") {
+
+                if ((currentProperty[f].tagName) == "BUTTON") {
+
+                  currentProperty[f].style.backgroundColor = value; 
+
+                } else if ((currentProperty[f].tagName) == "A") {
+
+                  currentProperty[f].children[0].style.backgroundColor = value; 
+
+                };
+
+              };
+
+            };
             
-          }
+          break;
 
-        } else  {
+          case 6: 
+            styleCache0 = value; 
+            drawGrid(0, null)
+            drawGrid(1, styleCache0)
+          break;
 
-          console.log("Skipped duplicate connection entry for ", elem.gType, " , more specifically: ", elem.gUniqueIdentifier, " !");
+          case 7: 
+            styleCache1 = value; 
+            drawAxis(1, null, null)
+            drawAxis(0, styleCache1, styleCache1)
+            drawGrid(0, styleCache0)
+          break;
 
-        }
+          case 8: 
+            styleCache2 = value;     
+            drawAxis(1, null, null)
+            drawAxis(0, styleCache2, styleCache1)
+            drawGrid(0, styleCache0)
+          break;
+            
+        };
 
-      })
-  })
+        replaceIndex++; 
 
-  console.clear()
+      }); 
 
-  console.log("JSONSAVEWORKSPACE BEFORE == ", jsonSaveWorkspace)
+      replaceIndex = 0; 
 
-  console.clear()
 
-  //jsonSaveWorkspace.forEach(gateConnec => {
+      // tempStylesContainerOverwrite.forEach(stylingAttrib => {
 
-  //  fixCircuitFile(searchIndex, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
+      //   tempStylesContainer[replaceIndex] = stylingAttrib; 
 
-  //  console.log(gateConnec, " == searchIndex of: ", searchIndex)
-    
-  //  searchIndex++; 
+      //   console.log("Styling attribute: ", stylingAttrib, " has been implemented at RIndx: ", replaceIndex)
 
-  //})
+      //   replaceIndex++; 
 
-  } else { 
+      // })
 
-    alert("No data was found in the temporary reserve!");
+    //   console.log("Replacement styling loop has been stopped for the first round!")
 
-  }
+    //   replaceIndex = 0; 
 
-  jsonSaveWorkspace.forEach(gateConnec => {
+    //   tempStylesContainer.forEach(toStyleUI => {
 
-    fetchInput = document.getElementById(`${gateConnec.OBJECTA_INPUTID}`).children[0];
-    fetchOutput = document.getElementById(`${gateConnec.OBJECTB_OUTPUTID}`).children[0];
+    //     if (replaceIndex == 0 || 1 || 2) {}
 
-    //jsonSaveWorkspace.forEach(gateConnec => {
-    gateConnec.CONNECTEDOBJECT_A = fetchInput; 
-    gateConnec.CONNECTEDOBJECT_B = fetchOutput; 
+    //     cssConcatonates[replaceIndex] = toStyleUI;
 
-    
-    // let sindex = 0; 
+    //     replaceIndex++; 
 
-    // fixCircuitFile(sindex++, jsonSaveWorkspace, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
+    //   })
 
-    // //console.log(/*gateConnec,*/ " == searchIndex of: ", searchIndex)
+    //   console.log("Replacement styling loop has been stopped for the second round!")
 
-    // console.log("gateconnecs (I || O) == ", gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID)
+    //   replaceIndex = 0; 
 
-    // //sindex = sindex + 1; 
+    //   tempStylesContainerOverwrite = []; // clears data & wipes cache / temp reserve 
 
-    // //searchIndex++; 
+    // }
 
-  })
+    } else {
 
-  searchIndex = 0; // reset search index
+      alert("The redraw function has failed!\n\nPlease refresh Simboard and try again, thank you!");
+      console.warn("The redraw function has failed!\n\nPlease refresh Simboard and try again, thank you!");
 
-  console.log("search Index reset to: ", searchIndex)
+    };
+
+  };
+
+  
+};
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+LineSolverButtonLink = document.getElementById("linesolver");
+
+solverMode = 0; 
+
+
+LineSolverButtonLink.onclick= function() {
+
+
+  console.log(solverMode);
+
+  if (simulate != true) {
+
+    lineSolver(solverMode);
+
+  } else {
+
+    alert("You cannot change the Line Solver mode whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to change the Connection Line Solver!")
+
+  };
+
+  solverMode++;
+  
+  if (solverMode == 5) {
+
+    solverMode = 0; 
+
+  };
+
 
 };
 
-  //   jsonSaveWorkspace.forEach(gateConn => {
+function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY*/ ) {
 
-  //     //console.log(gateConnection)
-  //     try{
-  //     console.log(gateConn.INPUTOBJECT_POSX)
-  //     console.log(gateConn.INPUTOBJECT_POSY)
-  //     //console.log(gateConnection.CONNECTEDOBJECT_A_TYPE)
+  if (MODE == 0) { // for each Wire ID in the workspace, do ...: (e.g. for implementation!)
 
-  //     cloneObject(
-  //       gateConn.CONNECTEDOBJECT_A_TYPE,
-  //       parseInt(gateConn.INPUTOBJECT_POSX),  
-  //       parseInt(gateConn.INPUTOBJECT_POSY),  
-  //     )
-  //     } catch(error) {
-  //       alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
-  //     }
-  //   }); 
-  // } else { 
-  //   alert("No data was found in the temporary reserve!")
+    lineRef = document.querySelectorAll('line[tag="interactableObject"]') // because the line is different to a div so we can fetch it by the same tag
 
-  // }
+    lineRef.forEach(ConnectionLine => {
 
-//}
+      let connLineX1 = ConnectionLine.x1.baseVal.value; 
+      let connLineY1 = ConnectionLine.y1.baseVal.value;
+      let connLineX2 = ConnectionLine.x2.baseVal.value;
+      let connLineY2 = ConnectionLine.y2.baseVal.value;
+    
+      ConnectionLine.setAttribute("x1", connLineX1);
+      ConnectionLine.setAttribute("y1", connLineY1);
+      ConnectionLine.setAttribute("x2", connLineX2);
+      ConnectionLine.setAttribute("y2", connLineY2);
 
-//  ** SCRIPT 006 ** The functions for Workspace navigation end here. 
+    });
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+  } else if (MODE == 1) {
+
+    lineRef = document.querySelectorAll('line[tag="interactableObject"]') // because the line is different to a div so we can fetch it by the same tag
+
+    lineRef.forEach(ConnectionLine => {
+
+      newPath = document.createElement("path")
+      clonedPath = document.getElementById("Workspace").append(newPath)
+
+      // let connLineX1 = 50; 
+      // let connLineY1 = 46;
+      // let connLineX2 = 45;
+      // let connLineY2 = 84;
+      
+      // midpoint = (connLineX1 + connLineX2) / 2;
+
+      // console.log(midpoint)
+
+      // pathTrace = 
+      //   `M ${connLineX1} ${connLineY1}
+      //     L ${midpoint} ${connLineY1}
+      //     L ${midpoint} ${connLineY2}
+      //     L ${connLineX2} ${connLineY2}`; 
+
+      // clonedPath.setAttribute("d", pathTrace);
+
+      // // ConnectionLine.setAttribute("x1", connLineX1);
+      // // ConnectionLine.setAttribute("y1", connLineY1);
+      // // ConnectionLine.setAttribute("x2", connLineX2);
+      // // ConnectionLine.setAttribute("y2", connLineY2);
+
+    });
+
+
+
+  } else if (MODE == 2) {
+
+    // square-like line 
+
+  } else if (MODE == 3) {
+
+    // curvy line 
+
+  } else if (MODE == 4) {
+
+    // auto adjust all lines with Mode 0
+
+  } else {
+
+    console.warn("\nCould not find the specific Line Solver method entered!\n")
+
+  };
+
+};
+
+
+
+
+
+
+
+
 
 // ** SCRIPT 007 ** Allows Logic Gate Objects to be wired together 
 
 console.log(xLen, yLen, "size of workspace with X | Y");
 
+
+function fixVisuals(PARSED_DAT) {
+
+  searchIndex = 0; 
+
+  PARSED_DAT.forEach(connLayer => {
+
+    //gateAInputRef = document.getElementById(`${connLayer.OBJECTA_INPUTID}`).children[0];
+
+    //gateBOutputRef = document.getElementById(`${connLayer.OBJECTB_OUTPUTID}`).children[0];
+    
+    wireNode = document.getElementById("Wire");
+
+    clone = wireNode.cloneNode(true);
+
+    document.getElementById("WiredConnection").appendChild(clone); 
+
+    var wireName = "Wire" + searchIndex;
+
+    clone.setAttribute("id", wireName);
+
+    clone.setAttribute("PairedData", searchIndex);
+
+    clone.setAttribute("x1", connLayer.POSITIONINPUTBOXX);
+
+    clone.setAttribute("y1", connLayer.POSITIONINPUTBOXY);
+
+    clone.setAttribute("x2", connLayer.POSITIONOUTPUTBOXX);
+
+    clone.setAttribute("y2", connLayer.POSITIONOUTPUTBOXY);
+
+    searchIndex++; 
+
+  })
+
+};
 
 // function fixCircuitFile(INDEX, OPERATINGDATA, CONNECTORA, CONNECTORB) { // TODO: essentially I want to make it so each "CONNECTEDOBJECT_x?" is replaced with the clone 
 //                                     // object IDs so that discern boolean works (REPLACE WITH DRAGGABLEGATEHEADER)
@@ -2726,23 +3410,32 @@ engineLink.onclick= function() { // quality steps determine calculation depth.
 
   //console.log("Quality steps function is initialised!")
 
-  customQualityStepsPrompt = prompt("Please enter an INTERGER NUMBER of quality steps that you would like the engine to handle in your circuit.\nThe higher the INTEGER, the more data will be retained throughout the boolean calculations.");
+  if (simulate != true) { 
 
-  customQualitySteps = Math.ceil(customQualityStepsPrompt); // prevents putting 0 etc 
+    customQualityStepsPrompt = prompt("Please enter an INTERGER NUMBER of quality steps that you would like the engine to handle in your circuit.\nThe higher the INTEGER, the more data will be retained throughout the boolean calculations.");
 
-  console.log("Data inputted into prompt was: ", customQualitySteps);
+    customQualitySteps = Math.ceil(customQualityStepsPrompt); // prevents putting 0 etc 
 
-  if (customQualitySteps > 0) {
+    console.log("Data inputted into prompt was: ", customQualitySteps);
 
-    calculationDepth = customQualitySteps; 
+    if (customQualitySteps > 0) {
 
-    console.log("New Calculation Depth (Quality Steps for Boolean Calculation) == ", calculationDepth);
+      calculationDepth = customQualitySteps; 
+
+      console.log("New Calculation Depth (Quality Steps for Boolean Calculation) == ", calculationDepth);
+
+    } else {
+
+      confirm("Entered data was not recognised, please input again!");
+
+    };
 
   } else {
 
-    confirm("Entered data was not recognised, please input again!");
+    alert("You cannot update the Engine Power whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to update the Engine Power!")
+    console.warn("You cannot update the Engine Power whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to update the Engine Power!")
 
-  };
+  }
 
 
 };
@@ -2835,6 +3528,13 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
         btn.className = 'UserInputAbility'; 
 
+
+        // if (btn.parentNode.parentNode.getAttribute("state") == 0) {
+        //   btn.style.cursor = "url('/Media/Layout/toggleON.png'), auto" 
+        // } else {
+        //   btn.style.cursor = "url('/Media/Layout/toggleON.png'), auto" 
+        // };
+
         
         btn.onclick = (e) => {
 
@@ -2846,17 +3546,22 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
           buttonThumbnail = elm.children[0].children[2];
 
+          //buttonStyle = elm.style;
+
+
           if (buttonState == 0) {
 
-            elm.setAttribute("state", 1)
+            elm.setAttribute("state", 1);
 
-            buttonThumbnail.setAttribute("src", "/Media/ActivatedState/HoldButton_Activated.png")
+            buttonThumbnail.setAttribute("src", "/Media/ActivatedState/HoldButton_Activated.png");
+
 
           } else {
 
-            elm.setAttribute("state", 0)
+            elm.setAttribute("state", 0);
 
-            buttonThumbnail.setAttribute("src", "/Media/DeactivatedState/HoldButton_Deactivated.png")
+            buttonThumbnail.setAttribute("src", "/Media/DeactivatedState/HoldButton_Deactivated.png");
+
 
           }
 
@@ -2935,9 +3640,9 @@ function logicFlow(MODE, WORKSPACE_DATA) {
     console.log("Logic Error in logicFlow function!");
 
 
-  }
+  };
 
-}
+};
 
 
 
@@ -2950,6 +3655,12 @@ filterMenuDebugRef.onclick= function() {
   console.clear();
 
   console.log("JsonSave: ", jsonSaveWorkspace);
+
+  console.log("Previous IO Stack: ", PREVIOUSIOSTACK);
+
+  console.log("CSS TempStyleContainer == ", tempStylesContainer);
+
+  console.log("CSS Concatonates == ", cssConcatonates);
 
 }
 
@@ -2968,6 +3679,7 @@ function discernBoolean() {
 
 
     jsonSaveWorkspace.forEach(conn => {
+
         if (!conn) return;
 
         const sourceNode = conn.CONNECTEDOBJECT_A.parentNode;
@@ -2975,12 +3687,14 @@ function discernBoolean() {
         const targetID = targetNode.id;
 
         console.log("PN SouNod == ", sourceNode); 
+
         console.log("PN TarNod == ", targetNode); 
         
         console.log("TARGET IDENTIFICATION == ", targetID);
 
 
         if (!inputTracker[targetID]) {
+
             inputTracker[targetID] = [];
 
         }

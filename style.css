@@ -1127,6 +1127,14 @@ svg#WiredConnection {
 
 
 
+/* :userInputAbilityCursorForce {
+
+    --forceCursor: "/Media/Layout/toggleON.png"; 
+
+} */
+
+
+
 /* The container (the logic gate/component) */
 
 /* The Action Button */
@@ -1157,7 +1165,7 @@ svg#WiredConnection {
 
   font-size: 10px;
 
-  cursor: pointer;
+  cursor: url("/Media/Layout/hand.png");
 
   z-index: 10;          /* Ensure it stays on top of other elements */
 
