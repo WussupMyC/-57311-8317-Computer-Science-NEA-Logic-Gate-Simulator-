@@ -630,6 +630,8 @@ body{ /* Everything inside of the body tag styles like... */
     distictly separate this menu from the Workspace and File Menu contents 
     for example. */
 
+    z-index: 1; 
+
 }   /* The styling of the general Object Menu ends here. */ 
 
 /* Object Menu Styling Ends Here */ 
@@ -661,10 +663,16 @@ body{ /* Everything inside of the body tag styles like... */
 
     overflow: hidden; 
 
-    padding: 0rem   /* To ensure that there are no visual artefacts or problems 
+    padding: 0rem;   /* To ensure that there are no visual artefacts or problems 
     with moving the Logic Gates inside of the Workspace. We need to get rid of the 
     space created by default for new divisions. We set the padding to zero to 
     resolve said problems. */ 
+
+    z-index: 0; 
+
+    transition: transform 0.1s ease-out;
+
+    transform-origin: center;
 
 }   /* The styling of the Workspace Division default configuration ends here. */ 
 
@@ -755,6 +763,8 @@ more in the HTML document). */
         UI's, meaning that the cursor pointer resets to the default arrow 
         when it is active over said button. Hence, we must override this 
         again to retain consistency around the design of Simboard. */ 
+
+    z-index: 2;
 
 
 }   /* The styling of the Buttons inside of the Object Menu ends here. */ 

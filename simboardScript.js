@@ -60,6 +60,16 @@ simboardVersion = "FR 1.0.0";
 
 simulate = false; 
 
+
+viewPosX = 0; 
+viewPosY = 0; 
+currentZoomValue = 1; 
+
+zoomOutLimit = 3; 
+zoomInLimit = 0.25; 
+traverseSpeed = 35; 
+
+
 // Should be attributes of this layout saver 
 cssConcatonates = [ // the references of objects that are actually set
   GridCanvasColour = document.getElementById('GridCanvas'), 
@@ -1379,11 +1389,13 @@ function ioCheck(e) { // The info passed as a parameter
 
   IOPARENT = IOREFERENCE.parentNode;
 
-  IOHEADER = IOPARENT.parentNode; 
+  IOHEADER = IOPARENT.parentNode.parentNode; 
 
   
 
   console.log("io parent == ", IOHEADER)
+
+  console.log("io header == ", IOHEADER)
 
   PREVIOUSIO = PREVIOUSIOSTACK[PREVIOUSIOSTACK.length - 1] /* We do this in this statement so it's simpler to gain the previous IO's 
   unique ID later on in the branching 
@@ -1633,8 +1645,8 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
 // Gain PRD values parsed from the IO Check  
 
-  INPUTREFERENCE = PARSED_PRD.INPUT.parentNode; 
-  OUTPUTREFERENCE = PARSED_PRD.OUTPUT.parentNode; 
+  INPUTREFERENCE = PARSED_PRD.INPUT.parentNode.parentNode; 
+  OUTPUTREFERENCE = PARSED_PRD.OUTPUT.parentNode.parentNode; 
 
   INPUTID = PARSED_PRD.PARENTINPUTUID; 
   OUTPUTID = PARSED_PRD.PARENTOUTPUTUID; 
@@ -1758,6 +1770,7 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
     INPUTID, 
     OUTPUTID 
+
   );
 
 
@@ -1965,6 +1978,7 @@ function jsonReadWrite(
     console.log(jsonSaveWorkspace)
 
   } else {
+    
     console.log("Logging data!")
 
   }
@@ -3190,9 +3204,9 @@ LineSolverButtonLink.onclick= function() {
 
   if (simulate != true) {
 
-    solverMode = prompt("Please enter a number to determine the Line Solver Mode! The various integers you can input include:\n\n0 - All current wires become Linear\n1 - All current wires become Orthogonal\n2 - All current wires become Curved\n3 - Change the transparency of all current wires\n4 - Fix all wire positions\n5 - Change the colours of all current wires"); 
+    solverMode = prompt("Please enter a number to determine the Line Solver Mode! The various integers you can input include:\n\n0 - All current wires become Linear\n1 - All current wires become Orthogonal\n2 - All current wires become Curved\n3 - Change the transparency of all current wires\n4 - Fix all wire positions\n5 - Change the colours of all current wires\n6 - Change the thickness of all current wires"); 
 
-    if (solverMode > -1 && solverMode < 6) {
+    if (solverMode > -1 && solverMode < 7) {
 
       console.log(solverMode);
 
@@ -3361,59 +3375,68 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
   } else if (MODE == 4) {    // the "fix mode" ,, f for fix ,, auto adjust all lines with Mode 4
 
-    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM4.png");
+    if (parseInt(currentZoomValue) == 1) {
 
-    indexOfLine = 0; 
-    
-    jsonSaveWorkspace.forEach(connecLayer =>{
+      solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM4.png");
 
-      lineToFind = document.querySelector(`path[PairedData="${indexOfLine}"`);
-
-      sourceStartGate = document.getElementById(connecLayer.OBJECTA_INPUTID).children[0];
-      targetEndGate = document.getElementById(connecLayer.OBJECTB_OUTPUTID).children[0];
-
-      console.log("sSGate || teGate == ", sourceStartGate, targetEndGate);
-
-      sourceStartGateFindBox = sourceStartGate.children[0].children[0];
-      targetEndGateFindBox = targetEndGate.children[2].children[0]; 
-
-      console.log("sSGateFB || teGateFB == ", sourceStartGateFindBox, targetEndGateFindBox);
-
-      sourceBoxPosition = sourceStartGateFindBox.getBoundingClientRect();
-      targetBoxPosition = targetEndGateFindBox.getBoundingClientRect();
-      viewportReference = document.getElementById("Workspace").getBoundingClientRect();
-
-      newDrawPointX1 = (sourceBoxPosition.left + sourceBoxPosition.width / 2) - viewportReference.left;
-      newDrawPointY1 = (sourceBoxPosition.top + sourceBoxPosition.height / 2) - viewportReference.top;
-
-      newDrawPointX2 = (targetBoxPosition.left + targetBoxPosition.width / 2) - viewportReference.left;
-      newDrawPointY2 = (targetBoxPosition.top + targetBoxPosition.height / 2) - viewportReference.top;
-
-      lineToFind.setAttribute("x1", newDrawPointX1);
-      lineToFind.setAttribute("y1", newDrawPointY1);
-      lineToFind.setAttribute("x2", newDrawPointX2);
-      lineToFind.setAttribute("y2", newDrawPointY2);
-
-      figuredPath = 
-      `M ${newDrawPointX1} ${newDrawPointY1}
-      L ${newDrawPointX2} ${newDrawPointY2}`;
-
-      lineToFind.setAttribute("d", figuredPath);
-
-      indexOfLine++; 
-
-      // cornerYOfSourceGateBox = sourceStartGateFindBox.offsetTop; 
-      // cornerXOfSourceGateBox = sourceStartGateFindBox.offsetLeft; 
-      // cornerYOfTargetGateBox = targetEndGateFindBox.offsetTop; 
-      // cornerXOfTargetGateBox = targetEndGateFindBox.offsetLeft; 
+      indexOfLine = 0; 
       
-      // lineToFind.setAttribute("x1", cornerXOfSourceGateBox);
-      // lineToFind.setAttribute("y1", cornerYOfSourceGateBox);
-      // lineToFind.setAttribute("x2", cornerXOfTargetGateBox);
-      // lineToFind.setAttribute("y2", cornerYOfTargetGateBox);
+      jsonSaveWorkspace.forEach(connecLayer =>{
 
-    });
+        lineToFind = document.querySelector(`path[PairedData="${indexOfLine}"`);
 
+        sourceStartGate = document.getElementById(connecLayer.OBJECTA_INPUTID).children[0];
+        targetEndGate = document.getElementById(connecLayer.OBJECTB_OUTPUTID).children[0];
+
+        console.log("sSGate || teGate == ", sourceStartGate, targetEndGate);
+
+        sourceStartGateFindBox = sourceStartGate.children[0].children[0];
+        targetEndGateFindBox = targetEndGate.children[2].children[0]; 
+
+        console.log("sSGateFB || teGateFB == ", sourceStartGateFindBox, targetEndGateFindBox);
+
+        sourceBoxPosition = sourceStartGateFindBox.getBoundingClientRect();
+        targetBoxPosition = targetEndGateFindBox.getBoundingClientRect();
+        viewportReference = document.getElementById("Workspace").getBoundingClientRect();
+
+        newDrawPointX1 = (sourceBoxPosition.left + sourceBoxPosition.width / 2) - viewportReference.left;
+        newDrawPointY1 = (sourceBoxPosition.top + sourceBoxPosition.height / 2) - viewportReference.top;
+
+        newDrawPointX2 = (targetBoxPosition.left + targetBoxPosition.width / 2) - viewportReference.left;
+        newDrawPointY2 = (targetBoxPosition.top + targetBoxPosition.height / 2) - viewportReference.top;
+
+        lineToFind.setAttribute("x1", newDrawPointX1);
+        lineToFind.setAttribute("y1", newDrawPointY1);
+        lineToFind.setAttribute("x2", newDrawPointX2);
+        lineToFind.setAttribute("y2", newDrawPointY2);
+
+        figuredPath = 
+        `M ${newDrawPointX1} ${newDrawPointY1}
+        L ${newDrawPointX2} ${newDrawPointY2}`;
+
+        lineToFind.setAttribute("d", figuredPath);
+
+        indexOfLine++; 
+
+        // cornerYOfSourceGateBox = sourceStartGateFindBox.offsetTop; 
+        // cornerXOfSourceGateBox = sourceStartGateFindBox.offsetLeft; 
+        // cornerYOfTargetGateBox = targetEndGateFindBox.offsetTop; 
+        // cornerXOfTargetGateBox = targetEndGateFindBox.offsetLeft; 
+        
+        // lineToFind.setAttribute("x1", cornerXOfSourceGateBox);
+        // lineToFind.setAttribute("y1", cornerYOfSourceGateBox);
+        // lineToFind.setAttribute("x2", cornerXOfTargetGateBox);
+        // lineToFind.setAttribute("y2", cornerYOfTargetGateBox);
+
+      });
+
+      indexOfLine = 0; 
+
+    } else {
+
+      alert("Line Solver Type 4 cannot accurately solve the transforms of each line when you are zoomed in / out.\n\nPlease zoom back in to the default scale to activate this Line Solver!\n\nVisit the 'Workspace Data' panel in the Object Menu to see your current zoom scale.")
+      console.warn("Line Solver Type 4 cannot accurately solve the transforms of each line when you are zoomed in / out.\n\nPlease zoom back in to the default scale to activate this Line Solver!\n\nVisit the 'Workspace Data' panel in the Object Menu to see your current zoom scale.")
+    }
 
 
   } else if (MODE == 5) { // option of making all wires black, custom colour, or random colour 
@@ -3459,6 +3482,20 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
     };
 
 
+  } else if (MODE == 6){
+
+
+    solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM6.png");
+
+    lineRef = document.querySelectorAll('path[tag="interactableObject"]'); // because the line is different to a div so we can fetch it by the same tag
+
+    newThicknessToUpdate = prompt("");
+
+    lineRef.forEach(ConnectionLine => {
+
+      ConnectionLine.setAttribute("stroke-width", newThicknessToUpdate);
+
+    });
 
   } else {
 
@@ -4027,7 +4064,9 @@ function discernBoolean() {
 
 
         if(gateNode.children[0].children[1]) {
+
             gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+            
         }
         
 
@@ -4187,6 +4226,115 @@ function discernBoolean() {
 //   }
 
 // }
+
+
+//---------------------------------------------
+
+
+window.addEventListener('wheel', function(e) {
+    if (e.ctrlKey) {
+
+        e.preventDefault();
+
+
+        if (e.deltaY < 0) {
+            console.log("System lock prevented the browser zooming in via the mouse to preserve the UI Layout.");
+
+        } else {
+            console.log("System lock prevented the browser zooming out via the mouse the preserve the UI Layout.");
+
+        };
+    };
+
+}, { passive: false });
+
+
+
+window.addEventListener('keydown', function(e) {
+
+    if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '+')) {
+
+        e.preventDefault();
+
+        console.log("System lock prevented the browser zooming in or out via the keyboard Workspace layout.");
+
+    };
+
+});
+
+
+
+
+//function traverseWorkspace() {
+//  //f
+//}
+
+window.addEventListener('keydown', e => {
+
+  traversableWorkspaceRef = document.getElementById("Workspace");
+  
+  switch (e.key) {
+
+    case "k":
+    case "K": 
+
+      if (currentZoomValue < zoomOutLimit) {
+
+        currentZoomValue += 0.25;
+
+      } else {
+
+        console.log("You have zoomed in as far as possible!")
+
+      }
+      
+      break; 
+
+    case "l": 
+    case "L":
+
+      if (currentZoomValue > zoomInLimit) {
+
+        currentZoomValue -= 0.25;
+
+      } else {
+
+        console.log("You have zoomed out as far as possible!")
+        
+      }
+
+      break;
+
+
+    case "ArrowUp":
+
+      viewPosY += traverseSpeed;
+
+      break; 
+
+    case "ArrowLeft":
+
+      viewPosX += traverseSpeed;
+
+      break; 
+
+    case "ArrowRight":
+
+      viewPosX -= traverseSpeed;
+
+      break; 
+
+    case "ArrowDown":
+
+      viewPosY -= traverseSpeed;
+
+      break; 
+
+  };
+
+  traversableWorkspaceRef.style.transform = `translate(${viewPosX}px, ${viewPosY}px) scale(${currentZoomValue})`;
+
+});
 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
