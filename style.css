@@ -670,7 +670,7 @@ body{ /* Everything inside of the body tag styles like... */
 
     z-index: 0; 
 
-    transition: transform 0.1s ease-out;
+    transition: transform 0.2s ease-out;
 
     transform-origin: center;
 

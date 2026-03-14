@@ -102,8 +102,11 @@ tempStylesContainer.tempAxisYColour = "#000982";
 
 tempStylesContainerOverwrite = {}; 
 
-xLen = document.getElementById("GridCanvas").offsetHeight;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
-yLen = document.getElementById("GridCanvas").offsetWidth;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
+xLen = document.getElementById("GridCanvas").width;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
+yLen = document.getElementById("GridCanvas").height;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
+
+
+//console.log(xLen, yLen)
 
 
 hasFirstIOBeenSelected = false; // This is a global variable that determines whether the first Input or Output has been Selected 
@@ -144,6 +147,9 @@ gatePositionYGlobalReference = 0; // This is a global variable that holds the Y 
                                   // workspace. 
 
 
+searchIndex = 0; 
+
+
 selectedGatesStack = [];  // Every time an object in the Workspace is selected, its HTML reference is pushed to this stack so that 
                           // interactivity can be validated and worked upon. 
 totalSelectedGates = 0; // This holds the number total of the amount of selections on gates that have been registered. 
@@ -160,9 +166,30 @@ connectionSet = null;
 
 totalWires = 0; 
 
-connectionsInitialised = 0; 
+connectionsInitialised = 0 + searchIndex;  
 
 importedFileType = null; 
+
+
+speakerIdentifications = [
+  "/Media/Audio/speakerSong0.mp3",
+  "/Media/Audio/speakerSong1.mp3",
+  "/Media/Audio/speakerSong2.mp3",
+  "/Media/Audio/speakerSong3.mp3",
+  ""
+]
+
+songToPlay = speakerIdentifications[1];
+
+console.log(songToPlay);
+
+
+speakerSound = new Audio(`${songToPlay}`);
+
+speakerSound.loop = true;
+
+
+isSongPlayingStack = ["lambma"];
 
 // TODO -- WORKSPACE GRID ZOOMS IN OR OUT WITH L OR K, AND REDRAWS THE GRID, AXIS AND SCALES THE OBJECTS UP OR DOWN 
 
@@ -682,25 +709,48 @@ function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the 
 
   if (AXISMODE == 0) {
 
-    var canvas = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
+    var canvas0 = document.getElementById("GridCanvas"); // Fetches the canvas ID that was defined 
                                                               // in the HTML div "Workspace" -> "GridContainer" 
                                                               // -> "Grid Canvas"
-    var axisLine = canvas.getContext("2d"); // Defines the axis as a 2 dimensional line. 
 
-    axisLine.beginPath(); // 
+    var canvas1 = document.getElementById("GridCanvas");
 
-    axisLine.moveTo(50, axisHeight); // 
+    var axisLineY = canvas0.getContext("2d"); // Defines the axis as a 2 dimensional line. 
+
+    axisLineY.beginPath(); // 
+
+    axisLineY.moveTo((canvas.width)/2, 0); // 
 
     console.log(axisWidth/2)
     //console.log(-axisHeight)
 
-    axisLine.lineTo(50, axisHeight*-1); // 
+    axisLineY.lineTo((canvas.width)/2, canvas.height); // 
 
-    axisLine.strokeStyle = AxisXRGB; 
+    axisLineY.strokeStyle = AxisYRGB; 
 
-    axisLine.lineWidth = 1.5; 
+    axisLineY.lineWidth = 1.5; 
 
-    axisLine.stroke(); 
+    axisLineY.stroke(); 
+
+
+    
+    var axisLineX = canvas1.getContext("2d"); 
+
+    axisLineX.beginPath();
+
+    axisLineX.moveTo(0, (canvas.height)/2); // 
+
+    console.log(axisWidth/2)
+    //console.log(-axisHeight)
+
+    axisLineX.lineTo(canvas.width, (canvas.height)/2); // 
+
+    axisLineX.strokeStyle = AxisXRGB; 
+
+    axisLineX.lineWidth = 1.5; 
+
+    axisLineX.stroke(); 
+
 
   } else if (AXISMODE == 1) {
 
@@ -1877,6 +1927,9 @@ wireContainerReference.addEventListener('click', (event) => {
 
       presentObjects - 2; 
 
+      connectionsInitialised -= 1;
+      
+
       // cleanup
 
       if (isRestNull) {
@@ -2158,17 +2211,12 @@ loadButtonBackgroundRef = document.getElementById("load");
 
 function playLoadGif() {
 
-
-
-  // Start the interval (143ms for a 2-second total loop)
   frameRate = setInterval(() => {
-      // Update the image source
+
       loadButtonIcon.setAttribute("src", loadGifContents[currentAnimFrame]);
 
-      // Move to next frame, or reset to 0 if at the end
       currentAnimFrame = (currentAnimFrame + 1) % loadGifContents.length;
 
-      
       if (currentAnimFrame % 4 === 0) {
         loadButtonBackgroundRef.style.opacity = (loadButtonBackgroundRef.style.opacity == "0.9") ? "1" : "0.9";
       }
@@ -2944,13 +2992,14 @@ function redrawImport(DATMOD) {
 
     if (DATMOD == 0) {
 
-      const isCircuitOverwriteEmpty = jsonSaveWorkspaceOverwrite.slice(0).every(item => item === null)
+      const isCircuitOverwriteEmpty = jsonSaveWorkspaceOverwrite.filter(conn => conn !== null)
 
-      if (!isCircuitOverwriteEmpty) {
+      if (isCircuitOverwriteEmpty.length > 0) {
 
         const uniquor = {}; // Maps Old JSON ID -> New Workspace ID
 
-          // spawns
+        jsonSaveWorkspaceOverwrite = jsonSaveWorkspaceOverwrite.filter(conn => conn !== null) // removes all previous null pointers from the old session
+
         jsonSaveWorkspaceOverwrite.forEach(conn => {
 
             [
@@ -2964,7 +3013,9 @@ function redrawImport(DATMOD) {
 
             ].forEach(obj => {
 
-                if (obj.gId && obj.gType && !uniquor[obj.gId]) {
+              if (obj != null) {
+
+                if (obj.gId && obj.gType && !uniquor[obj.gId]) { 
 
                     cloneObject(obj.gType, obj.gX, obj.gY);
 
@@ -2972,12 +3023,19 @@ function redrawImport(DATMOD) {
 
                 }
 
+              } else {
+
+                console.log("Skipped an empty pointer!");
+
+              };
+
             });
+
 
         });
 
 
-        connectionSet = uniquor; 
+        //connectionSet = uniquor; 
 
 
         jsonSaveWorkspaceOverwrite.forEach(conn => { // fixes jsonSaveWorkspace cache 
@@ -3009,7 +3067,8 @@ function redrawImport(DATMOD) {
 
         console.log("IMPORTED CIRCUIT HAS BEEN REDRAWN!");
 
-        alert("Your circuit has been successfully redrawn!");
+        alert("Your circuit has been successfully redrawn!\n\nPlease activate Line Solver MODE 4 to fix the positions of the wire connections in this circuit.");
+
 
       } else { 
 
@@ -3021,7 +3080,7 @@ function redrawImport(DATMOD) {
 
   } else if (DATMOD == 1) {
 
-    const isLayoutOverwriteEmpty = Object.keys(tempStylesContainerOverwrite).length === 0;
+    const isLayoutOverwriteEmpty = Object.keys(tempStylesContainerOverwrite).length === 0; // a validation "guard"...
 
     if (!isLayoutOverwriteEmpty) {
 
@@ -3197,7 +3256,7 @@ function redrawImport(DATMOD) {
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-LineSolverButtonLink = document.getElementById("linesolver");
+LineSolverButtonLink = document.getElementById("lineSolver");
 
 
 LineSolverButtonLink.onclick= function() {
@@ -3242,7 +3301,7 @@ LineSolverButtonLink.onclick= function() {
 
 function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY*/ ) {
 
-  solverButtonImageRef = document.getElementById("linesolver").children[1];
+  solverButtonImageRef = document.getElementById("lineSolver").children[1];
 
   if (MODE == 0) { // linear line 
 
@@ -3373,6 +3432,8 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
     });
 
+
+
   } else if (MODE == 4) {    // the "fix mode" ,, f for fix ,, auto adjust all lines with Mode 4
 
     if (parseInt(currentZoomValue) == 1) {
@@ -3380,43 +3441,55 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
       solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM4.png");
 
       indexOfLine = 0; 
+
+      updatedJsonSaveCircuit = jsonSaveWorkspace.filter(eachConn => eachConn !== null);
+
+      jsonSaveWorkspace = updatedJsonSaveCircuit; 
       
       jsonSaveWorkspace.forEach(connecLayer =>{
 
         lineToFind = document.querySelector(`path[PairedData="${indexOfLine}"`);
 
-        sourceStartGate = document.getElementById(connecLayer.OBJECTA_INPUTID).children[0];
-        targetEndGate = document.getElementById(connecLayer.OBJECTB_OUTPUTID).children[0];
+        if (lineToFind != null){
 
-        console.log("sSGate || teGate == ", sourceStartGate, targetEndGate);
+          sourceStartGate = document.getElementById(connecLayer.OBJECTA_INPUTID).children[0];
+          targetEndGate = document.getElementById(connecLayer.OBJECTB_OUTPUTID).children[0];
 
-        sourceStartGateFindBox = sourceStartGate.children[0].children[0];
-        targetEndGateFindBox = targetEndGate.children[2].children[0]; 
+          console.log("sSGate || teGate == ", sourceStartGate, targetEndGate);
 
-        console.log("sSGateFB || teGateFB == ", sourceStartGateFindBox, targetEndGateFindBox);
+          sourceStartGateFindBox = sourceStartGate.children[0].children[0];
+          targetEndGateFindBox = targetEndGate.children[2].children[0]; 
 
-        sourceBoxPosition = sourceStartGateFindBox.getBoundingClientRect();
-        targetBoxPosition = targetEndGateFindBox.getBoundingClientRect();
-        viewportReference = document.getElementById("Workspace").getBoundingClientRect();
+          console.log("sSGateFB || teGateFB == ", sourceStartGateFindBox, targetEndGateFindBox);
 
-        newDrawPointX1 = (sourceBoxPosition.left + sourceBoxPosition.width / 2) - viewportReference.left;
-        newDrawPointY1 = (sourceBoxPosition.top + sourceBoxPosition.height / 2) - viewportReference.top;
+          sourceBoxPosition = sourceStartGateFindBox.getBoundingClientRect();
+          targetBoxPosition = targetEndGateFindBox.getBoundingClientRect();
+          viewportReference = document.getElementById("Workspace").getBoundingClientRect();
 
-        newDrawPointX2 = (targetBoxPosition.left + targetBoxPosition.width / 2) - viewportReference.left;
-        newDrawPointY2 = (targetBoxPosition.top + targetBoxPosition.height / 2) - viewportReference.top;
+          newDrawPointX1 = (sourceBoxPosition.left + sourceBoxPosition.width / 2) - viewportReference.left;
+          newDrawPointY1 = (sourceBoxPosition.top + sourceBoxPosition.height / 2) - viewportReference.top;
 
-        lineToFind.setAttribute("x1", newDrawPointX1);
-        lineToFind.setAttribute("y1", newDrawPointY1);
-        lineToFind.setAttribute("x2", newDrawPointX2);
-        lineToFind.setAttribute("y2", newDrawPointY2);
+          newDrawPointX2 = (targetBoxPosition.left + targetBoxPosition.width / 2) - viewportReference.left;
+          newDrawPointY2 = (targetBoxPosition.top + targetBoxPosition.height / 2) - viewportReference.top;
 
-        figuredPath = 
-        `M ${newDrawPointX1} ${newDrawPointY1}
-        L ${newDrawPointX2} ${newDrawPointY2}`;
 
-        lineToFind.setAttribute("d", figuredPath);
+          lineToFind.setAttribute("x1", newDrawPointX1);
+          lineToFind.setAttribute("y1", newDrawPointY1);
+          lineToFind.setAttribute("x2", newDrawPointX2);
+          lineToFind.setAttribute("y2", newDrawPointY2);
 
-        indexOfLine++; 
+          figuredPath = 
+          `M ${newDrawPointX1} ${newDrawPointY1}
+          L ${newDrawPointX2} ${newDrawPointY2}`;
+
+          lineToFind.setAttribute("d", figuredPath);
+            
+
+          indexOfLine++; 
+
+        }
+
+
 
         // cornerYOfSourceGateBox = sourceStartGateFindBox.offsetTop; 
         // cornerXOfSourceGateBox = sourceStartGateFindBox.offsetLeft; 
@@ -3431,6 +3504,19 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
       });
 
       indexOfLine = 0; 
+
+
+      lineRef = document.querySelectorAll('path[tag="interactableObject"]'); 
+
+      lineRef.forEach(ConnectionLine => { 
+
+        ConnectionLine.setAttribute("stroke", "#000000"); 
+        ConnectionLine.setAttribute("stroke-width", "7.5"); 
+        ConnectionLine.style.opacity = 1.0;
+
+      });
+
+
 
     } else {
 
@@ -3489,7 +3575,7 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
     lineRef = document.querySelectorAll('path[tag="interactableObject"]'); // because the line is different to a div so we can fetch it by the same tag
 
-    newThicknessToUpdate = prompt("");
+    newThicknessToUpdate = prompt("Please enter a float value to determine the thickness for all wires to copy!\n\nA value of 7.5 is the default.");
 
     lineRef.forEach(ConnectionLine => {
 
@@ -3536,9 +3622,9 @@ function generateRandHex() {
 console.log(xLen, yLen, "size of workspace with X | Y");
 
 
+
 function fixVisuals(PARSED_DAT) {
 
-  searchIndex = 0; 
 
   PARSED_DAT.forEach(connLayer => {
 
@@ -3581,7 +3667,9 @@ function fixVisuals(PARSED_DAT) {
 
     searchIndex++; 
 
-  })
+  });
+
+  searchIndex = 0; 
 
 };
 
@@ -3764,6 +3852,27 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
     buttonImage.setAttribute("src", "/Media/Layout/PlaySim.png"); 
 
     logicFlow(1, jsonSaveWorkspace)
+
+    isSongPlayingStack = []; 
+
+    // jsonSaveWorkspace.forEach(getElem =>{
+
+    //   caughtElemA = getElem.CONNECTEDOBJECT_A_TYPE;
+    //   caughtElemB = getElem.CONNECTEDOBJECT_B_TYPE;
+
+    //   if (caughtElemA == "Speaker") {
+    //     speakerStopVisuals(getElem.CONNECTEDOBJECT_A)
+    //   }
+    //   if (caughtElemB == "Speaker") {
+    //     speakerStopVisuals(getElem.CONNECTEDOBJECT_B)
+    //   }
+
+    // })
+
+    speakerSound.pause()
+
+    speakerSound.currentTime = 0;
+
 
   } else { 
 
@@ -3999,13 +4108,50 @@ function discernBoolean() {
 
 
 
-        if (type === "Lightbulb" || type === "Speaker" || type === "OR") {
-          console.log("EITHER LIGHTBULB, SPEAKER OR THE OR GATE VISITED!")
+        if (type === "Lightbulb" || type === "OR") {
+
+          console.log("EITHER LIGHTBULB, SPEAKER OR THE OR GATE VISITED!");
 
           finalState = inputs.includes(1) ? 1 : 0;
 
+
+        } else if (type == "Speaker") {
+
+          console.log("SPEAKER HAS BEEN VISITED");
+
+          finalState = inputs.includes(1) ? 1 : 0;
+
+          if (finalState == 1) {
+
+            isSongPlayingStack.push(gateId);
+
+            playSpeakerSong()
+
+          } else {
+
+            isSongPlayingStack = isSongPlayingStack.filter(id => id !== gateId)
+
+            stopSpeakerSong()
+
+          };
+
+          //   if (!isSongPlayingStack.includes(gateId)) {
+
+          //     isSongPlayingStack.push(gateId);
+
+          //   };
+
+
+          // } else { 
+
+          //   isSongPlayingStack = isSongPlayingStack.filter(id => id !== gateId);
+
+          // };
+
+
         } else if (type === "AND") {
-          console.log("AND GATE VISITED!")
+
+          console.log("AND GATE VISITED!");
             // AND Logic: ALL inputs must be 1 (and must have at least 1 input)
             // const allInputsHigh = inputs.length >= 2 && inputs.every(val => val === 1);
             // finalState = allInputsHigh ? 1 : 0;
@@ -4063,15 +4209,171 @@ function discernBoolean() {
         const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
 
 
-        if(gateNode.children[0].children[1]) {
+        const specSpeakerSuffix = finalState === 1 ? "_Activated.gif" : "_Deactivated.png"
 
-            gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+        //const specSpeakerSuffix1 = finalState === 1 ? "_Activated_txtre1.png" : "_Deactivated.png"
+
+
+
+        // .GIF FOR ACTIVATED
+
+
+        if (type != "Speaker") {
+          if(gateNode.children[0].children[1]) {
+
+              gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+              
+          };
+
+        } else {
+
+          if(gateNode.children[0].children[1]) {
+
+            gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${specSpeakerSuffix}`);
+
+          };
+
+        };
+
+
+
+          // //if (finalState === 1) {
+
+          //   if(gateNode.children[0].children[1] && finalState === 1) {
+
+
+
+          //       //clearInterval(gateNode.objFrames)
+
+
+          //     //gateNode.children[0].children[1].setAttribute("src", `${frameRate}`);
+
+          //   } else if (gateNode.children[0].children[1] && finalState === 0) {
+
+
+
+          //   } else {
+
+          //     console.log("...")
+
+          //   };
+
+          //} else {
+
+
+
             
-        }
-        
 
-    }
+          //};
+
+
+
+  };
+
+};
+
+
+
+// do {
+
+//   console.clear()
+
+//   console.log("Song is now playing from a speaker!")
+
+//   speakerSound.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+// } while (isSongPlayingStack.length > 0);
+
+// do {
+
+//   console.clear()
+
+//   console.log("Song has stopped playing!")
+
+//   speakerSound.pause();
+
+// } while (isSongPlayingStack.length = 0) 
+
+
+
+
+// function speakerPlayVisuals(speakerReference) {
+  
+//   if (speakerReference.resetTimeout) {
+//     clearTimeout(speakerReference.resetTimeout);
+//     speakerReference.resetTimeout = null;
+//   }
+
+//   //puiui0 =9;
+
+//   if (!speakerReference.objFrames) {
+
+//     const objFrameDelay = 250; 
+//     currentObjFrame = 0; 
+
+//     objFrames = setInterval(() => {
+//       speakerReference.children[0].children[1].setAttribute("src", "/Media/ActivatedState/Speaker_Activated_txtre"+currentObjFrame+".png");
+//       currentObjFrame = (currentObjFrame + 1) % 2;
+//       // if (currentObjFrame > 1) {
+//       //   currentObjFrame = 0;
+//       // }
+//     }, objFrameDelay);
+
+//   };
+
+// };
+
+
+
+// function speakerStopVisuals(speakerReference) {
+
+//   speakerReference.remove()
+
+//   // resetTime = 10; 
+
+//   // if (!speakerReference.resetTimeout) {
+
+//   //   speakerReference.resetTimeout = setTimeout(() => {
+//   //     clearInterval(objFrames);
+//   //     objFrames = null;
+
+//   //     speakerReference.resetTimeout = true;
+
+//   //   //currentObjFrame = 0;
+
+//   //     speakerReference.children[0].children[1].setAttribute("src", "/Media/DeactivatedState/Speaker_Deactivated.png");
+
+//   //     console.log("Speaker is turned off visually!")
+
+//   //     }, resetTime);
+
+//   //   };
+
+// };
+
+
+
+
+
+
+
+function playSpeakerSong() {
+
+
+  speakerSound.play().catch(anyError => console.log("User interaction required for audio")); // .play is a promise, use .catch to stop errors 
+
+
+
+ 
 }
+
+function stopSpeakerSong() {
+
+  speakerSound.pause();
+
+}
+
+
 
 // ---
 
@@ -4282,6 +4584,9 @@ window.addEventListener('keydown', e => {
 
         currentZoomValue += 0.25;
 
+        speakerSound.volume = Math.min(currentZoomValue / 2, 1);
+        console.log(speakerSound.volume)
+
       } else {
 
         console.log("You have zoomed in as far as possible!")
@@ -4296,6 +4601,9 @@ window.addEventListener('keydown', e => {
       if (currentZoomValue > zoomInLimit) {
 
         currentZoomValue -= 0.25;
+
+        speakerSound.volume = Math.min(currentZoomValue / 2, 1);
+        console.log(speakerSound.volume)
 
       } else {
 
@@ -4335,6 +4643,276 @@ window.addEventListener('keydown', e => {
   traversableWorkspaceRef.style.transform = `translate(${viewPosX}px, ${viewPosY}px) scale(${currentZoomValue})`;
 
 });
+
+
+
+//------------------------
+
+talkToSysButtonReference = document.getElementById("talkToSystem");
+
+insertedCmd = null; 
+
+talkToSysButtonReference.onclick= function(){
+
+  talkToSystem(); 
+
+};
+
+function talkToSystem(cmd) {
+
+  insertedCmd = prompt("QUICK INPUT: Please enter a command to talk to Simboard and control it\n\nEnter the command 'MENU' to see the list of commands to use:\nEnter the command 'BACKEND' to see the list of variables or functions that can be used with commands.");
+
+
+  switch (insertedCmd.toUpperCase()){
+
+    case "MENU": 
+      
+      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nFR - Force Refresh Simboard\n\n-- Regular Commands --\nMENU - View all commands\nBACKEND - View all variables and functions\nHYA - Hide Y-Axis\nHXA - Hide X-Axis\nHG - Hide Grid\nSYA - Show Y-Axis\nSXA - Show X-Axis\nSG - Show Grid\n");
+
+      talkToSystem(newCmd);
+
+      break;
+
+    case "BACKEND": 
+
+      newCmd = prompt("The comprehensive list of variables and functions:\n\n\n-- Functions --\ndrawGrid(MODE, RGB_YAxis, RGB_XAxis) - Changes the colour of the axies on screen\n\n-- Variables --\nsimulate - A guard that stores a boolean value that determines the functionality of Simboard depending on if boolean math is being performed."); 
+
+      talkToSystem(newCmd);
+
+      break;
+
+    case "HFR": // hard force reset 
+
+      guard = confirm("This will wipe your current session from RAM which will clear all layout and circuit data.\n\nClick CANCEL to halt this command.\nClick OK to proceed.");
+
+      if (guard == true) {
+
+        window.location.href = window.location.pathname + "?" + Date.now();
+
+      };
+
+      break;
+
+    case "SFR": // soft force reset 
+
+      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
+
+      if (guard == true) {
+
+        resetGlobalsToDefault(null, null) // resets everything 
+
+      };
+
+      break;
+
+    case "RSV": // reset specific value 
+
+      newCmd = prompt("Please enter the variable, container or function (keeping Case-Sensitivity in mind) you'd like to reset its to default value: ");
+
+      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
+
+      if (guard == true) {
+
+        resetGlobalsToDefault(`${newCmd}`, null); // resets a specific value 
+
+      };
+
+      break;
+
+    case "SSV": // set specific value 
+
+      newCmd = prompt("Please enter the variable, container or function (keeping Case-Sensitivity in mind) you'd like to set: ");
+
+      newCmdDat = prompt("Please enter the data, container or function (keeping Case-Sensitivity in mind) you'd like to set: ");
+
+      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
+
+      if (guard == true) {
+
+        resetGlobalsToDefault(`${newCmd}`, `${newCmdDat}`); // sets a specific value
+
+      };
+
+      break; 
+
+    case "ENTD": // enter debug mode 
+      break; 
+
+    case "EXTD": // exit debug mode 
+      break; 
+
+    case "RPO":
+
+      jsonSaveWorkspace.forEach(connLyr => {
+
+        sourceObjectA = connLyr.CONNECTEDOBJECT_A.getBoundingClientRect();
+        endObjectB = connLyr.CONNECTEDOBJECT_B.getBoundingClientRect(); 
+
+        sourceObjectX = sourceObjectA.left;
+        sourceObjectY = sourceObjectA.top; 
+
+        endObjectX = endObjectB.left;
+        endObjectY = endObjectB.top; 
+
+        roundedSourceX = Math.ceil(sourceObjectX / 10) * 10;
+        roundedSourceY = Math.ceil(sourceObjectY / 10) * 10;
+        roundedEndX = Math.ceil(endObjectX / 10) * 10;
+        roundedEndY = Math.ceil(endObjectY / 10) * 10;
+
+        console.log("Rounded to", roundedSourceX, roundedSourceY, roundedEndX, roundedEndY)
+
+        sourceObjectA.left = roundedSourceX;
+        sourceObjectA.top = roundedSourceY;
+        endObjectB.left = roundedEndX;
+        endObjectB.top = roundedEndY;
+
+      });
+
+      break; 
+
+    case "SSC": // screenshot circuit 
+
+      break; 
+
+    case "SSS": // screenshot entire simboard app 
+
+      break;
+
+    case "RBC": // reset box click sets ioCheck to defaults ... 
+
+      break; 
+
+    case "CSS": 
+
+      newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae")
+
+      if (newCmd > -1 && newCmd < 7) {
+
+        songToPlay = speakerIdentifications[Math.floor(newCmd)];
+
+      } else {
+
+        alert("Speaker Mode not found! Please try again.");
+
+      };
+
+      break;
+      
+  };
+
+};
+
+
+
+
+//---------------------
+
+// window.addEventListener('beforeunload', function (e) {
+
+//     e.preventDefault(); 
+    
+
+//     e.returnValue = ''; 
+
+// });
+
+
+
+
+
+
+function resetGlobalsToDefault(specificAddress, forceValue) {
+
+  if (specificAddress == null) {
+    simulate = false; 
+    viewPosX = 0; 
+    viewPosY = 0; 
+    currentZoomValue = 1; 
+    zoomOutLimit = 3; 
+    zoomInLimit = 0.25; 
+    traverseSpeed = 35; 
+    cssConcatonates = [ // the references of objects that are actually set
+      GridCanvasColour = document.getElementById('GridCanvas'), 
+      ObjectMenuColour = document.getElementById('ObjectMenu'), 
+      FileMenuColour = document.getElementById('FileMenu'), 
+      CircuitConfigColour = document.getElementById('CircuitConfigurationArea'), 
+      ObjectMenuButtonColour = document.getElementById('ObjectMenu').children,
+      FileMenuButtonColour = document.getElementById('FileMenu').children,
+      GridLineColour = "#000000",
+      AxisXColour = "#CD5C5C",
+      AxisYColour = "#000982",
+    ];
+    HEXValidator = null; 
+    tempStylesContainer = {};  // holder of ui style setter values incase it needs to be used again 
+                              // changed tempStylesContainer from an Array to a POJO (plain old javascript object)!
+    tempStylesContainer.tempCanvasColour = "#DEDE94"; 
+    tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; 
+    tempStylesContainer.tempFileMenuColour = "#808080"; 
+    tempStylesContainer.tempCircuitConfigColour = "#808080"; 
+    tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; 
+    tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
+    tempStylesContainer.tempGridLineColour = "#000000"; 
+    tempStylesContainer.tempAxisXColour = "#CD5C5C"; 
+    tempStylesContainer.tempAxisYColour = "#000982";
+    tempStylesContainerOverwrite = {}; 
+    xLen = document.getElementById("GridCanvas").width;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
+    yLen = document.getElementById("GridCanvas").height;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
+    hasFirstIOBeenSelected = false; // This is a global variable that determines whether the first Input or Output has been Selected 
+    hasSecondIOBeenSelected = false; // This is a global variable that determines whether the second Input or Output has been Selected
+    PREVIOUSIOSTACK = ["nullpointer"]; // Holds the custom ID's of each Input or Output box on a gate that has been selected (clicked) on. 
+    IOPOSITIONSTACK = []; //Holds the actual HTML references of each Input or Output box on all gates that have been selected. 
+    DRAWBOXSTACK = [];  // This holds the HTML references of the pair of gates that are to be connected together via a wire. 
+    var IOPARSE = []; // This is an object that holds integral information about the Input or Output box so that it can be parsed 
+                      // to any function that calls it. 
+    IOPARSE.INPUTPOSITIONX = 0; // This attribute of the IO (Input/Output) object holds the X Axis position that the Input Box of the 
+                                // connected pair of gates will be positoned on. 
+    IOPARSE.INPUTPOSITIONY = 0; // This attribute of the IO (Input/Output) object holds the Y Axis position that the Input Box of the 
+                                // connected pair of gates will be positoned on. 
+    IOPARSE.OUTPUTPOSITIONX = 0; // This attribute of the IO (Input/Output) object holds the X Axis position that the Output Box of the 
+                                // connected pair of gates will be positoned on. 
+    IOPARSE.OUTPUTPOSITIONY = 0; // This attribute of the IO (Input/Output) object holds the Y Axis position that the Output Box of the 
+                                // connected pair of gates will be positoned on. 
+    IOPARSE.INPUT = null; // This attribute holds the Input Box's actual HTML reference so that this system can know what objects are 
+                          // paired together. 
+    IOPARSE.OUTPUT = null;  // This attribute holds the Output Box's actual HTML reference so that this system can know what objects are 
+                            // paired together.   
+    gatePositionXGlobalReference = 0; // This is a global variable that holds the X Axis position that the selected gate lies on in the 
+                                      // workspace. 
+    gatePositionYGlobalReference = 0; // This is a global variable that holds the Y Axis position that the selected gate lies on in the 
+                                      // workspace. 
+    searchIndex = 0; 
+    selectedGatesStack = [];  // Every time an object in the Workspace is selected, its HTML reference is pushed to this stack so that 
+                              // interactivity can be validated and worked upon. 
+    totalSelectedGates = 0; // This holds the number total of the amount of selections on gates that have been registered. 
+    presentObjects = +0; // This holds the number of objects that are present in the Workspace (ones that have been spawned in, but 
+                        // not deleted).
+    jsonSaveWorkspace = [];  // This holds all data for the logic gates present on the workspace plus connections. 
+    jsonSaveWorkspaceOverwrite = []; //               Holds the new data dragged into the WORKSPACe....
+    connectionSet = null; 
+    totalWires = 0; 
+    connectionsInitialised = 0 + searchIndex;  
+    importedFileType = null; 
+    speakerIdentifications = [
+      "/Media/Audio/speakerSong0.wav",
+      "",
+      ""
+    ]
+    songToPlay = speakerIdentifications[0];
+    speakerSound = new Audio(`${songToPlay}`);
+    speakerSound.loop = true;
+    isSongPlayingStack = [];
+
+  } else if (specificAddress == null && forceValue == null) {
+
+    specificAddress = null; 
+
+  } else {
+
+    specificAddress = forceValue; 
+
+  };
+
+};
 
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-

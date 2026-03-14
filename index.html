@@ -65,6 +65,8 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
     <link rel="icon" type="image/x-icon" href="/Media/Layout/favicon.png">  
         <!-- Defines the Website Icon to be our custom favicon, "favicon.png". -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> <!-- For screenshotting workspace -->
+
 
 </head> <!-- The header section structure is finished. -->
 
@@ -186,7 +188,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                 </button>   <!-- Ends this button's structural operation. -->
 
 
-                <button id="linesolver" title="Toggle the visual connections between connected objects!" function onclick()>
+                <button id="lineSolver" title="Toggle or fix the visual connections between connected objects!" function onclick()>
                 <!-- Creates a button with a contactable ID that will be used for 
                     customising the layout of the Simboard web application, with a 
                     title so that if the end user hovers over said button, an explaination 
@@ -201,6 +203,30 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                         or draggable are disabled manually. -->
 
                 </button>   <!-- Ends this button's structural operation. -->
+
+
+
+
+
+                <button id="talkToSystem" title="Talk to Simboard & tell it what to do by entering specific prompts or functions!" function onclick()>
+                <!-- Creates a button with a contactable ID that will be used for 
+                    customising the layout of the Simboard web application, with a 
+                    title so that if the end user hovers over said button, an explaination 
+                    will appear within a tooltip. -->
+
+                    <p id="LineSolverText">Talk To System</p>     <!-- Titles the button with 
+                        standard paragraph text. -->
+
+                    <image draggable="false" (dragstart)="false;" id="talkToSystemThumbnail" src="/Media/Layout/talkToSystem.png"></image>
+                    <!-- Utilises a custom image made by me to style the button for 
+                        further visual description. It's properties of being selectable 
+                        or draggable are disabled manually. -->
+
+                </button>   <!-- Ends this button's structural operation. -->
+
+
+
+
 
 
                 <a href="/OtherPages/userManual/userManualConstruct.html" 
