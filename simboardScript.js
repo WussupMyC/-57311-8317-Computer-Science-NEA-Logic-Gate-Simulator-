@@ -52,8 +52,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 */
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // ** GLOBAL VARIABLE DEFINITIONS **
 
 simboardVersion = "FR 1.0.0";
@@ -101,15 +100,12 @@ tempStylesContainer.tempGridLineColour = "#000000";
 tempStylesContainer.tempAxisXColour = "#CD5C5C"; 
 tempStylesContainer.tempAxisYColour = "#4EB842";
 
-//tempStylesContainer.tempy = 7; // debugging var!
 
 tempStylesContainerOverwrite = {}; 
 
 xLen = document.getElementById("GridCanvas").width;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = document.getElementById("GridCanvas").height;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
 
-
-//console.log(xLen, yLen)
 
 
 hasFirstIOBeenSelected = false; // This is a global variable that determines whether the first Input or Output has been Selected 
@@ -190,20 +186,20 @@ speakerIdentifications = [
 
 choiceOfSongByUser = 0; 
 
-// songToPlay = speakerIdentifications[0];
-
-//console.log(songToPlay);
-
-
-
-
 isSongPlayingStack = ["lambma"];
 
-// TODO -- WORKSPACE GRID ZOOMS IN OR OUT WITH L OR K, AND REDRAWS THE GRID, AXIS AND SCALES THE OBJECTS UP OR DOWN 
+abilityToPulsate = true; 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+pulseType = "river";
 
-// ** SCRIPT 000 ** Debugging function for testing purposes only. 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 000 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
+
 function dumpFunc(){    // This is a temporary function for testing purposes 
                         //      DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT 
             
@@ -213,20 +209,20 @@ const dumpVar = ".PlaceholderValue." + "dumpVar"; // This is a temporary debuggi
                                                             
 console.log(dumpVar);    // This instruction outputs the debug variable for testing purposes. 
 
-// ** SCRIPT 000 *** Debugging function ends here. 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// TODO -- Make it so the user can enter hex values via an input popup when clicked on tbe customisation button, then change the back 
-// ground. Skip the prompt to the next if the user enters "x", revert to the default colour of the user enters "d".
 
-// Make this a for loop, where the prompts are stored in a stack, and it iterates through each customisation - this makes it more 
-// effective and efficient for you and for the end user...!
+// *** SCRIPT 000 *** -- Debugging function ends here. 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 001 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 var link = document.getElementById("customise");  // We fetch the 
 
 tempStyle = "#DEDE94"; 
-
-//link.setAttribute('href', "#");
 
 link.onclick= function() {
 
@@ -254,7 +250,6 @@ link.onclick= function() {
       console.log(GridCanvasPrompt)
 
       HEXValidator = GridCanvasPrompt[0];
-      //console.log(HEXValidator)
 
       nextProperty = cssConcatonates[i]
 
@@ -304,7 +299,6 @@ link.onclick= function() {
 
           for (let e = 0; e < nextProperty.length; e++) {
 
-            ///console.log(nextProperty[e])
 
             if ((nextProperty[e].tagName) == "BUTTON" || "A") {
 
@@ -318,7 +312,6 @@ link.onclick= function() {
 
               }
   
-            // } else if (nextProperty != ) {    
               
             } else {
 
@@ -356,11 +349,6 @@ link.onclick= function() {
 
             stylerCacheGrid = GridCanvasPrompt;
 
-            // drawGrid(1, null);
-
-            // drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
-
-            // drawGrid(0, GridCanvasPrompt)
 
             tempStylesContainer.tempGridLineColour = GridCanvasPrompt; 
 
@@ -370,11 +358,6 @@ link.onclick= function() {
 
             stylerCacheAxisX = GridCanvasPrompt;
 
-            // drawAxis(1, null, null)
-
-            // drawAxis(0, AxisYColour, GridCanvasPrompt)
-
-            // drawGrid(0, GridLineColour) // to prevent clearing 
 
             tempStylesContainer.tempAxisXColour = GridCanvasPrompt; 
 
@@ -384,11 +367,6 @@ link.onclick= function() {
 
             stylerCacheAxisY = GridCanvasPrompt; 
 
-            // drawAxis(1, null, null)
-
-            // drawAxis(0, GridCanvasPrompt, AxisXColour)
-
-            // drawGrid(0, GridLineColour) // to prevent clearing 
 
             tempStylesContainer.tempAxisYColour = GridCanvasPrompt; 
 
@@ -417,10 +395,6 @@ link.onclick= function() {
           console.warn("Customisation error has occurred!")
 
         }
-
-
-
-
 
 
 
@@ -470,8 +444,6 @@ link.onclick= function() {
         } else if (prompts[i][0] == "^") {
 
           for (let e = 0; e < nextProperty.length; e++) { // removal process 
-
-            ///console.log(nextProperty[e])
 
             if ((nextProperty[e].tagName) == "BUTTON" || "A") {
 
@@ -582,31 +554,16 @@ link.onclick= function() {
 
 };
 
-// TODO -- This can then be saved via a built-in default json file to store this hex data into. 
-
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// TODO -- JSON SAVE
-// const myData = { name: "John", age: 30 }; // Your JSON object
-
-// function downloadJSON(data, filename = 'data.json') {
-//     const jsonString = JSON.stringify(data, null, 2); // 2 spaces for readability
-//     const blob = new Blob([jsonString], { type: "application/json" });
-//     const url = URL.createObjectURL(blob);
-    
-//     const link = document.createElement("a");
-//     link.href = url;
-//     link.download = filename;
-//     link.click();
-    
-//     URL.revokeObjectURL(url); // Clean up memory
-// }
-
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 
-// ** SCRIPT 001 ** Initialises the grid inside of the canvas in implemented JavaScript
+// *** SCRIPT 001 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-// !!TO DO!! , make this an svg type draw !!
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 002 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 var gridwidth = xLen;  // Total width that the grid x-axis will stretch to 
 var gridheight = yLen; // Total height that the grid y-axis will stretch to 
@@ -698,11 +655,16 @@ drawGrid(0, GridLineColour); // This instruction initialises the drawGrid to rep
             // the entirety of the grids' height and width is filled, with the calculated function
             // output. 
 
-// ** SCRIPT 001 ** The function for the grid implementation ends here. 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-// ** SCRIPT 002 ** Initialises the X and Y axis inside of the canvas in implemented JavaScript
+// *** SCRIPT 002 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 003 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 //GLOBAL MODIFIER DEFINITIONS : 
 axisWidth = xLen;   // States that the X Axis line should stretch to a defined limit
@@ -730,7 +692,6 @@ function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the 
     axisLineY.moveTo((canvas.width)/2, 0); // 
 
     console.log(axisWidth/2)
-    //console.log(-axisHeight)
 
     axisLineY.lineTo((canvas.width)/2, canvas.height); // 
 
@@ -749,7 +710,7 @@ function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the 
     axisLineX.moveTo(0, (canvas.height)/2); // 
 
     console.log(axisWidth/2)
-    //console.log(-axisHeight)
+
 
     axisLineX.lineTo(canvas.width, (canvas.height)/2); // 
 
@@ -776,7 +737,14 @@ function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the 
 drawAxis(0, AxisYColour, AxisXColour) // This instruction initialises the drawAxis to create an X and Y axis 
                                       // to stretch until it reaches the borders of the Workspace. 
 
-// ** SCRIPT 002 ** The function for the axis implementation ends here. 
+
+
+// *** SCRIPT 003 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 004 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -923,12 +891,14 @@ function musicHandler(songToPlay) { // a global state audio system
 
 
 
+// *** SCRIPT 004 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 005 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
-
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-
-// ** SCRIPT 003 ** Ensures that the logic gate objects in the Workspace can be deleted 
 
 var itemsCreated = 0; // This is a function-oriented variable that stores the number of gates / 
                       // objects ever created in the Workspace. 
@@ -986,13 +956,16 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
 
 }; // The function binded to the event of key press halts at this point and the axis is implemented.
 
-// ** SCRIPT 003 ** The Function for Axis Implementation ends here.
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-// ** SCRIPT 004 ** Initialises the logic gate objects
+// *** SCRIPT 005 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-/*document.getElementById("AND").addEventListener("click", cloneObject); */ // IGNORE THIS INSTRUCTION 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 006 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
       // All of these instruction statements below initialise the different types of gates, by first gaining
       // the specfic ID related to said gate, so that we can access the button by which it can be added to the
@@ -1003,7 +976,6 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
 
 referenceOfWorkspaceGrid = document.getElementById("Workspace")
 
-//const workspaceRect = referenceOfWorkspaceGrid.getBoundingClientRect();
 
 summonX = referenceOfWorkspaceGrid.left;
 
@@ -1040,7 +1012,16 @@ document.getElementById("Speaker").addEventListener("click", () =>cloneObject("S
                                                                                            // !-> IDs are CASE 
                                                                                            // SENSITIVE! 
 
-//cloneObject("OR", 545, 678)
+
+
+// *** SCRIPT 006 *** --  Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 007 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function cloneObject(gateType, posiX, posiY){ // This is the function that is utilised when the anonymous function 
                                 // calls it above. This function takes a string parameter, for example, 
@@ -1095,12 +1076,6 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
                                                   // of the master object clone is an image tag (See HTML 
                                                   // mydivheader for further explaination). 
 
-    // gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
-    //   // We then set said the UI Image element of the master object clone. 
-    //     // This is done by setting the source attribute of the image tag to be that of the file pathway concatonating 
-    //     // with the passed parameter / argument in addition to its default state, which is to be Deactivated by 
-    //     // default. 
-    //   // !-> ERRORS OCCUR WHEN CASE SENSITIVITY IS UNDERLOOKED & NON-EXISTENT FILE PATHWAYS ARE STATED!
 
     if (gateType != "NOT") {
 
@@ -1151,96 +1126,61 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
     clone.children[0].children[0].children[1].setAttribute("id",inputBID);
     clone.children[0].children[2].children[0].setAttribute("id",outputID);
 
-
-
-    // const objectRef = {}; 
-
-    // objectRef.argument = 
-    // objectRef.inputs = 0; 
-    // objectRef.outputs = 0;
-
-   // console.log(objectRef)
-
   
 
     switch (gateType) {
       case "AND":
-        // objectRef.argument = "AND";
-        // objectRef.inputs = 2;
-        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
-        //console.log(document.getElementById(inputAID));
         document.getElementById(inputBID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "OR":
-        // objectRef.argument = "OR";
-        // objectRef.inputs = 2;
-        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         document.getElementById(inputBID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "NOT":
-        // objectRef.argument = "NOT";
-        // objectRef.inputs = 1;
-        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "XOR":
-        // objectRef.argument = "XOR";
-        // objectRef.inputs = 2;
-        // objectRef.outputs = 1;
         document.getElementById(inputAID).style.display = "inline";
         document.getElementById(inputBID).style.display = "inline";
         document.getElementById(outputID).style.display = "inline";
         break;
 
       case "Lightbulb":
-        // objectRef.argument = "Lightbulb";
-        // objectRef.inputs = 1;
-        // objectRef.outputs = 0;
         document.getElementById(inputAID).style.display = "inline";
         break;
 
       case "Speaker":
-        // objectRef.argument = "Speaker";
-        // objectRef.inputs = 1;
-        // objectRef.outputs = 0;
         document.getElementById(inputAID).style.display = "inline";
         break;
 
       case "HoldButton":
-        // objectRef.argument = "HoldButton";
-        // objectRef.inputs = 0;
-        // objectRef.outputs = 1;
         document.getElementById(outputID).style.display = "inline";
         break;
-    }
 
-    // for (let x = 0; x < objectRef.inputs; x++) {
-
-    //   console.log(x);
-
-    // };
+    };
 
   }; 
     
 }; // The function for the Object Initialisation that produces a Logic Gate object into the Workspace, 
    // from the master object DIV ends here. 
-  
-              //console.log(objectRef.argument)
 
-// ** SCRIPT 004 ** The function for Logic Gate Object summoning ends here. 
+   
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 007 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//  ** SCRIPT 006 ** Sets the currentItem variable & apply any highlighting that is needed to display 
-// the selection. 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 008 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 interactivityCheck = document.querySelectorAll('div[tag^="interactableObject"]');
 
@@ -1271,7 +1211,6 @@ function selectCurrentItem(item) {
 
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
 
-    //console.log(currentInputItem);
   };
 
   console.log(selectedGatesStack)
@@ -1280,11 +1219,20 @@ function selectCurrentItem(item) {
 
 
 
+// *** SCRIPT 008 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 009 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
+
 document.addEventListener('click', (e) => {
-  // 1. Check if the clicked element (e.target) has the highlight class
+
   const clickedHighlight = e.target.classList.contains('gateObjectHighlight');
 
-  // 2. If it DOES NOT have the class, remove the class from everything that does
+
   if (!clickedHighlight) {
       const highlightedItems = document.querySelectorAll('.gateObjectHighlight');
       
@@ -1302,13 +1250,15 @@ document.addEventListener('click', (e) => {
 
 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 009 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 010 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
-// ** SCRIPT 005 ** Ensures that the logic gates are draggable on the Workspace 
-
-  
 dragElement(document.getElementById("mydiv"));  // This fires a function, dragElement, with a present passed
                                                 // parameter of the HTML DIV mydiv, which is the master object
                                                 // that other Logic Gate objects are children of. 
@@ -1351,6 +1301,16 @@ function dragElement(elmnt) { // The function that assigns the property of being
       // SCRIPT 004 "dragElement(document.getElementById(divname));"). 
 
 
+
+// *** SCRIPT 010 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 011 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
+
 function dragMouseDown(e) { // This function reads the mouse position and relevant data. 
                               // The element "e" is a default JavaScript parameter that contains the details
                               // about the state / action of the mouse when said function is fired.
@@ -1375,13 +1335,6 @@ function dragMouseDown(e) { // This function reads the mouse position and releva
                                         // function that moves the UI element (allows for dragging interactivity
                                         // visually) is called. 
 
-  //  currentItem = elmnt.id; // When the mouse cursor is above a Logic Gate Object and the mouse button 
-                            // down is completed upon said object, this instruction sets the current 
-                            // item to be the one that is being clicked or dragged (mouse down). 
-                              // This is to be used in functions mostly covered above (SCRIPT 003 / Object 
-                              // Deletion).
-
-
     selectCurrentItem(elmnt.id);
 
 
@@ -1390,10 +1343,20 @@ function dragMouseDown(e) { // This function reads the mouse position and releva
                                                 // has just been previously affected by the dragMouseDown
                                                 // function). 
 
-    //console.log("Argument = ", cloneObject.objetRef.argument)
   };
 
-};  // The function that permits the draggable property to said Logic Gate object ends here. 
+};  // The function that permits the draggable property to said Logic Gate object ends here.
+
+
+
+// *** SCRIPT 011 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 012 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function elementDrag(e) { // This function visually produces the "dragging" visual aspect of UI Objects 
                           // in Simboard. It also calculates the new position of the UI element, and runs 
@@ -1404,32 +1367,6 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
 
   e.preventDefault(); // Prevents default behaviour on the object when fired
                         // This includes disabling image dragging, etc. 
-
-  var winW = document.documentElement.clientWidth || document.body.clientWidth, // Gains the width of the Website
-                                                                                // width, or backtracks to the 
-                                                                                // HTML's body width for older
-                                                                                // browsers, & stores it in a 
-                                                                                // variable for "WindowW" (Window 
-                                                                                // Width), so that it can be 
-                                                                                // referenced later. 
-
-    winH = document.documentElement.clientHeight || document.body.clientHeight; // Gains the height of the Website
-                                                                                // height, or backtracks to the 
-                                                                                // HTML's body height for older 
-                                                                                // browsers, & stores it in a 
-                                                                                // variable "WindowH" (Window 
-                                                                                // Height), so that it can be 
-                                                                                // referenced later. 
-
-  //maxX = winW - elmnt.offsetWidth - 1,  // This instruction calculates the maximum positions (width-wise) 
-                                        // on the Workspace before the Logic Gate UI Object would leave the
-                                        // screen. 
-                                        // This is the absolute value. 
-
-    //maxY = winH - elmnt.offsetHeight - 1; // This instruction calculates the maximum positions (height-wise)
-                                          // on the Workspace before the Logic Gate UI Object would leave the
-                                          // screen. 
-                                          // This is the abolsute value. 
 
   var sizeOfWorkspaceY = document.getElementById("Workspace").offsetHeight; 
   var sizeOfWorkspaceX = document.getElementById("Workspace").offsetWidth; 
@@ -1462,26 +1399,14 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
                                                                                   // recently moved Logic Gate UI
                                                                                   // object. 
 
-  //var MAXY = document.getElementById("GridCanvas").getAttribute("height"); // LOOK INTO - AUTO LOCK LIMIT 
 
   var sizeOfBaseY = document.getElementById("Base").offsetHeight; 
   var sizeOfBaseX = document.getElementById("Base").offsetWidth; 
 
-  // var minY = sizeOfBaseY - sizeOfWorkspaceY;
-  // var minX = sizeOfBaseX - sizeOfWorkspaceX; 
 
   var minY = -1;
   var minX = -1; 
 
-  ///var minY = 200; 
-  ///var minX = 200; 
-
-  //console.log("MAXY: ", MAXY);
-  // var dbgval= elmnt.offsetTop - pos2;
-  // var dbgval2 = elmnt.offsetLeft - pos1;
-  
-  ///document.getElementById("TextDebug").innerHTML=(minY);
-  ///document.getElementById("TextDebug2").innerHTML=(minX);
 
   if ((elmnt.offsetTop - pos2) <= maxY && (elmnt.offsetTop - pos2) >= minY) {  // This is a conditional instruction that
                                                                             // branches execution flow if the Logic
@@ -1547,6 +1472,17 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
 
 };  // The function that enables the visual dragging aspect of a Logic Gate Object ends here. 
 
+
+
+// *** SCRIPT 012 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 013 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
+
 function closeDragElement() { // This function will halt all mouse instructions applying to the Logic Gate or 
                               // Simboard application. When the mouse button is not being pressed down / is released,
                               // all mouse-related events will be reset.  
@@ -1561,27 +1497,22 @@ function closeDragElement() { // This function will halt all mouse instructions 
 
 };  // The function that clears all critical elements related to a UI drag to prevent errors ends here. 
 
-//mydiv.draggable({ containment: "Workspace" }); // This instruction prevents the UI Object from leaving the actual
-                                              // Workspace DIV. 
-                                                // This fixes the error of the elementDrag function prioritising 
-                                                // UI leaving the actual browser. 
-                                                  // !-> Instead, this instruction narrows down the clamping area
-                                                  // that the Logic Gate UI Object can move around in. 
 
-};  // The main function that handles Object UI movement ends here. 
-
-//  ** SCRIPT 005 ** The function(s) for interactable, draggable UI Objects ends here. 
+};  // The main function that handles Object UI (*SCRIPT 009*) movement ends here. 
 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
+// *** SCRIPT 013 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-// Checks if the IO connection attempt is valid 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 014 *** -- Starts here 
+// The purpose of the below code is to... 
+
 
 
 function ioCheck(e) { // The info passed as a parameter 
 
-  ///window.alert(e.id); // debugging 
 
   IO = document.getElementById(e.id).id;
 
@@ -1610,19 +1541,6 @@ function ioCheck(e) { // The info passed as a parameter
 
   console.log(IOREFERENCE.parent)
 
-  //console.log("PREVIOUSIOTYPE == ", PREVIOUSIOTYPE)
-  //console.log("IO == ", IO)
-  //console.log("IOTYPE == ", IOTYPE)
-
-  //DRAWBOXA = null; 
-  //DRAWBOXB = null; 
-
-  //console.log(IOTYPE);
-
-
-  //window.alert(IOTYPE)
-
-  //console.log(" Gate IO Selected! (Shown) ", IOTYPE)
 
   GatePositionX = gatePositionXGlobalReference; 
 
@@ -1672,13 +1590,13 @@ function ioCheck(e) { // The info passed as a parameter
 
         DRAWBOXSTACK.push(IO);
 
-        // go into else 
+
 
         hasFirstIOBeenSelected = false;
 
         hasSecondIOBeenSelected = false;
 
-        //OUTPUTPOINTER = IO; 
+
 
         console.log("ConnectionDraw Breakpoint decision hit.");
 
@@ -1700,8 +1618,6 @@ function ioCheck(e) { // The info passed as a parameter
 
 
 
-
-      //console.log("READ // Gate IO is Output")
     } else if (letterCheckRef == "I" && letterCheckRef != PREVIOUSIO[0]) {
 
       OverallXPos = parseInt(GatePositionX) + IOPositionX;
@@ -1728,7 +1644,7 @@ function ioCheck(e) { // The info passed as a parameter
 
         DRAWBOXSTACK.push(IO);
 
-        // go into else 
+
 
         hasFirstIOBeenSelected = false;
 
@@ -1736,7 +1652,6 @@ function ioCheck(e) { // The info passed as a parameter
 
         console.log("ConnectionDraw Breakpoint decision hit.")
 
-        //INPUTPOINTER = IO; 
 
         initConnect(0, IOPARSE);  
 
@@ -1754,7 +1669,7 @@ function ioCheck(e) { // The info passed as a parameter
 
       }
 
-      //console.log("READ // Gate IO is Input")
+
     } else {
 
       console.log("CRITICAL ERROR READ // Gate IO Type Not Understood!");
@@ -1764,15 +1679,6 @@ function ioCheck(e) { // The info passed as a parameter
     console.log("Same IO is selected")
   };
 
-  //console.log("Gate is at Screen Position X Axis: ", GatePositionX);
-  //console.log("Gate is at Screen Position Y Axis: ", GatePositionY);
-
-  //console.log("Selected IO Box is at Gate X Axis relative position: ", IOPositionX)
-  //console.log("Selected IO Box is at Gate Y Axis relative position: ", IOPositionY)
-
-  //console.log("IO is at overall position on the Y Axis: ", OverallXPos)
-
-  //console.log("IO is at overall position on the X Axis: ", OverallYPos)
 
 
   console.log("prev io type == ", IOPOSITIONSTACK) 
@@ -1782,43 +1688,18 @@ function ioCheck(e) { // The info passed as a parameter
   console.log("hasSecondIOBeenSelected == ", hasSecondIOBeenSelected);
   console.log("Draw Stack == ", DRAWBOXSTACK);
 
-
-
-  ///console.log(IOREFERENCE)
-
-  ///console.log(IOPARSE)
-
-  //console.log(DRAWBOXSTACK.length);
-
-  //console.log(INPUTPOINTER);
-  //console.log(OUTPUTPOINTER);
-
-
-  //console.log(generalX);
-  //console.log(generalY);
-
-  //var IOTYPE = clone.children[0].children[1]; 
-
-  //if (previouslySelectedGate == null) {
-
-  //  previouslySelectedIO = IOTYPE;
-
-  //} else {
-
-  //  console.log("Same IO selected!");
-
-  //};
-  //console.log(selectedGatesStack);
-  //console.log(totalSelectedGates);
 };
 
 
-//------------------------
+
+// *** SCRIPT 014 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 015 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
-// !!TO DO!! , Finish this function to calculate the dot product that is 
-// normalised for the accurate drawing branch that the connection draw 
-// will implemenet down the line. 
 
 function FastDotThenNormalise(VectorA, VectorB){ // TO DO, 
 // dot product
@@ -1834,22 +1715,21 @@ function FastDotThenNormalise(VectorA, VectorB){ // TO DO,
 
   return NormalisedDot;
 
-}
+};
 
-//------------------------
 
-//Draws the connection and parses data to the json save 
+
+// *** SCRIPT 015 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 016 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls another function to add 
                                           // it to a save stack. 
-  // PRD = POSIIION REFERENCE DATA 
-  //console.log("IT'S CONNECTED!!!!!!!")
-
-
-// IF MODE == 0 THEN SAVE IO CONNECTIONS 
-// IF MODE == 1 THEN SAVE OBJECT POSITIONS 
-
-// Gain PRD values parsed from the IO Check  
 
   INPUTREFERENCE = PARSED_PRD.INPUT.parentNode.parentNode; 
   OUTPUTREFERENCE = PARSED_PRD.OUTPUT.parentNode.parentNode; 
@@ -1864,16 +1744,11 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   GATEREFERENCE_O = PARSED_PRD.OUTPUT;
 
   INPUTREFLOCATIONX = PARSED_PRD.INPUTPOSITIONX;
-  INPUTREFLOCATIONY = PARSED_PRD.INPUTPOSITIONY; //+ 20;  // *
+  INPUTREFLOCATIONY = PARSED_PRD.INPUTPOSITIONY; 
   OUTPUTREFLOCATIONX = PARSED_PRD.OUTPUTPOSITIONX; 
-  OUTPUTREFLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY; //+ 20; // *
+  OUTPUTREFLOCATIONY = PARSED_PRD.OUTPUTPOSITIONY; 
 
-  // console.log(
-  //   INPUTREFLOCATIONX,
-  //   INPUTREFLOCATIONY, 
-  //   OUTPUTREFLOCATIONX, 
-  //   OUTPUTREFLOCATIONY 
-  // )
+
 
   DRAWINPUTLOCATIONX = PARSED_PRD.INPUTPOSITIONX; 
   DRAWINPUTLOCATIONY = PARSED_PRD.INPUTPOSITIONY;
@@ -1883,21 +1758,6 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   console.log("Input Parent == ", INPUTREFERENCE);
   console.log("OUTPUT Parent == ", OUTPUTREFERENCE); 
 
-  // console.log("Parsed PRD Values == ",
-  //   DRAWINPUTLOCATIONX, 
-  //   DRAWINPUTLOCATIONY, 
-  //   DRAWOUTPUTLOCATIONX, 
-  //   DRAWOUTPUTLOCATIONY, 
-  //   INPUTREFERENCE, 
-  //   OUTPUTREFERENCE);
-
-  // console.log("IT'S DRAWING");
-
-  // console.log(FastDotThenNormalise([DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY], [DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY])); // output: 32
-
-  /// TODO -- Console log the draw data variables to see what they are... 
-
-// Draws the line connection between the two IOs
 
   const wireNode = document.getElementById("Wire"); // change to path in html then redo all throughout this program !!
 
@@ -1927,10 +1787,7 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   L ${DRAWOUTPUTLOCATIONX} ${DRAWOUTPUTLOCATIONY}`;
 
 
-
   ConnectionLine.setAttribute("d", wirePathLine);
-
-
 
 
   ConnectionLine.setAttribute("PairedData", connectionsInitialised); 
@@ -1944,10 +1801,6 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
     DRAWINPUTLOCATIONY, 
     DRAWOUTPUTLOCATIONX, 
     DRAWOUTPUTLOCATIONY)
-
-
-
-// Pushes the IO connect to a connection stack 
 
 
   jsonReadWrite(
@@ -1980,58 +1833,17 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
   );
 
 
-  // const ConnectionLine = document.getElementById("Wire");
-  // ConnectionLine.setAttribute("x1", 100);
-  // ConnectionLine.setAttribute("y1", 50);
-  // ConnectionLine.setAttribute("x2", 10);
-  // ConnectionLine.setAttribute("y2", 250);
+};
 
 
 
-  // var base = document.getElementById("GridCanvas");
-  // var JavaPen = base.getContext("2d");
+// *** SCRIPT 016 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-  // JavaPen.beginPath();  
-  // JavaPen.moveTo(DRAWINPUTLOCATIONX, DRAWINPUTLOCATIONY);
-  // JavaPen.lineTo(DRAWOUTPUTLOCATIONX, DRAWOUTPUTLOCATIONY);
-  // JavaPen.lineWidth = 0.35;
-  // JavaPen.strokeStyle = "#000000";  
-  // JavaPen.stroke(); 
-  //function initialiseLine
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 017 *** -- Starts here 
+// The purpose of the below code is to... 
 
-
-// TODO -- GATE OBJECTS MUST BECOME UNINTERACTABLE AFTER CONNECTION 
-
-  //CONNECTIONSTACK = [] 
-
-//}
-
-//setTimeout(function(){
-
-//})
-}
-
-//------------------------
-
-// function deleteConnection(e) {
-
-//   selectedElement = document.getElementById(e.id);
-
-//   console.log("Deleted connection element == ", selectedElement)
-
-//   if (selectedElement.startsWith("Wire")) {
-
-//     selectedElement.style.display = "none";
-
-//   } else {
-
-//     console.log("No wire connection detected!")
-
-//   }
-
-//   console.log("Function not initialised")
-
-// }
 
 
 const wireContainerReference = document.getElementById('WiredConnection');
@@ -2061,32 +1873,14 @@ wireContainerReference.addEventListener('click', (event) => {
       console.log(objectPair);
 
 
-      //if (jsonSaveWorkspace[0] == null && jsonSaveWorkspace[1] == null) {
-
-        //jsonSaveWorkspace.splice(objectPair, 1);
-
-      //  jsonSaveWorkspace[objectPair] = null; 
-
-      //  jsonSaveWorkspace.length = 0; 
-
-      //  console.log(jsonSaveWorkspace, " has been emptied!")
-
-      //} else { 
-
-        //jsonSaveWorkspace.splice(objectPair, 1);
 
       jsonSaveWorkspace[objectPair] = null; 
 
-      //}
 
       clickedElement.remove();
 
       presentObjects - 2; 
 
-      //connectionsInitialised -= 1;
-      
-
-      // cleanup
 
       if (isRestNull) {
 
@@ -2096,13 +1890,9 @@ wireContainerReference.addEventListener('click', (event) => {
 
       } else {
 
-        //jsonSaveWorkspace = jsonSaveWorkspace.filter(item => item !== null);
+
 
         console.log("After deletion .. ", jsonSaveWorkspace);
-
-        // connectionsInitialised--;
-
-        // console.log(connectionsInitialised);
 
       };
 
@@ -2110,10 +1900,16 @@ wireContainerReference.addEventListener('click', (event) => {
 
 });
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// ** SCRIPT 000000 ** READ WRITE TO JSON FILE 
 
-// Writes data about connected gates to a JSON file 
+
+// *** SCRIPT 017 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 018 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function jsonReadWrite(
   MODE, 
@@ -2142,7 +1938,6 @@ function jsonReadWrite(
   INPUTUNIQUEID,
   OUTPUTUNIQUEID) {
 
-  //console.log(CONNECTEDOBJECT_INPUTREF)
 
 
   if (MODE == 0) {
@@ -2178,31 +1973,36 @@ function jsonReadWrite(
 
     };
 
-    //console.clear();
+
     console.log(saveFile);
 
     jsonSaveWorkspace.push(saveFile);
 
-    //console.clear();
     console.log(jsonSaveWorkspace)
 
   } else {
     
     console.log("Logging data!")
 
-  }
+  };
   
 
-}
+};
 
 
-// TODO -- MAKE THE "OUTPUT / INPUT" OBJECTS (NOT THE IOs) BECOME OBJECTA AND OBJECT BM LEAVE THE "I / O" FOR THE BOXES
-// DO IT SO THAT IT SUBTRACTS OR ADDS HEIGHT (27 PX) ETC... DEPENDING ON THE IO PARSED DATA 
+
+// *** SCRIPT 018 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 019 *** -- Starts here 
+// The purpose of the below code is to... 
+
 
 
 getPropertiesSaveButton = document.getElementById("save");  // We fetch the 
 
-//link.setAttribute('href', "#");
+
 
 getPropertiesSaveButton.onclick= function() {
 
@@ -2241,32 +2041,31 @@ getPropertiesSaveButton.onclick= function() {
 
 
 
+// *** SCRIPT 019 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 020 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 getPropertiesLoadButton = document.getElementById("load");  // We fetch the 
 
-//link.setAttribute('href', "#");
 
 getPropertiesLoadButton.onclick= function() {
 
   if (simulate != true) {
 
-    confirmation = confirm("Remember to save your current project as loading in a new Layout or Project file can override the current Layout or Project data present right now.\nPress CANCEL to halt the loading process until everything is saved.\nPress OK to initialise the loading process.")
-
-    //setTimeout(5000) 
+    confirmation = confirm("Remember to save your current project as loading in a new Layout or Project file can override the current Layout or Project data present right now.\nPress CANCEL to halt the loading process until everything is saved.\nPress OK to initialise the loading process.");
 
     if (importedFileType == 0) {
 
-      // add a better null check snippet 
-
-      if (confirmation == true && jsonSaveWorkspaceOverwrite[0] != null) {
-
-        //TYPE = prompt("Please enter the TYPE of project data you want to load into Simboard.\nEnter the letter 'L' to load your layout data file, and enter\nthe letter 'P' to load your Logic Gate circuit into the Workspace!");
-
-        // if (clearWorkspace() {})
+      if (confirmation == true && jsonSaveWorkspaceOverwrite.every(item => item !== null)) {
 
         stopLoadGif()
 
-        clearWorkspace()// !!FUNC
+        clearWorkspace()
 
         redrawImport(0)
 
@@ -2305,33 +2104,16 @@ getPropertiesLoadButton.onclick= function() {
 
   };
 
-  //   TYPE = TYPE.toUpperCase();
+};
 
-  //   if (TYPE == 'P') {
 
-  //     loadData(0, jsonSaveWorkspace)
 
-  //     console.log("Loading Simboard Layout Data has been attempted.")
+// *** SCRIPT 020 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-  //   } else if (TYPE == 'L') {
-
-  //     loadData(1, cssConcatonates)
-
-  //     console.log("Loading Simboard Workspace Project Data has been attempted.")
-
-  //   } else {
-
-  //     confirm("Could not understand loading format. Please try again!")
-
-  //   }
-
-  // } else {
-
-  //   console.log("Cancelled loading operation.")
-
-  // }
-
-}
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 021 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -2375,11 +2157,22 @@ function playLoadGif() {
 
       if (currentAnimFrame % 4 === 0) {
         loadButtonBackgroundRef.style.opacity = (loadButtonBackgroundRef.style.opacity == "0.9") ? "1" : "0.9";
-      }
+      };
 
   }, animDelay);
 
-}
+};
+
+
+
+// *** SCRIPT 021 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 022 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function stopLoadGif() {
 
@@ -2389,10 +2182,16 @@ function stopLoadGif() {
 
   loadButtonBackgroundRef.style.opacity = "1";
 
-}
+};
 
 
 
+// *** SCRIPT 022 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 023 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -2408,21 +2207,26 @@ function download(content, fileName, contentType) {
 
     a.click();
 
-}
+};
+
+
+
+// *** SCRIPT 023 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 024 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
 function saveData(MODE, DATA) {
-  // c = 0; // debugging value
-  // console.log(c) // debugging branch 
-  //extension = ".json"
 
 
     filenamePrompt = prompt("Please enter the name for your file below,\nexcluding symbols and special characters:")
 
     author = prompt("Who is authoring this Simboard File?\n(You can enter your name or alias if you want to!)")
 
-    //var file = new Blob([DATA], {type: "json"});
 
     console.log(DATA)
 
@@ -2493,41 +2297,20 @@ function saveData(MODE, DATA) {
 
       return; 
 
-    }
+    };
 
 };
 
-    // if (window.navigator.msSaveOrOpenBlob) // IE10+
 
-    //     window.navigator.msSaveOrOpenBlob(jsonPackage, filenamePrompt);
 
-    // else { // Others
+// *** SCRIPT 024 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-    //     var a = document.createElement("a"),
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 025 *** -- Starts here 
+// The purpose of the below code is to... 
 
-    //       url = URL.createObjectURL(jsonPackage);
 
-    //       console.log(url)
-
-    //     a.href = url;
-
-    //     a.download = filenamePrompt;
-
-    //     document.body.appendChild(a);
-
-    //     a.click();
-
-    //     setTimeout(function() {
-
-    //         document.body.removeChild(a);
-
-    //         window.URL.revokeObjectURL(url);  
-
-    //     }, 0); 
-        
-    // }; 
-
-    // };
 
 function loadData(DATA) { // loads everything bts , waits until load button is clicked and then replaces everything 
 
@@ -2574,11 +2357,9 @@ function loadData(DATA) { // loads everything bts , waits until load button is c
 
   if (DATA.header.validator == "4po7cjd5SXtgj187_14DagT_CHRISTOPHER31CUPID") { // "encrypted" key....
 
-    //console.log("JSON File has been validated through the first cycle!"); }
 
     if (DATA.header.fileFormat == 0) { // load logic for workspace circuit 
 
-      //console.log("JSON File has been validated through the second cycle!"); } } 
 
       console.log("Control flow is going into reading into reading new imported Workspace data!");
 
@@ -2602,44 +2383,7 @@ function loadData(DATA) { // loads everything bts , waits until load button is c
       console.log("Data in 'cache' is: ", jsonSaveWorkspaceOverwrite)
 
 
-      //  //jsonSaveWorkspaceOverwrite = []; 
 
-      // importedData.forEach(gateConnection => {
-
-      //   //console.log(gateConnection)
-
-      //   console.log(gateConnection.INPUTOBJECT_POSX)
-      //   console.log(gateConnection.INPUTOBJECT_POSY)
-
-      //   //console.log(gateConnection.CONNECTEDOBJECT_A_TYPE)
-
-      //   cloneObject(
-      //     gateConnection.CONNECTEDOBJECT_A_TYPE,
-      //     parseInt(gateConnection.INPUTOBJECT_POSX),  
-      //     parseInt(gateConnection.INPUTOBJECT_POSY),  
-      //   )
-
-      //   console.log("Looping through jsonSaveWorkspace list!")
-        
-      //   console.log(importedData.circuitBuild.gateConnection)
-
-      //   console.log(
-      //     gateConnection.CONNECTEDOBJECT_A,
-      //     gateConnection.INPUTOBJECT_POSX,
-      //     gateConnection.INPUTOBJECT_POSY
-      //   )
-
-      //   // console.log(
-      //   //   cloneObject(
-      //   //     "AND",        // gate type 
-      //   //     500,
-      //   //     500
-      //   //     //gateConnection.CONNECTEDOBJECT_INPUTREF_POSX, // x pos 
-      //   //     //gateConnection.CONNECTEDOBJECT_INPUTREF_POSY, // y pos 
-      //   //   )
-      //   // )
-
-      // })
 
     } else if (DATA.header.fileFormat == 1) { // load logic for css concatonatesd ui styling 
 
@@ -2668,35 +2412,17 @@ function loadData(DATA) { // loads everything bts , waits until load button is c
     };
 
   };
-
-
-    
-
-  //console.log(importedData)
-
-  
-  // d = 1; 
-  // console.log(d) //debugging branch 
-
-  // //JSON.parse()
-
-  // const file = event.target.files[0];
-  // const reader = new FileReader();
-
-  // reader.onload = function(e) {
-  //   const content = e.target.result;
-  //   // Turn the string back into a real JavaScript Object
-  //   jsonSaveWorkspace = JSON.parse(content);
-    
-  //   // Re-render the gates based on the new data
-  //   rebuildWorkspace(); 
-  // };
-  // reader.readAsText(file);
   
 };
 
 
 
+// *** SCRIPT 025 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 026 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -2708,7 +2434,6 @@ function clearWorkspace () {
 
   const oldCircuitWireLinesToDelete = document.querySelectorAll('path[tag^="interactableObject"]')
 
-  //console.log("WORKSPACE SPACE BEFORE:  ", jsonSaveWorkspace) -- this is good 
 
   oldCircuitObjectsToDelete.forEach(elm => {
 
@@ -2730,7 +2455,6 @@ function clearWorkspace () {
 
   oldCircuitWireLinesToDelete.forEach(el => {
 
-    //console.log("running through!")
 
     if (el.id != "Wire") {
 
@@ -2774,21 +2498,16 @@ function clearWorkspace () {
   totalSelectedGates = 0;
 
 
-  
-  //console.log("WORKSPACE SPACE AFTER:  ", jsonSaveWorkspace) -- this is good 
-
-}
+};
 
 
 
+// *** SCRIPT 026 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-
-
-
-
-
-
-
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 027 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -2808,12 +2527,20 @@ function rgbToHexadec(rgb) {
 
     return `#${r}${g}${b}`;
 
-}
+};
+
+
+
+// *** SCRIPT 027 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 028 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
 function getInvertedColour(hexValue) {
-    // Removes the # if it exists !!!!
     hexValue = hexValue.replace('#', '');
 
 
@@ -2823,7 +2550,7 @@ function getInvertedColour(hexValue) {
 
     let b = parseInt(hexValue.substring(4, 6), 16);
 
-    // THA INVERTER
+
     r = (255 - r).toString(16).padStart(2, '0');
 
     g = (255 - g).toString(16).padStart(2, '0');
@@ -2833,28 +2560,21 @@ function getInvertedColour(hexValue) {
 
     return `#${r}${g}${b}`;
 
-}
+};
 
 
 
-// while (simulate == true) {
+// *** SCRIPT 028 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//   console.log("Finding...")
-
-//   musicHandler(choiceOfSongByUser)
-
-// }
-
-
-
-
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 029 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
 const WorkspaceRef = document.getElementById("Base");
-//const ImportAreaStyler = WorkspaceRef.children[0].children[0];
 
-//console.log(tempStyle, " == tempStyle")
 
 
 let computedRGB = window.getComputedStyle(GridCanvasColour).backgroundColor;
@@ -2867,17 +2587,34 @@ WorkspaceRef.addEventListener("dragover", (e) => {
 
   e.preventDefault();
 
-  //console.log(rgbToHexadec(tempStylesContainer.tempCanvasColour))
-
   GridCanvasColour.style.backgroundColor = getInvertedColour(tempStylesContainer.tempCanvasColour);
-    // e.preventDefault();
-    // console.log(tempStyle)
-    // GridCanvasColour.style.backgroundColor = getInvertedColour(tempStyle); // Visual feedback
+
 });
+
+
+
+// *** SCRIPT 029 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 030 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 WorkspaceRef.addEventListener("dragleave", () => {
     GridCanvasColour.style.backgroundColor = tempStylesContainer.tempCanvasColour; // Visual feedback
 });
+
+
+
+// *** SCRIPT 030 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 031 *** -- Starts here 
+// The purpose of the below code is to... 
+
 
 
 WorkspaceRef.addEventListener("drop", (e) => {
@@ -2900,8 +2637,6 @@ WorkspaceRef.addEventListener("drop", (e) => {
               try {
 
                   const data = JSON.parse(event.target.result);
-
-                  //console.log(data) //-- find the data parsed through, if err detected, try swapping comments w. line below for load data!
 
                   playLoadGif()
 
@@ -2935,224 +2670,16 @@ WorkspaceRef.addEventListener("drop", (e) => {
 
 });
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//  ** SCRIPT 006 ** Allows the Workspace to be navigated and moved around or zoomed in and out. 
 
-// function redrawImport(DAT) { //TODO -- PORT THE CLONEOBJECTS DRAGGABLE GATE HEADER INTO THE JSONSAVEWORKSPACE CONNECTION LINE
+// *** SCRIPT 031 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//   if (jsonSaveWorkspaceOverwrite[0] != null) {
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 032 *** -- Starts here 
+// The purpose of the below code is to... 
 
-//     console.clear();
 
-//     console.log("Redrawing imported circuit!");
-
-//     jsonSaveWorkspace = jsonSaveWorkspaceOverwrite; 
-
-//     console.log(jsonSaveWorkspace);
-
-
-    
-
-//     let idLimitInp = 0; 
-//     let idLimitOut = 0; 
-
-//     jsonSaveWorkspace.forEach(connec => {
-
-//       if (connec != null) { 
-
-//         idIterationInp = parseInt(connec.OBJECTA_INPUTID.replace("mydiv", ""));
-
-//         if (idIterationInp > idLimitInp) idLimitInp = idIterationInp;
-
-//       };
-
-//     });
-
-//     jsonSaveWorkspace.forEach(connek => {
-
-//       if (connek != null) { 
-
-//         idIterationOut = parseInt(connek.OBJECTB_OUTPUTID.replace("mydiv", ""));
-
-//         if (idIterationOut > idLimitOut) idLimitOut = idIterationOut;
-
-//       };
-
-//     });
-
-
-//     searchIndex = 1; 
-
-//     const uniquor =  {};
-
-//     jsonSaveWorkspace.forEach(gateConn => {
-
-//       try { 
-
-
-//         [ 
-//         { gType: gateConn.CONNECTEDOBJECT_B_TYPE,  
-
-//         gUniqueIdentifier: gateConn.OBJECTA_INPUTID, 
-
-//         gX: gateConn.INPUTOBJECT_POSX, 
-
-//         gY: gateConn.INPUTOBJECT_POSY 
-
-//         }, 
-
-//         {
-
-//         gType: gateConn.CONNECTEDOBJECT_A_TYPE,  
-
-//         gUniqueIdentifier: gateConn.OBJECTB_OUTPUTID, 
-
-//         gX: gateConn.OUTPUTOBJECT_POSX, 
-
-//         gY: gateConn.OUTPUTOBJECT_POSY 
-
-//         }
-//       ].forEach(potentialUniquor => {
-
-//         if (potentialUniquor.gUniqueIdentifier && potentialUniquor.gType && !uniquor[potentialUniquor.gUniqueIdentifier]) {
-
-//           try { 
-
-//             cloneObject(potentialUniquor.gType, parseInt(potentialUniquor.gX), parseInt(potentialUniquor.gY));
-
-//             uniquor[potentialUniquor.gUniqueIdentifier] = "mydiv" + itemsCreated;
-
-//             //jsonSaveWorkspace[searchIndex] = "mydiv" + itemsCreated;
-
-//             //searchIndex++; 
-            
-
-//           } catch(error) { 
-
-//             alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
-            
-//           }
-
-//         } else  {
-
-//           console.log("Skipped duplicate connection entry for ", elem.gType, " , more specifically: ", elem.gUniqueIdentifier, " !");
-
-//         }
-
-//       })
-
-
-
-//       jsonSaveWorkspace.forEach(gateConnec => {
-
-//         fetchInput = uniquor[gateConnec.OBJECTA_INPUTID];  //document.getElementById(`${gateConnec.OBJECTA_INPUTID}`).children[0];
-//         fetchOutput = uniquor[gateConnec.OBJECTB_OUTPUTID]; //document.getElementById(`${gateConnec.OBJECTB_OUTPUTID}`).children[0];
-
-//         //jsonSaveWorkspace.forEach(gateConnec => {
-
-//         //if (fetchInput && fetchOutput) {
-//           // Target the interactive inner div (child[0]) as we discussed!
-//         gateConnec.CONNECTEDOBJECT_A = "Wow"
-//         gateConnec.CONNECTEDOBJECT_B = "Deloaw"
-//         //}
-//       })
-
-
-      
-//       } catch(error) {
-
-//         alert("WARNING:\nA fatal error was encountered during circuit backend reconfiguration! This circuit project may be unstable to use, if possible, please try again!\n\n\nError type: ", error)
-
-//       }
-
-//       console.clear()
-
-//       //console.log(connectionLineAttributes)
-
-
-//       //connectionLineAttributes.forEach(elem => {
-
-
-
-//       //})
-
-
-//   })
-
-//   console.clear()
-
-//   console.log("JSONSAVEWORKSPACE BEFORE == ", jsonSaveWorkspace)
-
-//   console.clear()
-
-//   //jsonSaveWorkspace.forEach(gateConnec => {
-
-//   //  fixCircuitFile(searchIndex, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
-
-//   //  console.log(gateConnec, " == searchIndex of: ", searchIndex)
-    
-//   //  searchIndex++; 
-
-//   //})
-
-//   } else { 
-
-//     alert("No data was found in the temporary reserve!");
-
-//   }
-
-
-
-//     //gateConnec.CONNECTEDOBJECT_A = fetchInput; 
-//     //gateConnec.CONNECTEDOBJECT_B = fetchOutput; 
-
-    
-//     // let sindex = 0; 
-
-//     // fixCircuitFile(sindex++, jsonSaveWorkspace, gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID);
-
-//     // //console.log(/*gateConnec,*/ " == searchIndex of: ", searchIndex)
-
-//     // console.log("gateconnecs (I || O) == ", gateConnec.OBJECTA_INPUTID, gateConnec.OBJECTB_OUTPUTID)
-
-//     // //sindex = sindex + 1; 
-
-//     // //searchIndex++; 
-
-//   //})
-
-//   searchIndex = 0; // reset search index
-
-//   console.log("search Index reset to: ", searchIndex)
-
-// };
-
-//   //   jsonSaveWorkspace.forEach(gateConn => {
-
-//   //     //console.log(gateConnection)
-//   //     try{
-//   //     console.log(gateConn.INPUTOBJECT_POSX)
-//   //     console.log(gateConn.INPUTOBJECT_POSY)
-//   //     //console.log(gateConnection.CONNECTEDOBJECT_A_TYPE)
-
-//   //     cloneObject(
-//   //       gateConn.CONNECTEDOBJECT_A_TYPE,
-//   //       parseInt(gateConn.INPUTOBJECT_POSX),  
-//   //       parseInt(gateConn.INPUTOBJECT_POSY),  
-//   //     )
-//   //     } catch(error) {
-//   //       alert("Fatal error was encountered during circuit redraw, causing the halting of the load function. Please try again!\n\n\nError type: ", error)
-//   //     }
-//   //   }); 
-//   // } else { 
-//   //   alert("No data was found in the temporary reserve!")
-
-//   // }
-
-// //}
-
-// //  ** SCRIPT 006 ** The functions for Workspace navigation end here. 
 
 function redrawImport(DATMOD) {
 
@@ -3201,8 +2728,6 @@ function redrawImport(DATMOD) {
         });
 
 
-        //connectionSet = uniquor; 
-
 
         jsonSaveWorkspaceOverwrite.forEach(conn => { // fixes jsonSaveWorkspace cache 
 
@@ -3241,6 +2766,7 @@ function redrawImport(DATMOD) {
         alert("No relevant data was found in your imported file for the loading function to process!");
 
       }
+
 
 
 
@@ -3376,38 +2902,6 @@ function redrawImport(DATMOD) {
       replaceIndex = 0; 
 
 
-      // tempStylesContainerOverwrite.forEach(stylingAttrib => {
-
-      //   tempStylesContainer[replaceIndex] = stylingAttrib; 
-
-      //   console.log("Styling attribute: ", stylingAttrib, " has been implemented at RIndx: ", replaceIndex)
-
-      //   replaceIndex++; 
-
-      // })
-
-    //   console.log("Replacement styling loop has been stopped for the first round!")
-
-    //   replaceIndex = 0; 
-
-    //   tempStylesContainer.forEach(toStyleUI => {
-
-    //     if (replaceIndex == 0 || 1 || 2) {}
-
-    //     cssConcatonates[replaceIndex] = toStyleUI;
-
-    //     replaceIndex++; 
-
-    //   })
-
-    //   console.log("Replacement styling loop has been stopped for the second round!")
-
-    //   replaceIndex = 0; 
-
-    //   tempStylesContainerOverwrite = []; // clears data & wipes cache / temp reserve 
-
-    // }
-
     } else {
 
       alert("The redraw function has failed!\n\nPlease refresh Simboard and try again, thank you!");
@@ -3420,7 +2914,16 @@ function redrawImport(DATMOD) {
   
 };
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+
+// *** SCRIPT 032 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 033 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 LineSolverButtonLink = document.getElementById("lineSolver");
 
@@ -3452,20 +2955,20 @@ LineSolverButtonLink.onclick= function() {
 
   };
 
-  // solverMode++;
-  
-  // if (solverMode == 5) {
-
-  //   solverMode = 0; 
-
-  // };
-
 };
 
 
 
+// *** SCRIPT 033 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY*/ ) {
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 034 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
+
+function lineSolver(MODE) {
 
   solverButtonImageRef = document.getElementById("lineSolver").children[1];
 
@@ -3476,8 +2979,6 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
     solverButtonImageRef.setAttribute("src", "/Media/Layout/lineSolverM0.png")
 
     lineRef.forEach(ConnectionLine => {
-
-
 
       ConnectionLine.style.opacity = "1.0";
 
@@ -3491,16 +2992,6 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
       L ${connLineX2} ${connLineY2}`;
 
       ConnectionLine.setAttribute("d", newWireLinePathToDraw);
-
-      // let connLineX1 = ConnectionLine.x1.baseVal.value; 
-      // let connLineY1 = ConnectionLine.y1.baseVal.value;
-      // let connLineX2 = ConnectionLine.x2.baseVal.value;
-      // let connLineY2 = ConnectionLine.y2.baseVal.value;
-    
-      // ConnectionLine.setAttribute("x1", connLineX1);
-      // ConnectionLine.setAttribute("y1", connLineY1);
-      // ConnectionLine.setAttribute("x2", connLineX2);
-      // ConnectionLine.setAttribute("y2", connLineY2);
 
     });
 
@@ -3529,27 +3020,6 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
       ConnectionLine.setAttribute("d", newWireLinePathToDraw);
 
-      // let connLineX1 = 50; 
-      // let connLineY1 = 46;
-      // let connLineX2 = 45;
-      // let connLineY2 = 84;
-      
-      // midpoint = (connLineX1 + connLineX2) / 2;
-
-      // console.log(midpoint)
-
-      // pathTrace = 
-      //   `M ${connLineX1} ${connLineY1}
-      //     L ${midpoint} ${connLineY1}
-      //     L ${midpoint} ${connLineY2}
-      //     L ${connLineX2} ${connLineY2}`; 
-
-      // clonedPath.setAttribute("d", pathTrace);
-
-      // // ConnectionLine.setAttribute("x1", connLineX1);
-      // // ConnectionLine.setAttribute("y1", connLineY1);
-      // // ConnectionLine.setAttribute("x2", connLineX2);
-      // // ConnectionLine.setAttribute("y2", connLineY2);
 
     });
 
@@ -3608,10 +3078,7 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
       indexOfLine = 0; 
 
-      //updatedJsonSaveCircuit = jsonSaveWorkspace.filter(eachConn => eachConn !== null);
 
-      //jsonSaveWorkspace = updatedJsonSaveCircuit; 
-      
       jsonSaveWorkspace.forEach(connecLayer =>{
 
         lineToFind = document.querySelector(`path[PairedData="${indexOfLine}"`);
@@ -3657,17 +3124,6 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
         console.log("indexOfLine == ", indexOfLine)
 
-
-
-        // cornerYOfSourceGateBox = sourceStartGateFindBox.offsetTop; 
-        // cornerXOfSourceGateBox = sourceStartGateFindBox.offsetLeft; 
-        // cornerYOfTargetGateBox = targetEndGateFindBox.offsetTop; 
-        // cornerXOfTargetGateBox = targetEndGateFindBox.offsetLeft; 
-        
-        // lineToFind.setAttribute("x1", cornerXOfSourceGateBox);
-        // lineToFind.setAttribute("y1", cornerYOfSourceGateBox);
-        // lineToFind.setAttribute("x2", cornerXOfTargetGateBox);
-        // lineToFind.setAttribute("y2", cornerYOfTargetGateBox);
 
       });
 
@@ -3761,6 +3217,14 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
 
 
+// *** SCRIPT 034 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 035 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function generateRandHex() {
 
@@ -3780,14 +3244,12 @@ function generateRandHex() {
 
 
 
+// *** SCRIPT 035 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-
-
-
-
-// ** SCRIPT 007 ** Allows Logic Gate Objects to be wired together 
-
-console.log(xLen, yLen, "size of workspace with X | Y");
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 036 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -3795,10 +3257,6 @@ function fixVisuals(PARSED_DAT) {
 
 
   PARSED_DAT.forEach(connLayer => {
-
-    //gateAInputRef = document.getElementById(`${connLayer.OBJECTA_INPUTID}`).children[0];
-
-    //gateBOutputRef = document.getElementById(`${connLayer.OBJECTB_OUTPUTID}`).children[0];
     
     wireNode = document.getElementById("Wire");
 
@@ -3841,108 +3299,26 @@ function fixVisuals(PARSED_DAT) {
 
 };
 
-// function fixCircuitFile(INDEX, OPERATINGDATA, CONNECTORA, CONNECTORB) { // TODO: essentially I want to make it so each "CONNECTEDOBJECT_x?" is replaced with the clone 
-//                                     // object IDs so that discern boolean works (REPLACE WITH DRAGGABLEGATEHEADER)
-//                                     // i am thinking about a for loop ?
-//                                     // maybe implement a for each connection layer, 
-//   console.log("Currently fixing jsonSaveWorkspace conneciton layer: ", INDEX);
-//   console.log("Currently fixing sending division {{CONNECTOR A || CONNECTOR B}} :  ", CONNECTORA, CONNECTORB);
+console.log(xLen, yLen, "size of workspace with X | Y");
 
-//   //jsonSaveWorkspace.forEach(connectionLayer => {
-
-//     // fetchInput = "TestForInput"       // THIS WORKS!!
-//     // fetchOutput = "TestForOutput";    // THIS WORKS!! 
-
-//   fetchInput = document.getElementById(`${CONNECTORA}`);
-//   fetchOutput = document.getElementById(`${CONNECTORB}`);
-
-//   //jsonSaveWorkspace.forEach(gateConnec => {
-//   OPERATINGDATA[INDEX].CONNECTEDOBJECT_A = fetchInput; 
-//   OPERATINGDATA[INDEX].CONNECTEDOBJECT_B = fetchOutput; 
-//   //})
+console.log("Fixed jsonWorkspace file (with updated references) == ", jsonSaveWorkspace)
 
 
 
-//     // connectionLayer.CONNECTEDOBJECT_A = fetchInput; 
-//     // connectionLayer.CONNECTEDOBJECT_B = fetchOutput; 
+// *** SCRIPT 036 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//     // fetchInputType = fetchInput.getAttribute("class"); 
-//     // fetchOutputType = fetchOutput.getAttribute("class")
-
-//     // console.log("TYPES (I || O) == ", fetchInputType, fetchOutputType)
-
-//     // if (fetchInput == "DraggableGateHeader") {
-
-//     //   connectionLayer.CONNECTEDOBJECT_A = fetchInput; 
-
-//     // } else if (fetchOutput == "DraggableGateHeader") { 
-
-//     //   connectionLayer.CONNECTEDOBJECT_B = fetchOutput; 
-
-//     // } else {
-
-//     //   console.log("Skipping gate object container (where class == DraggableGate)")
-
-//     // }
-
-// //  })
-
-  console.log("Fixed jsonWorkspace file (with updated references) == ", jsonSaveWorkspace)
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 037 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
-  /// NO! What I must do is recall the initconnect function and loop it for each actual connection inside of the overwriteJson 
-   // ... then a line must be drawn between the connected pair 
-                                  
-
-
-  //JSONSAVE.forEach(connection => {
-
-  //  .querySelector('div^[]')
-  //})
-
-  // H = "H"; 
-
-  // console.clear();
-
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-  // console.log(H);
-
-
-//};
-
-
-// ** SCRIPT 007 ** The functions for Logic Gate Objects to connect "wire" UI elements together, and produce 
-// execution flow ends here. 
-
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-
-// ** SCRIPT 008 ** Allows for the File Menu Buttons to be interacted with and perform different operations
-// for the end user to utilise (Excluding the Saving & Loading buttons!)
-
-
-
-// ** SCRIPT 008 ** The functions for File Menu functionality ends here. 
-
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 var engineLink = document.getElementById("qualitysteps"); 
 
 calculationDepth = 9; // default depth of calculation
 
 engineLink.onclick= function() { // quality steps determine calculation depth. 
-
-  //console.log("Quality steps function is initialised!")
 
   if (simulate != true) { 
 
@@ -3976,18 +3352,14 @@ engineLink.onclick= function() { // quality steps determine calculation depth.
 
 
 
+// *** SCRIPT 037 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 038 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
-
-
-// ** SCRIPT 009 ** Allows for Simboard Projects to be saved as a JSON file. 
-// iii = 0
-// function testloop(){
-//   while (true == true) {
-//     console.log("Testing for loop is going well...")
-    
-//   }
-// }
 
 var getPropertiesSimulateButton = document.getElementById("simulate");  // We fetch the ...XYZ!
 
@@ -4010,7 +3382,45 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
     };
 
+    fetchIndex = 0; 
 
+    newCircuitView = jsonSaveWorkspace.filter(foundVal => foundVal !== null)
+
+    jsonSaveWorkspace.forEach(cnnLyr => {
+
+      if (cnnLyr != null) {
+
+        sourceObj = cnnLyr.CONNECTEDOBJECT_A.parentNode; 
+        targetObj = cnnLyr.CONNECTEDOBJECT_B.parentNode; 
+
+        sourceState = sourceObj.getAttribute("state");
+        targetState = targetObj.getAttribute("state");
+
+        lineToPulse = document.querySelector(`path[PairedData="${fetchIndex}"`);
+
+        if (sourceState == 1 && targetState == 1) {
+
+          wireLinePulsate(lineToPulse, true)
+    
+        } else if (sourceState == 1 && targetState == 0) {
+        
+          wireLinePulsate(lineToPulse, true)
+
+        } else {
+
+          wireLinePulsate(lineToPulse, false)
+
+        }
+
+        fetchIndex++; 
+
+      } else {
+
+        fetchIndex++; 
+        
+      }
+
+    }); 
 
   } else if (simulate == true) {
 
@@ -4024,19 +3434,6 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
     isSongPlayingStack = []; 
 
-    // jsonSaveWorkspace.forEach(getElem =>{
-
-    //   caughtElemA = getElem.CONNECTEDOBJECT_A_TYPE;
-    //   caughtElemB = getElem.CONNECTEDOBJECT_B_TYPE;
-
-    //   if (caughtElemA == "Speaker") {
-    //     speakerStopVisuals(getElem.CONNECTEDOBJECT_A)
-    //   }
-    //   if (caughtElemB == "Speaker") {
-    //     speakerStopVisuals(getElem.CONNECTEDOBJECT_B)
-    //   }
-
-    // })
 
     speakerSound_0.pause();
     speakerSound_1.pause();
@@ -4065,22 +3462,52 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
     speakerSound_10.currentTime = 0;
     speakerSound_11.currentTime = 0;
 
+
+    fetchIndex = 0; 
+
+    newCircuitView = jsonSaveWorkspace.filter(foundVal => foundVal !== null)
+
+    jsonSaveWorkspace.forEach(cnnLyr => {
+
+      if (cnnLyr != null) {
+
+        sourceObj = cnnLyr.CONNECTEDOBJECT_A.parentNode; 
+        targetObj = cnnLyr.CONNECTEDOBJECT_B.parentNode; 
+
+
+        lineToPulse = document.querySelector(`path[PairedData="${fetchIndex}"`);
+
+        wireLinePulsate(lineToPulse, false)
+    
+        fetchIndex++; 
+
+      } else {
+
+        fetchIndex++;
+
+      };
+
+    }); 
+
   } else { 
 
     console.log("   !Simulation error occured!   ")
 
-  }
+  };
 
 
-}
-
-// ** SCRIPT 009 ** The functions for Simboard Saving end here. 
+};
 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-/// TODO -- IF MODE IS 0, THEN BUTTON INPUTS BECOME CLICKABLE AND FLOW CONTROL LOGIC STARTS CALCULCATING 
-/// TODO -- IF MODE IS 1, THEN FLOW STOPS AND ALL THUMBNAILS GO TO "DEACTIVATED" ALWAYS
+// *** SCRIPT 038 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 038 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 function logicFlow(MODE, WORKSPACE_DATA) {
 
@@ -4092,10 +3519,6 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
   elements.forEach(elm => {
 
-      //console.log('Found element:', el);
-
-      //el.style.fontWeight = 'bold';
-
       const existingButton = elm.querySelector('.UserInputAbility');
 
       if (!existingButton) {
@@ -4105,13 +3528,6 @@ function logicFlow(MODE, WORKSPACE_DATA) {
         btn.innerText = 'TOGGLE BUTTON';
 
         btn.className = 'UserInputAbility'; 
-
-
-        // if (btn.parentNode.parentNode.getAttribute("state") == 0) {
-        //   btn.style.cursor = "url('/Media/Layout/toggleON.png'), auto" 
-        // } else {
-        //   btn.style.cursor = "url('/Media/Layout/toggleON.png'), auto" 
-        // };
 
         
         btn.onclick = (e) => {
@@ -4124,8 +3540,6 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
           buttonThumbnail = elm.children[0].children[1];
 
-          //buttonStyle = elm.style;
-
 
           if (buttonState == 0) {
 
@@ -4133,12 +3547,16 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
             buttonThumbnail.setAttribute("src", "/Media/ActivatedState/HoldButton_Activated.png");
 
+            document.documentElement.style.setProperty('--currentHoverPointer', 'var(--toggleHoverPointerOn)');
+
 
           } else {
 
             elm.setAttribute("state", 0);
 
             buttonThumbnail.setAttribute("src", "/Media/DeactivatedState/HoldButton_Deactivated.png");
+
+            document.documentElement.style.setProperty('--currentHoverPointer', 'var(--toggleHoverPointerOff)');
 
 
           }
@@ -4209,8 +3627,6 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
     });
     
-    //console.log(`${userInputsFound.length} buttons removed.`);
-
 
   } else {
 
@@ -4224,34 +3640,128 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
 
 
-// ** SCRIPT 010 ** Allows for Simboard Projects to be loaded from a JSON file. 
+// *** SCRIPT 039 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 040 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 filterMenuDebugRef = document.getElementById("FilterMenuActivator");
 
 filterMenuDebugRef.onclick= function() {
 
-  console.clear();
+  nextActionIsToShow = false; // Stops the deletion of multiple objects // TODO
 
-  console.log("JsonSave: ", jsonSaveWorkspace);
+  decision = prompt("If you want to only see one category of object and hide all of the others, type 'INC' into the prompt below.\n\nIf you want to see every other category of objects except for one, type 'EXC' into the prompt below.\n\nIf you want to show all categories again, type 'SHOW' into the prompt below.\n\nIf you don't want to filter categories of objects from the Object Menu, either click the Cancel button or type in 'X' into the prompt below.");
 
-  console.log("Previous IO Stack: ", PREVIOUSIOSTACK);
-
-  console.log("CSS TempStyleContainer == ", tempStylesContainer);
-
-  console.log("CSS Concatonates == ", cssConcatonates);
-
-  console.log("UNIQUOR == ", connectionSet)
-
-}
+  decision = decision.toUpperCase();
 
 
+  const objectMenuRef = document.getElementById("ObjectMenu");
+
+  const objectMenuChildrenRef = objectMenuRef.children;
+
+  const contentsRef = Array.from(objectMenuChildrenRef) // turns it from a collection/nodelist to an array
+
+
+  if (nextActionIsToShow == true) {
+
+    if (decision == "INC") {
+
+      nextActionIsToShow = true; 
+
+      nextDecision = prompt("Please enter one of the many categories below that you just want to see in the Object Menu!\n\n  -  Inputs\n  -  GCSE Gates\n  -  A-Level Gates\n  -  Outputs");
+
+      switch (nextDecision.toUpperCase()) {
+
+        case "INPUTS":
+
+          contentsRef.forEach(elemt => { 
+
+            console.log("elem == ", elemt) 
+
+            if (elemt.id != "HoldButton") {
+
+              if (elemt.id != "FilterMenuActivator") {
+
+                  elemt.style.display = "none";
+
+              };
+
+            } else {
+
+              console.log("Skipped a part due to the safety guard lock!")
+          
+            };
+          
+          });
+
+          break; 
+
+
+        case "OUTPUTS":
+
+          contentsRef.forEach(elemt => { 
+
+            console.log("elem == ", elemt) 
+
+            if (elemt.id != "Lightbulb") {
+
+              if (elemt.id != "Speaker") {
+
+                if (elemt.id != "FilterMenuActivator") {
+
+                    elemt.style.display = "none";
+
+                };
+
+              };
+
+            } else {
+
+              console.log("Skipped a part due to the safety guard lock!")
+          
+            };
+          
+          });
+
+          break;
+
+      };
+
+    } else if (decision == "EXC") {
+
+    } else if (decision == "SHOW") {
+
+      contentsRef.forEach(elemt => {
+
+        elemt.style.display = "block";
+
+      });
+
+    } else {
+
+      console.log("There was an error!");
+
+    };
+
+  };
+
+};
 
 
 
+// *** SCRIPT 040 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-// ** SCRIPT 010 ** The functions for Simboard Loading end here. 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 041 *** -- Starts here 
+// The purpose of the below code is to... 
 
-// ---
+
 
 function discernBoolean() {
 
@@ -4291,7 +3801,6 @@ function discernBoolean() {
     };
 
   });
-
 
 
   musicHandler(choiceOfSongByUser); // because of these checks, the system lags a little bit 
@@ -4356,32 +3865,11 @@ function discernBoolean() {
 
         finalState = inputs.includes(1) ? 1 : 0;
 
-        // if (finalState == 1) {
-        //   enabledSound = true; 
-        // } else {
-        //   enabledSound = false; 
-        // };
-
-        //   if (!isSongPlayingStack.includes(gateId)) {
-
-        //     isSongPlayingStack.push(gateId);
-
-        //   };
-
-
-        // } else { 
-
-        //   isSongPlayingStack = isSongPlayingStack.filter(id => id !== gateId);
-
-        // };
 
 
       } else if (type === "AND") {
 
         console.log("AND GATE VISITED!");
-          // AND Logic: ALL inputs must be 1 (and must have at least 1 input)
-          // const allInputsHigh = inputs.length >= 2 && inputs.every(val => val === 1);
-          // finalState = allInputsHigh ? 1 : 0;
 
           const hasEnoughInputs = inputs.length >= 2;
           const allInputsActive = inputs.every(val => val === "1" || val === 1);
@@ -4410,15 +3898,6 @@ function discernBoolean() {
 
         console.log("MULTI INPUT NOT GATE IS RETURNING == ", finalState)
 
-        // if (inputs.length === 1) {
-
-        //     finalState = (inputs[0] === 1) ? 0 : 1;
-
-        // } else {
-
-        //     finalState = 0; // Or keep its current state
-
-        // }
 
       } else {
 
@@ -4438,12 +3917,6 @@ function discernBoolean() {
 
       const specSpeakerSuffix = finalState === 1 ? "_Activated.gif" : "_Deactivated.png"
 
-      //const specSpeakerSuffix1 = finalState === 1 ? "_Activated_txtre1.png" : "_Deactivated.png"
-
-
-
-      // .GIF FOR ACTIVATED
-
 
       if (type != "Speaker") {
         if(gateNode.children[0].children[1]) {
@@ -4462,302 +3935,64 @@ function discernBoolean() {
 
       };
 
-
-
-        // //if (finalState === 1) {
-
-        //   if(gateNode.children[0].children[1] && finalState === 1) {
-
-
-
-        //       //clearInterval(gateNode.objFrames)
-
-
-        //     //gateNode.children[0].children[1].setAttribute("src", `${frameRate}`);
-
-        //   } else if (gateNode.children[0].children[1] && finalState === 0) {
-
-
-
-        //   } else {
-
-        //     console.log("...")
-
-        //   };
-
-        //} else {
-
-
-
-          
-
-        //};
-
-
-
   };
+
+  fetchIndex = 0; 
+
+  //newCircuitView = jsonSaveWorkspace.filter(foundVal => foundVal !== null)
+
+  jsonSaveWorkspace.forEach(cnnLyr => {
+
+    if (cnnLyr != null) {
+
+      sourceObj = cnnLyr.CONNECTEDOBJECT_A.parentNode; 
+      targetObj = cnnLyr.CONNECTEDOBJECT_B.parentNode; 
+
+      sourceState = sourceObj.getAttribute("state");
+      targetState = targetObj.getAttribute("state");
+
+      lineToPulse = document.querySelector(`path[PairedData="${fetchIndex}"`);
+
+      // console.log(lineToPulse)
+
+      if (sourceState == 1 && targetState == 1) {
+
+        wireLinePulsate(lineToPulse, true)
+  
+      } else if (sourceState == 1 && targetState == 0) {
+      
+        wireLinePulsate(lineToPulse, true)
+
+      } else {
+
+        wireLinePulsate(lineToPulse, false)
+
+      }
+
+      fetchIndex++; 
+
+    } else {
+
+      fetchIndex++; 
+
+    }
+
+  }); 
+
+  
+
 
 };
 
 
 
-// do {
+// *** SCRIPT 041 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//   console.clear()
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 042 *** -- Starts here 
+// The purpose of the below code is to... 
 
-//   console.log("Song is now playing from a speaker!")
-
-//   speakerSound.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
-
-// } while (isSongPlayingStack.length > 0);
-
-// do {
-
-//   console.clear()
-
-//   console.log("Song has stopped playing!")
-
-//   speakerSound.pause();
-
-// } while (isSongPlayingStack.length = 0) 
-
-
-
-
-// function speakerPlayVisuals(speakerReference) {
-  
-//   if (speakerReference.resetTimeout) {
-//     clearTimeout(speakerReference.resetTimeout);
-//     speakerReference.resetTimeout = null;
-//   }
-
-//   //puiui0 =9;
-
-//   if (!speakerReference.objFrames) {
-
-//     const objFrameDelay = 250; 
-//     currentObjFrame = 0; 
-
-//     objFrames = setInterval(() => {
-//       speakerReference.children[0].children[1].setAttribute("src", "/Media/ActivatedState/Speaker_Activated_txtre"+currentObjFrame+".png");
-//       currentObjFrame = (currentObjFrame + 1) % 2;
-//       // if (currentObjFrame > 1) {
-//       //   currentObjFrame = 0;
-//       // }
-//     }, objFrameDelay);
-
-//   };
-
-// };
-
-
-
-// function speakerStopVisuals(speakerReference) {
-
-//   speakerReference.remove()
-
-//   // resetTime = 10; 
-
-//   // if (!speakerReference.resetTimeout) {
-
-//   //   speakerReference.resetTimeout = setTimeout(() => {
-//   //     clearInterval(objFrames);
-//   //     objFrames = null;
-
-//   //     speakerReference.resetTimeout = true;
-
-//   //   //currentObjFrame = 0;
-
-//   //     speakerReference.children[0].children[1].setAttribute("src", "/Media/DeactivatedState/Speaker_Deactivated.png");
-
-//   //     console.log("Speaker is turned off visually!")
-
-//   //     }, resetTime);
-
-//   //   };
-
-// };
-
-
-
-
-
-
-
-// function playSpeakerSong() {
-
-
-//   speakerSound.play().catch(anyError => console.log("User interaction required for audio")); // .play is a promise, use .catch to stop errors 
-
-
-
- 
-// }
-
-// function stopSpeakerSong() {
-
-//   speakerSound.pause();
-
-// }
-
-
-
-// ---
-
-// function discernBoolean(DISCERN_MODE, transmittingAObject, transmittingBObject, currentObject) {
-
-//   //InfinityPrevention = 0; 
-
-//   transmitterA = transmittingAObject.parentNode;
-
-//   transmitterB = transmittingBObject.parentNode;
-
-
-//   transmitterAThumbnail = transmittingAObject.children[2];
-
-//   transmitterBThumbnail = transmittingBObject.children[2];
-
-
-//   transmitterAState = Boolean(transmitterA.getAttribute("state"));
-
-//   transmitterBState = Boolean(transmitterB.getAttribute("state"));
-
-
-//   receiver = currentObject.parentNode;
-
-//   receiverThumbnail = currentObject.children[2]
-
-
-//   nextReceiver = null; 
-
-//   otherObject = null; 
-
-//   if (DISCERN_MODE == 0) {
-
-//     switch (receiver.getAttribute("gateType") == "AND") {
-
-//       case "HoldButton": // Checks the button state, if 1, then 
-//         ws
-
-//       case "AND": 
-
-//         if (transmitterAState && transmitterBState) {
-
-//           receiver.setAttribute("state", 1)
-
-//           receiverThumbnail.setAttribute("src", "/Media/ActivatedState/" + (receiver.getAttribute("state")) + "_Activated.png");
-
-//           discernBoolean(0, receivingObject, otherObject, nextReceiver);
-
-//         } else {
-
-//           receiverThumbnail.setAttribute("src", "/Media/DeactivatedState/" + (receiver.getAttribute("state")) + "_Deactivated.png");
-
-//         }
-
-//     }
-
-
-
-//     // receiverState = receiver.getAttribute("state")
-
-//     // if ((receiver.getAttribute("gatetype") == "HoldButton")) {
-
-//     //   if (transmitterAState == 1) {
-        
-//     //     discernBoolean(receiver, nextObject)
-
-//     //   } else {
-
-//     //     console.log("It's happening!")
-
-//     //   }
-
-//     // } else if ((receiver.getAttribute("gatetype") == "AND")) {
-
-//     //   if (transmitterAState && transmitterBState) {
-        
-//     //     receiverState = 1;
-
-//     //   } else {
-
-//     //     receiverState = 0; 
-
-//     //   }
-
-
-
-//     // } else if ((receiver.getAttribute("gatetype") == "OR")) {
-
-//     //   if (transmitterAState || transmitterBState) {
-        
-//     //     receiverState = 1;
-
-//     //   } else {
-
-//     //     receiverState = 0; 
-
-//     //   }
-
-//     // } else if ((receiver.getAttribute("gatetype") == "NOT")) {
-
-//     //   let receiverState = transmitterAState === 1 ? 0 : 1;
-
-
-//     // } else if ((receiver.getAttribute("gatetype") == "XOR")) {
-
-//     //   if (transmitterAState ^ transmitterBState) {
-        
-//     //     receiverState = 1;
-
-//     //   } else {
-
-//     //     receiverState = 0; 
-
-//     //   }
-
-
-//     // } else if ((receiver.getAttribute("gatetype") == "Lightbulb")) {
-
-//     //   if (transmitterAState == 1) {
-        
-//     //     receiverState = 1;
-
-//     //   } else {
-
-//     //     receiverState = 0; 
-
-//     //   }
-
-
-//     // } else if ((receiver.getAttribute("gatetype") == "Speaker")) {
-
-//     //   if (transmitterAState == 1) {
-        
-//     //     receiverState = 1;
-
-//     //   } else {
-
-//     //     receiverState = 0; 
-
-//     //   }
-
-//     // }
-
-//   } else if (DISCERN_MODE == 1) {
-
-//     let x = 0; 
-
-//   } else {
-
-//     console.log("CRITICAL BOOLEAN CALCULATION ERROR -- Something is wrong with the circuit or function parameters! ")
-
-//   }
-
-// }
-
-
-//---------------------------------------------
 
 
 window.addEventListener('wheel', function(e) {
@@ -4779,6 +4014,15 @@ window.addEventListener('wheel', function(e) {
 
 
 
+// *** SCRIPT 043 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 044 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
+
 window.addEventListener('keydown', function(e) {
 
     if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '+')) {
@@ -4793,10 +4037,14 @@ window.addEventListener('keydown', function(e) {
 
 
 
+// *** SCRIPT 044 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//function traverseWorkspace() {
-//  //f
-//}
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 045 *** -- Starts here 
+// The purpose of the below code is to... 
+
+
 
 window.addEventListener('keydown', e => {
 
@@ -4897,14 +4145,12 @@ window.addEventListener('keydown', e => {
 
 
 
+// *** SCRIPT 045 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-
-
-
-
-
-//------------------------
-
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 046 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
@@ -5141,7 +4387,6 @@ function talkToSystem(cmd) {
 
 
 
-
     case "RBC": // reset box click sets ioCheck to defaults ... 
 
       hasFirstIOBeenSelected = false; 
@@ -5151,20 +4396,26 @@ function talkToSystem(cmd) {
 
 
 
-
     case "CSS": 
 
-      newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n\n-- Music --\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae\n4 - The Way You Are, by Agnetha Fältskog & Ola Håkansson\n\n-- Sounds --\n5 - Chirp\n6 - Mains Hum\n7 - Nature\n8 - Long Scream\n9 - Short Scream\n10 - Radio Garble")
+      if (simulate != true) {
 
-      if (newCmd > -1 && newCmd < 12) {
+        newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n\n-- Music --\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae\n4 - The Way You Are, by Agnetha Fältskog & Ola Håkansson\n\n-- Sounds --\n5 - Chirp\n6 - Mains Hum\n7 - Nature\n8 - Long Scream\n9 - Short Scream\n10 - Radio Garble")
 
-        choiceOfSongByUser = parseInt(newCmd);
+        if (newCmd > -1 && newCmd < 12) {
 
-      } else {
+          choiceOfSongByUser = parseInt(newCmd);
 
-        alert("Speaker Mode not found! Please try again.");
+        } else {
 
-      };
+          alert("Speaker Mode not found! Please try again.");
+
+        };
+      } else { 
+
+        alert("You must pause your circuit simulation before changing the song that your speaker objects can play!");
+
+      }
 
       break;
 
@@ -5229,32 +4480,181 @@ function talkToSystem(cmd) {
 
       break; 
 
-  };
+    case "DDV":
+
+      console.clear();
+
+      console.log("JsonSave: ", jsonSaveWorkspace);
+
+      console.log("Previous IO Stack: ", PREVIOUSIOSTACK);
+
+      console.log("CSS TempStyleContainer == ", tempStylesContainer);
+
+      console.log("CSS Concatonates == ", cssConcatonates);
+
+      console.log("UNIQUOR == ", connectionSet)
+
+      break; 
+
+    case "TAN": // prevents NOT gates from outputting 1 when no inputs are going in 
+
+      jsonSaveWorkspace.forEach(cLyr => {
+
+        console.log("Control flow is going through TAN CMD!", cLyr);
+
+      });
+
+      break; 
+
+    case "CW":
+
+      guard = confirm("Are you sure you want to clear your Workspace? If you have not saved this circuit, it will be permenantly wiped forever.\n\nIf you want to proceed and clear the Workspace, click OK or press 'ENTER'.\nIf you want to cancel the procedure of clearing the Workspace, click Cancel or press 'ESC'.");
+
+      if (guard == true) {
+
+        clearWorkspace();
+
+      } else {
+
+        alert("Clear Workspace process was prevented.");
+
+      };
+
+      break; 
+
+    case "TPULSE":
+
+      if (simulate != true) {
+
+        newCmd = prompt("If you'd like to change how the wires 'pulse' (look) when binary signal is flowing through them, enter an INTEGER VALUE to determine the pulse mode in the prompt below:\n\n-- Pulse Types --\n0 - Static\n1 - River\n2 - Hubble\n3 - Blink\n4 - Dotted\n5 - Signal\n6 - Fountain\n7 - Flow\n8 - Invisible\n\n");
+
+        switch (parseInt(newCmd)){
+
+          case 0:
+
+            pulseType = "static";
+
+            break; 
+
+          case 1:
+
+            pulseType = "river";
+
+            break; 
+
+          case 2: 
+
+            pulseType = "hubble";
+
+            break; 
+
+          case 3:
+
+            pulseType = "blink";
+
+            break; 
+
+          case 4:
+            
+            pulseType = "dotted";
+
+            break; 
+
+          case 5:
+            
+            pulseType = "signal";
+
+            break; 
+
+          case 6:
+            
+            pulseType = "fountain";
+
+            break; 
+
+          case 7: 
+          
+            pulseType = "flow";
+
+            break; 
+
+          case 8: 
+          
+            pulseType = "invisible";
+
+            break; 
+
+        };
+
+      };
+
+      break;
+
+    case "CPULSE":
+
+      presentPulseClr = getComputedStyle(document.documentElement).getPropertyValue('--pulseColour');
+
+      newCmd = prompt(`Please enter a SIX DIGIT HEX VALUE to determine the colour you'd like to change all wire lines to when binary signal is flowing through them.\n\nThe current Pulse Colour is: ${presentPulseClr}`);
+
+      document.documentElement.style.setProperty('--pulseColour', `${newCmd}`);
+
+      break;
+
+
+    case "SPULSE":
+
+      presentPulseSpd = getComputedStyle(document.documentElement).getPropertyValue('--pulseSpeed');
+
+      newCmd = prompt(`Please enter a FLOAT / DECIMAL VALUE to determine the speed at which all wire lines pulsate at when binary signal is flowing through them.\n\nThe current Pulse Speed is: ${presentPulseSpd}`)
+
+      document.documentElement.style.setProperty('--pulseSpeed', `${newCmd}`+'s');
+
+      break; 
+
+
+    case "WPULSE":
+
+      presentPulseWid = getComputedStyle(document.documentElement).getPropertyValue('--pulseWidth');
+
+      newCmd = prompt(`Please enter a FLOAT / DECIMAL VALUE to determine the width that all wire lines will appear as when binary signal is flowing through them.\n\nThe current Wire Line width is: ${presentPulseWid}`)
+
+      document.documentElement.style.setProperty('--pulseWidth', `${newCmd}`);
+
+      break;
+
+
+    case "TT":
+
+      presentToggleTransparency = getComputedStyle(document.documentElement).getPropertyValue('--toggleTransparency');
+
+      newCmd = prompt(`Please enter an opacity NUMBER VALUE between 1.0 (Fully Transparent) and 0.0 (Fully Solid) to determine the transparency of the Button Object hover assist toggle. \n\nCurrent toggle assist opacity value is: ${presentToggleTransparency}`)
+      
+      document.documentElement.style.setProperty('--toggleTransparency', `${newCmd}`);
+
+      break;
+
+    case "":
+
+      break;
+      
+    };
 
 };
 
 
 
+// *** SCRIPT 046 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
-//---------------------
-
-// window.addEventListener('beforeunload', function (e) {
-
-//     e.preventDefault(); 
-    
-
-//     e.returnValue = ''; 
-
-// });
-
-
-
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 047 *** -- Starts here 
+// The purpose of the below code is to... 
 
 
 
 function resetGlobalsToDefault(specificAddress, forceValue) {
 
-  if (specificAddress == null) {
+  if (specificAddress == null && forceValue == null) {
     simulate = false; 
     debugGuard = true; 
     viewPosX = 0; 
@@ -5324,17 +4724,12 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
     totalWires = 0; 
     connectionsInitialised = 0 + searchIndex;  
     importedFileType = null; 
-    speakerIdentifications = [
-      "/Media/Audio/speakerSong0.wav",
-      "",
-      ""
-    ]
     // songToPlay = speakerIdentifications[0];
     // speakerSound = new Audio(`${songToPlay}`);
     // speakerSound.loop = true;
     isSongPlayingStack = [];
 
-  } else if (specificAddress == null && forceValue == null) {
+  } else if (forceValue == null) {
 
     specificAddress = null; 
 
@@ -5347,7 +4742,43 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
 };
 
 
-//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+// *** SCRIPT 047 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 048 *** -- Starts here
+// The purpose of this code is to... 
+
+
+
+function wireLinePulsate(pathRef, pathState) {
+
+  if (abilityToPulsate == true) {
+
+    console.log(pathRef, pathState)
+
+    if (pathRef) {  // a guard to prevent errors 
+
+      if (pathState == true) {
+
+        pathRef.classList.add(`${pulseType}`);
+
+      } else {
+
+        pathRef.classList.remove(`${pulseType}`);
+
+      };
+
+    }; 
+
+  };
+
+};
+
+  //fetchAllLines = "";
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 

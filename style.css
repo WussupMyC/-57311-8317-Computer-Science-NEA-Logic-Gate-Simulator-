@@ -32,7 +32,28 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
 /* Web Element Styling Starts Here */ 
 
+:root{ /* stores a global ref for the js and html files to gain data from */
 
+    --enter: "/Media/Layout/toggleON.png";
+
+    --toggleHoverPointerOn: url("/Media/Layout/toggleON.png"), auto;
+
+    --toggleHoverPointerOff: url("Media/Layout/toggleOFF.png"), crosshair;
+
+
+    --currentHoverPointer: var(--toggleHoverPointerOn);
+
+
+    --toggleTransparency: 0.75; 
+
+
+    --pulseColour: #ff3300;
+
+    --pulseSpeed: 0.5s;
+
+    --pulseWidth: 7.5; 
+    
+}
 
 /* Web Element Styling Ends Here */ 
 
@@ -1203,19 +1224,150 @@ svg#WiredConnection {
 
   font-size: 10px;
 
-  cursor: url("/Media/Layout/hand.png");
-
   z-index: 10;          /* Ensure it stays on top of other elements */
+
+  cursor: var(--currentHoverPointer);
 
 }
 
 .UserInputAbility:hover {
 
+  cursor: var(--currentHoverPointer);
+
   background-color: #e0e0e0;
+
+  opacity: var(--toggleTransparency);
 
   color: black; 
 
 }
+
+
+@keyframes riverAnim {
+
+    to {
+
+        stroke-dashoffset: 20;
+
+    }
+
+}
+
+@keyframes hubbleAnim {
+
+    0% { stroke-width: 2; opacity: 0.6; }
+    50% { stroke-width: 5; opacity: 1; }
+    100% { stroke-width: 2; opacity: 0.6; }
+
+}
+
+@keyframes blinkAnim {
+  0% { stroke-dashoffset: 100%; opacity: 1; }
+  100% { stroke-dashoffset: 0%; opacity: 0; }
+}
+
+
+@keyframes dottedAnim {
+
+  from { stroke-dashoffset: -50; }
+
+  to { stroke-dashoffset: 0; }
+
+}
+
+
+@keyframes lavaFountainAnim {
+  0% { stroke: var(--pulseColour); filter: blur(0px); }
+  50% { stroke: #ff9900; filter: blur(1px); }
+  100% { stroke: var(--pulseColour); filter: blur(0px); }
+}
+
+
+@keyframes flowAnim {
+
+    to {
+        stroke-dashoffset: 20;
+    }
+    0% { stroke-width: 2; opacity: 0.6; }
+    50% { stroke-width: 5; opacity: 1; }
+    100% { stroke-width: 2; opacity: 0.6; }
+
+}
+
+
+.static {
+  stroke: var(--pulseColour); /* Bright Red for logic high */
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 0, 0; /* 5px dash, 5px gap */
+}
+
+
+.river {
+  stroke: var(--pulseColour); /* Bright Red for logic high */
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 10, 2.5; /* 5px dash, 5px gap */
+  animation: riverAnim var(--pulseSpeed) linear infinite;
+}
+
+
+.hubble {
+  stroke: var(--pulseColour); /* Bright Red for logic high */
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 7.5, 5; /* 5px dash, 5px gap */
+  animation: hubbleAnim var(--pulseSpeed) linear infinite;
+}
+
+
+.blink {
+  stroke: var(--pulseColour); /* Bright Red for logic high */
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 0, 0; /* 5px dash, 5px gap */
+  animation: blinkAnim var(--pulseSpeed) linear infinite;
+}
+
+
+.dotted {
+  stroke: var(--pulseColour); 
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 1, 48; /* One 2px dot followed by a 48px gap */
+  stroke-linecap: round;
+  animation: dottedAnim var(--pulseSpeed) linear infinite;
+}
+
+
+
+.signal {
+  stroke: var(--pulseColour); 
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 10, 5, 2, 5; /* Long dash (1), gap, short dash (0), gap */
+  animation: riverAnim var(--pulseSpeed) linear infinite; /* Reuse your existing 'flow' animation */
+}
+
+
+.fountain {
+
+  animation: lavaFountainAnim var(--pulseSpeed) ease-in-out infinite;
+  stroke-width: var(--pulseWidth);
+
+}
+
+
+
+.flow {
+  stroke: var(--pulseColour); /* Bright Red for logic high */
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 5, 5; /* 5px dash, 5px gap */
+  animation: flowAnim var(--pulseSpeed) linear infinite;
+}
+
+
+.invisible {
+  stroke: #ff000000; /* Bright Red for logic high */
+  stroke-width: var(--pulseWidth);
+  stroke-dasharray: 0, 0; /* 5px dash, 5px gap */
+}
+
+
 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
