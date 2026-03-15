@@ -61,6 +61,9 @@ simboardVersion = "FR 1.0.0";
 simulate = false; 
 
 
+debugGuard = true; // prevents console log from appearing 
+
+
 viewPosX = 0; 
 viewPosY = 0; 
 currentZoomValue = 1; 
@@ -80,7 +83,7 @@ cssConcatonates = [ // the references of objects that are actually set
   FileMenuButtonColour = document.getElementById('FileMenu').children,
   GridLineColour = "#000000",
   AxisXColour = "#CD5C5C",
-  AxisYColour = "#000982",
+  AxisYColour = "#4EB842",
 ];
 
 HEXValidator = null; 
@@ -96,7 +99,7 @@ tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94";
 tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
 tempStylesContainer.tempGridLineColour = "#000000"; 
 tempStylesContainer.tempAxisXColour = "#CD5C5C"; 
-tempStylesContainer.tempAxisYColour = "#000982";
+tempStylesContainer.tempAxisYColour = "#4EB842";
 
 //tempStylesContainer.tempy = 7; // debugging var!
 
@@ -176,17 +179,22 @@ speakerIdentifications = [
   "/Media/Audio/speakerSong1.mp3",
   "/Media/Audio/speakerSong2.mp3",
   "/Media/Audio/speakerSong3.mp3",
-  ""
+  "/Media/Audio/speakerSong4.mp3",
+  "/Media/Audio/chirp.mp3",
+  "/Media/Audio/mainsHum.mp3",
+  "/Media/Audio/nature.mp3",
+  "/Media/Audio/scream0.mp3",
+  "/Media/Audio/scream1.mp3",
+  "/Media/Audio/radio.mp3"
 ]
 
-songToPlay = speakerIdentifications[1];
+choiceOfSongByUser = 0; 
 
-console.log(songToPlay);
+// songToPlay = speakerIdentifications[0];
+
+//console.log(songToPlay);
 
 
-speakerSound = new Audio(`${songToPlay}`);
-
-speakerSound.loop = true;
 
 
 isSongPlayingStack = ["lambma"];
@@ -769,6 +777,154 @@ drawAxis(0, AxisYColour, AxisXColour) // This instruction initialises the drawAx
                                       // to stretch until it reaches the borders of the Workspace. 
 
 // ** SCRIPT 002 ** The function for the axis implementation ends here. 
+
+
+
+speakerSound_0  = new Audio(`${speakerIdentifications[0]}`);
+speakerSound_1  = new Audio(`${speakerIdentifications[1]}`);
+speakerSound_2  = new Audio(`${speakerIdentifications[2]}`);
+speakerSound_3  = new Audio(`${speakerIdentifications[3]}`);
+speakerSound_4  = new Audio(`${speakerIdentifications[4]}`);
+speakerSound_5  = new Audio(`${speakerIdentifications[5]}`);
+speakerSound_6  = new Audio(`${speakerIdentifications[6]}`);
+speakerSound_7  = new Audio(`${speakerIdentifications[7]}`);
+speakerSound_8  = new Audio(`${speakerIdentifications[8]}`);
+speakerSound_9  = new Audio(`${speakerIdentifications[9]}`);
+speakerSound_10 = new Audio(`${speakerIdentifications[10]}`);
+speakerSound_11 = new Audio(`${speakerIdentifications[11]}`);
+
+
+speakerSound_0.loop   = true;
+speakerSound_1.loop   = true;
+speakerSound_2.loop   = true;
+speakerSound_3.loop   = true;
+speakerSound_4.loop   = true;
+speakerSound_5.loop   = true;
+speakerSound_6.loop   = true;
+speakerSound_7.loop   = true;
+speakerSound_8.loop   = true;
+speakerSound_9.loop   = true;
+speakerSound_10.loop  = true;
+speakerSound_11.loop  = true;
+
+
+
+enabledSound = false; 
+
+
+function musicHandler(songToPlay) { // a global state audio system
+  
+  if (enabledSound == true) {
+
+    switch (songToPlay) {
+
+      case 0: 
+
+        console.log("Flow is going into sound 0")
+
+        speakerSound_0.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 1:
+
+        speakerSound_1.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+
+        break; 
+
+      case 2:
+
+        console.log("Flow is going into sound 2")
+
+        speakerSound_2.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));      
+
+        break; 
+
+      case 3:
+
+        speakerSound_3.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 4:
+
+        speakerSound_4.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 5:
+
+        speakerSound_5.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 6:
+
+        speakerSound_6.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 7:
+
+        speakerSound_7.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 8:
+
+        speakerSound_8.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 9:
+
+        speakerSound_9.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 10:
+
+        speakerSound_10.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+      case 11:
+
+        speakerSound_11.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
+
+        break; 
+
+    };
+
+  } else if (enabledSound == false) {  
+
+    speakerSound_0.pause();
+    speakerSound_1.pause();
+    speakerSound_2.pause();
+    speakerSound_3.pause();
+    speakerSound_4.pause();
+    speakerSound_5.pause();
+    speakerSound_6.pause();
+    speakerSound_7.pause();
+    speakerSound_8.pause();
+    speakerSound_9.pause();
+    speakerSound_10.pause();
+    speakerSound_11.pause();
+
+  } else {
+
+    console.warn("An error occured with the sound handler!");
+
+  }
+
+
+};
+
+
+
+
+
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -1927,7 +2083,7 @@ wireContainerReference.addEventListener('click', (event) => {
 
       presentObjects - 2; 
 
-      connectionsInitialised -= 1;
+      //connectionsInitialised -= 1;
       
 
       // cleanup
@@ -2681,6 +2837,16 @@ function getInvertedColour(hexValue) {
 
 
 
+// while (simulate == true) {
+
+//   console.log("Finding...")
+
+//   musicHandler(choiceOfSongByUser)
+
+// }
+
+
+
 
 
 
@@ -2701,16 +2867,16 @@ WorkspaceRef.addEventListener("dragover", (e) => {
 
   e.preventDefault();
 
-  console.log(rgbToHexadec(tempStyle))
+  //console.log(rgbToHexadec(tempStylesContainer.tempCanvasColour))
 
-  GridCanvasColour.style.backgroundColor = getInvertedColour(tempStyle);
+  GridCanvasColour.style.backgroundColor = getInvertedColour(tempStylesContainer.tempCanvasColour);
     // e.preventDefault();
     // console.log(tempStyle)
     // GridCanvasColour.style.backgroundColor = getInvertedColour(tempStyle); // Visual feedback
 });
 
 WorkspaceRef.addEventListener("dragleave", () => {
-    GridCanvasColour.style.backgroundColor = tempStyle; // Visual feedback
+    GridCanvasColour.style.backgroundColor = tempStylesContainer.tempCanvasColour; // Visual feedback
 });
 
 
@@ -2719,7 +2885,7 @@ WorkspaceRef.addEventListener("drop", (e) => {
 
     e.preventDefault();
 
-    GridCanvasColour.style.backgroundColor = tempStyle; // Visual feedback
+    GridCanvasColour.style.backgroundColor = tempStylesContainer.tempCanvasColour; // Visual feedback
 
     const file = e.dataTransfer.files[0]; 
 
@@ -3442,9 +3608,9 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
 
       indexOfLine = 0; 
 
-      updatedJsonSaveCircuit = jsonSaveWorkspace.filter(eachConn => eachConn !== null);
+      //updatedJsonSaveCircuit = jsonSaveWorkspace.filter(eachConn => eachConn !== null);
 
-      jsonSaveWorkspace = updatedJsonSaveCircuit; 
+      //jsonSaveWorkspace = updatedJsonSaveCircuit; 
       
       jsonSaveWorkspace.forEach(connecLayer =>{
 
@@ -3485,9 +3651,11 @@ function lineSolver(MODE /*lineRef, INPUTLOCX, INPUTLOCY, OUTPUTLOCX, OUTPUTLOCY
           lineToFind.setAttribute("d", figuredPath);
             
 
-          indexOfLine++; 
+        };
 
-        }
+        indexOfLine++; 
+
+        console.log("indexOfLine == ", indexOfLine)
 
 
 
@@ -3778,7 +3946,7 @@ engineLink.onclick= function() { // quality steps determine calculation depth.
 
   if (simulate != true) { 
 
-    customQualityStepsPrompt = prompt("Please enter an INTERGER NUMBER of quality steps that you would like the engine to handle in your circuit.\nThe higher the INTEGER, the more data will be retained throughout the boolean calculations.");
+    customQualityStepsPrompt = prompt("Please enter an INTERGER NUMBER of quality steps that you would like the engine to handle in your circuit.\n\nThe default Quality Steps Value is 9\n\n--WARNING --\nThe higher the INTEGER, the more data will be retained throughout the boolean calculations, hence leading to a possible reduction in performance!");
 
     customQualitySteps = Math.ceil(customQualityStepsPrompt); // prevents putting 0 etc 
 
@@ -3843,6 +4011,7 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
     };
 
 
+
   } else if (simulate == true) {
 
     simulate = false; 
@@ -3869,10 +4038,32 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 
     // })
 
-    speakerSound.pause()
+    speakerSound_0.pause();
+    speakerSound_1.pause();
+    speakerSound_2.pause();
+    speakerSound_3.pause();
+    speakerSound_4.pause();
+    speakerSound_5.pause();
+    speakerSound_6.pause();
+    speakerSound_7.pause();
+    speakerSound_8.pause();
+    speakerSound_9.pause();
+    speakerSound_10.pause();
+    speakerSound_11.pause();
+    
 
-    speakerSound.currentTime = 0;
-
+    speakerSound_0.currentTime = 0;
+    speakerSound_1.currentTime = 0;
+    speakerSound_2.currentTime = 0;
+    speakerSound_3.currentTime = 0;
+    speakerSound_4.currentTime = 0;
+    speakerSound_5.currentTime = 0;
+    speakerSound_6.currentTime = 0;
+    speakerSound_7.currentTime = 0;
+    speakerSound_8.currentTime = 0;
+    speakerSound_9.currentTime = 0;
+    speakerSound_10.currentTime = 0;
+    speakerSound_11.currentTime = 0;
 
   } else { 
 
@@ -4063,208 +4254,244 @@ filterMenuDebugRef.onclick= function() {
 // ---
 
 function discernBoolean() {
-    // 1. Create a calculation storage container 
-    const inputTracker = {}; 
 
+  updatedJsonView = jsonSaveWorkspace.filter(con => con !== null);
 
-    jsonSaveWorkspace.forEach(conn => {
+  updatedJsonView.forEach(connLayr => {
 
-        if (!conn) return;
+    connA = connLayr.CONNECTEDOBJECT_A;
+    connB = connLayr.CONNECTEDOBJECT_B; 
 
-        const sourceNode = conn.CONNECTEDOBJECT_A.parentNode;
-        const targetNode = conn.CONNECTEDOBJECT_B.parentNode; // error is something to do with this... 
-        const targetID = targetNode.id;
+    connAParentType = connA.parentNode.getAttribute("gatetype"); 
+    connBParentType = connB.parentNode.getAttribute("gatetype"); 
 
-        console.log("PN SouNod == ", sourceNode); 
+    connAParentIsOn = connA.parentNode.getAttribute("state")
+    connBParentIsOn = connB.parentNode.getAttribute("state")
 
-        console.log("PN TarNod == ", targetNode); 
-        
-        console.log("TARGET IDENTIFICATION == ", targetID);
+    if (connAParentIsOn == 1 || connBParentIsOn == 1) {
 
+      if (connAParentType == "Speaker" || connBParentType == "Speaker") {
 
-        if (!inputTracker[targetID]) {
+        enabledSound = true; 
 
-            inputTracker[targetID] = [];
+      } else {
 
-        }
+        enabledSound = false; 
 
+      };
 
-        const sourceState = parseInt(sourceNode.getAttribute("state"));
-        inputTracker[targetID].push(sourceState);
+    } else if (connAParentIsOn == 0 && connBParentIsOn == 0){ 
 
-    });
+        enabledSound = false; 
 
-  
-    for (const gateId in inputTracker) {
+    } else {
 
-        const gateNode = document.getElementById(gateId);
+      console.warn("An error occured with the sound handler!");
 
-        const type = gateNode.getAttribute("gatetype");
+    };
 
-        const inputs = inputTracker[gateId]; 
+  });
 
 
-        let finalState = 0;
 
+  musicHandler(choiceOfSongByUser); // because of these checks, the system lags a little bit 
 
 
-        if (type === "Lightbulb" || type === "OR") {
 
-          console.log("EITHER LIGHTBULB, SPEAKER OR THE OR GATE VISITED!");
 
-          finalState = inputs.includes(1) ? 1 : 0;
+  const inputTracker = {}; 
 
 
-        } else if (type == "Speaker") {
+  jsonSaveWorkspace.forEach(conn => {
 
-          console.log("SPEAKER HAS BEEN VISITED");
+      if (!conn) return;
 
-          finalState = inputs.includes(1) ? 1 : 0;
+      const sourceNode = conn.CONNECTEDOBJECT_A.parentNode;
+      const targetNode = conn.CONNECTEDOBJECT_B.parentNode; // error is something to do with this... 
+      const targetID = targetNode.id;
 
-          if (finalState == 1) {
+      console.log("PN SouNod == ", sourceNode); 
 
-            isSongPlayingStack.push(gateId);
+      console.log("PN TarNod == ", targetNode); 
+      
+      console.log("TARGET IDENTIFICATION == ", targetID);
 
-            playSpeakerSong()
 
-          } else {
+      if (!inputTracker[targetID]) {
 
-            isSongPlayingStack = isSongPlayingStack.filter(id => id !== gateId)
+          inputTracker[targetID] = [];
 
-            stopSpeakerSong()
+      }
 
-          };
 
-          //   if (!isSongPlayingStack.includes(gateId)) {
+      const sourceState = parseInt(sourceNode.getAttribute("state"));
+      inputTracker[targetID].push(sourceState);
 
-          //     isSongPlayingStack.push(gateId);
+  });
 
-          //   };
 
+  for (const gateId in inputTracker) {
 
-          // } else { 
+      const gateNode = document.getElementById(gateId);
 
-          //   isSongPlayingStack = isSongPlayingStack.filter(id => id !== gateId);
+      const type = gateNode.getAttribute("gatetype");
 
-          // };
+      const inputs = inputTracker[gateId]; 
 
 
-        } else if (type === "AND") {
+      let finalState = 0;
 
-          console.log("AND GATE VISITED!");
-            // AND Logic: ALL inputs must be 1 (and must have at least 1 input)
-            // const allInputsHigh = inputs.length >= 2 && inputs.every(val => val === 1);
-            // finalState = allInputsHigh ? 1 : 0;
 
-            const hasEnoughInputs = inputs.length >= 2;
-            const allInputsActive = inputs.every(val => val === "1" || val === 1);
 
-            finalState = (hasEnoughInputs && allInputsActive) ? 1 : 0;
+      if (type === "Lightbulb" || type === "OR") {
 
-            console.log("AND GATE IS RETURNING == ", finalState)
+        console.log("EITHER LIGHTBULB, SPEAKER OR THE OR GATE VISITED!");
 
-        } else if (type === "XOR") {
+        finalState = inputs.includes(1) ? 1 : 0;
 
 
-          const activeCount = inputs.filter(v => Number(v) === 1).length;
+      } else if (type == "Speaker") {
 
+        console.log("SPEAKER HAS BEEN VISITED");
 
-          finalState = (activeCount % 2 !== 0) ? 1 : 0;
+        finalState = inputs.includes(1) ? 1 : 0;
 
-          console.log(`XOR (${gateId}) found ${activeCount} active inputs. Returning: ${finalState}`);
+        // if (finalState == 1) {
+        //   enabledSound = true; 
+        // } else {
+        //   enabledSound = false; 
+        // };
 
-        } else if (type === "NOT") {
-          console.log("NOT GATE VISITED!")
+        //   if (!isSongPlayingStack.includes(gateId)) {
 
+        //     isSongPlayingStack.push(gateId);
 
-          const signal = inputs.includes(1) || inputs.includes("1") ? 1 : 0;
+        //   };
 
-          finalState = (signal === 0) ? 1 : 0; // FLIPS DA RESULT 
 
-          console.log("MULTI INPUT NOT GATE IS RETURNING == ", finalState)
+        // } else { 
 
-          // if (inputs.length === 1) {
+        //   isSongPlayingStack = isSongPlayingStack.filter(id => id !== gateId);
 
-          //     finalState = (inputs[0] === 1) ? 0 : 1;
+        // };
 
-          // } else {
 
-          //     finalState = 0; // Or keep its current state
+      } else if (type === "AND") {
 
-          // }
+        console.log("AND GATE VISITED!");
+          // AND Logic: ALL inputs must be 1 (and must have at least 1 input)
+          // const allInputsHigh = inputs.length >= 2 && inputs.every(val => val === 1);
+          // finalState = allInputsHigh ? 1 : 0;
 
-        } else {
+          const hasEnoughInputs = inputs.length >= 2;
+          const allInputsActive = inputs.every(val => val === "1" || val === 1);
 
-          console.log("CRITICAL MAJOR ERROR !!! LOGIC GATE BOOLEAN NOT CALCULATED")
+          finalState = (hasEnoughInputs && allInputsActive) ? 1 : 0;
 
-        }
+          console.log("AND GATE IS RETURNING == ", finalState)
 
+      } else if (type === "XOR") {
 
-        gateNode.setAttribute("state", finalState);
 
+        const activeCount = inputs.filter(v => Number(v) === 1).length;
 
 
-        const folder = finalState === 1 ? "ActivatedState" : "DeactivatedState";
+        finalState = (activeCount % 2 !== 0) ? 1 : 0;
 
-        const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
+        console.log(`XOR (${gateId}) found ${activeCount} active inputs. Returning: ${finalState}`);
 
+      } else if (type === "NOT") {
+        console.log("NOT GATE VISITED!")
 
-        const specSpeakerSuffix = finalState === 1 ? "_Activated.gif" : "_Deactivated.png"
 
-        //const specSpeakerSuffix1 = finalState === 1 ? "_Activated_txtre1.png" : "_Deactivated.png"
+        const signal = inputs.includes(1) || inputs.includes("1") ? 1 : 0;
 
+        finalState = (signal === 0) ? 1 : 0; // FLIPS DA RESULT 
 
+        console.log("MULTI INPUT NOT GATE IS RETURNING == ", finalState)
 
-        // .GIF FOR ACTIVATED
+        // if (inputs.length === 1) {
 
+        //     finalState = (inputs[0] === 1) ? 0 : 1;
 
-        if (type != "Speaker") {
-          if(gateNode.children[0].children[1]) {
+        // } else {
 
-              gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
-              
-          };
+        //     finalState = 0; // Or keep its current state
 
-        } else {
+        // }
 
-          if(gateNode.children[0].children[1]) {
+      } else {
 
-            gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${specSpeakerSuffix}`);
+        console.log("CRITICAL MAJOR ERROR !!! LOGIC GATE BOOLEAN NOT CALCULATED")
 
-          };
+      }
+
+
+      gateNode.setAttribute("state", finalState);
+
+
+
+      const folder = finalState === 1 ? "ActivatedState" : "DeactivatedState";
+
+      const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
+
+
+      const specSpeakerSuffix = finalState === 1 ? "_Activated.gif" : "_Deactivated.png"
+
+      //const specSpeakerSuffix1 = finalState === 1 ? "_Activated_txtre1.png" : "_Deactivated.png"
+
+
+
+      // .GIF FOR ACTIVATED
+
+
+      if (type != "Speaker") {
+        if(gateNode.children[0].children[1]) {
+
+            gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${suffix}`);
+            
+        };
+
+      } else {
+
+        if(gateNode.children[0].children[1]) {
+
+          gateNode.children[0].children[1].setAttribute("src", `/Media/${folder}/${type}${specSpeakerSuffix}`);
 
         };
 
-
-
-          // //if (finalState === 1) {
-
-          //   if(gateNode.children[0].children[1] && finalState === 1) {
+      };
 
 
 
-          //       //clearInterval(gateNode.objFrames)
+        // //if (finalState === 1) {
 
-
-          //     //gateNode.children[0].children[1].setAttribute("src", `${frameRate}`);
-
-          //   } else if (gateNode.children[0].children[1] && finalState === 0) {
+        //   if(gateNode.children[0].children[1] && finalState === 1) {
 
 
 
-          //   } else {
-
-          //     console.log("...")
-
-          //   };
-
-          //} else {
+        //       //clearInterval(gateNode.objFrames)
 
 
+        //     //gateNode.children[0].children[1].setAttribute("src", `${frameRate}`);
 
-            
+        //   } else if (gateNode.children[0].children[1] && finalState === 0) {
 
-          //};
+
+
+        //   } else {
+
+        //     console.log("...")
+
+        //   };
+
+        //} else {
+
+
+
+          
+
+        //};
 
 
 
@@ -4357,21 +4584,21 @@ function discernBoolean() {
 
 
 
-function playSpeakerSong() {
+// function playSpeakerSong() {
 
 
-  speakerSound.play().catch(anyError => console.log("User interaction required for audio")); // .play is a promise, use .catch to stop errors 
+//   speakerSound.play().catch(anyError => console.log("User interaction required for audio")); // .play is a promise, use .catch to stop errors 
 
 
 
  
-}
+// }
 
-function stopSpeakerSong() {
+// function stopSpeakerSong() {
 
-  speakerSound.pause();
+//   speakerSound.pause();
 
-}
+// }
 
 
 
@@ -4584,8 +4811,20 @@ window.addEventListener('keydown', e => {
 
         currentZoomValue += 0.25;
 
-        speakerSound.volume = Math.min(currentZoomValue / 2, 1);
-        console.log(speakerSound.volume)
+        speakerSound_0.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_1.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_2.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_3.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_4.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_5.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_6.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_7.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_8.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_9.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_10.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_11.volume = Math.min(currentZoomValue / 2, 1);
+
+        console.log(speakerSound_0.volume)
 
       } else {
 
@@ -4602,8 +4841,20 @@ window.addEventListener('keydown', e => {
 
         currentZoomValue -= 0.25;
 
-        speakerSound.volume = Math.min(currentZoomValue / 2, 1);
-        console.log(speakerSound.volume)
+        speakerSound_0.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_1.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_2.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_3.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_4.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_5.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_6.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_7.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_8.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_9.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_10.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_11.volume = Math.min(currentZoomValue / 2, 1);
+
+        console.log(speakerSound_0.volume)
 
       } else {
 
@@ -4646,7 +4897,16 @@ window.addEventListener('keydown', e => {
 
 
 
+
+
+
+
+
+
 //------------------------
+
+
+
 
 talkToSysButtonReference = document.getElementById("talkToSystem");
 
@@ -4673,6 +4933,10 @@ function talkToSystem(cmd) {
 
       break;
 
+
+
+
+
     case "BACKEND": 
 
       newCmd = prompt("The comprehensive list of variables and functions:\n\n\n-- Functions --\ndrawGrid(MODE, RGB_YAxis, RGB_XAxis) - Changes the colour of the axies on screen\n\n-- Variables --\nsimulate - A guard that stores a boolean value that determines the functionality of Simboard depending on if boolean math is being performed."); 
@@ -4680,6 +4944,10 @@ function talkToSystem(cmd) {
       talkToSystem(newCmd);
 
       break;
+
+
+
+
 
     case "HFR": // hard force reset 
 
@@ -4693,6 +4961,10 @@ function talkToSystem(cmd) {
 
       break;
 
+
+
+
+
     case "SFR": // soft force reset 
 
       guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
@@ -4704,6 +4976,10 @@ function talkToSystem(cmd) {
       };
 
       break;
+
+
+
+
 
     case "RSV": // reset specific value 
 
@@ -4718,6 +4994,10 @@ function talkToSystem(cmd) {
       };
 
       break;
+
+
+
+
 
     case "SSV": // set specific value 
 
@@ -4735,18 +5015,40 @@ function talkToSystem(cmd) {
 
       break; 
 
+
+
+
+
     case "ENTD": // enter debug mode 
+
+      debugGuard = false; 
+
+      alert("You can now swiftly access the developer console tools!")
+
       break; 
+
+
+
+
 
     case "EXTD": // exit debug mode 
+
+      debugGuard = true; 
+
+      alert("You have disabled the ability to swiftly access the developer console tools!")
+
       break; 
 
-    case "RPO":
+
+
+
+
+    case "ROP": // round object position 
 
       jsonSaveWorkspace.forEach(connLyr => {
 
-        sourceObjectA = connLyr.CONNECTEDOBJECT_A.getBoundingClientRect();
-        endObjectB = connLyr.CONNECTEDOBJECT_B.getBoundingClientRect(); 
+        sourceObjectA = connLyr.CONNECTEDOBJECT_A.parentNode.getBoundingClientRect();
+        endObjectB = connLyr.CONNECTEDOBJECT_B.parentNode.getBoundingClientRect(); 
 
         sourceObjectX = sourceObjectA.left;
         sourceObjectY = sourceObjectA.top; 
@@ -4770,25 +5072,93 @@ function talkToSystem(cmd) {
 
       break; 
 
+
+
+
     case "SSC": // screenshot circuit 
 
+      const circuitContainerRef = document.getElementById("Workspace");
+
+      newCmd = prompt("If you'd like to take a screenshot of the current view of your Simboard Circuit, please enter a name for your snapshot!\n\nIf you don't want to take a screenshot anymore, simply click CANCEL.")
+
+      if (newCmd != null) {
+
+        html2canvas(circuitContainerRef).then(canvas => {
+          
+          const image = canvas.toDataURL("image/png");
+
+          const link = document.createElement("a");
+
+          link.href = image;
+
+          link.download = `${newCmd}.png`; 
+          
+          link.click();
+          
+          console.log("Circuit screenshot downloaded successfully!");
+        });
+
+      } else {
+
+        alert("Screenshot process was cancelled!")
+      }
+
       break; 
+
+
+
 
     case "SSS": // screenshot entire simboard app 
 
+      const baseRef = document.getElementById("Base");
+
+      newCmd = prompt("If you'd like to take a screenshot of the the entire Simboard application, please enter a name for your snapshot!\n\nIf you don't want to take a screenshot anymore, simply click CANCEL.")
+
+      if (newCmd != null) {
+        
+        html2canvas(baseRef).then(canvas => {
+          
+          const image = canvas.toDataURL("image/png");
+
+          const link = document.createElement("a");
+
+          link.href = image;
+
+          link.download = `${newCmd}.png`; 
+          
+          link.click();
+          
+          console.log("Circuit screenshot downloaded successfully!");
+        });
+
+      } else {
+
+        alert("Screenshot process was cancelled!")
+      }
+
       break;
+
+
+
+
 
     case "RBC": // reset box click sets ioCheck to defaults ... 
 
+      hasFirstIOBeenSelected = false; 
+      hasSecondIOBeenSelected = false; 
+
       break; 
+
+
+
 
     case "CSS": 
 
-      newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae")
+      newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n\n-- Music --\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae\n4 - The Way You Are, by Agnetha Fältskog & Ola Håkansson\n\n-- Sounds --\n5 - Chirp\n6 - Mains Hum\n7 - Nature\n8 - Long Scream\n9 - Short Scream\n10 - Radio Garble")
 
-      if (newCmd > -1 && newCmd < 7) {
+      if (newCmd > -1 && newCmd < 12) {
 
-        songToPlay = speakerIdentifications[Math.floor(newCmd)];
+        choiceOfSongByUser = parseInt(newCmd);
 
       } else {
 
@@ -4797,7 +5167,68 @@ function talkToSystem(cmd) {
       };
 
       break;
-      
+
+
+
+
+
+    case "RWT": // reset workspace transform 
+
+      referenceOfWorkspace = document.getElementById("Workspace");
+
+      viewPosX = 0; 
+
+      viewPosY = 0; 
+
+      currentZoomValue = 1; 
+
+      referenceOfWorkspace.style.transform = `translate(${0}px, ${0}px) scale(${1})`;
+
+      break; 
+
+
+
+
+    case "VWT":
+
+      alert(`Your current position in the Workspace is:\n\n${viewPosX}, ${viewPosY}, ${currentZoomValue}\n\nWith ${viewPosX} value being your X position,\n${viewPosY} being your Y position\n& ${currentZoomValue} being your zoom.`)
+
+      break;
+
+
+
+
+
+    case "SWT":
+
+      referenceOfWorkspace = document.getElementById("Workspace");
+
+      newCmdX = prompt("Please tell Simboard the X - Co-Ordinate you want to teleport to on the Workspace:")
+
+      newCmdY = prompt("Please tell Simboard the Y - Co-Ordinate you want to teleport to on the Workspace:")
+
+      newCmdZoom = prompt("Please tell Simboard the scale you want to see the Workspace at:")
+
+
+      if (newCmdZoom > zoomInLimit && newCmdZoom < zoomOutLimit) {
+
+        viewPosX = newCmdX; 
+
+        viewPosY = newCmdY; 
+
+        currentZoomValue = newCmdZoom; 
+        
+        referenceOfWorkspace.style.transform = `translate(${newCmdX}px, ${newCmdY}px) scale(${newCmdZoom})`;
+
+      } else {
+
+        alert("You must enter a valid zoom value\n\n(Between 0.25 and 3)!");
+
+      }
+
+
+      break; 
+
   };
 
 };
@@ -4825,6 +5256,7 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
 
   if (specificAddress == null) {
     simulate = false; 
+    debugGuard = true; 
     viewPosX = 0; 
     viewPosY = 0; 
     currentZoomValue = 1; 
@@ -4853,7 +5285,7 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
     tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
     tempStylesContainer.tempGridLineColour = "#000000"; 
     tempStylesContainer.tempAxisXColour = "#CD5C5C"; 
-    tempStylesContainer.tempAxisYColour = "#000982";
+    tempStylesContainer.tempAxisYColour = "#4EB842";
     tempStylesContainerOverwrite = {}; 
     xLen = document.getElementById("GridCanvas").width;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
     yLen = document.getElementById("GridCanvas").height;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
@@ -4897,9 +5329,9 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
       "",
       ""
     ]
-    songToPlay = speakerIdentifications[0];
-    speakerSound = new Audio(`${songToPlay}`);
-    speakerSound.loop = true;
+    // songToPlay = speakerIdentifications[0];
+    // speakerSound = new Audio(`${songToPlay}`);
+    // speakerSound.loop = true;
     isSongPlayingStack = [];
 
   } else if (specificAddress == null && forceValue == null) {
