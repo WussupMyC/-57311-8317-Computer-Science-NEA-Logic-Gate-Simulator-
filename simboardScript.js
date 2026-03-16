@@ -1,4 +1,5 @@
 /*      Using JAVASCRIPT NODE.js Version ECMA v22.17.0       */ 
+/*      Using GIT Version v2.50.1       */ 
 
 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -29,25 +30,103 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
   GLOBAL VARIABLE DEFINITIONS 
 
-  SCRIPT 000  - DEBUG FUNCTIONS 
+  SCRIPT 000  - DEBUG FUNCTION 
 
-  SCRIPT 001  - GRID INITIALISATION FUNCTIONS 
+  SCRIPT 001  - UI LAYOUT CUSTOMISATION FUNCTION 
 
-  SCRIPT 002  - AXIS INITIALISATION FUNCTIONS 
+  SCRIPT 002  - GRID INITIALISATION FUNCTION 
 
-  SCRIPT 003  - OBJECT DELETION PROPERTY FUNCTIONS 
+  SCRIPT 003  - AXIS INITIALISATION FUNCTION 
 
-  SCRIPT 004  - CREATING THE LOGIC GATE INSTANCE FUNCTIONS 
+  SCRIPT 004  - MUSIC HANDLER FUNCTION 
 
-  SCRIPT 005  - LOGIC GATE INTERACTIVITY FUNCTIONS 
+  SCRIPT 005  - LOGIC GATE OBJECT MANUAL DELETION FUNCTION 
 
-  SCRIPT 006  - 
+  SCRIPT 006  - PREPARING EVENT HANDLERS FOR **SCRIPT 006**
 
-  SCRIPT 007  - 
+  SCRIPT 007  - SPAWNING THE LOGIC GATE INSTANCE INTO WORKSPACE FUNCTION 
 
-  SCRIPT 008  - 
+  SCRIPT 008  - LOGIC GATE OBJECT MANUAL SELECTION FUNCTION 
 
-  SCRIPT 009  - 
+  SCRIPT 009  - LOGIC GATE OBJECT SELECTION HIGHLIGHT REMOVER FUNCTION 
+
+  SCRIPT 010  - LOGIC GATE OBJECT DRAG INTERACTIVITY ACTIVATOR FUNCTION 
+
+  SCRIPT 011  - LOGIC GATE OBJECT DRAG POSITION AUTHENTICATOR FUNCTION 
+
+  SCRIPT 012  - LOGIC GATE OBJECT VISUAL DRAG ABILITY FUNCTION 
+
+  SCRIPT 013  - LOGIC GATE OBJECT DRAG INTERACTIVITY DE-ACTIVATOR FUNCTION 
+
+  SCRIPT 014  - BACKEND LOGIC GATE OBJECT CONNECTION INITIALISATION ON CLICK FUNCTION 
+
+  SCRIPT 015  - {{ REDUNDANT FUNCTION WITH NO USE }} CONNECTION LINE NORMALISATION FUNCTION 
+
+  SCRIPT 016  - FRONTEND VISUAL LOGIC GATE OBJECT CONNECTION INITIALISATION FUNCTION 
+
+  SCRIPT 017  - LOGIC GATE OBJECT CONNECTION DELETION FUNCTION 
+
+  SCRIPT 018  - WORKSPACE CIRCUIT CONNECTION DATA ORGANISOR FUNCTION 
+
+  SCRIPT 019  - SAVING PROCESS ON CLICK FUNCTION 
+
+  SCRIPT 020  - LOADING PROCESS ON CLICK FUNCTION 
+
+  SCRIPT 021  - START LOADING ANIMATION GIF PROCESS FUNCTION 
+
+  SCRIPT 022  - HALT LOADING ANIMATION GIF PROCESS FUNCTION 
+
+  SCRIPT 023  - DOWNLOAD BUILD DATA FUNCTION FUNCTION
+
+  SCRIPT 024  - MANUAL DATA SAVE PROCESS FUNCTION 
+
+  SCRIPT 025  - LOAD IMPORTED INTO TEMPORARY RESERVE FUNCTION 
+
+  SCRIPT 026  - CLEAR & WIPE WORKSPACE FROM ANY VISUAL & BACKEND CIRCUIT DATA FUNCTION 
+
+  SCRIPT 027  - RGB VALUE TO HEXADECIMAL VALUE CONVERTER FUNCTION 
+
+  SCRIPT 028  - COLOUR INVERTER FUNCTION 
+
+  SCRIPT 029  - LISTENER FOR DRAGGED FILE HOVERING OVER SIMBOARD FUNCTION 
+
+  SCRIPT 030  - LISTENER FOR DRAGGED FILE NOT HOVERING OVER SIMBOARD ANYMORE FUNCTION 
+
+  SCRIPT 031  - LISTENER FOR DRAGGED FILE DROPPED INTO SIMBOARD FUNCTION 
+
+  SCRIPT 032  - RESPAWNS LAYOUT OR CIRCUIT PROJECT DATA FUNCTION 
+
+  SCRIPT 033  - LINE SOLVER PROMPT ON CLICK FUNCTION 
+
+  SCRIPT 034  - LINE SOLVER MODES FOR CONNECTIONS FUNCTION 
+
+  SCRIPT 035  - 
+
+  SCRIPT 036  - 
+
+  SCRIPT 037  - 
+
+  SCRIPT 038  - 
+
+  SCRIPT 039  - 
+
+  SCRIPT 040  - 
+
+  SCRIPT 041  - 
+
+  SCRIPT 042  - 
+
+  SCRIPT 043  - 
+
+  SCRIPT 044  - 
+
+  SCRIPT 045  - 
+
+  SCRIPT 046  - 
+
+  SCRIPT 047  - 
+
+  SCRIPT 048  - 
 
 */
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -2195,7 +2274,7 @@ function stopLoadGif() {
 
 
 
-function download(content, fileName, contentType) {
+function downloadData(content, fileName, contentType) {
 
     var a = document.createElement("a");
 
@@ -2260,7 +2339,7 @@ function saveData(MODE, DATA) {
 
       console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
 
-      download(jsonPackage, filenamePrompt + '.json', 'text/plain');
+      downloadData(jsonPackage, filenamePrompt + '.json', 'text/plain');
 
       return; 
 
@@ -2293,7 +2372,7 @@ function saveData(MODE, DATA) {
 
       console.log("DATA THAT WILL BE SAVED:\n", jsonPackage);
 
-      download(jsonPackage, filenamePrompt + '.json', 'text/plain');
+      downloadData(jsonPackage, filenamePrompt + '.json', 'text/plain');
 
       return; 
 
@@ -2755,6 +2834,11 @@ function redrawImport(DATMOD) {
         jsonSaveWorkspaceOverwrite = [];
 
         fixVisuals(jsonSaveWorkspace); 
+
+        hasFirstIOBeenSelected = false; 
+        hasSecondIOBeenSelected = false; 
+        PREVIOUSIOSTACK = ["nullpointer"];
+        IOPOSITIONSTACK = [];
 
         console.log("IMPORTED CIRCUIT HAS BEEN REDRAWN!");
 
@@ -3228,17 +3312,17 @@ function lineSolver(MODE) {
 
 function generateRandHex() {
 
-  const letters = '0123456789ABCDEF';
+  symbolsToChooseFrom = '0123456789ABCDEF';
 
-  let color = '#';
+  colorHexa = '#';
 
   for (let i = 0; i < 6; i++) {
 
-      color += letters[Math.floor(Math.random() * 16)];
+      colorHexa += symbolsToChooseFrom[Math.floor(Math.random() * 16)];
 
   }
 
-  return color;
+  return colorHexa;
 
 };
 
@@ -3648,16 +3732,12 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 // The purpose of the below code is to... 
 
 
+nextActionIsToShow = true; // Stops the deletion of multiple objects // TODO
+
 
 filterMenuDebugRef = document.getElementById("FilterMenuActivator");
 
 filterMenuDebugRef.onclick= function() {
-
-  nextActionIsToShow = false; // Stops the deletion of multiple objects // TODO
-
-  decision = prompt("If you want to only see one category of object and hide all of the others, type 'INC' into the prompt below.\n\nIf you want to see every other category of objects except for one, type 'EXC' into the prompt below.\n\nIf you want to show all categories again, type 'SHOW' into the prompt below.\n\nIf you don't want to filter categories of objects from the Object Menu, either click the Cancel button or type in 'X' into the prompt below.");
-
-  decision = decision.toUpperCase();
 
 
   const objectMenuRef = document.getElementById("ObjectMenu");
@@ -3669,48 +3749,28 @@ filterMenuDebugRef.onclick= function() {
 
   if (nextActionIsToShow == true) {
 
+    decision = prompt("If you want to only see one category of object and hide all of the others, type 'INC' into the prompt below.\n\nIf you want to see every other category of objects except for one, type 'EXC' into the prompt below.\n\nIf you don't want to filter categories of objects from the Object Menu, either click the Cancel button or type in 'X' into the prompt below.");
+
+    decision = decision.toUpperCase();
+
+
     if (decision == "INC") {
 
-      nextActionIsToShow = true; 
+      nextDecision = Math.round(prompt("Please enter one of the many categories below that you just want to see in the Object Menu!\n\n0  -  Inputs\n1  -  GCSE Gates\n2  -  A-Level Gates\n3  -  Outputs\n\nOr, click Cancel or press ESC to abort the menu filtering process!"));
 
-      nextDecision = prompt("Please enter one of the many categories below that you just want to see in the Object Menu!\n\n  -  Inputs\n  -  GCSE Gates\n  -  A-Level Gates\n  -  Outputs");
+      if (nextDecision >= 0 && nextDecision <= 4) {
+        
+        switch (nextDecision) {
 
-      switch (nextDecision.toUpperCase()) {
+          case 0: // inputs
 
-        case "INPUTS":
+            nextActionIsToShow = false; 
 
-          contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => { 
 
-            console.log("elem == ", elemt) 
+              console.log("elem == ", elemt) 
 
-            if (elemt.id != "HoldButton") {
-
-              if (elemt.id != "FilterMenuActivator") {
-
-                  elemt.style.display = "none";
-
-              };
-
-            } else {
-
-              console.log("Skipped a part due to the safety guard lock!")
-          
-            };
-          
-          });
-
-          break; 
-
-
-        case "OUTPUTS":
-
-          contentsRef.forEach(elemt => { 
-
-            console.log("elem == ", elemt) 
-
-            if (elemt.id != "Lightbulb") {
-
-              if (elemt.id != "Speaker") {
+              if (elemt.id != "HoldButton") {
 
                 if (elemt.id != "FilterMenuActivator") {
 
@@ -3718,23 +3778,158 @@ filterMenuDebugRef.onclick= function() {
 
                 };
 
+              } else {
+
+                console.log("Skipped a part due to the safety guard lock!")
+            
               };
+            
+            });
 
-            } else {
+            break; 
 
-              console.log("Skipped a part due to the safety guard lock!")
-          
-            };
-          
-          });
 
-          break;
+          case 1: // gcse 
+
+            nextActionIsToShow = false; 
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id != "AND" || elemt.id != "OR" || elemt.id != "NOT") {
+
+                if (elemt.id != "FilterMenuActivator") {
+
+                    elemt.style.display = "none";
+
+                };
+
+              } else {
+
+                console.log("Skipped a part due to the safety guard lock!")
+            
+              };
+            
+            });
+
+            break; 
+
+          case 2: // alevel
+
+            nextActionIsToShow = false; 
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id != "XOR") {
+
+                if (elemt.id != "FilterMenuActivator") {
+
+                    elemt.style.display = "none";
+
+                };
+
+              } else {
+
+                console.log("Skipped a part due to the safety guard lock!")
+            
+              };
+            
+            });
+
+            break; 
+
+          case 3: // outputs 
+
+            nextActionIsToShow = false; 
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id != "Lightbulb" || elemt.id != "Speaker") {
+
+                if (elemt.id != "FilterMenuActivator") {
+
+                    elemt.style.display = "none";
+
+                };
+
+              } else {
+
+                console.log("Skipped a part due to the safety guard lock!")
+            
+              };
+            
+            });
+
+            break;
+
+        };
+
+      } else {
+
+        alert("Please enter a valid filtering mode. Please try again and input an INTEGER VALUE between or including 0 and 4.");
 
       };
 
     } else if (decision == "EXC") {
 
-    } else if (decision == "SHOW") {
+      nextDecision = Math.round(prompt("Please enter one of the many categories below that you just want to see in the Object Menu!\n\n0  -  Inputs\n1  -  GCSE Gates\n2  -  A-Level Gates\n3  -  Outputs\n\nOr, click Cancel or press ESC to abort the menu filtering process!"));
+
+      if (nextDecision >= 0 && nextDecision <= 4) {
+
+        switch (nextDecision) {
+
+          case 0:
+
+            nextActionIsToShow = false; 
+
+            break; 
+
+          case 1:
+
+            nextActionIsToShow = false; 
+
+            break; 
+
+          case 2: 
+
+            nextActionIsToShow = false; 
+
+            break; 
+
+          case 3:
+
+            nextActionIsToShow = false; 
+
+            break; 
+
+        };
+
+      } else {
+
+        alert("Please enter a valid filtering mode. Please try again and input an INTEGER VALUE between or including 0 and 4.");
+
+      };
+
+    } else {
+
+      console.warn("There was an error with the filtering mode!");
+
+      alert("Please enter a valid filtering mode. Please try again and input either 'INC' or 'EXC' into the prompt.");
+
+    };
+
+  } else {
+
+    decision = confirm("Do you want to show all items, if so, click OK or press 'ENTER'.\n\nIf you'd like to keep your Object Menu filtered, click Cancel or press 'ESC'.");
+
+    if (decision == true) {
+
+      nextActionIsToShow = true; 
 
       contentsRef.forEach(elemt => {
 
@@ -3744,7 +3939,7 @@ filterMenuDebugRef.onclick= function() {
 
     } else {
 
-      console.log("There was an error!");
+      alert("The filtering reset process was cancelled!");
 
     };
 
@@ -4072,13 +4267,13 @@ window.addEventListener('keydown', e => {
         speakerSound_10.volume = Math.min(currentZoomValue / 2, 1);
         speakerSound_11.volume = Math.min(currentZoomValue / 2, 1);
 
-        console.log(speakerSound_0.volume)
+        console.log(speakerSound_0.volume);
 
       } else {
 
-        console.log("You have zoomed in as far as possible!")
+        console.log("You have zoomed in as far as possible!");
 
-      }
+      };
       
       break; 
 
@@ -4102,13 +4297,13 @@ window.addEventListener('keydown', e => {
         speakerSound_10.volume = Math.min(currentZoomValue / 2, 1);
         speakerSound_11.volume = Math.min(currentZoomValue / 2, 1);
 
-        console.log(speakerSound_0.volume)
+        console.log(speakerSound_0.volume);
 
       } else {
 
-        console.log("You have zoomed out as far as possible!")
+        console.log("You have zoomed out as far as possible!");
         
-      }
+      };
 
       break;
 
@@ -4213,11 +4408,11 @@ function talkToSystem(cmd) {
 
     case "SFR": // soft force reset 
 
-      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
+      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.");
 
       if (guard == true) {
 
-        resetGlobalsToDefault(null, null) // resets everything 
+        resetGlobalsToDefault(null, null); // resets everything 
 
       };
 
@@ -4231,7 +4426,7 @@ function talkToSystem(cmd) {
 
       newCmd = prompt("Please enter the variable, container or function (keeping Case-Sensitivity in mind) you'd like to reset its to default value: ");
 
-      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
+      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.");
 
       if (guard == true) {
 
@@ -4251,7 +4446,7 @@ function talkToSystem(cmd) {
 
       newCmdDat = prompt("Please enter the data, container or function (keeping Case-Sensitivity in mind) you'd like to set: ");
 
-      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.") ;
+      guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.");
 
       if (guard == true) {
 
@@ -4263,17 +4458,13 @@ function talkToSystem(cmd) {
 
 
 
-
-
     case "ENTD": // enter debug mode 
 
       debugGuard = false; 
 
-      alert("You can now swiftly access the developer console tools!")
+      alert("You can now swiftly access the developer console tools!");
 
       break; 
-
-
 
 
 
@@ -4281,11 +4472,9 @@ function talkToSystem(cmd) {
 
       debugGuard = true; 
 
-      alert("You have disabled the ability to swiftly access the developer console tools!")
+      alert("You have disabled the ability to swiftly access the developer console tools!");
 
       break; 
-
-
 
 
 
@@ -4325,7 +4514,7 @@ function talkToSystem(cmd) {
 
       const circuitContainerRef = document.getElementById("Workspace");
 
-      newCmd = prompt("If you'd like to take a screenshot of the current view of your Simboard Circuit, please enter a name for your snapshot!\n\nIf you don't want to take a screenshot anymore, simply click CANCEL.")
+      newCmd = prompt("If you'd like to take a screenshot of the current view of your Simboard Circuit, please enter a name for your snapshot!\n\nIf you don't want to take a screenshot anymore, simply click CANCEL.");
 
       if (newCmd != null) {
 
@@ -4342,12 +4531,14 @@ function talkToSystem(cmd) {
           link.click();
           
           console.log("Circuit screenshot downloaded successfully!");
+
         });
 
       } else {
 
-        alert("Screenshot process was cancelled!")
-      }
+        alert("Screenshot process was cancelled!");
+
+      };
 
       break; 
 
@@ -4358,7 +4549,7 @@ function talkToSystem(cmd) {
 
       const baseRef = document.getElementById("Base");
 
-      newCmd = prompt("If you'd like to take a screenshot of the the entire Simboard application, please enter a name for your snapshot!\n\nIf you don't want to take a screenshot anymore, simply click CANCEL.")
+      newCmd = prompt("If you'd like to take a screenshot of the the entire Simboard application, please enter a name for your snapshot!\n\nIf you don't want to take a screenshot anymore, simply click CANCEL.");
 
       if (newCmd != null) {
         
@@ -4379,8 +4570,9 @@ function talkToSystem(cmd) {
 
       } else {
 
-        alert("Screenshot process was cancelled!")
-      }
+        alert("Screenshot process was cancelled!");
+
+      };
 
       break;
 
@@ -4388,6 +4580,8 @@ function talkToSystem(cmd) {
 
 
     case "RBC": // reset box click sets ioCheck to defaults ... 
+
+      guard = prompt("Activating this command may severely break your current circuit by confusing the connection processes.\n\nOnly click OK if ")
 
       hasFirstIOBeenSelected = false; 
       hasSecondIOBeenSelected = false; 
@@ -4400,7 +4594,7 @@ function talkToSystem(cmd) {
 
       if (simulate != true) {
 
-        newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n\n-- Music --\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae\n4 - The Way You Are, by Agnetha Fältskog & Ola Håkansson\n\n-- Sounds --\n5 - Chirp\n6 - Mains Hum\n7 - Nature\n8 - Long Scream\n9 - Short Scream\n10 - Radio Garble")
+        newCmd = prompt("Please enter a number value to determine the song that you want the speaker objects to play:\n\n\n-- Music --\n0 - Bronze, by Luxury Elite\n1 - Ocean Panorama, by Late Arcane\n2 - Green Light, by Midnight Premier\n3 - My Kind Of Lady, by 318tae\n4 - The Way You Are, by Agnetha Fältskog & Ola Håkansson\n\n-- Sounds --\n5 - Chirp\n6 - Mains Hum\n7 - Nature\n8 - Long Scream\n9 - Short Scream\n10 - Radio Garble");
 
         if (newCmd > -1 && newCmd < 12) {
 
@@ -4411,11 +4605,12 @@ function talkToSystem(cmd) {
           alert("Speaker Mode not found! Please try again.");
 
         };
+
       } else { 
 
         alert("You must pause your circuit simulation before changing the song that your speaker objects can play!");
 
-      }
+      };
 
       break;
 
@@ -4454,11 +4649,11 @@ function talkToSystem(cmd) {
 
       referenceOfWorkspace = document.getElementById("Workspace");
 
-      newCmdX = prompt("Please tell Simboard the X - Co-Ordinate you want to teleport to on the Workspace:")
+      newCmdX = prompt("Please tell Simboard the X - Co-Ordinate you want to teleport to on the Workspace: ");
 
-      newCmdY = prompt("Please tell Simboard the Y - Co-Ordinate you want to teleport to on the Workspace:")
+      newCmdY = prompt("Please tell Simboard the Y - Co-Ordinate you want to teleport to on the Workspace: ");
 
-      newCmdZoom = prompt("Please tell Simboard the scale you want to see the Workspace at:")
+      newCmdZoom = prompt("Please tell Simboard the scale you want to see the Workspace at :");
 
 
       if (newCmdZoom > zoomInLimit && newCmdZoom < zoomOutLimit) {
@@ -4492,7 +4687,7 @@ function talkToSystem(cmd) {
 
       console.log("CSS Concatonates == ", cssConcatonates);
 
-      console.log("UNIQUOR == ", connectionSet)
+      console.log("UNIQUOR == ", connectionSet);
 
       break; 
 
@@ -4514,6 +4709,11 @@ function talkToSystem(cmd) {
 
         clearWorkspace();
 
+        hasFirstIOBeenSelected = false;
+        hasSecondIOBeenSelected = false;
+        PREVIOUSIOSTACK = ["nullpointer"];
+        IOPOSITIONSTACK = [];
+
       } else {
 
         alert("Clear Workspace process was prevented.");
@@ -4526,11 +4726,13 @@ function talkToSystem(cmd) {
 
       if (simulate != true) {
 
-        newCmd = prompt("If you'd like to change how the wires 'pulse' (look) when binary signal is flowing through them, enter an INTEGER VALUE to determine the pulse mode in the prompt below:\n\n-- Pulse Types --\n0 - Static\n1 - River\n2 - Hubble\n3 - Blink\n4 - Dotted\n5 - Signal\n6 - Fountain\n7 - Flow\n8 - Invisible\n\n");
+        newCmd = prompt("If you'd like to change how the wires 'pulse' (look) when binary signal is flowing through them, enter an INTEGER VALUE to determine the pulse mode in the prompt below:\n\nThe default pulse mode is: River\n\n-- Pulse Types --\n0 - Static\n1 - River\n2 - Hubble\n3 - Blink\n4 - Dotted\n5 - Signal\n6 - Fountain\n7 - Flow\n8 - Invisible\n9 - Disabled\n\n");
 
         switch (parseInt(newCmd)){
 
           case 0:
+
+            abilityToPulsate = true; 
 
             pulseType = "static";
 
@@ -4538,11 +4740,15 @@ function talkToSystem(cmd) {
 
           case 1:
 
+            abilityToPulsate = true; 
+
             pulseType = "river";
 
             break; 
 
           case 2: 
+
+            abilityToPulsate = true; 
 
             pulseType = "hubble";
 
@@ -4550,37 +4756,55 @@ function talkToSystem(cmd) {
 
           case 3:
 
+            abilityToPulsate = true; 
+
             pulseType = "blink";
 
             break; 
 
           case 4:
-            
+
+            abilityToPulsate = true; 
+
             pulseType = "dotted";
 
             break; 
 
           case 5:
-            
+
+            abilityToPulsate = true;   
+
             pulseType = "signal";
 
             break; 
 
           case 6:
-            
+
+            abilityToPulsate = true;   
+
             pulseType = "fountain";
 
             break; 
 
           case 7: 
-          
+
+            abilityToPulsate = true;        
+
             pulseType = "flow";
 
             break; 
 
-          case 8: 
-          
+          case 8:
+
+            abilityToPulsate = true;     
+
             pulseType = "invisible";
+
+            break; 
+
+          case 9: 
+
+            abilityToPulsate = false; 
 
             break; 
 
@@ -4594,9 +4818,18 @@ function talkToSystem(cmd) {
 
       presentPulseClr = getComputedStyle(document.documentElement).getPropertyValue('--pulseColour');
 
-      newCmd = prompt(`Please enter a SIX DIGIT HEX VALUE to determine the colour you'd like to change all wire lines to when binary signal is flowing through them.\n\nThe current Pulse Colour is: ${presentPulseClr}`);
+      newCmd = prompt(`Please enter a SIX DIGIT HEX VALUE to determine the colour you'd like to change all wire lines to when binary signal is flowing through them.\n\nThe default pulse colour is: #FF3300\n\nThe current Pulse Colour is: ${presentPulseClr}`);
 
-      document.documentElement.style.setProperty('--pulseColour', `${newCmd}`);
+
+      if (newCmd[0] == "#") {
+
+        document.documentElement.style.setProperty('--pulseColour', `${newCmd}`);
+
+      } else {
+
+        alert("You must enter a valid HEX Value. Please try again!");
+
+      };
 
       break;
 
@@ -4605,9 +4838,17 @@ function talkToSystem(cmd) {
 
       presentPulseSpd = getComputedStyle(document.documentElement).getPropertyValue('--pulseSpeed');
 
-      newCmd = prompt(`Please enter a FLOAT / DECIMAL VALUE to determine the speed at which all wire lines pulsate at when binary signal is flowing through them.\n\nThe current Pulse Speed is: ${presentPulseSpd}`)
+      newCmd = prompt(`Please enter a FLOAT / DECIMAL VALUE to determine the speed at which all wire lines pulsate at when binary signal is flowing through them.\n\nThe default pulse colour is: 5.0\n\nThe current Pulse Speed is: ${presentPulseSpd}`)
 
-      document.documentElement.style.setProperty('--pulseSpeed', `${newCmd}`+'s');
+      if (newCmd >= 0) {
+
+        document.documentElement.style.setProperty('--pulseSpeed', `${newCmd}`+'s');
+
+      } else {
+
+        alert("You must enter a valid FLOAT / DECIMAL Value. Please try again!");
+
+      };
 
       break; 
 
@@ -4616,9 +4857,17 @@ function talkToSystem(cmd) {
 
       presentPulseWid = getComputedStyle(document.documentElement).getPropertyValue('--pulseWidth');
 
-      newCmd = prompt(`Please enter a FLOAT / DECIMAL VALUE to determine the width that all wire lines will appear as when binary signal is flowing through them.\n\nThe current Wire Line width is: ${presentPulseWid}`)
+      newCmd = prompt(`Please enter a FLOAT / DECIMAL VALUE to determine the width that all wire lines will appear as when binary signal is flowing through them.\n\nThe default pulse width is: 7.5\n\nThe current pulse width is: ${presentPulseWid}`)
 
-      document.documentElement.style.setProperty('--pulseWidth', `${newCmd}`);
+      if (newCmd >= 0) {
+
+        document.documentElement.style.setProperty('--pulseWidth', `${newCmd}`);
+
+      } else {
+
+        alert("You must enter a valid FLOAT / DECIMAL Value. Please try again!");
+
+      };
 
       break;
 
@@ -4674,6 +4923,7 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
       AxisXColour = "#CD5C5C",
       AxisYColour = "#000982",
     ];
+    
     HEXValidator = null; 
     tempStylesContainer = {};  // holder of ui style setter values incase it needs to be used again 
                               // changed tempStylesContainer from an Array to a POJO (plain old javascript object)!
@@ -4756,7 +5006,7 @@ function wireLinePulsate(pathRef, pathState) {
 
   if (abilityToPulsate == true) {
 
-    console.log(pathRef, pathState)
+    console.log(pathRef, pathState);
 
     if (pathRef) {  // a guard to prevent errors 
 
@@ -4776,8 +5026,9 @@ function wireLinePulsate(pathRef, pathState) {
 
 };
 
-  //fetchAllLines = "";
 
+
+// *** SCRIPT 048 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
