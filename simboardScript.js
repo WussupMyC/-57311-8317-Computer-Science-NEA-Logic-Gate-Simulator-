@@ -138,6 +138,7 @@ simboardVersion = "FR 1.0.0";
 
 simulate = false; 
 
+refreshGuard = true; 
 
 debugGuard = true; // prevents console log from appearing 
 
@@ -3162,6 +3163,7 @@ function lineSolver(MODE) {
 
       indexOfLine = 0; 
 
+      //cleanedWorkspaceSave = jsonSaveWorkspace.filter(conLayr => conLayr !== null);
 
       jsonSaveWorkspace.forEach(connecLayer =>{
 
@@ -3230,7 +3232,8 @@ function lineSolver(MODE) {
 
       alert("Line Solver Type 4 cannot accurately solve the transforms of each line when you are zoomed in / out.\n\nPlease zoom back in to the default scale to activate this Line Solver!\n\nVisit the 'Workspace Data' panel in the Object Menu to see your current zoom scale.")
       console.warn("Line Solver Type 4 cannot accurately solve the transforms of each line when you are zoomed in / out.\n\nPlease zoom back in to the default scale to activate this Line Solver!\n\nVisit the 'Workspace Data' panel in the Object Menu to see your current zoom scale.")
-    }
+
+    };
 
 
   } else if (MODE == 5) { // option of making all wires black, custom colour, or random colour 
@@ -3797,11 +3800,19 @@ filterMenuDebugRef.onclick= function() {
 
               console.log("elem == ", elemt) 
 
-              if (elemt.id != "AND" || elemt.id != "OR" || elemt.id != "NOT") {
+              if (elemt.id != "AND") {
 
-                if (elemt.id != "FilterMenuActivator") {
+                if (elemt.id != "OR") {
 
-                    elemt.style.display = "none";
+                  if (elemt.id != "NOT") {
+
+                    if (elemt.id != "FilterMenuActivator") {
+
+                      elemt.style.display = "none";
+
+                    };
+
+                  };
 
                 };
 
@@ -3849,12 +3860,16 @@ filterMenuDebugRef.onclick= function() {
 
               console.log("elem == ", elemt) 
 
-              if (elemt.id != "Lightbulb" || elemt.id != "Speaker") {
+              if (elemt.id != "Lightbulb") {
 
-                if (elemt.id != "FilterMenuActivator") {
+                if (elemt.id != "Speaker") {
 
-                    elemt.style.display = "none";
+                  if (elemt.id != "FilterMenuActivator") {
 
+                      elemt.style.display = "none";
+
+                  };
+                  
                 };
 
               } else {
@@ -3887,23 +3902,119 @@ filterMenuDebugRef.onclick= function() {
 
             nextActionIsToShow = false; 
 
+            contentsRef.forEach(ele => { 
+
+              ele.style.display = "block";
+
+            });
+
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id == "HoldButton"){
+
+                elemt.style.display = "none"; 
+
+              };
+            
+            });
+
             break; 
 
           case 1:
 
             nextActionIsToShow = false; 
 
+            contentsRef.forEach(ele => { 
+
+              ele.style.display = "block";
+
+            });
+
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id == "AND"){
+
+                elemt.style.display = "none"; 
+
+              };
+
+              if (elemt.id == "OR"){
+
+                elemt.style.display = "none"; 
+
+              };
+
+              if (elemt.id == "NOT"){
+
+                elemt.style.display = "none"; 
+
+              };
+            
+            });
+
             break; 
+
 
           case 2: 
 
             nextActionIsToShow = false; 
 
+            contentsRef.forEach(ele => { 
+
+              ele.style.display = "block";
+
+            });
+
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id == "XOR"){
+
+                elemt.style.display = "none"; 
+
+              };
+
+            });
+
             break; 
+
 
           case 3:
 
             nextActionIsToShow = false; 
+
+            contentsRef.forEach(ele => { 
+
+              ele.style.display = "block";
+
+            });
+
+
+            contentsRef.forEach(elemt => { 
+
+              console.log("elem == ", elemt) 
+
+              if (elemt.id == "Lightbulb"){
+
+                elemt.style.display = "none"; 
+
+              };
+
+              if (elemt.id == "Speaker"){
+
+                elemt.style.display = "none"; 
+
+              };
+            
+            });
 
             break; 
 
@@ -4361,33 +4472,38 @@ talkToSysButtonReference.onclick= function(){
 
 function talkToSystem(cmd) {
 
-  insertedCmd = prompt("QUICK INPUT: Please enter a command to talk to Simboard and control it\n\nEnter the command 'MENU' to see the list of commands to use:\nEnter the command 'BACKEND' to see the list of variables or functions that can be used with commands.");
+  if (cmd != null){ 
+
+    insertedCmd = cmd; 
+
+  } else {
+
+    insertedCmd = prompt("QUICK INPUT: Please enter a command to talk to Simboard and control it\n\nEnter the command 'MENU' to see the list of commands to use:\nEnter the command 'BACKEND' to see the list of variables or functions that can be used with commands.");
+
+  };
+
 
 
   switch (insertedCmd.toUpperCase()){
 
     case "MENU": 
       
-      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nFR - Force Refresh Simboard\n\n-- Regular Commands --\nMENU - View all commands\nBACKEND - View all variables and functions\nHYA - Hide Y-Axis\nHXA - Hide X-Axis\nHG - Hide Grid\nSYA - Show Y-Axis\nSXA - Show X-Axis\nSG - Show Grid\n");
+      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nFR - Force Refresh Simboard\nARG - Allow Refresh Guard\nSRG - Stop Refresh Guard\nADG - Allow Debug Guard\nSDG - Stop Debug Guard\nDDV - Display Debug Values (for Developers)\n\n-- Regular Commands --\nMENU - View all commands\nBACKEND - View all variables and functions\nHGAA - Hide Grid & Axies\nHAO - Hide Axies Only\nHGO - Hide Grid Only\nSGAA - Show Grid & Axies\nSGO - Show Grid Only\nSAO - Show Axis Only\n\nInput 'MORE' to see more commands!");
 
-      talkToSystem(newCmd);
+      if (newCmd.toUpperCase() == "MORE") {
 
-      break;
+        talkToSystem("MORE");
 
-
-
-
-
-    case "BACKEND": 
-
-      newCmd = prompt("The comprehensive list of variables and functions:\n\n\n-- Functions --\ndrawGrid(MODE, RGB_YAxis, RGB_XAxis) - Changes the colour of the axies on screen\n\n-- Variables --\nsimulate - A guard that stores a boolean value that determines the functionality of Simboard depending on if boolean math is being performed."); 
-
-      talkToSystem(newCmd);
+      }; 
 
       break;
 
 
+    case "MORE":
 
+      newCmd = prompt("RSV - Reset Specific Value (for Developers)\nSSC - Screenshot Circuit\nSSS - Screenshot entire Simboard App\nRBC - Reset Box Click\nCSS - Change Speaker Song\nRWT - Reset Workspace Transform\nVWT - View Workspace Transform\nSWT - Set Workspace Transform\nTAN - Toggle All NOT Logic Gates\nCW - Clear Workspace\nTPULSE - Toggle Pulse Type\nCPULSE - Toggle Pulse Colour\nSPULSE - Toggle Pulse Speed\nWPULSE - Toggle Pulse Width\nTT - Change Toggle Aid Transparency");
+
+      break; 
 
 
     case "HFR": // hard force reset 
@@ -4420,6 +4536,50 @@ function talkToSystem(cmd) {
 
 
 
+    case "HAO":
+
+      drawAxis(1, null, null)
+
+      drawGrid(0, tempStylesContainer.tempGridLineColour)
+
+      break;
+
+    case "HGO":
+
+      drawGrid(1, null)
+
+      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour)
+
+      break; 
+
+    case "HGAA":
+
+      drawAxis(1, null, null)
+
+      drawGrid(1, null)
+
+      break; 
+
+    case "SGAA":
+
+      drawGrid(0, tempStylesContainer.tempGridLineColour)
+
+      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour)
+
+      break; 
+
+    case "SA":
+
+      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour)
+
+      break; 
+
+    case "SG":
+
+      drawGrid(0, tempStylesContainer.tempGridLineColour)
+
+      break; 
+
 
 
     case "RSV": // reset specific value 
@@ -4437,6 +4597,19 @@ function talkToSystem(cmd) {
       break;
 
 
+
+    case "SRH": // stop refresh halter 
+
+      refreshGuard = false; 
+
+      break; 
+
+
+    case "ARH": 
+
+      refreshGuard = true;
+
+      break; 
 
 
 
@@ -4458,9 +4631,9 @@ function talkToSystem(cmd) {
 
 
 
-    case "ENTD": // enter debug mode 
+    case "ADG": // allow debug guard 
 
-      debugGuard = false; 
+      debugGuard = true; 
 
       alert("You can now swiftly access the developer console tools!");
 
@@ -4468,9 +4641,9 @@ function talkToSystem(cmd) {
 
 
 
-    case "EXTD": // exit debug mode 
+    case "SDG": // halt debug guard
 
-      debugGuard = true; 
+      debugGuard = false; 
 
       alert("You have disabled the ability to swiftly access the developer console tools!");
 
@@ -4478,30 +4651,24 @@ function talkToSystem(cmd) {
 
 
 
-    case "ROP": // round object position 
+    case "MOP": // round object position 
 
-      jsonSaveWorkspace.forEach(connLyr => {
+      movePosserX = prompt("How many pixels do you want to move all Logic Gate objects to the left by?\n\nRecommended value: 5\n\nUse POSITIVE INTEGERS to move all objects to the right\nUse NEGATIVE INTEGERS to move all objects to the left.");
 
-        sourceObjectA = connLyr.CONNECTEDOBJECT_A.parentNode.getBoundingClientRect();
-        endObjectB = connLyr.CONNECTEDOBJECT_B.parentNode.getBoundingClientRect(); 
+      movePosserY = prompt("How many pixels do you want to move all Logic Gate objects to the left by?\n\nRecommended value: 5\n\nUse POSITIVE INTEGERS to move all objects north\nUse NEGATIVE INTEGERS to move all objects south.");
 
-        sourceObjectX = sourceObjectA.left;
-        sourceObjectY = sourceObjectA.top; 
 
-        endObjectX = endObjectB.left;
-        endObjectY = endObjectB.top; 
+      allGates = document.querySelectorAll('div[tag^="interactableObject"]')
 
-        roundedSourceX = Math.ceil(sourceObjectX / 10) * 10;
-        roundedSourceY = Math.ceil(sourceObjectY / 10) * 10;
-        roundedEndX = Math.ceil(endObjectX / 10) * 10;
-        roundedEndY = Math.ceil(endObjectY / 10) * 10;
+      allGates.forEach(connLyr => {
 
-        console.log("Rounded to", roundedSourceX, roundedSourceY, roundedEndX, roundedEndY)
+        target = connLyr.getBoundingClientRect();
 
-        sourceObjectA.left = roundedSourceX;
-        sourceObjectA.top = roundedSourceY;
-        endObjectB.left = roundedEndX;
-        endObjectB.top = roundedEndY;
+        roundedTargetX = Math.ceil(target.left / movePosserX);
+        roundedTargetY = Math.ceil(target.top / movePosserY);
+
+        connLyr.style.left = roundedTargetX + "px";
+        connLyr.style.top = roundedTargetY + "px";
 
       });
 
@@ -4640,8 +4807,6 @@ function talkToSystem(cmd) {
       alert(`Your current position in the Workspace is:\n\n${viewPosX}, ${viewPosY}, ${currentZoomValue}\n\nWith ${viewPosX} value being your X position,\n${viewPosY} being your Y position\n& ${currentZoomValue} being your zoom.`)
 
       break;
-
-
 
 
 
@@ -5029,6 +5194,49 @@ function wireLinePulsate(pathRef, pathState) {
 
 
 // *** SCRIPT 048 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 049 *** -- Starts here
+// The purpose of this code is to... 
+
+
+
+window.addEventListener('beforeunload', function (e) {
+
+  if (refreshGuard == false) {
+
+    e.preventDefault(); 
+    
+    e.returnValue = ''; 
+
+  }
+
+});
+
+
+// *** SCRIPT 049 *** -- Ends here 
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+
+//~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
+// *** SCRIPT 050 *** -- Starts here
+// The purpose of this code is to... 
+
+
+
+document.addEventListener('contextmenu', function(e) {
+
+  if (debugGuard == false) {
+
+    e.preventDefault();
+
+  };
+
+}, false);
+
+
+
+// *** SCRIPT 050 *** -- Starts here
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
