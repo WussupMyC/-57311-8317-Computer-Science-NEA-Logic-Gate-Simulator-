@@ -128,6 +128,10 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
   SCRIPT 048  - 
 
+  SCRIPT 049  - 
+
+  SCRIPT 050  - 
+
 */
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -4518,7 +4522,7 @@ function talkToSystem(cmd) {
 
     case "MENU": 
       
-      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nHFR - Force Refresh Simboard\nARG - Allow Refresh Guard\nSRG - Stop Refresh Guard\nADG - Allow Debug Guard\nSDG - Stop Debug Guard\nDDV - Display Debug Values (for Developers)\n\n-- Regular Commands --\nMENU - View all commands\nBACKEND - View all variables and functions\nHGAA - Hide Grid & Axis\nHAO - Hide Axis Only\nHGO - Hide Grid Only\nSGAA - Show Grid & Axis\nSGO - Show Grid Only\nSAO - Show Axis Only\n\nInput 'MORE' to see more commands!");
+      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nSSV - Set Specific Value (for Developers)\nHFR - Force Refresh Simboard\nARG - Allow Refresh Guard\nSRG - Stop Refresh Guard\nADG - Allow Debug Guard\nSDG - Stop Debug Guard\nDDV - Display Debug Values (for Developers)\n\n-- Regular Commands --\nMENU - View all commands\nHGAA - Hide Grid & Axis\nHAO - Hide Axis Only\nHGO - Hide Grid Only\nSGAA - Show Grid & Axis\nSGO - Show Grid Only\nSAO - Show Axis Only\n\nInput 'MORE' to see more commands!");
 
       if (newCmd.toUpperCase() == "MORE") {
 
@@ -4598,21 +4602,25 @@ function talkToSystem(cmd) {
 
     case "SGAA":
 
-      drawGrid(0, tempStylesContainer.tempGridLineColour)
+      drawGrid(0, tempStylesContainer.tempGridLineColour);
 
-      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour)
-
-      break; 
-
-    case "SA":
-
-      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour)
+      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour);
 
       break; 
 
-    case "SG":
+    case "SAO":
 
-      drawGrid(0, tempStylesContainer.tempGridLineColour)
+      drawGrid(1, null);
+
+      drawAxis(0, tempStylesContainer.tempAxisYColour, tempStylesContainer.tempAxisXColour);
+
+      break; 
+
+    case "SGO":
+
+      drawAxis(1, null, null); // do ui wipes before to stop clearRect from deleting the current UI
+
+      drawGrid(0, tempStylesContainer.tempGridLineColour);
 
       break; 
 
@@ -4634,20 +4642,24 @@ function talkToSystem(cmd) {
 
 
 
-    case "SRG": // stop refresh halter 
-
-      refreshGuard = false; 
-
-      break; 
-
-
     case "ARG": 
 
       refreshGuard = true;
 
+      alert("You can now refresh the website without query blocks!");
+
       break; 
 
 
+    case "SRG": // stop refresh halter 
+
+      refreshGuard = false; 
+
+      alert("You can now cannot refresh the website without query blocks!");
+
+      break; 
+
+      
 
     case "SSV": // set specific value 
 
@@ -4677,7 +4689,7 @@ function talkToSystem(cmd) {
 
 
 
-    case "SDG": // halt debug guard
+    case "SDG": // stop debug guard
 
       debugGuard = false; 
 
@@ -4889,6 +4901,18 @@ function talkToSystem(cmd) {
       console.log("CSS Concatonates == ", cssConcatonates);
 
       console.log("UNIQUOR == ", connectionSet);
+
+
+      alert("JsonSave: ", jsonSaveWorkspace);
+
+      alert("Previous IO Stack: ", PREVIOUSIOSTACK);
+
+      alert("CSS TempStyleContainer == ", tempStylesContainer);
+
+      alert("CSS Concatonates == ", cssConcatonates);
+
+      alert("UNIQUOR == ", connectionSet);
+
 
       break; 
 
