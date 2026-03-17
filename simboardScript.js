@@ -272,6 +272,8 @@ abilityToPulsate = true;
 
 pulseType = "river";
 
+notStateDefault = 1; 
+
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
@@ -1170,11 +1172,21 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
 
     } else {
 
-      clone.setAttribute("state", 1)
+      if (notStateDefault == 0) { 
 
-      gateImage.setAttribute("src", "/Media/ActivatedState/" + gateType + "_Activated.png"); 
+        clone.setAttribute("state", 0)
+
+        gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
+
+      } else {
+
+        clone.setAttribute("state", 1)
+
+        gateImage.setAttribute("src", "/Media/ActivatedState/" + gateType + "_Activated.png"); 
+
+      };
       
-    }
+    };
 
     headEl.setAttribute("id", divname); // We then manually state with this instruction that our new master object
                                         // clone should retain a custom, unique ID produced earlier. 
@@ -3697,11 +3709,21 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 
       } else {
 
-        obj.setAttribute("state", 1)
+        if (notStateDefault == 0) {
 
-        logicGateImageReference.setAttribute("src", "/Media/ActivatedState/" + logicGateType + "_Activated.png"); 
+          obj.setAttribute("state", 0)
+
+          logicGateImageReference.setAttribute("src", "/Media/DeactivatedState/" + logicGateType + "_Deactivated.png"); 
+
+        } else {
+
+          obj.setAttribute("state", 1)
+
+          logicGateImageReference.setAttribute("src", "/Media/ActivatedState/" + logicGateType + "_Activated.png"); 
+
+        };
       
-      }
+      };
 
 
     });
@@ -4195,15 +4217,23 @@ function discernBoolean() {
         console.log(`XOR (${gateId}) found ${activeCount} active inputs. Returning: ${finalState}`);
 
       } else if (type === "NOT") {
+
         console.log("NOT GATE VISITED!")
 
 
         const signal = inputs.includes(1) || inputs.includes("1") ? 1 : 0;
 
-        finalState = (signal === 0) ? 1 : 0; // FLIPS DA RESULT 
+        if (notStateDefault == 1) {
 
-        console.log("MULTI INPUT NOT GATE IS RETURNING == ", finalState)
+          finalState = (signal === 0) ? 1 : 0; // FLIPS DA RESULT 
 
+        } else {
+
+          finalState = (signal === 1) ? 1 : 0;
+
+        };
+
+        console.log("MULTI INPUT NOT GATE IS RETURNING == ", finalState);
 
       } else {
 
@@ -4478,7 +4508,7 @@ function talkToSystem(cmd) {
 
   } else {
 
-    insertedCmd = prompt("QUICK INPUT: Please enter a command to talk to Simboard and control it\n\nEnter the command 'MENU' to see the list of commands to use:\nEnter the command 'BACKEND' to see the list of variables or functions that can be used with commands.");
+    insertedCmd = prompt("QUICK INPUT: Please enter a command to talk to Simboard and control it\n\nEnter the command 'MENU' to see the list of commands to use: ");
 
   };
 
@@ -4488,13 +4518,17 @@ function talkToSystem(cmd) {
 
     case "MENU": 
       
-      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nFR - Force Refresh Simboard\nARG - Allow Refresh Guard\nSRG - Stop Refresh Guard\nADG - Allow Debug Guard\nSDG - Stop Debug Guard\nDDV - Display Debug Values (for Developers)\n\n-- Regular Commands --\nMENU - View all commands\nBACKEND - View all variables and functions\nHGAA - Hide Grid & Axies\nHAO - Hide Axies Only\nHGO - Hide Grid Only\nSGAA - Show Grid & Axies\nSGO - Show Grid Only\nSAO - Show Axis Only\n\nInput 'MORE' to see more commands!");
+      newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nHFR - Force Refresh Simboard\nARG - Allow Refresh Guard\nSRG - Stop Refresh Guard\nADG - Allow Debug Guard\nSDG - Stop Debug Guard\nDDV - Display Debug Values (for Developers)\n\n-- Regular Commands --\nMENU - View all commands\nBACKEND - View all variables and functions\nHGAA - Hide Grid & Axis\nHAO - Hide Axis Only\nHGO - Hide Grid Only\nSGAA - Show Grid & Axis\nSGO - Show Grid Only\nSAO - Show Axis Only\n\nInput 'MORE' to see more commands!");
 
       if (newCmd.toUpperCase() == "MORE") {
 
         talkToSystem("MORE");
 
-      }; 
+      } else {
+
+        talkToSystem(newCmd);
+
+      };
 
       break;
 
@@ -4502,6 +4536,8 @@ function talkToSystem(cmd) {
     case "MORE":
 
       newCmd = prompt("RSV - Reset Specific Value (for Developers)\nSSC - Screenshot Circuit\nSSS - Screenshot entire Simboard App\nRBC - Reset Box Click\nCSS - Change Speaker Song\nRWT - Reset Workspace Transform\nVWT - View Workspace Transform\nSWT - Set Workspace Transform\nTAN - Toggle All NOT Logic Gates\nCW - Clear Workspace\nTPULSE - Toggle Pulse Type\nCPULSE - Toggle Pulse Colour\nSPULSE - Toggle Pulse Speed\nWPULSE - Toggle Pulse Width\nTT - Change Toggle Aid Transparency");
+
+      talkToSystem(newCmd);
 
       break; 
 
@@ -4598,14 +4634,14 @@ function talkToSystem(cmd) {
 
 
 
-    case "SRH": // stop refresh halter 
+    case "SRG": // stop refresh halter 
 
       refreshGuard = false; 
 
       break; 
 
 
-    case "ARH": 
+    case "ARG": 
 
       refreshGuard = true;
 
@@ -4858,11 +4894,51 @@ function talkToSystem(cmd) {
 
     case "TAN": // prevents NOT gates from outputting 1 when no inputs are going in 
 
-      jsonSaveWorkspace.forEach(cLyr => {
+      NOTReferences = document.querySelectorAll('div[gatetype^="NOT"]');
 
-        console.log("Control flow is going through TAN CMD!", cLyr);
+      if (simulate == false) {
 
-      });
+        newCmd = prompt("Do you want do toggle the default values of all NOT Gates when simuation starts? Enter an INTEGER VALUE to determine the default NOT mode: \n\n0 - All NOT Gates start simulation by being OFF.\n1 - All NOT Gates start simulation by being ON.")
+
+        if (newCmd == 0) {
+
+          notStateDefault = 0; 
+
+          NOTReferences.forEach(cLyr => {
+
+            cLyr.setAttribute("state", 0);
+
+            cLyr.children[0].children[1].setAttribute("src", "/Media/DeactivatedState/NOT_Deactivated.png")
+
+            //console.log("Control flow is going through TAN CMD!", cLyr);
+
+          });
+
+        } else if (newCmd == 1) {
+
+          notStateDefault = 1; 
+
+          NOTReferences.forEach(cLyr => {
+
+            cLyr.setAttribute("state", 1);
+
+            cLyr.children[0].children[1].setAttribute("src", "/Media/ActivatedState/NOT_Activated.png")
+
+            //console.log("Control flow is going through TAN CMD!", cLyr);
+
+          });
+
+        } else {
+
+          alert("There was an error with your input, please try again and enter either '1' or '0' to determine the default NOT state.");
+
+        };
+
+      } else if (simulate == true) {
+
+        alert("Please pause the simulation of your circuit to Toggle the NOT Gates' default state.");
+
+      };
 
       break; 
 
@@ -5204,7 +5280,7 @@ function wireLinePulsate(pathRef, pathState) {
 
 window.addEventListener('beforeunload', function (e) {
 
-  if (refreshGuard == false) {
+  if (refreshGuard == true) {
 
     e.preventDefault(); 
     
@@ -5226,7 +5302,7 @@ window.addEventListener('beforeunload', function (e) {
 
 document.addEventListener('contextmenu', function(e) {
 
-  if (debugGuard == false) {
+  if (debugGuard == true) {
 
     e.preventDefault();
 
