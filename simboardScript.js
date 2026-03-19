@@ -42,7 +42,7 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
   SCRIPT 005  - LOGIC GATE OBJECT MANUAL DELETION FUNCTION 
 
-  SCRIPT 006  - PREPARING EVENT HANDLERS FOR **SCRIPT 006**
+  SCRIPT 006  - PREPARING EVENT HANDLERS FOR **SCRIPT 007** ANONYMOUS FUNCTIONS 
 
   SCRIPT 007  - SPAWNING THE LOGIC GATE INSTANCE INTO WORKSPACE FUNCTION 
 
@@ -100,37 +100,35 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
   SCRIPT 034  - LINE SOLVER MODES FOR CONNECTIONS FUNCTION 
 
-  SCRIPT 035  - 
+  SCRIPT 035  - RANDOM HEXADECIMAL GENERATOR FUNCTION 
 
-  SCRIPT 036  - 
+  SCRIPT 036  - AUTOMATIC VISUAL CONNECTION FIXER FUNCTION 
 
-  SCRIPT 037  - 
+  SCRIPT 037  - BOOLEAN MATH ADJUSTER ONCLICK FUNCTION 
 
-  SCRIPT 038  - 
+  SCRIPT 038  - SIMULATION TOGGLE ONCLICK FUNCTION 
 
-  SCRIPT 039  - 
+  SCRIPT 039  - SIMULATION STARTUP AND CLEAN-UP FUNCTION 
 
-  SCRIPT 040  - 
+  SCRIPT 040  - FILTER MENU ACTIVATOR ONCLICK FUNCTION 
 
-  SCRIPT 041  - 
+  SCRIPT 041  - BOOLEAN MATH FOR SIMULATION LOGIC FUNCTION 
 
-  SCRIPT 042  - 
+  SCRIPT 042  - ZOOM IN & OUT VIA CTRL+SCROLLWHEEL DISABLER FUNCTION 
 
-  SCRIPT 043  - 
+  SCRIPT 043  - ZOOM IN & OUT VIA CTRL+NUMPAD PLUS OR MINUS DISABLER FUNCTION 
 
-  SCRIPT 044  - 
+  SCRIPT 044  - WORKSPACE TRAVERSAL FUNCTION 
 
-  SCRIPT 045  - 
+  SCRIPT 045  - TALK TO SYSTEM COMMAND PROPMT FUNCTION
 
-  SCRIPT 046  - 
+  SCRIPT 046  - RESET/SET VARIABLES TO DEFAULTS FUNCTION 
 
-  SCRIPT 047  - 
+  SCRIPT 047  - LINE PULSATION UPON ACTIVATION FUNCTION 
 
-  SCRIPT 048  - 
+  SCRIPT 048  - REFRESH WINDOW DISABLER FUNCTION 
 
-  SCRIPT 049  - 
-
-  SCRIPT 050  - 
+  SCRIPT 049  - ACCESS CONSOLE LOG DEVELOPER TOOLS DISABLER FUNCTION 
 
 */
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -138,22 +136,30 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // ** GLOBAL VARIABLE DEFINITIONS **
 
-simboardVersion = "FR 1.0.0";
+simboardVersion = "FR 1.0.0"; // This variable is for the saving process for future compatibility. 
 
-simulate = false; 
+simulate = false;     // This variable holds the state that decides if Simboard should enter "Simulation" mode or not. 
+                      // It is toggled to FALSE by default to allow the end user to create a circuit.
 
-refreshGuard = true; 
+refreshGuard = true;  // This variable holds the state that decides if Simboard should be able to refresh without 
+                      // being interrupted by a "Are you sure you want to clear unsaved work" type of prompt. 
+                      // If true, then this pop-up will occur, and the opposite if false.  
 
-debugGuard = true; // prevents console log from appearing 
+debugGuard = true;    // This variable holds the state that decides if the end user can access the Console Developer 
+                      // tools inbuilt in the browser by default. 
 
 
-viewPosX = 0; 
-viewPosY = 0; 
-currentZoomValue = 1; 
+viewPosX = 0;         // This variable holds the value of the 
 
-zoomOutLimit = 3; 
-zoomInLimit = 0.25; 
-traverseSpeed = 35; 
+viewPosY = 0;         //
+
+currentZoomValue = 1; //
+
+zoomOutLimit = 3;     //
+
+zoomInLimit = 0.25;   //
+
+traverseSpeed = 35;   //
 
 
 // Should be attributes of this layout saver 
@@ -169,23 +175,27 @@ cssConcatonates = [ // the references of objects that are actually set
   AxisYColour = "#4EB842",
 ];
 
-HEXValidator = null; 
+HEXValidator = null; //
 
 tempStylesContainer = {};  // holder of ui style setter values incase it needs to be used again 
                            // changed tempStylesContainer from an Array to a POJO (plain old javascript object)!
 
-tempStylesContainer.tempCanvasColour = "#DEDE94"; 
-tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; 
-tempStylesContainer.tempFileMenuColour = "#808080"; 
-tempStylesContainer.tempCircuitConfigColour = "#808080"; 
-tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; 
-tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; 
-tempStylesContainer.tempGridLineColour = "#000000"; 
-tempStylesContainer.tempAxisXColour = "#CD5C5C"; 
-tempStylesContainer.tempAxisYColour = "#4EB842";
+tempStylesContainer.tempCanvasColour = "#DEDE94"; //
+tempStylesContainer.tempObjectMenuColour = "#A4A4A4"; //
+tempStylesContainer.tempFileMenuColour = "#808080"; //
+tempStylesContainer.tempCircuitConfigColour = "#808080"; //
+tempStylesContainer.tempObjectMenuButtonColour = "#DEDE94"; //
+tempStylesContainer.tempFileMenuButtonColour = "#DEDE94"; //
+tempStylesContainer.tempGridLineColour = "#000000"; //
+tempStylesContainer.tempAxisXColour = "#CD5C5C"; //
+tempStylesContainer.tempAxisYColour = "#4EB842"; //
 
 
-tempStylesContainerOverwrite = {}; 
+tempStylesContainerOverwrite = {}; //
+
+
+tempStyle = "#DEDE94"; //
+
 
 xLen = document.getElementById("GridCanvas").width;   // Defines how long a Workspace background object should stretch on the X Axis (e.g. Grid, Axis, Background)
 yLen = document.getElementById("GridCanvas").height;   // Defines how long a Workspace background object should stretch on the Y Axis (e.g. Grid, Axis, Background)
@@ -230,7 +240,7 @@ gatePositionYGlobalReference = 0; // This is a global variable that holds the Y 
                                   // workspace. 
 
 
-searchIndex = 0; 
+searchIndex = 0; //
 
 
 selectedGatesStack = [];  // Every time an object in the Workspace is selected, its HTML reference is pushed to this stack so that 
@@ -245,38 +255,39 @@ jsonSaveWorkspace = [];  // This holds all data for the logic gates present on t
 
 jsonSaveWorkspaceOverwrite = []; //               Holds the new data dragged into the WORKSPACe....
 
-connectionSet = null; 
+connectionSet = null; //
 
-totalWires = 0; 
+totalWires = 0; //
 
-connectionsInitialised = 0 + searchIndex;  
+connectionsInitialised = 0 + searchIndex; //
 
-importedFileType = null; 
+importedFileType = null; //
 
 
-speakerIdentifications = [
-  "/Media/Audio/speakerSong0.mp3",
-  "/Media/Audio/speakerSong1.mp3",
-  "/Media/Audio/speakerSong2.mp3",
-  "/Media/Audio/speakerSong3.mp3",
-  "/Media/Audio/speakerSong4.mp3",
-  "/Media/Audio/chirp.mp3",
-  "/Media/Audio/mainsHum.mp3",
-  "/Media/Audio/nature.mp3",
-  "/Media/Audio/scream0.mp3",
-  "/Media/Audio/scream1.mp3",
-  "/Media/Audio/radio.mp3"
-]
+speakerIdentifications = [ //
+  "/Media/Audio/speakerSong0.mp3", //
+  "/Media/Audio/speakerSong1.mp3", //
+  "/Media/Audio/speakerSong2.mp3", //
+  "/Media/Audio/speakerSong3.mp3", //
+  "/Media/Audio/speakerSong4.mp3", //
+  "/Media/Audio/chirp.mp3", //
+  "/Media/Audio/mainsHum.mp3", //
+  "/Media/Audio/nature.mp3", // 
+  "/Media/Audio/scream0.mp3", //
+  "/Media/Audio/scream1.mp3", //
+  "/Media/Audio/radio.mp3" //
+]; //
 
-choiceOfSongByUser = 0; 
 
-isSongPlayingStack = ["lambma"];
+choiceOfSongByUser = 0; //
 
-abilityToPulsate = true; 
+isSongPlayingStack = ["lambma"]; //
 
-pulseType = "river";
+abilityToPulsate = true; //
 
-notStateDefault = 1; 
+pulseType = "river"; //
+
+notStateDefault = 1; //
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
@@ -288,9 +299,11 @@ notStateDefault = 1;
 
 function dumpFunc(){    // This is a temporary function for testing purposes 
                         //      DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT 
+
+  return ".PlaceholderValue.";
             
-}
-const dumpVar = ".PlaceholderValue." + "dumpVar"; // This is a temporary debugging variable for testing purposes
+};
+const dumpVar = (dumpFunc()) + "dumpVar"; // This is a temporary debugging variable for testing purposes
                                                          //       DO NOT USE THIS FUNCTION FOR TRUE DEVELOPMENT  
                                                             
 console.log(dumpVar);    // This instruction outputs the debug variable for testing purposes. 
@@ -308,9 +321,7 @@ console.log(dumpVar);    // This instruction outputs the debug variable for test
 
 var link = document.getElementById("customise");  // We fetch the 
 
-tempStyle = "#DEDE94"; 
-
-link.onclick= function() {
+link.onclick= function() { //
 
   if (simulate != true) {
 
@@ -331,15 +342,15 @@ link.onclick= function() {
 
       let GridCanvasPrompt = prompt(prompts[i]);
 
-      GridCanvasPrompt = GridCanvasPrompt.toUpperCase()
+      GridCanvasPrompt = GridCanvasPrompt.toUpperCase();
 
-      console.log(GridCanvasPrompt)
+      console.log(GridCanvasPrompt);
 
       HEXValidator = GridCanvasPrompt[0];
 
-      nextProperty = cssConcatonates[i]
+      nextProperty = cssConcatonates[i];
 
-      console.log(nextProperty)
+      console.log(nextProperty);
 
       if (HEXValidator == '#') {
 
@@ -460,25 +471,25 @@ link.onclick= function() {
 
           } else {
 
-            console.log(prompts[i][2])
+            console.log(prompts[i][2]);
 
-            console.warn("Grid/Axis Customisation error has occurred!")
+            console.warn("Grid/Axis Customisation error has occurred!");
 
           }
 
-          drawGrid(1, null, null)
+          drawGrid(1, null, null);
 
-          drawAxis(1, null, null)
+          drawAxis(1, null, null);
 
-          drawGrid(0, stylerCacheGrid)
+          drawGrid(0, stylerCacheGrid);
 
-          drawAxis(0, stylerCacheAxisY, stylerCacheAxisX)
+          drawAxis(0, stylerCacheAxisY, stylerCacheAxisX);
 
 
 
         } else {
 
-          console.warn("Customisation error has occurred!")
+          console.warn("Customisation error has occurred!");
 
         }
 
@@ -547,7 +558,7 @@ link.onclick= function() {
 
             } else {
 
-              console.log("Skipped styling of entity in division.")
+              console.log("Skipped styling of entity in division.");
             }
 
           }
@@ -578,9 +589,9 @@ link.onclick= function() {
 
             drawGrid(1, null);
 
-            drawAxis(0, AxisYColour, AxisXColour) // to prevent clearing 
+            drawAxis(0, AxisYColour, AxisXColour); // to prevent clearing 
 
-            drawGrid(0, "#000000")
+            drawGrid(0, "#000000");
 
             tempStylesContainer.tempGridLineColour = "#000000";
 
@@ -588,11 +599,11 @@ link.onclick= function() {
 
           } else if (prompts[i][2] == 2) {
 
-            drawAxis(1, null, null)
+            drawAxis(1, null, null);
 
-            drawAxis(0, AxisYColour, GridCanvasPrompt)
+            drawAxis(0, AxisYColour, GridCanvasPrompt);
 
-            drawGrid(0, GridLineColour) // to prevent clearing 
+            drawGrid(0, GridLineColour); // to prevent clearing 
 
             tempStylesContainer.tempAxisXColour = "#CD5C5C";
 
@@ -600,11 +611,11 @@ link.onclick= function() {
 
           } else if (prompts[i][2] == 3) {
 
-            drawAxis(1, null, null)
+            drawAxis(1, null, null);
 
-            drawAxis(0, GridCanvasPrompt, AxisXColour)
+            drawAxis(0, GridCanvasPrompt, AxisXColour);
 
-            drawGrid(0, GridLineColour) // to prevent clearing 
+            drawGrid(0, GridLineColour); // to prevent clearing 
 
             tempStylesContainer.tempAxisYColour = "#000982";
 
@@ -612,15 +623,15 @@ link.onclick= function() {
 
           } else {
 
-            console.log(prompts[i][2])
+            console.log(prompts[i][2]);
 
-            console.log("Grid/Axis Customisation error has occurred!")
+            console.log("Grid/Axis Customisation error has occurred!");
 
           }
 
         } else {
 
-          console.log("Customisation error has occurred OR styling has been skipped!")
+          console.log("Customisation error has occurred OR styling has been skipped!");
 
         }
 
@@ -628,13 +639,13 @@ link.onclick= function() {
 
     }
 
-    console.log(cssConcatonates)
+    console.log(cssConcatonates);
 
   } else {
 
-    alert("You cannot edit the User Interface of this Simboard session whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to edit the visual appearance of your Simboard application!")
+    alert("You cannot edit the User Interface of this Simboard session whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to edit the visual appearance of your Simboard application!");
 
-    console.warn("You cannot edit the User Interface of this Simboard session whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to edit the visual appearance of your Simboard application!")
+    console.warn("You cannot edit the User Interface of this Simboard session whilst the Circuits in your Workspace are being simulated!\nPlease stop the simulation to edit the visual appearance of your Simboard application!");
 
   };
 
@@ -731,11 +742,11 @@ function drawGrid(GRIDMODE, gridColour) {   //This function repeatedly draws a c
 
   } else {
 
-    console.log("Mode inputted is unknown. -- ERROR")
+    console.log("Mode inputted is unknown. -- ERROR");
 
-  }
+  };
 
-} // The function that calculates the necessary grid output ends here. 
+}; // The function that calculates the necessary grid output ends here. 
 
 drawGrid(0, GridLineColour); // This instruction initialises the drawGrid to repeatedly draw individual cells until 
             // the entirety of the grids' height and width is filled, with the calculated function
@@ -761,7 +772,7 @@ axisHeight = yLen;   // States that the Y Axis line should stretch to a defined 
                       // defined in the Global Variables sections. (This prevents magic
                       // numbers!)
         
-function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the axis lines for the Workspace UI. 
+function drawAxis(AXISMODE, AxisYRGB, AxisXRGB) {  // This function produces the axis lines for the Workspace UI. 
 
   if (AXISMODE == 0) {
 
@@ -777,7 +788,7 @@ function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the 
 
     axisLineY.moveTo((canvas.width)/2, 0); // 
 
-    console.log(axisWidth/2)
+    console.log(axisWidth/2);
 
     axisLineY.lineTo((canvas.width)/2, canvas.height); // 
 
@@ -813,14 +824,14 @@ function drawAxis(AXISMODE, AxisYRGB, AxisXRGB){  // This function produces the 
 
   } else { 
 
-    console.log("Mode inputted is unknown. -- ERROR")
+    console.log("Mode inputted is unknown. -- ERROR");
 
-  }
+  };
 
 
 }; // The function that produces the correct Axis measurements ends here. 
 
-drawAxis(0, AxisYColour, AxisXColour) // This instruction initialises the drawAxis to create an X and Y axis 
+drawAxis(0, AxisYColour, AxisXColour); // This instruction initialises the drawAxis to create an X and Y axis 
                                       // to stretch until it reaches the borders of the Workspace. 
 
 
@@ -874,7 +885,7 @@ function musicHandler(songToPlay) { // a global state audio system
 
       case 0: 
 
-        console.log("Flow is going into sound 0")
+        console.log("Flow is going into sound 0");
 
         speakerSound_0.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
 
@@ -884,12 +895,11 @@ function musicHandler(songToPlay) { // a global state audio system
 
         speakerSound_1.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));
 
-
         break; 
 
       case 2:
 
-        console.log("Flow is going into sound 2")
+        console.log("Flow is going into sound 2");
 
         speakerSound_2.play().catch(anyError => console.log("Audio play prevented due to ErrorType: ", anyError));      
 
@@ -970,7 +980,7 @@ function musicHandler(songToPlay) { // a global state audio system
 
     console.warn("An error occured with the sound handler!");
 
-  }
+  };
 
 
 };
@@ -1037,7 +1047,7 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
     totalSelectedGates--;
     selectedGatesStack.pop(currentItem); 
 
-  }   // The conditional statement ends here, if the condition wasn't met, execution flow skips to this
+  };   // The conditional statement ends here, if the condition wasn't met, execution flow skips to this
       // point and executes the following code. 
 
 }; // The function binded to the event of key press halts at this point and the axis is implemented.
@@ -1060,14 +1070,14 @@ document.body.onkeydown = function(event){ // When a key is pressed in the HTML 
       // detects a click from the users' mouse/input system. 
         // This anonymous is signified by the unassigned parenthesis () in the statements below. 
 
-referenceOfWorkspaceGrid = document.getElementById("Workspace")
+referenceOfWorkspaceGrid = document.getElementById("Workspace");
 
 
 summonX = referenceOfWorkspaceGrid.left;
 
 summonY = referenceOfWorkspaceGrid.top; 
 
-console.log(summonX, " == SUMMON X || SUMMON Y == ", summonY)
+console.log(summonX, " == SUMMON X || SUMMON Y == ", summonY);
 
 
 document.getElementById("AND").addEventListener("click", () =>cloneObject("AND", summonX, summonY));  // When AND Gate button is pressed, 
@@ -1109,7 +1119,7 @@ document.getElementById("Speaker").addEventListener("click", () =>cloneObject("S
 
 
 
-function cloneObject(gateType, posiX, posiY){ // This is the function that is utilised when the anonymous function 
+function cloneObject(gateType, posiX, posiY) { // This is the function that is utilised when the anonymous function 
                                 // calls it above. This function takes a string parameter, for example, 
                                 // "AND", and utilises it with operations that summon it into the Workspace
                                 // and customsie it so that the string passed in represents its respective 
@@ -1165,7 +1175,7 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
 
     if (gateType != "NOT") {
 
-      clone.setAttribute("state", 0)
+      clone.setAttribute("state", 0);
 
       gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
         // We then set said the UI Image element of the master object clone. 
@@ -1178,13 +1188,13 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
 
       if (notStateDefault == 0) { 
 
-        clone.setAttribute("state", 0)
+        clone.setAttribute("state", 0);
 
         gateImage.setAttribute("src", "/Media/DeactivatedState/" + gateType + "_Deactivated.png"); 
 
       } else {
 
-        clone.setAttribute("state", 1)
+        clone.setAttribute("state", 1);
 
         gateImage.setAttribute("src", "/Media/ActivatedState/" + gateType + "_Activated.png"); 
 
@@ -1200,64 +1210,92 @@ function cloneObject(gateType, posiX, posiY){ // This is the function that is ut
                                                    // so that it can be moved around the Workspace without the 
                                                    // browser treating it like a plain image. 
 
-    clone.style.top=posiY + "px";    // This instruction attempts to manually set the position of the master object clone
+    clone.style.top= posiY + "px";    // This instruction attempts to manually set the position of the master object clone
                             // to a padded offset position of X amount of pixels from the top. 
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well. 
 
-    clone.style.left=posiX + "px";   // This instruction attempts to manually set the position of the master object clone 
+    clone.style.left= posiX + "px";   // This instruction attempts to manually set the position of the master object clone 
                             // to a padded offset position of Y amount of pixels from the left. 
                               // By default, it is set to be slightly padded on spawn, so a value of 100 will do 
                               // the job well.  
 
     inputARef = clone.children[0].children[0].children[0].getAttribute("id");
+
     inputBRef = clone.children[0].children[0].children[1].getAttribute("id");
+
     outputRef = clone.children[0].children[2].children[0].getAttribute("id");
 
     var inputAID = inputARef + itemsCreated; 
+
     var inputBID = inputBRef + itemsCreated; 
+
     var outputID = outputRef + itemsCreated; 
 
     clone.children[0].children[0].children[0].setAttribute("id",inputAID);
+
     clone.children[0].children[0].children[1].setAttribute("id",inputBID);
+
     clone.children[0].children[2].children[0].setAttribute("id",outputID);
 
   
 
     switch (gateType) {
+
       case "AND":
+
         document.getElementById(inputAID).style.display = "inline";
+
         document.getElementById(inputBID).style.display = "inline";
+
         document.getElementById(outputID).style.display = "inline";
+
         break;
 
       case "OR":
+
         document.getElementById(inputAID).style.display = "inline";
+
         document.getElementById(inputBID).style.display = "inline";
+
         document.getElementById(outputID).style.display = "inline";
+
         break;
 
       case "NOT":
+
         document.getElementById(inputAID).style.display = "inline";
+
         document.getElementById(outputID).style.display = "inline";
+
         break;
 
       case "XOR":
+
         document.getElementById(inputAID).style.display = "inline";
+
         document.getElementById(inputBID).style.display = "inline";
+
         document.getElementById(outputID).style.display = "inline";
+
         break;
 
       case "Lightbulb":
+
         document.getElementById(inputAID).style.display = "inline";
+
         break;
 
       case "Speaker":
+
         document.getElementById(inputAID).style.display = "inline";
+
         break;
 
       case "HoldButton":
+
         document.getElementById(outputID).style.display = "inline";
+
         break;
 
     };
@@ -1288,6 +1326,7 @@ function selectCurrentItem(item) {
     currentItem = item; 
 
     selectedGatesStack.push(currentItem);
+
     totalSelectedGates++;
 
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
@@ -1303,13 +1342,14 @@ function selectCurrentItem(item) {
     currentItem = item; 
 
     selectedGatesStack.push(currentItem);
+
     totalSelectedGates++;
 
     document.getElementById(currentItem).classList.add("gateObjectHighlight");
 
   };
 
-  console.log(selectedGatesStack)
+  console.log(selectedGatesStack);
 
 };
 
@@ -1330,10 +1370,13 @@ document.addEventListener('click', (e) => {
 
 
   if (!clickedHighlight) {
+
       const highlightedItems = document.querySelectorAll('.gateObjectHighlight');
       
       highlightedItems.forEach(item => {
+
         item.classList.remove('gateObjectHighlight');
+
       });
 
       console.log(currentItem);
@@ -1341,7 +1384,9 @@ document.addEventListener('click', (e) => {
       currentItem = null; 
 
       console.log('REMOVED HIGHLIGHTED OBJECTS -- Selection cleared');
-  }
+
+  };
+
 });
 
 
@@ -1490,10 +1535,10 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
   pos4 = e.clientY;         // Updates the new positions of the Logic Gate UI Object (in pos1, pos2, pos3, pos4
                             // etc...) vertically (on the Y Axis). 
 
-  console.log((/*elmnt.offsetLeft -*/ pos4), maxY, (/*elmnt.offsetLeft -*/ pos3), maxX);  // A debugging instruction that
-                                                                                  // outputs the position of the 
-                                                                                  // recently moved Logic Gate UI
-                                                                                  // object. 
+  console.log(pos4, maxY, pos3, maxX);  // A debugging instruction that
+                                        // outputs the position of the 
+                                        // recently moved Logic Gate UI
+                                        // object. 
 
 
   var sizeOfBaseY = document.getElementById("Base").offsetHeight; 
@@ -1558,7 +1603,7 @@ function elementDrag(e) { // This function visually produces the "dragging" visu
 
       elmnt.style.left = pos3; 
 
-      gatePositionXGlobalReference = pos3; // UNDO: X -> Y
+      gatePositionXGlobalReference = pos3; 
 
     };
 
@@ -1594,7 +1639,7 @@ function closeDragElement() { // This function will halt all mouse instructions 
 };  // The function that clears all critical elements related to a UI drag to prevent errors ends here. 
 
 
-};  // The main function that handles Object UI (*SCRIPT 009*) movement ends here. 
+};  // The main function that handles Object UI (*SCRIPT 010*) movement ends here. 
 
 
 
@@ -1616,9 +1661,9 @@ function ioCheck(e) { // The info passed as a parameter
 
   OBJ_ID = document.getElementById(e.id).parentNode.parentNode.id; 
 
-  console.log("OBJ_ID == ", OBJ_ID)
+  console.log("OBJ_ID == ", OBJ_ID);
 
-  console.log("IO || IOREFERENCE == ", IO, IOREFERENCE)
+  console.log("IO || IOREFERENCE == ", IO, IOREFERENCE);
 
   IOPARENT = IOREFERENCE.parentNode;
 
@@ -1626,16 +1671,16 @@ function ioCheck(e) { // The info passed as a parameter
 
   
 
-  console.log("io parent == ", IOHEADER)
+  console.log("io parent == ", IOHEADER);
 
-  console.log("io header == ", IOHEADER)
+  console.log("io header == ", IOHEADER);
 
   PREVIOUSIO = PREVIOUSIOSTACK[PREVIOUSIOSTACK.length - 1] /* We do this in this statement so it's simpler to gain the previous IO's 
   unique ID later on in the branching 
   */
 
 
-  console.log(IOREFERENCE.parent)
+  console.log(IOREFERENCE.parent);
 
 
   GatePositionX = gatePositionXGlobalReference; 
@@ -1664,7 +1709,7 @@ function ioCheck(e) { // The info passed as a parameter
 
       OverallYPos = parseInt(GatePositionY) + IOPositionY; 
 
-      console.log(OverallXPos, OverallYPos)
+      console.log(OverallXPos, OverallYPos);
 
       IOPARSE.PARENTOUTPUT = IOPARENT;
       IOPARSE.PARENTOUTPUTUID = OBJ_ID; 
@@ -1674,7 +1719,7 @@ function ioCheck(e) { // The info passed as a parameter
       IOPARSE.OUTPUTPOSITIONY = OverallYPos;
 
 
-      if (hasFirstIOBeenSelected == false && hasSecondIOBeenSelected == false){
+      if (hasFirstIOBeenSelected == false && hasSecondIOBeenSelected == false) {
 
         hasFirstIOBeenSelected = true; 
 
@@ -1703,14 +1748,16 @@ function ioCheck(e) { // The info passed as a parameter
         presentObjects++;
 
         for (let i in IOPARSE) {  // Clears all of the global reference so that the object can be reused 
+
           IOPARSE[i] = 0;
-        }
+
+        };
 
       } else {
 
         console.log("ioCheck Function Return: Please wait.")
 
-      }
+      };
 
 
 
@@ -1756,14 +1803,16 @@ function ioCheck(e) { // The info passed as a parameter
         presentObjects++;
 
         for (let i in IOPARSE) {  // Clears all of the global reference so that the object can be reused 
+
           IOPARSE[i] = 0;
-        }
+
+        };
 
       } else {
 
         console.log("ioCheck Function Return: Please wait.")
 
-      }
+      };
 
 
     } else {
@@ -1771,13 +1820,16 @@ function ioCheck(e) { // The info passed as a parameter
       console.log("CRITICAL ERROR READ // Gate IO Type Not Understood!");
 
     };
+
   } else {
-    console.log("Same IO is selected")
+
+    console.log("Same IO is selected");
+
   };
 
 
 
-  console.log("prev io type == ", IOPOSITIONSTACK) 
+  console.log("prev io type == ", IOPOSITIONSTACK);
 
 
   console.log("hasFirstIOBeenSelected == ", hasFirstIOBeenSelected);
@@ -1865,7 +1917,7 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
 
 
 
-  console.log(wireName)
+  console.log(wireName);
 
   clone.setAttribute("id", wireName);
 
@@ -1896,7 +1948,7 @@ function initConnect(MODE, PARSED_PRD){   // The draws the connection and calls 
     DRAWINPUTLOCATIONX, 
     DRAWINPUTLOCATIONY, 
     DRAWOUTPUTLOCATIONX, 
-    DRAWOUTPUTLOCATIONY)
+    DRAWOUTPUTLOCATIONY);
 
 
   jsonReadWrite(
@@ -3339,7 +3391,7 @@ function generateRandHex() {
 
       colorHexa += symbolsToChooseFrom[Math.floor(Math.random() * 16)];
 
-  }
+  };
 
   return colorHexa;
 
@@ -3607,7 +3659,7 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() {
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 038 *** -- Starts here 
+// *** SCRIPT 039 *** -- Starts here 
 // The purpose of the below code is to... 
 
 
@@ -4354,11 +4406,11 @@ window.addEventListener('wheel', function(e) {
 
 
 
-// *** SCRIPT 043 *** -- Ends here 
+// *** SCRIPT 042 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 044 *** -- Starts here 
+// *** SCRIPT 043 *** -- Starts here 
 // The purpose of the below code is to... 
 
 
@@ -4377,11 +4429,11 @@ window.addEventListener('keydown', function(e) {
 
 
 
-// *** SCRIPT 044 *** -- Ends here 
+// *** SCRIPT 043 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 045 *** -- Starts here 
+// *** SCRIPT 044 *** -- Starts here 
 // The purpose of the below code is to... 
 
 
@@ -4485,11 +4537,11 @@ window.addEventListener('keydown', e => {
 
 
 
-// *** SCRIPT 045 *** -- Ends here 
+// *** SCRIPT 044 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 046 *** -- Starts here 
+// *** SCRIPT 045 *** -- Starts here 
 // The purpose of the below code is to... 
 
 
@@ -5157,11 +5209,11 @@ function talkToSystem(cmd) {
 
 
 
-// *** SCRIPT 046 *** -- Ends here 
+// *** SCRIPT 045 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 047 *** -- Starts here 
+// *** SCRIPT 046 *** -- Starts here 
 // The purpose of the below code is to... 
 
 
@@ -5258,11 +5310,11 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
 
 
 
-// *** SCRIPT 047 *** -- Ends here 
+// *** SCRIPT 046 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 048 *** -- Starts here
+// *** SCRIPT 047 *** -- Starts here
 // The purpose of this code is to... 
 
 
@@ -5293,11 +5345,11 @@ function wireLinePulsate(pathRef, pathState) {
 
 
 
-// *** SCRIPT 048 *** -- Ends here 
+// *** SCRIPT 047 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 049 *** -- Starts here
+// *** SCRIPT 048 *** -- Starts here
 // The purpose of this code is to... 
 
 
@@ -5315,11 +5367,11 @@ window.addEventListener('beforeunload', function (e) {
 });
 
 
-// *** SCRIPT 049 *** -- Ends here 
+// *** SCRIPT 048 *** -- Ends here 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
-// *** SCRIPT 050 *** -- Starts here
+// *** SCRIPT 049 *** -- Starts here
 // The purpose of this code is to... 
 
 
@@ -5336,7 +5388,7 @@ document.addEventListener('contextmenu', function(e) {
 
 
 
-// *** SCRIPT 050 *** -- Starts here
+// *** SCRIPT 049 *** -- Starts here
 //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 

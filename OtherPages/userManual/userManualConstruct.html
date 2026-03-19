@@ -88,49 +88,357 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
         </pre>
 
-        <img src="">
+        <img src="/Media/ManualAppendecies/overview.png" width="85%" height="80%" style="padding: 30px;">
 
         <pre>
             <big>Appendix 1  -   The File Menu</big>
                 This UI Menu has the purpose of providing the user with innate controls over the interfact and project. 
 
+
+
             <big>Appendix 2  -   The Object Menu</big>
                 This UI Menu has the purpose of providing the user with the objects that can be imported into the Workspace. 
+
+
 
             <big>Appendix 3  -   The Workspace</big>
                 This UI Menu has the purpose of providing the user with the ability of interacting and connecting objects together
                 to formulate a circuit. 
 
-            <big>Appendix 4  -   The Filter Button</big>
-                This UI Button, when clicked, will pop up a new menu in that overlays the Object Menu, and provides the end user with
-                the opportunity to filter objects down to a category for efficiency and comfort. 
 
-            <big>Appendix 5  -   The Simulate Button</big>
-                This UI Button, when clicked, will play and pause the simulation of the Logic Gate circuit in the Workspace. When the 
-                simulation is paused, it will display "Play" on text and on its icon. When the simulation is playing, it will display 
-                "Pause" on its text and icon. By default, the simulation is paused when Simboard is loaded in the web browser. 
+
+            <big>Appendix 4  -   The "Simulate" Button</big>
+
+                <img src="/Media/Layout/PlaySim.png" width="5%" height="5%" style="padding: 10px;">
+
+                This button acts as a toggle. If the button is toggled ON, the circuit can start working. Yet if the button is toggled
+                off, the circuit stops working. This acts as a play/pause button for your Logic Gates!
+
+                <b>In order to see your circuit function, you must 'PLAY' your Workspace simulation.</b>
+
+
+
+            <big>Appendix 5  -   The "Save" Button</big>
+
+                <img src="/Media/Layout/SaveProject.png" width="5%" height="5%" style="padding: 10px;">
+
+                This button allows you to save either the Logic Gate circuit that you have made, or the UI Customisations you have 
+                altered on your project. 
+
+                Type the letter 'P' into the prompt when the save button is clicked to save the 'P'roject!
+                Type the letter 'L' into the prompt when the save button is clicked to save the UI 'L'ayout!
+
+                You will then be asked what you would like to name the file. Don't input a file extension - Simboard handles this!
+
+                Finally, you will be able to enter your name or alias, although this is optional! 
+
+
+
+            <big>Appendix 6  -   The "Load" Button</big>
+
+                <img src="/Media/Layout/LoadProject.png" width="5%" height="5%" style="padding: 10px;">
+
+                This function is tricky to utilise, but if done correctly, can allow you to access circuits or layout data!
+
+                Once a file has been saved via the "Save" function, a .JSON file will be downloaded to your local disk drive. 
+
+                If you would like to access this file again, and paste it into the session you are currently operating, you 
+                must open your File Manager on your Device, and virtually drag and drop the downloaded .JSON file into the 
+                Workspace.
+
+                If the file was recognised, you should see a little animation play on Load Button icon that looks something
+                like this:
+
+                <img src="/Media/GIFFYFrames/F7.png" width="5%" height ="5%" style="padding: 10px;">
+
+                If you do see the animation similar to the image above, click the Load Button and follow the prompts 
+                instructions.
+
+
+
+            <big>Appendix 7  -   The "Customise" Button</big>
+
+                <img src="/Media/Layout/customise.png" width="5%" height="5%" style="padding: 10px;">
+
+                This button allows you, the end user, to edit and modify the visual colour scheme of Simboard. 
+
+                By clicking this button, you will be repeatedly prompted about each section of the Simboard application, 
+                and you must make one of three choices:
                 
-                When the Workspace is paused, the user can drag and drop Logic Gate objects around the workspace, yet when the Workspace
-                is playing, the user will be able to interact with buttons to fire execution flow. 
+                    Either...   enter a HEXADECIMAL VALUE, one that is 7 characters long and begins with a '#', e.g:
+                    #FF3300...
 
-            <big>Appendix 6  -   The Save Button</big>
-                This UI Button, when clicked, will open up a mini overlaying menu in the Workspace area. It will prompt you whether you 
-                would want to save <i>"As Layout" or "As Project"</i>. 
+                    ...Revert the UI element to its default value by entering the letter 'D' into the prompt...
 
-                Click <b>"As Layout"</b> if you want to save the scaling and colouring of the menus and UI that you may have changed when 
-                on the Customise menu. 
+                    ...Skip the specific UI customisation, or skip the rest of the prompts and apply all decisions by
+                    entering 'X' into the prompt or by clicking 'Cancel'.
 
-                Click <b>"As Project"</b> if you want to save your Logic Gate circuit.
+                All of this customisation data can be saved by saving 'Layout' in the Save function.
 
-            <big>Appendix 7  -   The Load Button</big>
 
-            <big>Appendix 8  -   The Customise Button</big>
 
-            <big>Appendix 9  -   The User Manual Button</big>
+            <big>Appendix 8  -   The "Engine Power" Button</big>
 
-            <big>Appendix 10 -   The Return Button</big>
-                As you are right now, visiting the User Manual, if you want to return, click the "Return To Simboard" button highlighted
-                below:
+                <img src="/Media/Layout/qualitySteps.png" width="5%" height="5%" style="padding: 10px;">
+
+                By clicking this button, you will be able to modify the depth of the Boolean Math calculated
+                when the circuit is simulating. 
+
+                Essentially, if you <b>lower</b> the value of the Engine Power, the Boolean Math will be less
+                complicated, and is better suited for smaller circuits. 
+
+                Yet, if you <b>increase</b> the value of the Engine Power, the Boolean Math will be more 
+                complicated, and is therefore better suited for larger circuits. 
+
+                <b><i>If you increase the value too high, then Simboard may slow down in performance!</i></b>
+
+                If your Boolean Math value is too low, your circuits output may be either inaccurate or 
+                faulty!
+
+
+
+            <big>Appendix 9  -   The "Line Solver" Button</big>
+
+                This button allows you to change or fix the positions of the visual lines that connect the 
+                Logic Gate objects together.
+
+                There are various modes that each do different things, and you can choose any from the 
+                connections below:
+
+                <img src="/Media/Layout/lineSolverM0.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 0 makes all lines look like straight paths, from A to B. 
+
+                <img src="/Media/Layout/lineSolverM1.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 1 makes all lines look like squared, orthogonol paths.
+
+                <img src="/Media/Layout/lineSolverM2.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 2 makes all lines look curvy and bendy.
+
+                <img src="/Media/Layout/lineSolverM3.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 3 makes all lines appear transparent, depending on the value you enter.
+
+                <img src="/Media/Layout/lineSolverM4.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 4 makes all lines re-adjust to their required positions. 
+                This is very useful after imports, where connections can get a bit messy!
+
+                <img src="/Media/Layout/lineSolverM5.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 5 makes all lines change colour, depending on the value you enter. 
+
+                <img src="/Media/Layout/lineSolverM6.png" width="5%" height="5%" style="padding: 10px;">
+
+                Line Solver Mode 6 makes all likes change thickness, depending on the value you enter.
+
+
+
+            <big>Appendix 10 -   The "Talk To System" Button</big>
+
+                <img src="/Media/Layout/talkToSystem.png" width="5%" height="5%" style="padding: 10px;">
+
+                This button, when clicked, acts as the "Command Prompt" for Simboard. 
+
+                If you use this function, you will have a plethora of functions available to you, 
+                including, but not limited to:
+
+                <big><b>SSC</b>     -> Screen Shot Circuit</big>
+                  - This command screeshots your circuit!
+
+                <big><b>CSS</b>     -> Change Speaker Song</big>
+                  - This command changes the speaker song on your circuit!
+
+                <big><b>TPULSE</b>  -> Type Pulse</big>
+                  - This command changes the pulsation effect when signal flows through wires!
+
+                <big><b>CW</b>      -> Clear Workspace</big>
+                  - This command clears your workspace!
+
+                <big><b>RWT</b>     -> Reset Workspace Transform</big>
+                  - This command takes you back to the default view if you get lost traversing the Workspace!
+
+                <big><b>HGAA</b>    -> Hide Grid And Axis</big>
+                  - If you don't like the axis and grid showing on the Workspace, you can disable it with this command!
+
+                <big><b>SGAA</b>    -> Show Grid And Axis</big>
+                  - If you want to see the axis and grid again, you can enable it with this command!
+
+                <big><b>MOP</b>     -> Move All Positions</big>
+                  - If you want to move all objects by a certain amount on either the X or Y axis, use this command!
+
+
+
+            <big>Appendix 11 -   The "User Manual" Button</big>
+
+                <img src="/Media/Layout/UserManual.png" width="5%" height="5%" style="padding: 10px;">
+
+                This is the button you've obviously clicked to get to this page - or maybe you havent...
+
+                Here, you can view the concisely ordered manual and information about Simboard and Logic Gates!
+
+
+
+            <big>Appendix 12 -   The Filter Button</big>
+
+                This button allows you to either EXCLUDE or INCLUDE logic gate objects from the Object Menu. 
+
+                By entering 'EXC', standing for EXCLUDE into the prompt, you will be able to remove a single 
+                category of Logic Gate object from the Object Menu!
+
+                By entering 'INC', standing for INCLUDE into the prompt, you will be able to remove every 
+                other category of Logic Gate object except for one from the Object Menu!
+
+
+
+            <big>Appendix 13 -   Logic Gate Button</big>
+
+                There are various Logic Gate objects available, including:
+
+                <big>The <b>Button</b></big>
+
+                    <img src="/Media/IdleState/HoldButton_Idle.png" width="4%" height="4%" style="padding: 31px;">
+
+                    The Button, aka. the Hold Button, is one of two inputs available in Simboard. 
+                    It acts as a determinant, and sends a binary 1 signal if you click it, or outputs
+                    a binary 0 signal if you click it again. 
+
+                    Below, we can see what happens when a button connected to an output object is toggled 
+                    ON or OFF:
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/InputToBulb.mp4" type="video/mp4"/>
+                    </video>
+
+                    And we can also see what happens when a button is connected to multiple inputs!
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/InputToMulti.mp4" type="video/mp4"/>
+                    </video>
+
+
+                <big>The <b>AND</b> Gate</big>
+
+                    <img src="/Media/IdleState/AND_Idle.png" width="5%" height="5%" style="padding: 31px;">
+
+                    The AND Gate takes in multiple inputs, usually two, and only outputs a binary 1 to 
+                    the next gate when all of binary signals coming into it are a binary 1. 
+
+                    We can see this more clearly below:
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/ANDShowcase.mp4" type="video/mp4"/>
+                    </video>
+
+                    AND Gates also operate with the same rule when many inputs are connected to it!
+                    (Although, this isn't industry standard...)
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/MultiANDGate.mp4" type="video/mp4"/>
+                    </video>
+
+
+                <big>The <b>OR</b> Gate</big>
+
+                    <img src="/Media/IdleState/OR_Idle.png" width="4.5%" height="4.5%" style="padding: 31px;">
+
+                    The OR Gate takes in multiple inputs, usually two, and outputs a binary 1 when 
+                    ANY of the binary signals coming into it are a binary 1. 
+
+                    We can see this more clearly below:
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/ORShowcase.mp4" type="video/mp4"/>
+                    </video>
+
+                    OR Gates also operate with the same rule when many inputs are connected to it!
+                    (Although, this isn't industry standard...)
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/MultiORGate.mp4" type="video/mp4"/>
+                    </video>
+
+
+                <big>The <b>NOT</b> Gate</big>
+
+                    <img src="/Media/IdleState/NOT_Idle.png" width="5%" height="5%" style="padding: 31px;">
+
+                    The NOT Gate takes in one input, and inverts the binary signal parsed into it. 
+                    For example, if there is a binary 1 signal coming in, the NOT Gate will output 
+                    a binary 0. 
+                    And if there is a binary 0 signal coming in, the NOT Gate will output a 
+                    binary 1. 
+
+                    We can see this more clearly below:
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/NOTShowcase.mp4" type="video/mp4"/>
+                    </video>
+
+                    NOT Gates also operate with the same rule when many inputs are connected to it! 
+                    Essentially, the NOT Gate will take the average of all binary signals coming in, 
+                    and make a decision. 
+                    So even if one binary signal is 1, and the rest are 0, the NOT Gate will still 
+                    output a binary signal of 0. 
+
+                    NOT Gates don't take in multiple inputs as an industry standard, yet we can see 
+                    the concept clearly below:
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/MultiNOTGate.mp4" type="video/mp4"/>
+                    </video>
+
+                    NOT Gates can also act as a non-determinant, constant input of a Binary 1 that 
+                    cannot be toggled, if it is by itself, plugged into another target gate, as 
+                    seen below:
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/NOTGateShowcases.mp4" type="video/mp4"/>
+                    </video>
+
+                    This occurs because nothing is entering into the NOT Gate, and it interprets 
+                    that as a Binary 0, which is why it outputs a Binary 1. 
+
+
+                <big>The <b>XOR</b> Gate</big>
+
+                    <img src="/Media/IdleState/XOR_Idle.png" width="5%" height="5%" style="padding: 31px;">
+
+                    The XOR Gate takes in multiple inputs, usually two, and outputs a binary one when 
+                    an odd number of binary signals coming into it are of a binary signal 1. 
+
+                    So if one signal is a binary 1, and the other is a binary 0, the XOR gate will 
+                    output a binary 1, as there are an odd number of Binary inputs.
+                    And if both binary signals are either a binary 0 or a binary 1, the XOR gate will 
+                    output a binary 0, as there are an even number of Binary inputs.
+
+                    We can see this clearly below: 
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/XORShowcase.mp4" type="video/mp4"/>
+                    </video>
+
+                    XOR Gates also operate with the same rule when many inputs are connected to it!
+                    (Although, this isn't industry standard...)  
+
+                    <video width="420" height="300" controls>
+                        <source src="/Media/Layout/MultiXORGate.mp4" type="video/mp4"/>
+                    </video>
+
+
+                <big>The <b>Lightbulb</b></big>
+
+                    <img src="/Media/IdleState/Lightbulb_Idle.png" width="3.5%" height="3.5%" style="padding: 31px;">
+
+                    The Lightbulb is 
+
+
+                <big>The <b>Speaker</b></big>
+
+                    <img src="/Media/IdleState/Speaker_Idle.png" width="5%" height="5%" style="padding: 31px;">
+
 
         </pre>
 
@@ -143,65 +451,74 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
     <br>
 <!--~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~ -->
     <div class="BorderLayout">
-        <h2>How to customise and configure Simboard</h2>
+        <h2>What are Logic Gates, and how can I use them?</h2>
         <pre>
-            You can customise the layout of the Simboard Application by selecting the "Customise" button in the File Menu. 
+
+            <big>The </big>
 
         </pre>
 
         <img src="">
 
         <pre>
-            Then, you can select the colours that you want the corresponding UI elements to appear as.
+
+            <big>The </big>
 
         </pre>
 
         <img src="">
 
         <pre>
-            Click "Save".
+
+            <big>The </big>
 
         </pre>
 
         <img src="">
 
         <pre>
-            Click "As Layout"
+
+            <big>The </big>
 
         </pre>
 
         <img src="">
 
         <pre>
-            The JSON file should now save to your local disk. 
+
+            <big>The </big>
 
         </pre>
 
         <img src="">
 
         <pre>
-            To load the layout when you next visit the website, click "Load" in the File Menu.
+
+            <big>The </big>
 
         </pre>
 
         <img src=""> 
 
         <pre>
-            Click "Layout File".
+
+            <big>The </big>
 
         </pre>
 
         <img src="">
 
         <pre>
-            Select the file that you saved "As Layout" and press "Open".
+
+            <big>The </big>
 
         </pre>
 
         <img src=""> 
 
         <pre>
-            You can now work with your desired layout again! 
+
+            <big>The </big>
 
         </pre>
 
