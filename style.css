@@ -24,11 +24,79 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
     *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
     *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
-    KEY :
+    KEY : \\ (Main Styling Content) -- END OF STYLING DOCUMENT = LINE 1746 // 
 
-        BODY
+        LINE 103:
+            GLOBAL VARIABLE DEFINITIONS INSIDE OF "ROOT"
 
-        SCROLLBAR 
+        LINE 165:
+            BODY STYLING
+
+        LINE 186:
+            SCROLLBAR STYLING
+
+        LINE 450:
+            BASE STYLING
+
+        LINE 505:
+            CIRCUITCONFIGURATIONAREA MAJOR DIVISION STYLING
+
+        LINE 594:
+            LOGO TEXT DIVISION STYLING
+
+        LINE 637:
+            FILE MENU DIVISION STYLING
+
+        LINE 656:
+            CIRCUITBUILDERAREA MAJOR DIVISION STYLING 
+
+        LINE 714:
+            OBJECT MENU DIVISION STYLING
+
+        LINE 765:
+            WORKSPACE DIVISION STYLING 
+
+        LINE 808:
+            GRID CONTAINER SUB DIVISION STYLING 
+
+        LINE 828:
+            GRID CANVAS SUB DIVISION STYLING 
+
+        LINE 848:
+            OBJECT MENU BUTTON CHILD ELEMENTS STYLING 
+
+        LINE 899:
+            FILTER MENU BUTTON STYLING 
+
+        LINE 911:
+            FILE MENU BUTTON CHILD ELEMENTS STYLING 
+
+        LINE 997:
+            TEXT STYLING (GENERIC)
+
+        LINE 1053:
+            IMAGE STYLING (GENERIC)
+
+        LINE 1083:
+            HTML HORIZONTAL RULE STYLING (GENERIC)
+
+        LINE 1128:
+            LOGIC GATE OBJECT STYLING
+
+        LINE 1231:
+            SELECTED LOGIC GATE OBJECT STYLING 
+
+        LINE 1260:
+            INPUT/OUTPUT PIN STYLING
+
+        LINE 1327:
+            WIRE LINE CONNECTION STYLING 
+
+        LINE 1360:
+            TOGGLE ASSIST TOOLTIP STYLING 
+
+        LINE 1439:
+            ACTIVATED WIRE LINE PULSATION ANIMATIONS AND STYLING
 
     // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
     // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ */
@@ -36,29 +104,61 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
 /* Web Element Styling Starts Here */ 
 
-:root{ /* stores a global ref for the js and html files to gain data from */
+:root{ /* The "root" stores the fundemental styling information that can be 
+          applied to any CSS Style below this. The root acts as the base of 
+          the styling, to which all of the child elements of the HTML structure 
+          can gain information from. */
+       /* In this root, global variables are initialised that can be used anywhere 
+          in the stylesheet. */ 
 
+    --toggleHoverPointerOn: url("/Media/Layout/toggleON.png"), auto;    
+    /* This global variable defines what the cursor will look like 
+       when it is hovering over an input button that is OFF. This 
+       prompts the user to know that clicking it will turn the 
+       button ON. */ 
 
-    --enter: "/Media/Layout/toggleON.png";
-
-    --toggleHoverPointerOn: url("/Media/Layout/toggleON.png"), auto;
-
-    --toggleHoverPointerOff: url("Media/Layout/toggleOFF.png"), crosshair;
-
+    --toggleHoverPointerOff: url("Media/Layout/toggleOFF.png"), auto;
+    /* This global variable defines what the cursor will look like 
+       when it is hovering over an input button that is ON. This 
+       prompts the user to know that clicking it will turn the 
+       button OFF. */ 
 
     --currentHoverPointer: var(--toggleHoverPointerOn);
+    /* This global variable stores the reference of what the mouse 
+       cursor CURRENTLY looks like. This is so the styling methods 
+       below can reference how the cursor should be displayed as. 
+       
+       The ability to refer to a single variable that holds the 
+       cursors' display data allows for synced styling and robust 
+       styling design to prevent priority errors. 
+       
+       The variable reference held in this global variable can be 
+       changed in the JavaScript file. */ 
 
 
-    --toggleTransparency: 0.75; 
-
-
-    --pulseColour: #ff3300;
-
-    --pulseSpeed: 0.5s;
-
-    --pulseWidth: 7.5; 
+    --toggleTransparency: 0.75; /* This global variable holds the value of 
+    the input buttons' opacity of the "TOGGLE INPUT" pop-up. 
     
-}
+    If the end user wants to disable this when hovering over simulating 
+    input buttons, they can set this value to 0.0 OR 0 in the Talk To 
+    System function. */
+
+    --pulseColour: #ff3300; /* This global variable defines the colour 
+    that the pulsating wires display as. 
+
+    It can be changed in the JavaScript file. */ 
+
+    --pulseSpeed: 0.5s; /* This global variable defines the speed 
+    that the pulsating wires display as. 
+
+    It can be changed in the JavaScript file. */ 
+
+    --pulseWidth: 7.5; /* This global variable defines the width 
+    that the pulsating wires display as. 
+
+    It can be changed in the JavaScript file. */ 
+    
+} /* The styling global variables container ends here. */ 
 
 /* Web Element Styling Ends Here */ 
 
@@ -79,7 +179,7 @@ body{ /* Everything inside of the body tag styles like... */
     margin: 0;  /* Creates no padding / space between the browser & website 
                     visual element */ 
 
-}
+} /* Simboards' body configuration ends here. */
 
 /* Body Styling Ends Here */ 
 
@@ -796,11 +896,15 @@ more in the HTML document). */
 }   /* The styling of the Buttons inside of the Object Menu ends here. */ 
 
 
-#FilterMenuActivator{
-    cursor: url("/Media/Layout/search.png"), default !important; /* Overwrites the 
-    ObjectMenu button styling */ 
-}
+#FilterMenuActivator{   /* The Filter Menu is a button inside of the Object Menu 
+    that must be treated && styled differently to the others. To do this, we must 
+    utilise the "!important" styling method to overwrite the inherited attributes 
+    that the Filter Menu button will contain. */
 
+    cursor: url("/Media/Layout/search.png"), default !important; /* Overwrites the 
+    ObjectMenu && ObjectMenu Button styling for what the cursor thumbnail should be. */ 
+
+}   /* The styling for the Filter Menu specifically, ends here. */
 
 /* Styling for the Object Menu Buttons Halts Here */ 
 
@@ -1073,15 +1177,24 @@ Halts Here */
         respective container, and has the ability to be dragged 
         around said Workspace. */ 
 
-    display: flex; 
+    display: flex; /* The entire object itself is labelled as a flex
+    box so that it all of the items (including the image and the IO 
+    pins can be safely drawn in a linear row fashion. */
 
-    flex-direction: row; 
+    flex-direction: row; /* We specify that the flex box should ensure 
+    all of the items are drawn in a row. For example;
+        Input Pins -> Thumbnail -> Output Pins ...*/
 
-    align-items: center;
+    align-items: center; /* The children elements (e.g. the thumnail,
+    the IO containers etc.) are instructed to be aligned to the center 
+    of the DraggableGateHeader division. */
 
-    justify-content: space-between;
+    justify-content: space-between; /* The children elements inside of 
+    the DraggableGateHeader division are spaced evenly by default. */
 
-    overflow: hidden; 
+    overflow: hidden; /* No scrollbars can appear in this division when 
+    the user zooms in or out too far, or if the object is dragged beyond 
+    the borders of the Workspace. */
 
     padding: 0px;   /* We ensure that the Logic Gate image division 
     fills up the entire DraggableGate container, by setting the default 
@@ -1095,7 +1208,7 @@ Halts Here */
 
     z-index: 1; /* We ensure that the actual Logic Gate Object division 
     is displayed above the "DraggableGate" division in the Workspace, 
-    by setting it's z-index to be of Layer 10 (higher than 9). */ 
+    by setting it's z-index to be of Layer 1 (higher than 0). */ 
 
     background-color: #ffffff00; /* The Logic Gate background should be 
     transparent completely, so that the end user can see the Workspace 
@@ -1115,265 +1228,520 @@ Halts Here */
 
 /*/ Logic Gate Object Styling Ends Here */ 
 
-.gateObjectHighlight{
-    border: 5px dotted red;; 
+/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+
+/* Selected Logic Gate Object Styling Starts Here */ 
+
+.gateObjectHighlight{   /* This styling method styles Logic Gate objects
+    when they have been selected by the end user. */
+
+    border: 5px dotted red;
+    /* When the Logic Gate object is selected, a dotted, red line 
+    surrounds the object. */  
 
     background-color: rgba(62, 62, 196, 0.65); 
+    /* When the Logic Gate object is selected, a purplish background 
+    appears behind said object. */
 
     cursor: url("/Media/Layout/handInvert.png"), move !important;
-
-    position: absolute; /* The Logic Gate object can be moved without 
-    it adjusting or influenced or being influenced by other HTML 
-    elements. */ 
-}
-
-.IOHighlight{
-    cursor: url("/Media/Layout/handInvert.png"), move !important;
-
-    position: absolute; /* The Logic Gate object can be moved without 
-    it adjusting or influenced or being influenced by other HTML 
-    elements. */ 
-}
-
-.InputColumn {
-
-    display: flex;
-    flex-direction: column; /* Vertical stack */
-    gap: 10px; /* Space between the two input boxes */
-
-    padding: 3px; 
-
-}
-
-
-.OutputColumn { 
-
-    display: flex;
-    flex-direction: column; /* Vertical stack */
-    gap: 10px; /* Space between the two input boxes */
-
-    padding: 3px; 
-
-}
-
-
-
-.IOStyle{ 
- 
+    /* The cursor turns inverted to account for the colour change 
+    done by the styling instructions above, and is labelled as 
+    important to override the styling instructions preventing the 
+    cursor change from occuring. */ 
 
     position: absolute; /* The Logic Gate object can be moved without 
     it adjusting or influenced or being influenced by other HTML 
     elements. */ 
 
-    cursor: url("/Media/Layout/cursor.png"), default; 
+}   /* The styling for selected objects ends here. */
 
-    display: none;
+/* Selected Logic Gate Object Styling Ends Here */ 
+
+/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+
+/* Input/Output "Pin" Styling Starts Here */ 
+
+.InputColumn { /* This styling method styles the input column of each 
+    Logic Gate object in the Workspace. 
+    It tells the division to display the Input pins in a column order. */ 
+
+    display: flex; /* The input division is displayed as a flex box so 
+    that we can define the order of objects. */
+
+    flex-direction: column; /* We then specify that the pins should 
+    stack on top of each other, like a column. */
+
+    gap: 10px; /* The space between the input boxes should be 10 pixels 
+    always. */
+
+    padding: 3px; /* The distance between the input pin column and the 
+    gate thumnail should be 3 pixels. */
+
+} /* The styling for the input pin column ends here. */
+
+
+.OutputColumn { /* This styling method styles the output column of each 
+    Logic Gate object in the Workspace. 
+    It tells the division to display the Output pins in a column order. */ 
+
+    display: flex; /* The output division is displayed as a flex box so 
+    that we can define the order of objects. */
+
+    flex-direction: column; /* We then specify that the pins should 
+    stack on top of each other, like a column. */
+
+    gap: 10px; /* The space between the output boxes should be 10 pixels 
+    always. */
+
+    padding: 3px; /* The distance between the output pin column and the 
+    gate thumnail should be 3 pixels. */
+
+} /* The styling for the output pin column ends here. */
+
+
+.IOStyle{ /* The styling for each individual IO "Pin" starts here. */
+
+    position: absolute; /* The Pins in each IO Column should be positioned 
+    as absolute. This ensures that its position is 0 by 0 pixels in the 
+    overall logic gate object, so that wiring connection logic can 
+    safely work with connected pairs of gates, even on different 
+    resolutions. */ 
+
+    cursor: url("/Media/Layout/cursor.png"), default; /* When the mouse 
+    cursor is present on the IO Pin, it turns to a pointer trigger. */
+
+    display: none; /* By default, each IO is visually removed from the 
+    Logic Gate object, and inside of the cloneObject function, aka. 
+    SCRIPT 007 in the JavaScript file, depending on the Logic Gate 
+    object spawned, the IO Pins will be revealed and displayed. 
     
-    /*flex-direction: column;*/
-
-}  
-
-
-
-svg#WiredConnection {
-
-  pointer-events: none;
-
-}
-
-.WireHitboxReference, line, path {
+    E.g., if the object is a NOT Gate, because the HTML structure 
+    of each gate starts with all three pins, all three are first 
+    removed, and then only the first input, and the first output 
+    pin are revealed! */
     
-    pointer-events: visiblePainted; /* Captures clicks on the stroke pixels only */
+} /* The styling for each individual IO Pin ends here. */
 
-    cursor: url("/Media/Layout/deletePointer.png"), move;
+/* Input/Output "Pin" Styling Ends Here */ 
+
+/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+
+/* Wire/Line Connections between Logic Gate Objects Styling Starts Here */ 
+
+svg#WiredConnection {   /* The containers that contains all of the wire 
+    line connections must be styled too, which is done in this method. */
+
+  pointer-events: none; /* Because this line container exists within the 
+  Workspace, we must prevent it from blocking the cursor clicks when 
+  the user interacts with objects on the Workspace. Therefore, pointer 
+  events are disabled, and cursor / mouse pointer clicks pass through it. */
 
 }
 
+/* Further styling for the wire line container must be done, seen below! */
+
+.WireHitboxReference, line, path {  /* Information from all lines and wire 
+    HTML elements inside of the wire line container are taken as parameters 
+    for the specific styling done below. */
+    
+    pointer-events: visiblePainted; /* To ensure that the end user can click 
+    on the wire line connections to delete them, we ensure that the wire 
+    line container only picks up click events when the user clicks on said 
+    wire(s), instead of the entire background it covers (the Workspace). */
+
+    cursor: url("/Media/Layout/deletePointer.png"), move; /* When the end user 
+    hovers over the wires between both objects, their cursor appears differently 
+    to signify it can be interacted with. */
+
+} /* The wire line and wire line container styling ends here. */
+
+/* Wire/Line Connections between Logic Gate Objects Styling Ends Here */ 
+
+/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
+
+/* Toggle Assist Tooltip Styling Starts Here */ 
+
+.UserInputAbility { /* The overlaying tooltip that appears above the actual 
+    Hold Button object when both the Workspace is Simulating AND the user hovers
+    their cursor over it. 
+    It allows the end user to know that the object can be interacted and toggled. 
+    
+    THIS IS HOW THE TOOLTIP APPEARS BY DEFAULT (TRANSPARENT). */
+
+  position: absolute;   /* The positioning is set to be absolute, so that all 
+  measurements and styling done below use the top left corner of the object (0, 0)
+  as the start point.  */
+
+  bottom: 0%;   /* The center of this overlaying tooltip will appear at the very 
+  center of the Logic Gate object itself. */
+
+  left: 0%;    /* The center of this overlaying tooltip will appear at the very 
+  center of the Logic Gate object itself. */
+
+  width: 100%;  /* The overlaying tooltip stretches to 100 per cent of the parent 
+  objects' width. */
+
+  height: 100%; /* The overlaying tooltip stretches to 100 per cent of the parent 
+  objects' height. */
+
+  background-color: rgba(255, 255, 255, 0.031); /* The background colour of the 
+  tooltip will be this transparent, grey-ish colour when nothing is hovering over 
+  it by default, to make it slightly stand out against other non-interactable 
+  objects. */
+
+  color: transparent; /* The text is transparent by default as to not destroy user 
+  immersion.  */
+
+  border: 0px solid rgba(0, 0, 0, 0.3); /* The border of the overlay is non-
+  existent by default. */
+
+  font-size: 10px;  /* The font that displays the TOGGLE BUTTON text will be 
+  semi-large by default. */
+
+  z-index: 10; /* To ensure it stays on top of other elements, the z-index of the 
+  overlay will be set to 10. */
+
+  cursor: var(--currentHoverPointer);   /* As defined earlier, the cursor thumbnail 
+  will change depending on if the Hold Button is ON or OFF. This is toggled in the 
+  JavaScript file, by toggling the global CSS variable "currentHoverPointer". */
+
+}   /* The default styling of the toggle assist ends here. */
 
 
-/* :userInputAbilityCursorForce {
+.UserInputAbility:hover { /* The overlaying tooltip that appears above the actual 
+    Hold Button object when both the Workspace is Simulating AND the user hovers
+    their cursor over it. 
+    It allows the end user to know that the object can be interacted and toggled. 
+    
+    THIS IS HOW THE TOOLTIP APPEARS WHEN THE PARENT OBJECT IS HOVERED UPON, TO 
+    ACTUALLY SHOW THE END USER THAT THE OBJECT IS INTERACTABLE. */
 
-    --forceCursor: "/Media/Layout/toggleON.png"; 
+  cursor: var(--currentHoverPointer);   /* As defined earlier, the cursor thumbnail 
+  will change depending on if the Hold Button is ON or OFF. This is toggled in the 
+  JavaScript file, by toggling the global CSS variable "currentHoverPointer". */
 
-} */
+  background-color: #e0e0e0; /* The background colour of the tooltip will be 
+  white-grey-ish when the end user hovers over it. */
 
-
-
-/* The container (the logic gate/component) */
-
-/* The Action Button */
-.UserInputAbility {
-
-  position: absolute;   /* Take it out of the normal flow */
-
-  bottom: 0%;        /* Move it 20px below the bottom edge */
-
-  left: 50%;            /* Start at the middle */
-
-  transform: translateX(-50%); /* Shift back by half its width to perfectly center it */
-
-
-  width: 100%;
-
-  height: 100%; 
+  opacity: var(--toggleTransparency);   /* The end user can toggle the opacity of the 
+  Toggle Assist tooltip overlay if they don't want it when hovering over each input 
+  Hold Button.
   
+  This is done in the Talk To System function. */
 
-  /* Styling to match your UI */
-  background-color: rgba(255, 255, 255, 0.031); 
+  color: black; /* The colour of the text inside is no longer transparent, but is 
+  fully black when the end user hovers over it. */
 
-  color: transparent; 
+}   /* The activated styling of the toggle assist ends here. */
 
-  border: 0px solid rgba(0, 0, 0, 0.3);
+/* Toggle Assist Tooltip Styling Ends Here */ 
 
-  padding: 2px 8px;
+/* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 
-  font-size: 10px;
+/* Pulsating Wire Effect Styling Starts Here */ 
 
-  z-index: 10;          /* Ensure it stays on top of other elements */
+@keyframes riverAnim { /* To allow the end user to visualise binary flow, a method of
+    doing so is to light up connection wire lines by making it have a "dashed" effect. */
 
-  cursor: var(--currentHoverPointer);
+    to {    /* To do this, a "to" rule needs to be set up to determine how the HTML element 
+        will change over time. */
 
-}
+        stroke-dashoffset: 20;  /* This styling instruction defines the gap size between the 
+        dots || dashes. */
 
-.UserInputAbility:hover {
+    }   /* This instruction is repeated continuously to allow for a "flowing" effect */
 
-  cursor: var(--currentHoverPointer);
-
-  background-color: #e0e0e0;
-
-  opacity: var(--toggleTransparency);
-
-  color: black; 
-
-}
+}   /* The river animation blueprint ends here. */
 
 
-@keyframes riverAnim {
+@keyframes hubbleAnim { /* To allow the end user to visualise binary flow, a method of
+    doing so is to light up connection wire lines by making it have a "dashed flashing" 
+    effect. */
 
-    to {
+    0% { stroke-width: 2; opacity: 0.6; }  /* This styling instruction defines the line 
+    width size at second 0. */
 
-        stroke-dashoffset: 20;
+    50% { stroke-width: 5; opacity: 1; }  /* This styling instruction defines the line 
+    width size at half of the time interval stored in the "--pulseSpeed" CSS Global 
+    Variable. */
 
-    }
+    100% { stroke-width: 2; opacity: 0.6; }  /* This styling instruction defines the line 
+    width size at the end of the time interval stored in the "--pulseSpeed" CSS Global 
+    Variable. */
 
-}
-
-@keyframes hubbleAnim {
-
-    0% { stroke-width: 2; opacity: 0.6; }
-    50% { stroke-width: 5; opacity: 1; }
-    100% { stroke-width: 2; opacity: 0.6; }
-
-}
-
-@keyframes blinkAnim {
-  0% { stroke-dashoffset: 100%; opacity: 1; }
-  100% { stroke-dashoffset: 0%; opacity: 0; }
-}
+}   /* The hubble animation blueprint ends here. */
 
 
-@keyframes dottedAnim {
+@keyframes blinkAnim { /* To allow the end user to visualise binary flow, a method of
+    doing so is to light up connection wire lines by making it have a "flashing" effect. */
 
-  from { stroke-dashoffset: -50; }
+  0% { stroke-dashoffset: 100%; opacity: 1; }  /* This styling instruction defines the line 
+    width and opacity at second 0. */
 
-  to { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0%; opacity: 0; }  /* This styling instruction defines the line 
+    width size and opacity at the end of the time interval stored in the "--pulseSpeed" CSS 
+    Global Variable. */
 
-}
-
-
-@keyframes lavaFountainAnim {
-  0% { stroke: var(--pulseColour); filter: blur(0px); }
-  50% { stroke: #ff9900; filter: blur(1px); }
-  100% { stroke: var(--pulseColour); filter: blur(0px); }
-}
+}   /* The blink animation blueprint ends here. */
 
 
-@keyframes flowAnim {
+@keyframes dottedAnim { /* To allow the end user to visualise binary flow, a method of
+    doing so is to light up connection wire lines by making it have a "flowing pin-point" 
+    effect. */
 
-    to {
-        stroke-dashoffset: 20;
-    }
-    0% { stroke-width: 2; opacity: 0.6; }
-    50% { stroke-width: 5; opacity: 1; }
-    100% { stroke-width: 2; opacity: 0.6; }
+  from { stroke-dashoffset: -50; }  /* A starting position for the "to" rule is initialised.
+  This allows for a gap that moves in the direction of the "target" node. */
 
-}
+  to { stroke-dashoffset: 0; }    /* To do this, a "to" rule needs to be set up to 
+        determine how the HTML element will change over time. */
 
-
-.static {
-  stroke: var(--pulseColour); /* Bright Red for logic high */
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 0, 0; /* 5px dash, 5px gap */
-}
+}   /* The dotted animation blueprint ends here. */
 
 
-.river {
-  stroke: var(--pulseColour); /* Bright Red for logic high */
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 10, 2.5; /* 5px dash, 5px gap */
-  animation: riverAnim var(--pulseSpeed) linear infinite;
-}
+@keyframes lavaFountainAnim { /* To allow the end user to visualise binary flow, a method of
+    doing so is to light up connection wire lines by making it have a "beaming" effect. */
+
+  0% { stroke: var(--pulseColour); filter: blur(0px); }  /* This styling instruction defines the 
+    line colour and the line blurriness extent at second 0. */
+
+  50% { stroke: #ff9900; filter: blur(1px); }  /* This styling instruction defines the line 
+    colour and the line blurriness extent at half of the time interval stored in the "--pulseSpeed" 
+    CSS Global Variable. */
+
+  100% { stroke: var(--pulseColour); filter: blur(0px); }  /* This styling instruction defines the 
+    line colour and blurriness extent at the end of the time interval stored in the "--pulseSpeed" 
+    CSS Global Variable. */
+
+}   /* The fountain animation blueprint ends here. */
 
 
-.hubble {
-  stroke: var(--pulseColour); /* Bright Red for logic high */
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 7.5, 5; /* 5px dash, 5px gap */
-  animation: hubbleAnim var(--pulseSpeed) linear infinite;
-}
+@keyframes flowAnim { /* To allow the end user to visualise binary flow, a method of
+    doing so is to light up connection wire lines by making it have a mix of the 
+    "flashing" and "dashed flashing" effect. */
+
+    to {    /* To do this, a "to" rule needs to be set up to determine how the HTML element 
+        will change over time. */
+
+        stroke-dashoffset: 20;  /* This styling instruction defines the gap size between the 
+        dots || dashes. */
+
+    }   /* This instruction is repeated continuously to allow for a "flowing" effect */
+
+    0% { stroke-width: 2; opacity: 0.6; }  /* This styling instruction defines the 
+    line width and the line opacity at second 0. */
+
+    50% { stroke-width: 5; opacity: 1; }  /* This styling instruction defines the line 
+    width and the line opacity at half of the time interval stored in the "--pulseSpeed" 
+    CSS Global Variable. */
+
+    100% { stroke-width: 2; opacity: 0.6; }  /* This styling instruction defines the 
+    line width and line opacity at the end of the time interval stored in the 
+    "--pulseSpeed" CSS Global Variable. */
+
+}   /* The flow animation blueprint ends here. */
 
 
-.blink {
-  stroke: var(--pulseColour); /* Bright Red for logic high */
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 0, 0; /* 5px dash, 5px gap */
-  animation: blinkAnim var(--pulseSpeed) linear infinite;
-}
+.static {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we style all wires to not play any animation when binary signal flows 
+    through it. */
+
+  stroke: var(--pulseColour); /* The colour of the wire "pulsating effect" is defined. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 0, 0; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 0px dash and a 0px gap
+    to ensure the wire line does not have a dotted || dashed effect during binary "flowing" 
+    through it. */
+
+}   /* The styling method for all lines/path connections that will play the "static" effect
+    when binary signal flows through it ends here. */
 
 
-.dotted {
-  stroke: var(--pulseColour); 
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 1, 48; /* One 2px dot followed by a 48px gap */
-  stroke-linecap: round;
-  animation: dottedAnim var(--pulseSpeed) linear infinite;
-}
+.river {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "river" animation in this CSS Styling Class. */
+
+  stroke: var(--pulseColour); /* The colour of the wire "pulsating effect" is defined. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 10, 2.5; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 10px dash and a 2.5px gap. */
+
+  animation: riverAnim var(--pulseSpeed) linear infinite;   /* The animation to apply these 
+    constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
+
+}   /* The styling method for all lines/path connections that will play the "river" effect
+    when binary signal flows through it ends here. */
 
 
+.hubble {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "hubble" animation in this CSS Styling Class. */
 
-.signal {
-  stroke: var(--pulseColour); 
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 10, 5, 2, 5; /* Long dash (1), gap, short dash (0), gap */
-  animation: riverAnim var(--pulseSpeed) linear infinite; /* Reuse your existing 'flow' animation */
-}
+  stroke: var(--pulseColour); /* The colour of the wire "pulsating effect" is defined. */
 
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
 
-.fountain {
+  stroke-dasharray: 7.5, 5; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 7.5px dash and a 5px gap. */
 
-  animation: lavaFountainAnim var(--pulseSpeed) ease-in-out infinite;
-  stroke-width: var(--pulseWidth);
+  animation: hubbleAnim var(--pulseSpeed) linear infinite;   /* The animation to apply these 
+    constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
 
-}
-
-
-
-.flow {
-  stroke: var(--pulseColour); /* Bright Red for logic high */
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 5, 5; /* 5px dash, 5px gap */
-  animation: flowAnim var(--pulseSpeed) linear infinite;
-}
+}   /* The styling method for all lines/path connections that will play the "hubble" effect
+    when binary signal flows through it ends here. */
 
 
-.invisible {
-  stroke: #ff000000; /* Bright Red for logic high */
-  stroke-width: var(--pulseWidth);
-  stroke-dasharray: 0, 0; /* 5px dash, 5px gap */
-}
+.blink {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "blink" animation in this CSS Styling Class. */
+
+  stroke: var(--pulseColour); /* The colour of the wire "pulsating effect" is defined. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 0, 0; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 0px dash and a 0px gap
+    to ensure the wire line does not have a dotted || dashed effect during binary "flowing" 
+    through it. */
+
+  animation: blinkAnim var(--pulseSpeed) linear infinite;   /* The animation to apply these 
+    constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
+
+}   /* The styling method for all lines/path connections that will play the "blink" effect
+    when binary signal flows through it ends here. */
 
 
+.dotted {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "dotted" animation in this CSS Styling Class. */
 
+  stroke: var(--pulseColour);  /* The colour of the wire "pulsating effect" is defined. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 1, 48; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 1px dash and a 48px gap. */
+
+  stroke-linecap: round;    /* Because the dots in this animation class style are 1 pixel large, 
+    we can style them to be little circles instead of squares by rounding the circumference of 
+    said square dots. */
+
+  animation: dottedAnim var(--pulseSpeed) linear infinite;   /* The animation to apply these 
+    constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
+
+}   /* The styling method for all lines/path connections that will play the "dotted" effect
+    when binary signal flows through it ends here. */
+
+
+.signal {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "signal" animation in this CSS Styling Class. */
+
+  stroke: var(--pulseColour);  /* The colour of the wire "pulsating effect" is defined. */
+  
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 10, 5, 2, 5; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 10px dash and a 5px gap,
+    and then a 2px dash and a 5px gap, for some variety! */
+
+  animation: riverAnim var(--pulseSpeed) linear infinite;   /* The animation to apply these 
+    constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
+
+}   /* The styling method for all lines/path connections that will play the "signal" effect
+    when binary signal flows through it ends here. */
+
+
+.fountain {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "fountain" animation in this CSS Styling Class. */
+
+  animation: lavaFountainAnim var(--pulseSpeed) ease-in-out infinite;   /* The animation to apply 
+    these constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+}   /* The styling method for all lines/path connections that will play the "fountain" effect
+    when binary signal flows through it ends here. */
+
+
+.flow {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we initialise the "flow" animation in this CSS Styling Class. */
+
+  stroke: var(--pulseColour); /* The colour of the wire "pulsating effect" is defined. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 5, 5; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 5px dash and a 5px gap. */
+
+  animation: flowAnim var(--pulseSpeed) linear infinite;   /* The animation to apply these 
+    constant changes to (e.g. stroke colour, stroke width, opacity etc.) across the time frame 
+    set (the CSS Global Variable --pulseSpeed) is initialised. */
+
+}   /* The styling method for all lines/path connections that will play the "flow" effect
+    when binary signal flows through it ends here. */
+
+
+.invisible {   /* The styling initilisations for the animations must be defined further
+    and attributed to a class, so that they can be applied to many HTML line/path 
+    elements with precision. 
+    
+    In this case, we style all wires to be invisible when binary signal flows through it. */
+
+  stroke: #ff000000; /* The colour of the wire "pulsating effect" is defined to be 
+    invisible. */
+
+  stroke-width: var(--pulseWidth);  /* The width of the wire "pulsating effect" is defined
+    to be the value contained in the CSS Global Variable "--pulseWidth". */
+
+  stroke-dasharray: 0, 0; /* The "gap" between the colour and invisiblity which creates the 
+    dotted || dashed effect is defined here. In this case, there is a 0px dash and a 0px gap
+    to ensure the wire line does not have a dotted || dashed effect during binary "flowing" 
+    through it. 
+    
+    When the wire line connections are invisible, the line doesn't have to have any dotted or 
+    dashed effect in the background, which helps save GPU resources. */
+
+}   /* The styling method for all lines/path connections that will play the "invisible" effect
+    when binary signal flows through it ends here. */
+
+/* Pulsating Wire Effect Styling Ends Here */ 
 
 /* //~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬-~¬- */ 
 /*  *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 

@@ -25,17 +25,33 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
 
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
 <!-- *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
-<!-- KEY :
+<!-- KEY :  \\ Main Content || "..." refers to non-relevant children elements || END OF STRUCTURE DOCUMENT = LINE 623 //
 
+  (Start Document with !DOCTYPE)
   HEADER
-
+    ...
   BODY
-    CIRCUIT CONFIG AREA
-        LOGO TEXT 
-        FILE MENU 
-    CIRCUIT BULDER AREA 
-        OBJECT MENU 
-        WORKSPACE 
+    BASE
+        CIRCUIT CONFIG AREA
+            LOGO TEXT 
+                ...
+            FILE MENU
+                ... 
+        CIRCUIT BULDER AREA 
+            OBJECT MENU 
+                ...
+            WORKSPACE
+                GRID CONTAINER 
+                    GRID CANVAS 
+                        MASTER LOGIC GATE OBJECT (CONTAINER PART)
+                            MASTER LOGIC GATE OBJECT (DRAGGABLE PART)
+                                INPUT PIN COLUMN
+                                THUMBNAIL FOR OBJECT
+                                OUTPUT PIN COLUMN 
+                    WIRE LINE CONNECTION CONTAINER 
+                        MASTER WIRE LINE 
+    JAVASCRIPT "simboardScript.js" CALL REFERENCE 
+  (End Document with /html)
 
 *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
 *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ -->
@@ -69,8 +85,9 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
     <link rel="icon" type="image/x-icon" href="/Media/Layout/favicon.png">  
         <!-- Defines the Website Icon to be our custom favicon, "favicon.png". -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> <!-- For screenshotting workspace -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> 
+    <!-- This third party library is imported for screenshotting the workspace or entire application 
+        in-Simboard, done in the "Talk To System" function. -->
 
 </head> <!-- The header section structure is finished. -->
 
@@ -209,9 +226,6 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                 </button>   <!-- Ends this button's structural operation. -->
 
 
-
-
-
                 <button id="talkToSystem" title="Talk to Simboard & tell it what to do by entering specific prompts or functions!" function onclick()>
                 <!-- Creates a button with a contactable ID that will be used for 
                     customising the layout of the Simboard web application, with a 
@@ -227,10 +241,6 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                         or draggable are disabled manually. -->
 
                 </button>   <!-- Ends this button's structural operation. -->
-
-
-
-
 
 
                 <a href="/OtherPages/userManual/userManualConstruct.html" 
@@ -262,7 +272,6 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                     </button>   <!-- Ends this button's structural operation. -->
 
                 </a>    <!-- The anchor wrap is finished here. -->
-
                 
             </div>  <!-- The File Menu Division ends here. -->
 
@@ -483,9 +492,12 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                  elements initialised in SCRIPT 003 (on simboardScript.js). -->
                                         <!-- Draggable DIV -->
 
-                                <div class="InputColumn">
+                                <div class="InputColumn"> <!-- This division holds the "input pins" in a 
+                                                               single division, so that the stylesheet can 
+                                                               ensure both "pins" lie on top of each other 
+                                                               in a column. -->
 
-                                    <canvas id="InputA" 
+                                    <canvas id="InputA"
                                     class="IOStyle"
                                     width="20px" 
                                     height="20px" 
@@ -493,8 +505,15 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                     position: relative; 
                                     z-index:2"
                                     onclick="ioCheck(this)">
+                                    <!-- This Canvas represents the first Input Box pin for the gate it is 
+                                         connected to. It contains styling and dimensions that it obides 
+                                         by, and holds an "onclick" event that activates the function 
+                                         ioCheck, aka. SCRIPT 014 in the JavaScript file. This onclick event 
+                                         takes "this" as a parameter to represent the input information that 
+                                         activated the onclick event, in this scenario, it will take all 
+                                         information about the cursor / mouse pointer. -->
                                         
-                                    </canvas>
+                                    </canvas> <!--The first Input Box pin structure ends here. -->
 
                                     <canvas id="InputB" 
                                     class="IOStyle"
@@ -504,10 +523,17 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                     position: relative; 
                                     z-index:2"
                                     onclick="ioCheck(this)">
+                                    <!-- This Canvas represents the second Input Box pin for the gate it is 
+                                         connected to. It contains styling and dimensions that it obides 
+                                         by, and holds an "onclick" event that activates the function 
+                                         ioCheck, aka. SCRIPT 014 in the JavaScript file. This onclick event 
+                                         takes "this" as a parameter to represent the input information that 
+                                         activated the onclick event, in this scenario, it will take all 
+                                         information about the cursor / mouse pointer. -->
                                         
-                                    </canvas>
+                                    </canvas> <!--The second Input Box pin structure ends here. -->
                                 
-                                </div>
+                                </div>  <!-- The input column container ends here. -->
 
 
                                 <img src="/Media/DeactivatedState/ANDGate_Deactivated.png">
@@ -515,8 +541,13 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                     the AND Gate. This is mostly for debugging purposes to 
                                     ensure that the Master Logic Gate object is spawning on 
                                     to the Workspace. -->
+                                <!-- This image can be changed in the cloneObject function 
+                                 in the JavaScript file, aka. SCRIPT 007. -->
 
-                                <div class="OutputColumn">
+                                <div class="OutputColumn"> <!-- This division holds the "output pins" in a 
+                                                               single division, so that the stylesheet can 
+                                                               ensure both "pins" lie on top of each other 
+                                                               in a column. -->
 
                                     <canvas id="Output" 
                                     class="IOStyle"
@@ -526,10 +557,17 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                                     position: relative; 
                                     z-index:2"
                                     onclick="ioCheck(this)">
+                                    <!-- This Canvas represents the first Output Box pin for the gate it is 
+                                         connected to. It contains styling and dimensions that it obides 
+                                         by, and holds an "onclick" event that activates the function 
+                                         ioCheck, aka. SCRIPT 014 in the JavaScript file. This onclick event 
+                                         takes "this" as a parameter to represent the input information that 
+                                         activated the onclick event, in this scenario, it will take all 
+                                         information about the cursor / mouse pointer. -->
                                         
-                                    </canvas>
+                                    </canvas> <!--The first Output Box pin structure ends here. -->
 
-                                </div>
+                                </div>  <!-- The output column container ends here. -->
 
                             </div>  <!-- The DraggableGateHeader (interactable section of the 
                                 Master Logic Gate Object) division ends here. -->
@@ -537,18 +575,22 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
                         </div>  <!-- The Master Logic Gate Object (Logic Gate Container) 
                             division ends here. -->
 
-
                     </canvas>   <!-- The Grid Canvas renders itself and all of the elements 
                         that it wraps around/is a parent of. -->
 
-                    <svg id="WiredConnection" width="100%" height="100%" style="position: absolute; top:0; left:0;"> <!--  z-index: 3;-->
+                    <svg id="WiredConnection" width="100%" height="100%" style="position: absolute; top:0; left:0;">
+                    <!-- Inside of the Grid Container, a child container that encompasses the same area is used to 
+                     hold the wired connections between objects. All of the objects will be stored as a "scalable vector
+                     graphic", aka. SVG. -->
+
                         <path id="Wire" class="WireHitboxReference" d="M 0 0 L 0 0" x1="0" y1="0" x2="0" y2="0" stroke="black" stroke-width="7.5" tag="interactableObject" fill="none" />
-                    </svg>
+                        <!-- A master copy of a "wire" for the wired connections lies inside of the WiredConnection container, 
+                         and can be cloned. Said clone can then access the "d" attribute, which sets the dimensions of the 
+                         wire, seen in SCRIPT 016 in the JavaScript file. -->
+
+                    </svg> <!-- The SVG Container for all of the wires ends here. -->
 
                 </div>  <!-- The Grid Container division ends here. -->
-
-
-
 
             </div>  <!-- The Workspace division ends here. -->
 
