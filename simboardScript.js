@@ -6006,10 +6006,12 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() { // An event 
                                                  // run recursively, only limited by the "calculationDepth" 
                                                  // variable talked about earlier. 
 
-      discernBoolean(); // The function that actually controls the simulation of Logic Gate circuits is called. 
+      discernBoolean(); // The function that actually controls the simulation of Logic Gate circuits is called 
+                        // as soon as the Simulation starts (not when a button / input is clicked), to account 
+                        // for NOT Gates which fire binary signal automatically. 
 
     };  // The iterative loop that calls "discernBoolean()" to simulate the Logic Gate connections in the Workspace 
-        // ends here. 
+        // by default ends here. 
 
     fetchIndex = 0; // In order to show the "wire line" pulsations when the "simulate" button is turned on 
                     // (because for example, NOT gates fire boolean signals as soon as the "simulation" is 
@@ -6311,89 +6313,161 @@ getPropertiesSimulateButton.onclick= function simulateWorkspace() { // An event 
 
 
 
-function logicFlow(MODE, WORKSPACE_DATA) {
+function logicFlow(MODE, WORKSPACE_DATA) {  // This function is necessary for the set up, and initialisation 
+                                            // of the Workspace Simulation. To do this, this function needs 
+                                            // two parameters, one for the mode (MODE), which can either tell 
+                                            // this function to "Set up" the Workspace and prepare for simulation, 
+                                            // or to "Remove" the effects of the set up for simulation. The other 
+                                            // parameter needed is the "jsonSaveWorkspace" backend configuration, 
+                                            // as it contains the necesssary data needed for simulation set up. 
 
-  if (MODE == 0) {
+  if (MODE == 0) {  // If this function is called with the mode of "0", then the end user wants to "set up" the 
+                    // Workspace for simulation, and so control flow will go into this here. 
 
-  console.log("Control Flow is flowing...", WORKSPACE_DATA);  // DEBUGGING INSTRUCTION :: For telling me that the Boolean Flow 
-                                                              // is successfully initialising and that it is operating on the 
-                                                              // correct jsonSaveWorkspace container. 
+    console.log("Control Flow is flowing...", WORKSPACE_DATA);  // DEBUGGING INSTRUCTION :: For telling me that the Boolean Flow 
+                                                                // is successfully initialising and that it is operating on the 
+                                                                // correct jsonSaveWorkspace container. 
 
-  const elements = document.querySelectorAll('div[gatetype^="HoldButton"]');
+    const elements = document.querySelectorAll('div[gatetype^="HoldButton"]');  // Every single "Button" / Input from the 
+                                                                                // Workspace is collected and has their 
+                                                                                // HTML DOM reference stored inside of this 
+                                                                                // container variable here. 
 
-  elements.forEach(elm => {
+    elements.forEach(elm => { // A loop that iterates through each and every "Hold Button" that the end user has on their 
+                              // Workspace starts here. This is necessary for applying the ability to be toggled to every 
+                              // input button for the end user to interact with their Logic Gate circuit. 
 
-      const existingButton = elm.querySelector('.UserInputAbility');
+        const existingButton = elm.querySelector('.UserInputAbility');  // For the "Hold Button" that is currently being 
+                                                                        // visited, we check if the "Toggle Assist" ability 
+                                                                        // has already been applied to it (discussed more 
+                                                                        // below and in the Style Sheet (CSS Document).).
 
-      if (!existingButton) {
+        if (!existingButton) {  // If the "Hold Button" being visited does not have the ".UserInputAbility" (Toggle Assist) 
+                                // styling class already applied to it, then control flow will branch into the instructions 
+                                // below. 
 
-        const btn = document.createElement('button');
+          const btn = document.createElement('button'); // A new, completely unrelated HTML Button Element is created in the 
+                                                        // HTML DOM, which will allow the end user to click the "Hold Button" 
+                                                        // for toggling its state which will influence the Logic Gate Objects 
+                                                        // it is connected to. 
 
-        btn.innerText = 'TOGGLE BUTTON';
+          btn.innerText = 'TOGGLE BUTTON';  // We tell this button that the text inside of it should display "TOGGLE BUTTON", 
+                                            // to ensure that when the end user hovers over the "Hold Button", they see said 
+                                            // text, which acts as a "Toggle Assist" (to notify the end user that the button 
+                                            // can be interacted with.).
 
-        btn.className = 'UserInputAbility'; 
-        
-        btn.onclick = (e) => {
+          btn.className = 'UserInputAbility';   // We then tell this newly created button to have the styling class of 
+                                                // ".UserInputAbility", discussed further in the CSS Styling Document. 
+          
+          btn.onclick = (e) => {  // We then add this event listener function to the newly created button element, and 
+                                  // tell it to check for when said "Toggle Assist" has been clicked by the end user. 
+                                  // When this does occur, and the end user clicks on the "Hold Button" when the Workspace 
+                                  // is simulating, control flow will go into the function below. 
 
-          e.stopPropagation(); // Prevents .. (DESCRIBE LATER)
+            e.stopPropagation(); // This instruction prevents the end user from clicking the Logic Gate Object HTML element 
+                                 // when they hover over said "Hold Button" and click it to toggle its state (aka. Stopping the 
+                                 // effects of the end user clicking on the input bubbling up the HTML DOM structure.). 
 
-          console.log('Button clicked for:', elm.getAttribute('gatetype')); // DEBUGGING INSTRUCTION :: For confirming to me 
-                                                                            // that the input that was just clicked is a 
-                                                                            // "Hold Button". 
+            console.log('Button clicked for:', elm.getAttribute('gatetype')); // DEBUGGING INSTRUCTION :: For confirming to me 
+                                                                              // that the input that was just clicked is a 
+                                                                              // "Hold Button". 
 
-          buttonState = elm.getAttribute("state");
+            buttonState = elm.getAttribute("state");  // Once the end user has clicked on the "Hold Button" Toggle Assist, 
+                                                      // we need to fetch the "Hold Buttons'" state to make an informated 
+                                                      // decision on whether it should be "ON" or "OFF". 
 
-          buttonThumbnail = elm.children[0].children[1];
+            buttonThumbnail = elm.children[0].children[1];  // We also fetch the thumbnail of the "Hold Button", to which it 
+                                                            // is stored in this variable (so that said button can display 
+                                                            // being in an "ON" or "OFF" state.).
 
-          if (buttonState == 0) {
+            if (buttonState == 0) { // If it's found that the "Hold Button" that the end user has just clicked has a state of 
+                                    // "0", then control flow will go into the instructions below to turn the Hold Button "ON" 
+                                    // (have a state of "1").
 
-            elm.setAttribute("state", 1);
+              elm.setAttribute("state", 1); // The state of the "Hold Button" is flipped to be "ON" / 1, which will influence 
+                                            // the Logic Gate Objects it is connected to. 
 
-            buttonThumbnail.setAttribute("src", "/Media/ActivatedState/HoldButton_Activated.png");
+              buttonThumbnail.setAttribute("src", "/Media/ActivatedState/HoldButton_Activated.png");  // The Logic Gate Object 
+                                                                                                      // has its visual thumbnail 
+                                                                                                      // changed so that it 
+                                                                                                      // displays being "ON" to 
+                                                                                                      // the end user visually. 
 
-            document.documentElement.style.setProperty('--currentHoverPointer', 'var(--toggleHoverPointerOn)');
+              document.documentElement.style.setProperty('--currentHoverPointer', 'var(--toggleHoverPointerOff)');
+              // The CSS Global Variable which dictates what the end users cursor / mouse pointer should look like when hovering 
+              // over the "Toggle Assist" / Hold Button is told to have a cursor image which contains the text "OFF", indicating 
+              // to the end user that when they click said "Hold Button" again, it will be toggled "OFF". 
 
-          } else {
+            } else { // If it's found that the "Hold Button" that the end user has just clicked has a state of 
+                     // "1", then control flow will go into the instructions below to turn the Hold Button "OFF" 
+                     // (have a state of "0").
 
-            elm.setAttribute("state", 0);
+              elm.setAttribute("state", 0); // The state of the "Hold Button" is flipped to be "OFF" / 0, which will influence 
+                                            // the Logic Gate Objects it is connected to. 
 
-            buttonThumbnail.setAttribute("src", "/Media/DeactivatedState/HoldButton_Deactivated.png");
+              buttonThumbnail.setAttribute("src", "/Media/DeactivatedState/HoldButton_Deactivated.png");  // The Logic Gate Object 
+                                                                                                          // has its visual thumbnail 
+                                                                                                          // changed so that it 
+                                                                                                          // displays being "OFF" to 
+                                                                                                          // the end user visually. 
 
-            document.documentElement.style.setProperty('--currentHoverPointer', 'var(--toggleHoverPointerOff)');
+              document.documentElement.style.setProperty('--currentHoverPointer', 'var(--toggleHoverPointerOn)');
+              // The CSS Global Variable which dictates what the end users cursor / mouse pointer should look like when hovering 
+              // over the "Toggle Assist" / Hold Button is told to have a cursor image which contains the text "ON", indicating 
+              // to the end user that when they click said "Hold Button" again, it will be toggled "ON". 
 
-          };
+            };  // The conditional branch statement that controls what happens to the "Hold Button" when clicked via the 
+                // newly created "Toggle Assist" button ends here. 
 
-          for (let i = 0; i < calculationDepth; i++) {
+            for (let i = 0; i < calculationDepth; i++) {  // When the "Toggle Assist" button is clicked, the simulation logic 
+                                                          // is recalled, and recalculates what the specified generations of 
+                                                          // Logic Gate Objects (defined in the Calculation Depth) will do  
+                                                          // when the "Hold Button"'s state has been altered. 
+                                                            // E.g. an AND gate could turn on now that the second Hold Button 
+                                                            // has been toggled "ON". 
 
-            discernBoolean();
+              discernBoolean(); // The function for handling the Workspace simulation logic is called here. 
 
-          };
+            };  // The iterative loop that calls the "discernBoolean()" function to run recursively ends here. 
 
-        };
+          };  // The instructions that are applied to Simboard when the "Toggle Assist" button is clicked ends here. 
 
-        elm.appendChild(btn);
+          elm.appendChild(btn); // The "Toggle Assist" button is appended to the "Top" of the "Hold Button" so that the end 
+                                // user can click it to toggle said "Hold Button"'s state. 
 
-      };
+        };  // The validator which checks if the "Toggle Assist" button on the "Hold Button" exists or not ends here. 
 
-  });
+    }); // The iterative loop that goes through all of the "Hold Buttons" in the Workspace when the Simulation starts ends here. 
 
-  } else if (MODE == 1) { // cleanup 
+  } else if (MODE == 1) {   // If this function is called with the mode of "1", then the end user wants to "clean up" the 
+                            // Workspace after simulation, and so control flow will go into this here. 
 
     console.log("Control Flow has stopped..."); // DEBUGGING INSTRUCTION :: For telling me that the simulation has stopped, and 
                                                 // that the control flow is going into this branch of instructions. 
 
-    const allObjects = document.querySelectorAll('div[tag^="interactableObject"]');
+    const allObjects = document.querySelectorAll('div[tag^="interactableObject"]'); // Every single Logic Gate Object from the 
+                                                                                    // Workspace is collected and has their 
+                                                                                    // HTML DOM reference stored inside of this 
+                                                                                    // container variable here. 
 
     console.log(allObjects);  // DEBUGGING INSTRUCTION :: For checking that this function can still iterate through the objects 
                               // to de-simulate them. 
 
-    allObjects.forEach(obj => {
+    allObjects.forEach(obj => { // A loop that iterates through each and every Logic Gate Object that the end user has on their 
+                                // Workspace starts here. This is necessary for deleting the ability to be toggled for every 
+                                // input button. 
 
-      logicGateImageReference = obj.children[0].children[1];
+      logicGateImageReference = obj.children[0].children[1]; // We also fetch the thumbnail of the Logic Gate Object, to which it 
+                                                             // is stored in this variable (so that said button can display 
+                                                             // being in an "ON" or "OFF" state.).
 
-      logicGateType = obj.getAttribute("gatetype");
+      logicGateType = obj.getAttribute("gatetype"); // The Logic Gate Objects' gate type is needed to be stored so that an 
+                                                    // informed decision can be made on whether it should be "ON" or "OFF" when 
+                                                    // simulation stops.
 
-      logicGateState = obj.getAttribute("state");
+      logicGateState = obj.getAttribute("state"); // The Logic Gate Objects' current state is needed to be stored so that an 
+                                                  // informed decision can be made on whether it should be "ON" or "OFF" when 
+                                                  // simulation stops.
 
       console.log(logicGateType); // DEBUGGING INSTRUCTION :: For notifying me of the specific object that is 
                                   // being visited, just to double check that it is a Logic Gate object, and not 
@@ -6402,49 +6476,72 @@ function logicFlow(MODE, WORKSPACE_DATA) {
       console.log(logicGateState);  // DEBUGGING INSTRUCTION :: For notifying me what the final state of the Logic 
                                     // Gate object was before it will be reverted to its default state. 
 
-      if (logicGateType != "NOT") {
+      if (logicGateType != "NOT") { // If the Logic Gate object we are trying to visit in the Workspace is anything but a NOT 
+                                    // Gate, and we are "turning it off" as the simulation is stopping, then Control Flow will 
+                                    // go into the branch right here. 
 
-        obj.setAttribute("state", 0);
+        obj.setAttribute("state", 0); // The "state" of the Logic Gate Object will be turned "OFF" (have a state of 0) when 
+                                      // simulation stops. 
 
         logicGateImageReference.setAttribute("src", "/Media/DeactivatedState/" + logicGateType + "_Deactivated.png"); 
+        // The Logic Gate Objects' thumbnail will visually display being "OFF" for the end user to see once Simulation has 
+        // stopped. 
 
-      } else {
+      } else { // If the Logic Gate object we are trying to visit in the Workspace is a NOT Gate, and 
+               // we are "turning it off" as the simulation is stopping, then Control Flow will go into 
+               // the branch right here. 
 
-        if (notStateDefault == 0) {
+        if (notStateDefault == 0) { // If the end user has toggled their NOT Gates to have a default state of "0" (being off 
+                                    // even though Binary "0" is going into them), then control flow will go into the instructions 
+                                    // below, and tell the NOT Gate to be "OFF" when simulation stops. 
 
-          obj.setAttribute("state", 0);
+          obj.setAttribute("state", 0); // The "state" of the NOT Gate will be turned "OFF" (have a state of 0) when simulation
+                                        // stops. 
 
           logicGateImageReference.setAttribute("src", "/Media/DeactivatedState/" + logicGateType + "_Deactivated.png"); 
+          // The NOT Gates' thumbnail will visually display being "OFF" for the end user to see once Simulation has stopped.  
 
-        } else {
+        } else {  // If the end user has toggled their NOT Gates to have a default state of "1" (the default choice which can be 
+                  // toggled with the "TAN" command in the Talk To System function), then control flow will go into the instructions 
+                  // below, and tell the NOT Gate to be "ON" when simulation stops. 
 
-          obj.setAttribute("state", 1);
+          obj.setAttribute("state", 1); // The "state" of the NOT Gate will be turned "ON" (have a state of 1) when simulation
+                                        // stops. 
 
           logicGateImageReference.setAttribute("src", "/Media/ActivatedState/" + logicGateType + "_Activated.png"); 
+          // The NOT Gates' thumbnail will visually display being "ON" for the end user to see once Simulation has stopped.  
 
-        };
+        };  // The branching for what happens to the NOT Gates when simulation stops ends here. 
       
-      };
+      };  // The branching for what happens to Logic Gate objects when simulation stops ends here. 
 
-    });
+    }); // The iterative loop that goes through each Logic Gate Object to turn it either "ON" or "OFF" in the backend when 
+        // the simulation stops ends here. 
 
-    const userInputsFound = document.querySelectorAll('.UserInputAbility');
+    const userInputsFound = document.querySelectorAll('.UserInputAbility'); // When the simulation stops, we need to remove 
+                                                                            // every single "Toggle Assist" button appended to 
+                                                                            // the "Top" of every "Hold Button Input". Therefore, 
+                                                                            // we fetch all of their HTML DOM references and store 
+                                                                            // them in this variable here. 
     
-    userInputsFound.forEach(btn => {
+    userInputsFound.forEach(btn => {  // Each "Hold Button" input stored inside of the "userInputsFound" variable is iterated 
+                                      // through here. 
 
-      btn.remove();
+      btn.remove(); // The "Toggle Assist" button in each "Hold Button" is removed completely from said Logic Gate Object. 
 
-    });
+    }); // The iterative loop that goes through every "Toggle Assist" button ends here. 
     
-  } else {
+  } else {  // If this function is called either by Simboard or by the end user with an erroneous "MODE", then control flow will 
+            // immediately visit this branch here and execute the instructions below. 
 
     console.log("Logic Error in logicFlow function!");  // DEBUGGING INSTRUCTION :: For checking that the logic 
                                                         // initialisation function is not malfunctioning when 
                                                         // operating. 
 
-  };
+  };  // The branching for the specific "MODE" needed by Simboard to control the Logic Gate Objects upon Simulating or Stopping 
+      // Simulation ends here. 
 
-};
+};  // The function for "setting up" and "cleaning up" the Workspace Simulation ends here. 
 
 
 
@@ -6461,332 +6558,523 @@ function logicFlow(MODE, WORKSPACE_DATA) {
 // in the long term as more logic gate objects get added.   
 
 
-nextActionIsToShow = true; // Stops the deletion of multiple objects // TODO
+nextActionIsToShow = true; // This variable will stop the deletion of multiple objects by only allow the end 
+                           // user to "remove" a set of Logic Gate Objects once. Therefore, this Boolean value 
+                           // is a necessary component of this function. 
 
-filterMenuDebugRef = document.getElementById("FilterMenuActivator");
+filterMenuDebugRef = document.getElementById("FilterMenuActivator");  // The reference for the "Filter Menu" 
+                                                                      // is fetched from the HTML DOM and is 
+                                                                      // stored in this variable here. 
 
-filterMenuDebugRef.onclick= function() {
+const objectMenuRef = document.getElementById("ObjectMenu");  // This variable holds another HTML DOM reference 
+                                                              // that points to the "Object Menu". This is so 
+                                                              // that Simboard can have a way to remove or re-add 
+                                                              // Logic Gate Object spawn buttons on said menu. 
 
-  const objectMenuRef = document.getElementById("ObjectMenu");
+const objectMenuChildrenRef = objectMenuRef.children; // All of the HTML "Buttons" that spawn the Logic Gate Objects 
+                                                      // upon being clicked on the Object Menu are stored inside of 
+                                                      // this variable here. 
 
-  const objectMenuChildrenRef = objectMenuRef.children;
+const contentsRef = Array.from(objectMenuChildrenRef);  // Because the "objectMenuChildRef" array/stack contains a 
+                                                        // "node list" which means that the data inside is uncomputable 
+                                                        // and non-function-friendly, we must turns it from a 
+                                                        // collection/nodelist to an array, with this instruction here. 
 
-  const contentsRef = Array.from(objectMenuChildrenRef); // turns it from a collection/nodelist to an array
+filterMenuDebugRef.onclick= function() {  // We then attach an "on click" event to this "Filter Menu" button in 
+                                          // the HTML DOM, and tell it to fire the instructions seen below when 
+                                          // it detects that the end user has "clicked" on said button. 
 
-  if (nextActionIsToShow == true) {
+  if (nextActionIsToShow == true) { // If the end user hasn't "filtered" the Object Menu already, then control flow will 
+                                    // go into this branch here. 
 
     decision = prompt("If you want to only see one category of object and hide all of the others, type 'INC' into the prompt below.\n\nIf you want to see every other category of objects except for one, type 'EXC' into the prompt below.\n\nIf you don't want to filter categories of objects from the Object Menu, either click the Cancel button or type in 'X' into the prompt below.");
+    // The end user is expected to choose between the choice of "hiding" all Logic Gate Object categories except for one (with 
+    // the "INC" command), or to remove one Logic Gate Object Category and keep the rest (with the "EXC" command).
 
-    decision = decision.toUpperCase();
+    decision = decision.toUpperCase();  // To avoid issues with compatibility and accessibility, the end users' input is convered 
+                                        // to "Upper Case" and is then stored in this variable here. 
 
-    if (decision == "INC") {
+    if (decision == "INC") {  // If the end user chose the "INC" command to remove all Logic Gate Objects yet keep (include) one, 
+                              // then control flow will go into this branch here. 
 
       nextDecision = Math.round(prompt("Please enter one of the many categories below that you just want to see in the Object Menu!\n\n0  -  Inputs\n1  -  GCSE Gates\n2  -  A-Level Gates\n3  -  Outputs\n\nOr, click Cancel or press ESC to abort the menu filtering process!"));
+      // The end user is then expected to enter what category of Logic Gate Object they want to keep when the process removes 
+      // all other Logic Gate Object categories. The end user is given a choice (e.g. entering 1 will remove the "GCSE Level 
+      // Logic Gate Objects"), and their choice is to be an integer that is rounded to avoid validation and case-switch issues 
+      // later on.
 
-      if (nextDecision >= 0 && nextDecision <= 4) {
+      if (nextDecision >= 0 && nextDecision <= 4) { // If the integer value that the end user has inputted into the prompt is 
+                                                    // between 0 and 4, the amount of categories in the Object Menu, then control 
+                                                    // flow will branch into the instructions below. 
         
         switch (nextDecision) { // A switch statement is defined to produce an outcome depending on the parsed parameter. 
 
-          case 0: // inputs
+          case 0: // If the end user wanted to keep the Logic Gate "Inputs", yet remove the rest, then Control Flow will 
+                  // go into this case branch here. 
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                            // with this loop. 
 
               console.log("elem == ", elemt); // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id != "HoldButton") {
+              if (elemt.id != "HoldButton") { // If the Object Menu child element being visited does not have the ID of 
+                                              // an input (aka. "Hold Button"), then control flow will go into the branch 
+                                              // below. 
 
-                if (elemt.id != "FilterMenuActivator") {
+                if (elemt.id != "FilterMenuActivator") { // If the Object Menu child element being visited does not have the ID of 
+                                                         // the Filter Menu Button itself, then control flow will go into the  
+                                                         // instruction below. 
 
-                    elemt.style.display = "none";
+                    elemt.style.display = "none"; // Every single Object Menu button that isn't the "Hold Button" spawner or the 
+                                                  // "Filter Menu" will be visually "removed" / "hidden" from the end user. 
 
-                };
+                };  // The branch that validates whether the currently visited Object Menu child button is the Filter Menu 
+                    // or not ends here. 
 
-              } else {
+              } else {  // If the currently visited Object Menu child element is a Hold Button, then control flow will go into 
+                        // the branch below. 
 
-                console.warn("Skipped a part due to the safety guard lock!");  // DEBUGGING INSTRUCTION :: For 
+                console.warn("Skipped a part due to the safety guard lock!"); // DEBUGGING INSTRUCTION :: This is a simple 
+                                                                              // console log output that notifies me that 
+                                                                              // this function skipped over the required 
+                                                                              // Logic Gate category / object.
             
-              };
+              };  // The branch that validates whether the currently visited Object Menu child button is the Hold Button  
+                  // or not ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-          case 1: // gcse 
+          case 1: // If the end user wanted to keep the "AND, OR, NOT" Logic Gate Objects, yet remove the rest, then Control Flow 
+                  // will go into this case branch here. (GCSE Difficulty).
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                            // with this loop. 
 
               console.log("elem == ", elemt)  // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id != "AND") {
+              if (elemt.id != "AND") { // If the Object Menu child element being visited does not have the ID of 
+                                       // a GCSE Gate (aka. "AND" Gate), then control flow will go into the branch 
+                                       // below. 
 
-                if (elemt.id != "OR") {
+                if (elemt.id != "OR") { // If the Object Menu child element being visited does not have the ID of 
+                                        // a GCSE Gate (aka. "OR" Gate), then control flow will go into the branch 
+                                        // below. 
 
-                  if (elemt.id != "NOT") {
+                  if (elemt.id != "NOT") { // If the Object Menu child element being visited does not have the ID of 
+                                           // a GCSE Gate (aka. "NOT" Gate), then control flow will go into the branch 
+                                           // below. 
 
-                    if (elemt.id != "FilterMenuActivator") {
+                    if (elemt.id != "FilterMenuActivator") { // If the Object Menu child element being visited does not have the ID 
+                                                             // of the Filter Menu Button itself, then control flow will go into the  
+                                                             // instruction below. 
 
-                      elemt.style.display = "none";
+                      elemt.style.display = "none"; // Every single Object Menu button that isn't the "AND, OR, NOT" spawner or the 
+                                                    // "Filter Menu" will be visually "removed" / "hidden" from the end user. 
 
-                    };
+                    };  // The branch that validates whether the currently visited Object Menu child button is the Filter Menu 
+                        // or not ends here. 
 
-                  };
+                  };  // The branch that validates whether the currently visited Object Menu child button is the NOT Gate 
+                      // or not ends here. 
 
-                };
+                };  // The branch that validates whether the currently visited Object Menu child button is the OR Gate 
+                    // or not ends here. 
 
-              } else {
+              } else {  // If the currently visited Object Menu child element is an AND Gate, then control flow will go into 
+                        // the branch below. 
 
-                console.warn("Skipped a part due to the safety guard lock!");
+                console.warn("Skipped a part due to the safety guard lock!"); // DEBUGGING INSTRUCTION :: This is a simple 
+                                                                              // console log output that notifies me that 
+                                                                              // this function skipped over the required 
+                                                                              // Logic Gate category / object.
             
-              };
+              };  // The branch that validates whether the currently visited Object Menu child button is the AND Gate 
+                  // or not ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-          case 2: // alevel
+          case 2: // If the end user wanted to keep the "XOR" Logic Gate Object, yet remove the rest, then Control Flow 
+                  // will go into this case branch here. (A-Level difficulty).
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                            // with this loop. 
 
               console.log("elem == ", elemt)  // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id != "XOR") {
+              if (elemt.id != "XOR") { // If the Object Menu child element being visited does not have the ID of 
+                                       // an A-Level Gate (aka. "XOR" Gate), then control flow will go into the branch 
+                                       // below. 
 
-                if (elemt.id != "FilterMenuActivator") {
+                if (elemt.id != "FilterMenuActivator") { // If the Object Menu child element being visited does not have the ID of 
+                                                         // the Filter Menu Button itself, then control flow will go into the  
+                                                         // instruction below. 
 
-                    elemt.style.display = "none";
+                    elemt.style.display = "none"; // Every single Object Menu button that isn't the "XOR" spawner or the 
+                                                  // "Filter Menu" will be visually "removed" / "hidden" from the end user. 
 
-                };
+                };  // The branch that validates whether the currently visited Object Menu child button is the Filter Menu 
+                    // or not ends here. 
 
-              } else {
+              } else {  // If the currently visited Object Menu child element is an XOR Gate, then control flow will go into 
+                        // the branch below. 
 
-                console.warn("Skipped a part due to the safety guard lock!");
+                console.warn("Skipped a part due to the safety guard lock!"); // DEBUGGING INSTRUCTION :: This is a simple 
+                                                                              // console log output that notifies me that 
+                                                                              // this function skipped over the required 
+                                                                              // Logic Gate category / object.
             
-              };
+              };  // The branch that validates whether the currently visited Object Menu child button is the XOR Gate 
+                  // or not ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-          case 3: // outputs 
+          case 3: // If the end user wanted to keep the Logic Gate "Outputs", yet remove the rest, then Control Flow will 
+                  // go into this case branch here. 
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                            // with this loop. 
 
               console.log("elem == ", elemt)  // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id != "Lightbulb") {
+              if (elemt.id != "Lightbulb") { // If the Object Menu child element being visited does not have the ID of 
+                                             // an output (aka. "Lightbulb"), then control flow will go into the branch 
+                                             // below. 
 
-                if (elemt.id != "Speaker") {
+                if (elemt.id != "Speaker") { // If the Object Menu child element being visited does not have the ID of 
+                                             // an output (aka. "Speaker"), then control flow will go into the branch 
+                                             // below. 
 
-                  if (elemt.id != "FilterMenuActivator") {
+                  if (elemt.id != "FilterMenuActivator") { // If the Object Menu child element being visited does not have the ID of 
+                                                           // the Filter Menu Button itself, then control flow will go into the  
+                                                           // instruction below. 
 
-                      elemt.style.display = "none";
+                      elemt.style.display = "none"; // Every single Object Menu button that isn't the "Lightbulb or Speaker" spawner 
+                                                    // or the "Filter Menu" will be visually "removed" / "hidden" from the end user. 
 
-                  };
+                  };  // The branch that validates whether the currently visited Object Menu child button is the Filter Menu 
+                      // or not ends here. 
                   
-                };
+                };  // The branch that validates whether the currently visited Object Menu child button is the Speaker 
+                    // or not ends here. 
 
-              } else {
+              } else {  // If the currently visited Object Menu child element is a Lightbulb, then control flow will go into 
+                        // the branch below. 
 
-                console.warn("Skipped a part due to the safety guard lock!");
+                console.warn("Skipped a part due to the safety guard lock!"); // DEBUGGING INSTRUCTION :: This is a simple 
+                                                                              // console log output that notifies me that 
+                                                                              // this function skipped over the required 
+                                                                              // Logic Gate category / object.
             
-              };
+              };  // The branch that validates whether the currently visited Object Menu child button is the Lightbulb  
+                  // or not ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-        };
+        };  // The switch statement which determines which Object Menu "Category" of Logic Gate objects should be "filtered" 
+            // ends here. 
 
-      } else {
+      } else { // If the end user has entered the wrong "Category" for filtering, then control flow will branch into the 
+               // instructions below. 
 
         alert("Please enter a valid filtering mode. Please try again and input an INTEGER VALUE between or including 0 and 4.");
 
-      };
+      }; // The validator to check whether the end user has entered the correct "Category Mode" in the range provided 
+         // to "filter" ends here. 
 
-    } else if (decision == "EXC") {
+    } else if (decision == "EXC") {  // If the end user chose the "EXC" command to remove one Logic Gate Object category and keep 
+                                     // (exclude) the rest, then control flow will go into this branch here. 
 
       nextDecision = Math.round(prompt("Please enter one of the many categories below that you just want to see in the Object Menu!\n\n0  -  Inputs\n1  -  GCSE Gates\n2  -  A-Level Gates\n3  -  Outputs\n\nOr, click Cancel or press ESC to abort the menu filtering process!"));
+      // The end user is then expected to enter what category of Logic Gate Object they want to keep when the process removes 
+      // all other Logic Gate Object categories. The end user is given a choice (e.g. entering 1 will remove the "GCSE Level 
+      // Logic Gate Objects"), and their choice is to be an integer that is rounded to avoid validation and case-switch issues 
+      // later on.
 
-      if (nextDecision >= 0 && nextDecision <= 4) {
+      if (nextDecision >= 0 && nextDecision <= 4) { // If the integer value that the end user has inputted into the prompt is 
+                                                    // between 0 and 4, the amount of categories in the Object Menu, then control 
+                                                    // flow will branch into the instructions below. 
 
         switch (nextDecision) { // A switch statement is defined to produce an outcome depending on the parsed parameter. 
 
-          case 0:
+          case 0: // If the end user wanted to remove the Logic Gate "Inputs", yet keep the rest, then Control Flow will 
+                  // go into this case branch here. 
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(ele => { 
+            contentsRef.forEach(ele => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                          // with this loop to ensure that every single Logic Gate Object is displaying before 
+                                          // one category is removed. 
 
-              ele.style.display = "block";
+              ele.style.display = "block";  // As stated, the currently visited child element of the Object Menu is styled 
+                                            // to be a "block" (the default). 
 
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => { // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                           // with this loop to ensure that only a category of Logic Gate Objects is removed 
+                                           // from the Catalouge of buttons. 
 
-              console.warn("elem == ", elemt) 
+              console.warn("elem == ", elemt) // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
+                                              // of the Object Menu is being visited and validated. 
 
-              if (elemt.id == "HoldButton"){
+              if (elemt.id == "HoldButton"){  // If the currently visited HTML element inside of the Object Menu is a 
+                                              // "Hold Button", it must be "hidden", therefore, control flow will go into 
+                                              // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the input, the currently visited child element of the Object Menu is 
+                                              // styled to be displayed as "nothing".  
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-          case 1:
+          case 1: // If the end user wanted to remove the "AND, OR, NOT" Logic Gate Objects, yet keep the rest, then Control Flow 
+                  // will go into this case branch here. (GCSE Difficulty).
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(ele => { 
+            contentsRef.forEach(ele => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                          // with this loop to ensure that every single Logic Gate Object is displaying before 
+                                          // one category is removed. 
 
-              ele.style.display = "block";
+              ele.style.display = "block";  // As stated, the currently visited child element of the Object Menu is styled 
+                                            // to be a "block" (the default). 
 
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => { // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                           // with this loop to ensure that only a category of Logic Gate Objects is removed 
+                                           // from the Catalouge of buttons. 
 
               console.log("elem == ", elemt)  // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id == "AND"){
+              if (elemt.id == "AND"){ // If the currently visited HTML element inside of the Object Menu is an 
+                                      // "AND" Gate, it must be "hidden", therefore, control flow will go into 
+                                      // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the GCSE Level Gate, the currently visited child element of the Object 
+                                              // Menu is styled to be displayed as "nothing".  
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
 
-              if (elemt.id == "OR"){
+              if (elemt.id == "OR"){ // If the currently visited HTML element inside of the Object Menu is an 
+                                     // "OR" Gate, it must be "hidden", therefore, control flow will go into 
+                                     // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the GCSE Level Gate, the currently visited child element of the Object 
+                                              // Menu is styled to be displayed as "nothing".  
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
 
-              if (elemt.id == "NOT"){
+              if (elemt.id == "NOT"){ // If the currently visited HTML element inside of the Object Menu is a 
+                                      // "NOT" Gate, it must be "hidden", therefore, control flow will go into 
+                                      // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the GCSE Level Gate, the currently visited child element of the Object 
+                                              // Menu is styled to be displayed as "nothing".  
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-          case 2: 
+          case 2: // If the end user wanted to remove the "XOR" Logic Gate Object, yet keep the rest, then Control Flow 
+                  // will go into this case branch here. (A-Level difficulty).
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(ele => { 
+            contentsRef.forEach(ele => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                          // with this loop to ensure that every single Logic Gate Object is displaying before 
+                                          // one category is removed. 
 
-              ele.style.display = "block";
+              ele.style.display = "block";  // As stated, the currently visited child element of the Object Menu is styled 
+                                            // to be a "block" (the default). 
 
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => { // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                           // with this loop to ensure that only a category of Logic Gate Objects is removed 
+                                           // from the Catalouge of buttons. 
 
               console.log("elem == ", elemt)  // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id == "XOR"){
+              if (elemt.id == "XOR"){ // If the currently visited HTML element inside of the Object Menu is an 
+                                      // "XOR" Gate, it must be "hidden", therefore, control flow will go into 
+                                      // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the A-Level difficulty Gate, the currently visited child element of the
+                                              // Object Menu is styled to be displayed as "nothing".  
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
 
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-          case 3:
+          case 3: // If the end user wanted to remove the Logic Gate "Outputs", yet keep the rest, then Control Flow will 
+                  // go into this case branch here. 
 
-            nextActionIsToShow = false; 
+            nextActionIsToShow = false; // The "guard" / "flag" that determines if the end user has already "removed" 
+                                        // Categories from the Object Menu is flipped to represent "False", so that 
+                                        // next time the end user clicks the "Filter Menu" button, that control flow 
+                                        // will go into another branch in this function. 
 
-            contentsRef.forEach(ele => { 
+            contentsRef.forEach(ele => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                          // with this loop to ensure that every single Logic Gate Object is displaying before 
+                                          // one category is removed. 
 
-              ele.style.display = "block";
+              ele.style.display = "block";  // As stated, the currently visited child element of the Object Menu is styled 
+                                            // to be a "block" (the default). 
 
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
-            contentsRef.forEach(elemt => { 
+            contentsRef.forEach(elemt => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                            // with this loop to ensure that only a category of Logic Gate Objects is removed 
+                                            // from the Catalouge of buttons. 
 
               console.log("elem == ", elemt)  // DEBUGGING INSTRUCTION :: For telling me each HTML child element inside 
                                               // of the Object Menu is being visited and validated. 
 
-              if (elemt.id == "Lightbulb"){
+              if (elemt.id == "Lightbulb"){ // If the currently visited HTML element inside of the Object Menu is an 
+                                            // "Lightbulb", it must be "hidden", therefore, control flow will go into 
+                                            // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the output, the currently visited child element of the Object Menu is 
+                                              // styled to be displayed as "nothing".   
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
 
-              if (elemt.id == "Speaker"){
+              if (elemt.id == "Speaker"){ // If the currently visited HTML element inside of the Object Menu is an 
+                                          // "Speaker", it must be "hidden", therefore, control flow will go into 
+                                          // the branch below. 
 
-                elemt.style.display = "none"; 
+                elemt.style.display = "none"; // To hide the output, the currently visited child element of the Object Menu is 
+                                              // styled to be displayed as "nothing".  
 
-              };
+              };  // The validator for checking if the currently visited item is the one that needs to be hidden ends here. 
             
-            });
+            }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
             break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
                    // both outcomes. 
 
-        };
+        };  // The switch statement which determines which Object Menu "Category" of Logic Gate objects should be "filtered" 
+            // ends here. 
 
-      } else {
+      } else { // If the end user has entered the wrong "Category" for filtering, then control flow will branch into the 
+               // instructions below. 
 
         alert("Please enter a valid filtering mode. Please try again and input an INTEGER VALUE between or including 0 and 4.");
+        // The end user is simply alerted that they haven't inputted the correct "Category" to filter, and to make a choice 
+        // between 0, 1, 2, and 3 next time around. 
 
-      };
+      };  // The validator to check whether the end user has entered the correct "Category Mode" in the range provided 
+          // to "filter" ends here. 
 
-    } else {
+    } else {  // If the end user has entered the wrong "Mode" for filtering, then control flow will branch into the instructions 
+              // below. 
 
-      console.warn("There was an error with the filtering mode!");
+      console.warn("There was an error with the filtering mode!");  // DEBUGGING INSTRUCTION :: This is a notification I will 
+                                                                    // receive in the developer tools console log if control 
+                                                                    // flow has reached this branch here. 
 
       alert("Please enter a valid filtering mode. Please try again and input either 'INC' or 'EXC' into the prompt.");
+      // The end user is simply alerted that they haven't inputted the correct "Filtering Mode", and to make a choice 
+      // between "INC" or "EXC" next time around. 
 
-    };
+    };  // The validator to check whether the end user has entered the correct "Filtering Mode" (e.g. INC or EXC) ends here. 
 
-  } else {
+  } else {  // If the end user has already "filtered" Object Menu, then to prevent them from continuously removing everything 
+            // until nothing is left, the "guard" talked about above will direct control flow into this branch here, which will 
+            // ask the end user (when they click the Filter Menu again) if they would like to "show" the removed categories. 
 
     decision = confirm("Do you want to show all items, if so, click OK or press 'ENTER'.\n\nIf you'd like to keep your Object Menu filtered, click Cancel or press 'ESC'.");
+    // The end user is prompted on if they would want to "show" all of the "hidden" Logic Gate Object categories again with 
+    // this prompt here (has a simple "CANCEL" or "OK" input choice). 
 
-    if (decision == true) {
+    if (decision == true) { // If the "decision" of "un-hiding the categories" is true (the end user clicked "OK"), then control 
+                            // flow will go into this branch here. 
 
-      nextActionIsToShow = true; 
+      nextActionIsToShow = true; // The "guard" / "flag" that determines if the end user has already "restored" 
+                                 // the Categories from the Object Menu is flipped to represent "True", so that 
+                                 // next time the end user clicks the "Filter Menu" button, that control flow 
+                                 // will go into another branch in this function. 
 
-      contentsRef.forEach(elemt => {
+      contentsRef.forEach(elemt => {  // Every single "Logic Gate Object" Button in the Object Menu is iterated through 
+                                      // with this loop to ensure that only a category of Logic Gate Objects is shown 
+                                      // again. 
 
-        elemt.style.display = "block";
+        elemt.style.display = "block";  // The currently visited Object Menu button is displayed as a "block" (the default) 
+                                        // to "unhide" it if it were hidden. 
 
-      });
+      }); // The iterative loop that goes through every Logic Gate Object spawn button in the Object Menu ends here. 
 
-    } else {
+    } else { // If the "decision" of "un-hiding the categories" is false (the end user clicked "CANCEL"), then control 
+             // flow will go into this branch here. 
 
       alert("The filtering reset process was cancelled!");
+      // The end user is simply alerted that they cancelled the "un-hiding" process of hidden Object Menu categories for 
+      // confirmation. 
 
-    };
+    };  // The branching for what decision the end user has made in the "un-hiding" prompt process ends here. 
 
-  };
+  };  // The branching process for what occurs when the end user has already filtered Object Menu categories or not ends 
+      // here. 
 
-};
+};  // The function for handling the "filtering" of Logic Gate Object categories in the Object Menu ends here. 
 
 
 
@@ -6813,25 +7101,42 @@ filterMenuDebugRef.onclick= function() {
 
 
 
-function discernBoolean() {
+function discernBoolean() { // The function "discernBoolean()" is called which contains controls the 
+                            // "Simulation Logic" behind the Simboard application. No parameters are 
+                            // needed, yet it is controlled by the "calculationDepth" variable talked 
+                            // about earlier. 
 
-  updatedJsonView = jsonSaveWorkspace.filter(con => con !== null);
+  updatedJsonView = jsonSaveWorkspace.filter(con => con !== null);  // All of the "null" values are 
+                                                                    // filtered out of the Workspace 
+                                                                    // so that no "accessed none" errors 
+                                                                    // appear later on when operating 
+                                                                    // on the connection data. 
 
-  updatedJsonView.forEach(connLayr => {
+  updatedJsonView.forEach(connLayr => { // The new, and updated (filtered) view of the Workspace is  
+                                        // iterated through with this loop here. 
 
     connA = connLayr.CONNECTEDOBJECT_A;
 
     connB = connLayr.CONNECTEDOBJECT_B; 
 
-    connAParentType = connA.parentNode.getAttribute("gatetype"); 
+    connAParentType = connA.parentNode.getAttribute("gatetype");  // The Gate Type of the source node is 
+                                                                  // fetched from the HTML DOM Logic Gate 
+                                                                  // Object element. 
 
-    connBParentType = connB.parentNode.getAttribute("gatetype"); 
+    connBParentType = connB.parentNode.getAttribute("gatetype");  // The Gate Type of the target node is 
+                                                                  // fetched from the HTML DOM Logic Gate 
+                                                                  // Object element. 
 
-    connAParentIsOn = connA.parentNode.getAttribute("state");
+    connAParentIsOn = connA.parentNode.getAttribute("state");   // The state of the source node is 
+                                                                // fetched from the HTML DOM Logic Gate 
+                                                                // Object element. 
 
-    connBParentIsOn = connB.parentNode.getAttribute("state");
+    connBParentIsOn = connB.parentNode.getAttribute("state");   // The state of the target node is 
+                                                                // fetched from the HTML DOM Logic Gate 
+                                                                // Object element. 
 
-    if (connAParentIsOn == 1 || connBParentIsOn == 1) {
+    if (connAParentIsOn == 1 || connBParentIsOn == 1) { // The logic to determine whether the "speaker song" 
+                                                        // should play is operated here.  
 
       if (connAParentType == "Speaker" || connBParentType == "Speaker") {
 
@@ -6849,15 +7154,20 @@ function discernBoolean() {
 
     } else {
 
-      console.warn("An error occured with the sound handler!");
+      console.warn("An error occured with the sound handler!"); // DEBUGGING INSTRUCTION :: This will 
+                                                                // notify me if the logic behind the 
+                                                                // music handling mechanic is faulty 
+                                                                // or not. 
 
     };
 
   });
 
-  musicHandler(choiceOfSongByUser); // because of these checks, the system lags a little bit 
+  musicHandler(choiceOfSongByUser); // Because of these checks, the system lags a little bit. 
 
-  const inputTracker = {}; 
+  const inputTracker = {}; // All of the Logic Gate Objects have their state pushed to this object 
+                           // here so that recursive operations can be conducted based on this information 
+                           // later on. 
 
   jsonSaveWorkspace.forEach(conn => {
 
@@ -6865,7 +7175,7 @@ function discernBoolean() {
 
     const sourceNode = conn.CONNECTEDOBJECT_A.parentNode;
 
-    const targetNode = conn.CONNECTEDOBJECT_B.parentNode; // error is something to do with this... 
+    const targetNode = conn.CONNECTEDOBJECT_B.parentNode; 
 
     const targetID = targetNode.id;
 
@@ -6882,19 +7192,22 @@ function discernBoolean() {
                                                         // that can be accessed by the connections given in the 
                                                         // jsonSaveWorkspace container. 
 
-    if (!inputTracker[targetID]) {
+    if (!inputTracker[targetID]) {  
 
-      inputTracker[targetID] = [];
+      inputTracker[targetID] = [];  // The array of incoming binary signal is applied to the Logic Gate object if it 
+                                    // does not exist yet. 
 
     };
 
     const sourceState = parseInt(sourceNode.getAttribute("state"));
 
-    inputTracker[targetID].push(sourceState);
+    inputTracker[targetID].push(sourceState); // The incoming binary signal is pushed from the transmitter to the 
+                                              // receiver Logic Gate object. 
 
   });
 
-  for (const gateId in inputTracker) {
+  for (const gateId in inputTracker) {  // This loop here goes through every Logic Gate Object that contains a binary 
+                                        // signal, and calculates its output from its own operation. 
 
     const gateNode = document.getElementById(gateId);
 
@@ -6991,6 +7304,9 @@ function discernBoolean() {
 
     gateNode.setAttribute("state", finalState);
 
+    // BELOW :: Is the logic that controls the visual thumbnail of the Logic Gate Object depending on its 
+    // state. If it contains a state of "1", then it will be visually "activated", vice versa. 
+
     const folder = finalState === 1 ? "ActivatedState" : "DeactivatedState";
 
     const suffix = finalState === 1 ? "_Activated.png" : "_Deactivated.png";
@@ -7016,6 +7332,9 @@ function discernBoolean() {
     };
 
   };
+
+  // BELOW :: Similar logic used earlier is used to iterate through the "wire lines" so that they are "pulsating" 
+  // or not depending on their state. 
 
   fetchIndex = 0; 
 
@@ -7057,7 +7376,7 @@ function discernBoolean() {
 
   }); 
 
-};
+};  // The function for simulating the Workspace Circuit Project ends here. 
 
 
 
@@ -7130,7 +7449,7 @@ window.addEventListener('wheel', function(e) {  // This function takes the scrol
 // zooming and to direct the end user to use Simboards own zoom function for the Workspace, by using K 
 // and L to zoom in and out respectively.
 
-//*$%
+
 
 window.addEventListener('keydown', function(e) {  // This function takes the keyboard itself as a parameter, and 
                                                   // attaches an event listener to it so that when the end user tries 
@@ -7170,139 +7489,222 @@ window.addEventListener('keydown', function(e) {  // This function takes the key
 // zooming or moving past borders or limits, and change the volume of Speaker Sounds when zooming in 
 // or out of the Workspace as the circuit is simulating. 
 
+traversableWorkspaceRef = document.getElementById("Workspace"); // The "Workspace" HTML DOM reference is fetched 
+                                                                // and stored in this variable here so that it can 
+                                                                // be accessed and manipulated later (for Workspace 
+                                                                // traversal etc.).
 
-
-window.addEventListener('keydown', e => {
-
-  traversableWorkspaceRef = document.getElementById("Workspace");
+window.addEventListener('keydown', e => { // This event listener looks for when the end user uses their 
+                                          // keyboard, and when they do, the relevant metadata and information 
+                                          // is parsed as a parameter (e (for "event")) for the instructions 
+                                          // below to process. 
   
   switch (e.key) { // A switch statement is defined to produce an outcome depending on the parsed parameter. 
 
-    case "k":
+    case "k": // If the key on the keyboard that the end user has pressed is the lowercase "k" key, then control 
+              // flow will go to LINE 7288. 
 
-    case "K": 
+    case "K": // OR, if the key on the keyboard that the end user has pressed is the uppercase "K" key, then control 
+              // flow will go to LINE 7288. 
 
-      if (currentZoomValue < zoomOutLimit) {
+      if (currentZoomValue < zoomOutLimit) {  // A simple validation check is done to ensure that when the end user 
+                                              // is trying to Zoom In (via the K/k key), they are not reaching the 
+                                              // Zoom In limits defined in the Global Variables above. 
 
-        currentZoomValue += 0.25;
+        currentZoomValue += 0.25; // If the end user isn't at the limit of Zooming In, then the Workspace will be 
+                                  // scaled up by 0.25 pixels. 
 
-        speakerSound_0.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_0.volume = Math.min(currentZoomValue / 2, 1);  // A little "easter egg" to add to the program is 
+                                                                    // the fact that when speaker songs play, they get 
+                                                                    // louder or quieter depending on how "Zoomed Away" 
+                                                                    // the end user is viewing the Workspace in. 
+                                                                    // Hence, the volume of the Speaker Songs playing 
+                                                                    // will get louder the more the end user is "zoomed 
+                                                                    // in" with this instruction here. 
 
-        speakerSound_1.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_1.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_2.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_2.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_3.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_3.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_4.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_4.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_5.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_5.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_6.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_6.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_7.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_7.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_8.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_8.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_9.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_9.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_10.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_10.volume = Math.min(currentZoomValue / 2, 1); // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
-        speakerSound_11.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_11.volume = Math.min(currentZoomValue / 2, 1); // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get louder the more the end user is 
+                                                                    // "zoomed in" with this instruction here. 
 
         console.log(speakerSound_0.volume); // DEBUGGING INSTRUCTION ABOVE :: For notifying me that the speaker sound 
                                             // volume is actually changing as the Workspace zooms in via the 
                                             // "K" keyboard key. 
 
-      } else {
+      } else {  // If the end user is in fact at the "Zooming In" limit, then control flow will reach this branch here, 
+                // and prevent them from going in any further. 
 
         console.log("You have zoomed in as far as possible!");  // DEBUGGING INSTRUCTION ABOVE :: For notifying me that 
                                                                 // the zoom in limit is working as expected. 
 
-      };
+      };  // The conditional branch which prevents the end user from zooming in too much ends here. 
       
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "l": 
+    case "l": // If the key on the keyboard that the end user has pressed is the lowercase "l" key, then control 
+              // flow will go to LINE 7368. 
 
-    case "L":
+    case "L": // OR, if the key on the keyboard that the end user has pressed is the uppercase "L" key, then control 
+              // flow will go to LINE 7368. 
 
-      if (currentZoomValue > zoomInLimit) {
+      if (currentZoomValue > zoomInLimit) {  // A simple validation check is done to ensure that when the end user 
+                                             // is trying to Zoom Out (via the L/l key), they are not reaching the 
+                                             // Zoom Out limits defined in the Global Variables above. 
 
-        currentZoomValue -= 0.25;
+        currentZoomValue -= 0.25; // If the end user isn't at the limit of Zooming In, then the Workspace will be 
+                                  // scaled down by 0.25 pixels. 
 
-        speakerSound_0.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_0.volume = Math.min(currentZoomValue / 2, 1);  // A little "easter egg" to add to the program is 
+                                                                    // the fact that when speaker songs play, they get 
+                                                                    // louder or quieter depending on how "Zoomed Away" 
+                                                                    // the end user is viewing the Workspace in. 
+                                                                    // Hence, the volume of the Speaker Songs playing 
+                                                                    // will get quieter the more the end user is "zoomed 
+                                                                    // out" with this instruction here. 
 
-        speakerSound_1.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_1.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_2.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_2.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_3.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_3.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_4.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_4.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_5.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_5.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_6.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_6.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_7.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_7.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_8.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_8.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_9.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_9.volume = Math.min(currentZoomValue / 2, 1);  // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_10.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_10.volume = Math.min(currentZoomValue / 2, 1); // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
-        speakerSound_11.volume = Math.min(currentZoomValue / 2, 1);
+        speakerSound_11.volume = Math.min(currentZoomValue / 2, 1); // Explained above, the volume of the Speaker Songs 
+                                                                    // playing will get quieter the more the end user is 
+                                                                    // "zoomed out" with this instruction here. 
 
         console.log(speakerSound_0.volume); // DEBUGGING INSTRUCTION ABOVE :: For notifying me that the speaker sound 
                                             // volume is actually changing as the Workspace zooms out via the 
                                             // "L" keyboard key. 
 
-      } else {
+      } else {  // If the end user is in fact at the "Zooming Out" limit, then control flow will reach this branch here, 
+                // and prevent them from going out any further. 
 
         console.log("You have zoomed out as far as possible!"); // DEBUGGING INSTRUCTION ABOVE :: For notifying me that 
                                                                 // the zoom out limit is working as expected. 
         
-      };
+      };  // The conditional branch which prevents the end user from zooming out too far ends here. 
 
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "ArrowUp":
+    case "ArrowUp": // Yet, if the end user clicks or presses the "Up Arrow" key on their keyboard, control flow will go 
+                    // into this outcome case here. 
 
-      viewPosY += traverseSpeed;
-
-      break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
-             // both outcomes. 
-
-    case "ArrowLeft":
-
-      viewPosX += traverseSpeed;
+      viewPosY += traverseSpeed;  // The Workspace will shift (transform) NORTH by a certain amount of pixels (35 pixels 
+                                  // by default).
 
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "ArrowRight":
+    case "ArrowLeft": // Yet, if the end user clicks or presses the "Left Arrow" key on their keyboard, control flow will go 
+                      // into this outcome case here. 
 
-      viewPosX -= traverseSpeed;
-
-      break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
-             // both outcomes. 
-
-    case "ArrowDown":
-
-      viewPosY -= traverseSpeed;
+      viewPosX += traverseSpeed;  // The Workspace will shift (transform) WEST by a certain amount of pixels (35 pixels 
+                                  // by default).
 
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-  };
+    case "ArrowRight":  // Yet, if the end user clicks or presses the "Right Arrow" key on their keyboard, control flow will go 
+                        // into this outcome case here. 
+
+      viewPosX -= traverseSpeed;  // The Workspace will shift (transform) EAST by a certain amount of pixels (35 pixels 
+                                  // by default).
+
+      break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
+             // both outcomes. 
+
+    case "ArrowDown": // Yet, if the end user clicks or presses the "Down Arrow" key on their keyboard, control flow will go 
+                      // into this outcome case here. 
+
+      viewPosY -= traverseSpeed;  // The Workspace will shift (transform) SOUTH by a certain amount of pixels (35 pixels 
+                                  // by default).
+
+      break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
+             // both outcomes. 
+
+  }; // The switch case statement for the Keyboard Control for Workspace movement ends here. 
 
   traversableWorkspaceRef.style.transform = `translate(${viewPosX}px, ${viewPosY}px) scale(${currentZoomValue})`;
+  // Whatever the end user had done to "transform" (move or scale) their Workspace by is sent to the Workspace HTML 
+  // reference itself, so that it can smoothly enact said transform visually. 
 
-});
+}); // The event listener which fires instructions when the end user uses their keyboard for moving or transforming the 
+    // Workspace ends here. 
 
 
 
@@ -7323,31 +7725,46 @@ window.addEventListener('keydown', e => {
 
 
 
-talkToSysButtonReference = document.getElementById("talkToSystem");
+talkToSysButtonReference = document.getElementById("talkToSystem"); // A reference to the "Talk To System" 
+                                                                    // Button in the HTML DOM is stored in this 
+                                                                    // variable here. 
 
-insertedCmd = null; 
+insertedCmd = null;   // This variable will contain the command that the end user will input into the "command 
+                      // prompt", for future instructions to make decisions from. 
 
-talkToSysButtonReference.onclick= function(){
+talkToSysButtonReference.onclick= function(){ // An "on click" event listener is attached to the "Talk To System" 
+                                              // button fetched earlier, so that when the end user does click on 
+                                              // said button, the "talkToSystem()" function will fire immediately. 
 
-  talkToSystem(); 
+  talkToSystem(); // The "talkToSystem()" function is called with no parameters so that when it does activate, it   
+                  // will ask the end user for a Simboard "command" to use. 
 
-};
+};  // The event listener that controls what occurs when the end user clicks on the "Talk To System" button ends 
+    // here. 
 
-function talkToSystem(cmd) {
+function talkToSystem(cmd) {  // The "talkToSystem()" function is called, and with it, a parameter that will hold 
+                              // the instruction that the end user wants to execute. 
 
-  if (cmd != null){ 
+  if (cmd != null){   // If the command that the end user wants to execute is not "null", then it is stored inside 
+                      // of the "insertedCommand" variable to be used later on. 
 
-    insertedCmd = cmd; 
+    insertedCmd = cmd; // This variable holds the command to be executed from the end user / developer. 
 
-  } else {
+  } else {  // If the command that the end user wants to execute is "null", then a prompt is shown asking the end user 
+            // what they want to execute. If the end user inputs a command, it is stored inside of the "insertedCommand" 
+            // variable to be used later on. 
 
     insertedCmd = prompt("QUICK INPUT: Please enter a command to talk to Simboard and control it\n\nEnter the command 'MENU' to see the list of commands to use: ");
+    // A JavaScript prompt is displayed to the end user which is then stored inside of the "insertedCommand" variable if 
+    // the end user inputs data into it. 
 
-  };
+  };  // The conditional branch which determines what the command to execute will be depending on how this function is 
+      // called ends here. 
 
   switch (insertedCmd.toUpperCase()){ // A switch statement is defined to produce an outcome depending on the parsed parameter. 
 
-    case "MENU": 
+    case "MENU":  // If the inputted command is "MENU", then another prompt will appear displaying a set amount of very useful 
+                  // Simboard commands. 
       
       newCmd = prompt("The comprehensive list of commands:\n\n\n-- Special Commands --\nSSV - Set Specific Value (for Developers)\nHFR - Force Refresh Simboard\nARG - Allow Refresh Guard\nSRG - Stop Refresh Guard\nADG - Allow Debug Guard\nSDG - Stop Debug Guard\nDDV - Display Debug Values (for Developers)\n\n-- Regular Commands --\nMENU - View all commands\nHGAA - Hide Grid & Axis\nHAO - Hide Axis Only\nHGO - Hide Grid Only\nSGAA - Show Grid & Axis\nSGO - Show Grid Only\nSAO - Show Axis Only\n\nInput 'MORE' to see more commands!");
 
@@ -7364,7 +7781,8 @@ function talkToSystem(cmd) {
       break;  // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
               // both outcomes. 
 
-    case "MORE":
+    case "MORE":  // If the inputted command is "MORE", then another prompt will appear displaying another set of very useful 
+                  // Simboard commands. 
 
       newCmd = prompt("RSV - Reset Specific Value (for Developers)\nSSC - Screenshot Circuit\nSSS - Screenshot entire Simboard App\nRBC - Reset Box Click\nCSS - Change Speaker Song\nRWT - Reset Workspace Transform\nVWT - View Workspace Transform\nSWT - Set Workspace Transform\nTAN - Toggle All NOT Logic Gates\nCW - Clear Workspace\nTPULSE - Toggle Pulse Type\nCPULSE - Toggle Pulse Colour\nSPULSE - Toggle Pulse Speed\nWPULSE - Toggle Pulse Width\nTT - Change Toggle Aid Transparency");
 
@@ -7373,7 +7791,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "HFR": // hard force reset 
+    case "HFR":  // If the inputted command is "HFR" (Hard Force Reset), then the Simboard application will refresh 
+                 // automatically, wiping all of the Simboard session data clean. 
 
       guard = confirm("This will wipe your current session from RAM which will clear all layout and circuit data.\n\nClick CANCEL to halt this command.\nClick OK to proceed.");
 
@@ -7386,7 +7805,9 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SFR": // soft force reset 
+    case "SFR":  // If the inputted command is "SFR" (Soft Force Reset), then the Simboard application will reset all of 
+                 // the Global Variables in the backend automatically, with the attempt of negating current bugs being 
+                 // experienced in the session. 
 
       guard = confirm("This may break the functionality of Simboard, are you sure you want to proceed with this command?\n\nClick CANCEL to halt this command.\nClick OK to proceed.");
 
@@ -7399,7 +7820,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "HAO":
+    case "HAO":  // If the inputted command is "HAO" (Hide Axis Only), then the Simboard application will hide the visual Axies 
+                 // on the Workspace. 
 
       drawAxis(1, null, null)
 
@@ -7408,7 +7830,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "HGO":
+    case "HGO":  // If the inputted command is "HGO" (Hide Grid Only), then the Simboard application will hide the visual Grid 
+                 // on the Workspace. 
 
       drawGrid(1, null)
 
@@ -7417,7 +7840,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "HGAA":
+    case "HGAA":  // If the inputted command is "HGAA" (Hide Grid And Axis), then the Simboard application will hide both the 
+                  // Grid and Axies on the Workspace. 
 
       drawAxis(1, null, null)
 
@@ -7426,7 +7850,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SGAA":
+    case "SGAA":  // If the inputted command is "SGAA" (Show Grid And Axis), then the Simboard application will show both the 
+                  // Grid and Axies on the Workspace. 
 
       drawGrid(0, tempStylesContainer.tempGridLineColour);
 
@@ -7435,7 +7860,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SAO":
+    case "SAO":  // If the inputted command is "SAO" (Show Axis Only), then the Simboard application will show the Axis only 
+                 // on the Workspace. 
 
       drawGrid(1, null);
 
@@ -7444,7 +7870,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SGO":
+    case "SGO":  // If the inputted command is "SGO" (Show Grid Only), then the Simboard application will show the Grid only 
+                 // on the Workspace. 
 
       drawAxis(1, null, null); // do ui wipes before to stop clearRect from deleting the current UI
 
@@ -7453,7 +7880,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "RSV": // reset specific value 
+    case "RSV":  // If the inputted command is "RSV" (Reset Specific Value), then the Simboard application will reset a specific 
+                 // Global Variable specified by the end user / developer. 
 
       newCmd = prompt("Please enter the variable, container or function (keeping Case-Sensitivity in mind) you'd like to reset its to default value: ");
 
@@ -7468,7 +7896,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "ARG": 
+    case "ARG":   // If the inputted command is "ARG" (Allow Refresh Guard), then the Simboard application will prevent the end 
+                  // user from "refreshing" the web application by asking them if they have unsaved work or not. 
 
       refreshGuard = true;
 
@@ -7477,7 +7906,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SRG": // stop refresh halter 
+    case "SRG":  // If the inputted command is "SRG" (Stop Refresh Guard), then the Simboard application will allow the end user 
+                 // to "refresh" the web application swiftly with either F5 or the Refresh browser button. 
 
       refreshGuard = false; 
 
@@ -7486,7 +7916,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SSV": // set specific value 
+    case "SSV":  // If the inputted command is "SSV" (Set Specific Value), then the Simboard application will set a specific 
+                 // Global Variable specified by the end user / developer. 
 
       newCmd = prompt("Please enter the variable, container or function (keeping Case-Sensitivity in mind) you'd like to set: ");
 
@@ -7503,7 +7934,9 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "ADG": // allow debug guard 
+    case "ADG":  // If the inputted command is "ADG" (Allow Debug Guard), then the Simboard application will prevent the end 
+                 // user from right clicking on the web application to access the "context menu" or "console log developer 
+                 // tools". 
 
       debugGuard = true; 
 
@@ -7512,7 +7945,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SDG": // stop debug guard
+    case "SDG":  // If the inputted command is "SDG" (Stop Debug Guard), then the Simboard application will allow the end user 
+                 // to right click on the web application to access the "context menu" or "console log developer tools".
 
       debugGuard = false; 
 
@@ -7521,7 +7955,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "MOP": // round object position 
+    case "MOP":  // If the inputted command is "MOP" (Move Object Position), then the Simboard application will move all Logic 
+                 // Gate objects however many pixels in any direction on the Workspace. 
 
       movePosserX = prompt("How many pixels do you want to move all Logic Gate objects to the left by?\n\nRecommended value: 5\n\nUse POSITIVE INTEGERS to move all objects to the right\nUse NEGATIVE INTEGERS to move all objects to the left.");
 
@@ -7546,7 +7981,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SSC": // screenshot circuit 
+    case "SSC":  // If the inputted command is "SSC" (Screen-Shot Circuit), then the Simboard application will screenshot 
+                 // the current view that the end user has of the Workspace and save it to their local storage device. 
 
       const circuitContainerRef = document.getElementById("Workspace");
 
@@ -7582,7 +8018,9 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SSS": // screenshot entire simboard app 
+    case "SSS":  // If the inputted command is "SSS" (Screen-Shot Simboard), then the Simboard application will screenshot 
+                 // what the current state of the entire Simboard application looks like and save it to their local storage 
+                 // device. 
 
       const baseRef = document.getElementById("Base");
 
@@ -7619,7 +8057,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "RBC": // reset box click sets ioCheck to defaults ... 
+    case "RBC":  // If the inputted command is "RBC" (Reset Box Click (state)), then the Simboard application will reset the 
+                 // "ioCheck()" related functions for debugging purposes. 
 
       guard = prompt("Activating this command may severely break your current circuit by confusing the connection processes.\n\nOnly click OK if ");
 
@@ -7630,7 +8069,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "CSS": 
+    case "CSS":   // If the inputted command is "CSS" (Change Speaker Song), then the Simboard application will allow the end 
+                  // user to toggle the song that plays from the speakers when simulating a circuit. 
 
       if (simulate != true) {
 
@@ -7655,7 +8095,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "RWT": // reset workspace transform 
+    case "RWT":  // If the inputted command is "RWT" (Reset Workspace Transform), then the Simboard application will reset 
+                 // the "transform" and "position" of the Workspace to its default state / view. 
 
       referenceOfWorkspace = document.getElementById("Workspace");
 
@@ -7670,14 +8111,16 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "VWT":
+    case "VWT":  // If the inputted command is "VWT" (View Workspace Transform), then the Simboard application will output via 
+                 // an "alert" the position and zoom value that the end user is currently viewing the Workspace in. 
 
       alert(`Your current position in the Workspace is:\n\n${viewPosX}, ${viewPosY}, ${currentZoomValue}\n\nWith ${viewPosX} value being your X position,\n${viewPosY} being your Y position\n& ${currentZoomValue} being your zoom.`)
 
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SWT":
+    case "SWT":  // If the inputted command is "SWT" (Set Workspace Transform), then the Simboard application will allow the end 
+                 // user to actually set the zoom and position of the Workspace to move to a different co-ordinate. 
 
       referenceOfWorkspace = document.getElementById("Workspace");
 
@@ -7706,7 +8149,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "DDV":
+    case "DDV":  // If the inputted command is "DDV" (Display Debug Values), then the Simboard application will display 
+                 // "debugging" values that are used consistently around the Simboard backend functions. 
 
       console.clear();
 
@@ -7734,7 +8178,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "TAN": // prevents NOT gates from outputting 1 when no inputs are going in 
+    case "TAN":  // If the inputted command is "TAN" (Toggle All NOTs (gates)), then the Simboard application will allow the 
+                 // end user to toggle between how they want the NOT Gates to be by default (e.g. Be "ON" by default, or "OFF"). 
 
       NOTReferences = document.querySelectorAll('div[gatetype^="NOT"]');
 
@@ -7781,7 +8226,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "CW":
+    case "CW":  // If the inputted command is "CW" (Clear Workspace), then the Simboard application will clear the Workspace 
+                // of all Logic Gates and "wire line" connections with the "clearWorkspace()" function talked about earlier. 
 
       guard = confirm("Are you sure you want to clear your Workspace? If you have not saved this circuit, it will be permenantly wiped forever.\n\nIf you want to proceed and clear the Workspace, click OK or press 'ENTER'.\nIf you want to cancel the procedure of clearing the Workspace, click Cancel or press 'ESC'.");
 
@@ -7806,7 +8252,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "TPULSE":
+    case "TPULSE":  // If the inputted command is "TPULSE" (Type (of) Pulse), then the Simboard application will let the end 
+                    // user change the "type" of Pulse effect to be used when "binary" is "flowing through it". 
 
       if (simulate != true) {
 
@@ -7909,7 +8356,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "CPULSE":
+    case "CPULSE":  // If the inputted command is "CPULSE" (Colour (of) Pulse), then the Simboard application will let the end 
+                    // user change the "colour" of the Pulse effect to be used when "binary" is "flowing through it". 
 
       presentPulseClr = getComputedStyle(document.documentElement).getPropertyValue('--pulseColour');
 
@@ -7928,7 +8376,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "SPULSE":
+    case "SPULSE":  // If the inputted command is "SPULSE" (Speed (of) Pulse), then the Simboard application will let the end 
+                    // user change the "speed" of the Pulse effect to be used when "binary" is "flowing through it". 
 
       presentPulseSpd = getComputedStyle(document.documentElement).getPropertyValue('--pulseSpeed');
 
@@ -7947,7 +8396,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "WPULSE":
+    case "WPULSE":  // If the inputted command is "WPULSE" (Width (of) Pulse), then the Simboard application will let the end 
+                    // user change the "width / thickness" of the Pulse effect to be used when "binary" is "flowing through it". 
 
       presentPulseWid = getComputedStyle(document.documentElement).getPropertyValue('--pulseWidth');
 
@@ -7966,7 +8416,8 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "TT":
+    case "TT":  // If the inputted command is "TT" (Toggle Transparency), then the Simboard application will allow the end user 
+                // to toggle the transparency of the "Toggle Assist" when hovering over the "Hold Button"s. 
 
       presentToggleTransparency = getComputedStyle(document.documentElement).getPropertyValue('--toggleTransparency');
 
@@ -7977,18 +8428,23 @@ function talkToSystem(cmd) {
       break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
              // both outcomes. 
 
-    case "":
+    default:  // If the end user has not inputted a command, then control flow will go into the instructions below: 
+                // !-> "default" acts as the "else" statement, but for "switch" case instructions. 
 
       console.warn(" No command (Abbreviated CMD) was entered into the prompt.\n\nIf you are unsure of what to enter, type the command 'MENU' into the 'Talk To System' prompt to see the catalouge of commands to use, thank you! ");
+      // DEBUGGING INSTRUCTION :: I should be alerted to control flow reaching this "default" state if no other "case" outcomes 
+      // are met. 
 
-      confirm(" No command (Abbreviated CMD) was entered into the prompt.\n\nIf you are unsure of what to enter, type the command 'MENU' into the 'Talk To System' prompt to see the catalouge of commands to use, thank you! ");
+      alert(" No command (Abbreviated CMD) was entered into the prompt.\n\nIf you are unsure of what to enter, type the command 'MENU' into the 'Talk To System' prompt to see the catalouge of commands to use, thank you! ");
+      // The end user should also be alerted to the fact that they entered an erroneous command, to which solutions are 
+      // provided in-prompt for the correct commands and syntax to use. 
 
     break; // This prevents propogation into the next case, essentially acting as a "barrier" or "border" between 
            // both outcomes. 
       
-  };
+  };  // The switch statement for the command cases for Simboard control ends here. 
 
-};
+};  // The "talkToSystem()" function which acts as a controller for Simboard operations ends here. 
 
 
 
@@ -8004,9 +8460,14 @@ function talkToSystem(cmd) {
 
 
 
-function resetGlobalsToDefault(specificAddress, forceValue) {
+function resetGlobalsToDefault(specificAddress, forceValue) { // This function is used and called for modifying values 
+                                                              // for Simboard. This could be for debugging, and needs 
+                                                              // two parameters, one for the Variable to modify, and the 
+                                                              // other for the value to set said Variable to. 
 
-  if (specificAddress == null && forceValue == null) {
+  if (specificAddress == null && forceValue == null) {  // If both the Variable and Value inputted are "null", then 
+                                                        // all of the Global Variables that make up Simboard are reset 
+                                                        // to their default state. 
 
     simboardVersion = "FR 1.0.0"; // This variable is for the saving process for future compatibility. 
 
@@ -8203,17 +8664,19 @@ function resetGlobalsToDefault(specificAddress, forceValue) {
                         // holds the value "0", then all NOT gates start off with a state of "0". By default, 
                         // all NOT gates should have a state of "1" to invert the incoming signals. 
 
-  } else if (forceValue == null) {
+  } else if (forceValue == null) {  // If just the Value inputted is "null", then the Variable specified will be reset 
+                                    // to "null". 
 
     specificAddress = null; 
 
-  } else {
+  } else {  // If just the Value and Variable inputted are not "null", then thef Variable specified will be set to whatever 
+            // the end user has stated. 
 
     specificAddress = forceValue; 
 
-  };
+  };  // The conditional branch for what occurs when the end user has inputted specific parameters ends here. 
 
-};
+};  // The function for resetting OR setting Global Variables in Simboard ends here. 
 
 
 

@@ -56,46 +56,46 @@ _____/\\\\\\\\\\\___      __/\\\\\\\\\\\_      __/\\\\____________/\\\\_      __
         LINE 765:
             WORKSPACE DIVISION STYLING 
 
-        LINE 808:
+        LINE 818:
             GRID CONTAINER SUB DIVISION STYLING 
 
-        LINE 828:
+        LINE 840:
             GRID CANVAS SUB DIVISION STYLING 
 
-        LINE 848:
+        LINE 854:
             OBJECT MENU BUTTON CHILD ELEMENTS STYLING 
 
-        LINE 899:
+        LINE 905:
             FILTER MENU BUTTON STYLING 
 
-        LINE 911:
+        LINE 917:
             FILE MENU BUTTON CHILD ELEMENTS STYLING 
 
-        LINE 997:
+        LINE 1003:
             TEXT STYLING (GENERIC)
 
-        LINE 1053:
+        LINE 1059:
             IMAGE STYLING (GENERIC)
 
-        LINE 1083:
+        LINE 1089:
             HTML HORIZONTAL RULE STYLING (GENERIC)
 
-        LINE 1128:
+        LINE 1134:
             LOGIC GATE OBJECT STYLING
 
-        LINE 1231:
+        LINE 1237:
             SELECTED LOGIC GATE OBJECT STYLING 
 
-        LINE 1260:
+        LINE 1266:
             INPUT/OUTPUT PIN STYLING
 
-        LINE 1327:
+        LINE 1333:
             WIRE LINE CONNECTION STYLING 
 
-        LINE 1360:
+        LINE 1366:
             TOGGLE ASSIST TOOLTIP STYLING 
 
-        LINE 1439:
+        LINE 1445:
             ACTIVATED WIRE LINE PULSATION ANIMATIONS AND STYLING
 
     // *&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_*&]^%$£)="!(:{}~@?><|\¬`+'#;/.,[-_ 
@@ -794,11 +794,17 @@ body{ /* Everything inside of the body tag styles like... */
     space created by default for new divisions. We set the padding to zero to 
     resolve said problems. */ 
 
-    z-index: 0; 
+    z-index: 0;     /* The Z-Index position of the Workspace is set to 0, so that 
+    it appears behind the Object Menu and File Menu when being moved or transformed 
+    by the end user. */
 
-    transition: transform 0.2s ease-out;
+    transition: transform 0.2s ease-out;    /* When the end user transforms their 
+    Workspace, instead of moving or scaling sharply, the Workspace will instead 
+    move and scale in a smooth motion of animation. */ 
 
-    transform-origin: center;
+    transform-origin: center;   /* The Workspace is told to start its origin of 
+    animation from the center, to give the movement a point of reference when 
+    transforming said Workspace. */
 
 }   /* The styling of the Workspace Division default configuration ends here. */ 
 
