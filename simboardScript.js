@@ -7502,10 +7502,10 @@ window.addEventListener('keydown', e => { // This event listener looks for when 
   switch (e.key) { // A switch statement is defined to produce an outcome depending on the parsed parameter. 
 
     case "k": // If the key on the keyboard that the end user has pressed is the lowercase "k" key, then control 
-              // flow will go to LINE 7288. 
+              // flow will go to LINE 7510. 
 
     case "K": // OR, if the key on the keyboard that the end user has pressed is the uppercase "K" key, then control 
-              // flow will go to LINE 7288. 
+              // flow will go to LINE 7510. 
 
       if (currentZoomValue < zoomOutLimit) {  // A simple validation check is done to ensure that when the end user 
                                               // is trying to Zoom In (via the K/k key), they are not reaching the 
@@ -7582,10 +7582,10 @@ window.addEventListener('keydown', e => { // This event listener looks for when 
              // both outcomes. 
 
     case "l": // If the key on the keyboard that the end user has pressed is the lowercase "l" key, then control 
-              // flow will go to LINE 7368. 
+              // flow will go to LINE 7590. 
 
     case "L": // OR, if the key on the keyboard that the end user has pressed is the uppercase "L" key, then control 
-              // flow will go to LINE 7368. 
+              // flow will go to LINE 7590. 
 
       if (currentZoomValue > zoomInLimit) {  // A simple validation check is done to ensure that when the end user 
                                              // is trying to Zoom Out (via the L/l key), they are not reaching the 
